@@ -1,0 +1,48 @@
+{
+  "name": "futil",
+  "version": "1.0.0",
+  "description": "F(unctional) util(ities). Resistance is futile.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "mocha",
+    "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
+    "coverage": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
+    "pretest": "npm run build",
+    "precoverage": "npm run build"
+  },
+  "author": "Samuel Greene <sgreene@smartprocure.us>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ]
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-latest": "^6.22.0",
+    "chai": "^3.5.0",
+    "chokidar": "^1.6.1",
+    "chokidar-cli": "^1.2.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "webpack": "^2.2.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/smartprocure/futil.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smartprocure/futil/issues"
+  },
+  "homepage": "https://github.com/smartprocure/futil#readme"
+}
