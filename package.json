@@ -2,7 +2,7 @@
   "name": "futil-js",
   "version": "1.0.0",
   "description": "F(unctional) util(ities). Resistance is futile.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "webpack",
     "test": "mocha",
