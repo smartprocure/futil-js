@@ -42,6 +42,10 @@ export const wrap = (pre, post, content) => (pre || '') + content + (post || pre
 // (fn, a, b) -> fn(a, b)
 export const maybeCall = fn => _.isFunction(fn) && fn(..._.slice(arguments, 1))
 
+// Collection
+// --------
+export const flowMap = (...fns) => _.map(_.flow(...fns))
+
 // Misc
 // ----
 export const testRegex = regex => regex.test.bind(regex)
