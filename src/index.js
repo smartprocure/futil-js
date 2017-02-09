@@ -18,6 +18,8 @@ export const isEmptyObject = _.isEqual({})
 export const isNotEmptyObject = _.negate(isEmptyObject)
 // { a:1, b:{}, c:2 } -> {a:1, c:2}
 export const stripEmptyObjects = _.pickBy(isNotEmptyObject)
+// { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
+export const unwind = _.curry((prop, x) => _.map(y => _.set(prop, y, x), _.get(prop, x)))
 
 // Inversions
 // ----------
