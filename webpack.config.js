@@ -1,6 +1,6 @@
 var path = require('path');
 
-var libraryName = 'futil';
+var libraryName = 'futil-js';
 var outputFile = libraryName + '.js';
 
 module.exports = {
@@ -10,8 +10,8 @@ module.exports = {
         path: __dirname + '/lib',
         filename: outputFile,
         library: libraryName,
-        libraryTarget: 'umd',
-        umdNamedDefine: true
+        libraryTarget: 'umd'//,
+        // umdNamedDefine: true
     },
     module: {
         loaders: [{
