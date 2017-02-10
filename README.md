@@ -5,6 +5,9 @@ A collection of F(unctional) Util(ities). Resistance is futile.
 
 Mostly, these are generic utilities that could conceivably be part of a library like lodash/fp, but for some reason or other are not.
 
+# Version History/Changelog
+See our [changelog](https://github.com/smartprocure/futil-js/blob/master/CHANGELOG.md)
+
 # Installing
 `npm i -S futil-js`
 
