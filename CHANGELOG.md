@@ -1,5 +1,8 @@
+# 1.2.2
++ Changed filename to `futil-js` to match the current npm package name
+
 # 1.2.1
-+ Changed main 
++ Changed package.json main entry point to reflect the built output
 
 # 1.2.0
 + Added unwind
