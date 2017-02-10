@@ -7,6 +7,7 @@ import {reduce}     from './conversion'
 export const singleObject = _.curry((key, value) => ({
     [key]: value
 }))
+export const singleObjectR = _.flip(singleObject)
 
 // Formerly objToObjArr
 // ({a, b}) -> [{a}, {b}]
@@ -39,3 +40,9 @@ export const renameProperty = _.curry(function(from, to, target) {
 
 // { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
 export const unwind = _.curry((prop, x) => _.map(y => _.set(prop, y, x), _.get(prop, x)))
+
+// { a: { b: { c: 1 } } } => { 'a.b.c' : 1 }
+let isFlat = overNone([_.isPlainObject, _.isArray]);
+export const flattenObject = (input, paths) => reduce((output, value, key) => _.merge(output,
+    (isFlat(value) ? singleObjectR : flattenObject)(value, dotJoin([paths, key]))
+), {}, input)

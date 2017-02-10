@@ -51,4 +51,15 @@ describe('Object Functions', function() {
             y: 1
         }])
     })
+    it('flattenObject', function() {
+        expect(f.flattenObject({
+            a: {
+                b: {
+                    c: 1
+                }
+            }
+        })).to.deep.equal({
+            'a.b.c': 1
+        })
+    })
 })
