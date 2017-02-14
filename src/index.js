@@ -42,7 +42,7 @@ export const wrap = (pre, post, content) => (pre || '') + content + (post || pre
 // Function
 // --------
 // (fn, a, b) -> fn(a, b)
-export const maybeCall = fn => _.isFunction(fn) && fn(..._.slice(arguments, 1))
+export const maybeCall = (fn, ...args) => _.isFunction(fn) && fn(...args)
 
 // Collection
 // --------
