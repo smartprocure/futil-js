@@ -1,5 +1,5 @@
 # 1.4.1
-- maybeCall fixed, rest params added to get the fn arguments
+- `maybeCall` fixed, rest params added to get the `fn` arguments
 
 # 1.4.0
 - Added Array Function `repeated`
