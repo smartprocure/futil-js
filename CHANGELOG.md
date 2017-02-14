@@ -1,3 +1,11 @@
+# 1.4.0
+- Added Array Function `repeated`
+- Added String Functions
+	* `quote`
+	* `parens`
+	* `processQuotes`
+	* `getUniqueWords`
+
 # 1.3.0
 - Added `flattenObject` and `singleObjectR`
 - Split index to multiple files
