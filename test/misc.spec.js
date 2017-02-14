@@ -11,4 +11,8 @@ describe('Basic Functions', function() {
         expect(f.maybeCall(x => 5)).to.deep.equal(5)
         expect(f.maybeCall(null)).to.deep.equal(false)
     })
+    it('maybeCall should call fn with parameters', function(){
+        const fn = (x,y) => x+y;
+        expect(maybeCall(fn, 5, 6)).to.deep.equal(fn(5,6));
+    })
 })
