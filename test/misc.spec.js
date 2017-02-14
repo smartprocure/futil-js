@@ -25,16 +25,4 @@ describe('String Functions', function() {
     it('parens', function() {
         expect(f.parens('asdf')).to.equal('(asdf)')
     })
-    it('processQuotes', function() {
-        expect(f.processQuotes('foo "bar" baz "biff"')).to.equal('foo bar baz biff')
-    })
-    it('getUniqueWords', function() {
-        expect(f.getUniqueWords('the quick brown fox was quick and brown')).to.eql([
-            'the',
-            'quick',
-            'brown',
-            'fox',
-            'was'
-        ])
-    })
 })
