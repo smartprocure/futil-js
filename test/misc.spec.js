@@ -10,7 +10,7 @@ describe('Basic Functions', function() {
     })
     it('maybeCall should call fn with parameters', function(){
         const fn = (x,y) => x+y;
-        expect(maybeCall(fn, 5, 6)).to.deep.equal(fn(5,6));
+        expect(f.maybeCall(fn, 5, 6)).to.deep.equal(fn(5,6));
     })
 
 })
