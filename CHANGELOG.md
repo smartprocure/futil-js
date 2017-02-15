@@ -1,3 +1,6 @@
+# 1.5.1 and 1.5.2
+Travis related CI stuff
+
 # 1.5.0
 - Add `pickIn`
 
