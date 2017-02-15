@@ -16,8 +16,6 @@ See our [changelog](https://github.com/smartprocure/futil-js/blob/master/CHANGEL
 This package require `lodash/fp`, so make sure that's available in your app.
 
 # API
-*TODO* Add/generate docs for methods
-
 
 ## Function
 
@@ -63,7 +61,6 @@ Returns an array of elements the are repeated in the array
 
 
 ## Object
-*TODO*
 
 ### singleObject
 `(k, v) -> {k: v}`
@@ -78,7 +75,7 @@ Flipped version of `singleObject`
 Breaks an object into an array of objects with one key each
 
 ### compactObject
-Remove properties with falsey values: ({ a: 1, b: null, c: false}) -> {a:1}
+Remove properties with falsey values: ({ a: 1, b: null, c: false }) -> {a:1}
 
 ### isEmptyObject
 Check if it's a `{}`
@@ -90,6 +87,12 @@ Check if it's not a `{}`
 `{ a:1, b:{}, c:2 } -> {a:1, c:2}`
 Omit properties whose values are empty objects
 (*TODO* remame to `omitEmptyObjects`)
+
+### compareDeep
+Checks if an object's property is equal to a value
+
+### matchesSignature
+Returns true if object keys are only elements from signature list (but does not require all signature keys to be present)
 
 ### pickInto
 *TODO*
@@ -108,8 +111,19 @@ Just like mongo's `$unwind`
 Flatten an object with the paths for keys
 
 ## String
-*TODO*
+### parens
+`'asdf' -> '(asdf)'`
+Wraps a string in parenthesis
 
 
 ## Misc
-*TODO*
+
+### testRegex
+`regex -> string -> bool`
+Just like rambda test, creates a function to test a regex on a string
+
+
+## Math
+### greaterThanOne
+`number -> bool`
+Returns true if number is greater than one
