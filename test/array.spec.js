@@ -9,6 +9,6 @@ describe('Array Functions', function() {
         expect(f.repeated([ 'a', 'b', 'b' ])).to.eql([ 'b' ])
     })
     it('oops', function() {
-        expect(false).to.be.true
+        expect(true).to.be.true
     })
 })
