@@ -18,7 +18,26 @@ This package require `lodash/fp`, so make sure that's available in your app.
 # API
 *TODO* Add/generate docs for methods
 
-## Conversions
+
+## Function
+
+### maybeCall
+`(fn, a, b) -> fn(a, b)`
+Calls a function with the passed in arguments if it's a function
+
+### overNone
+`([f, g]) -> !f(x) && !g(x)`
+Combinator that returns a function which will pass if none of the functions pass
+
+
+## Collection
+
+### flowMap
+`...fns:functions -> map:function`
+Runs a map function that runs a `flow` of the functions passed in to this method
+
+
+## Lodash Conversions
 These are conversions of lodash fp methods
 
 ### `In`s (Rearg False)
@@ -43,27 +62,50 @@ Compacts and joins an array with '.'
 Returns an array of elements the are repeated in the array
 
 
-## Function
-
-### maybeCall
-`(fn, a, b) -> fn(a, b)`
-Calls a function with the passed in arguments if it's a function
-
-### overNone
-`([f, g]) -> !f(x) && !g(x)`
-Combinator that returns a function which will pass if none of the functions pass
-
-
-## Collection
-
-### flowMap
-`...fns:functions -> map:function`
-Runs a map function that runs a `flow` of the functions passed in to this method
-
-
 ## Object
 *TODO*
 
+### singleObject
+`(k, v) -> {k: v}`
+Creates an object with a key and value
+
+### singleObjectE
+`(v, k) -> {k: v}`
+Flipped version of `singleObject`
+
+### chunkObject
+`({a, b}) -> [{a}, {b}]`
+Breaks an object into an array of objects with one key each
+
+### compactObject
+Remove properties with falsey values: ({ a: 1, b: null, c: false}) -> {a:1}
+
+### isEmptyObject
+Check if it's a `{}`
+
+### isNotEmptyObject
+Check if it's not a `{}`
+
+### stripEmptyObjects
+*TODO* remname to `omitEmptyObjects`
+`{ a:1, b:{}, c:2 } -> {a:1, c:2}`
+Omit properties whose values are empty objects
+
+### pickInto
+*TODO*
+
+### renameProperty
+`from:string -> to:string: -> target:object -> result:object`
+Rename a property on an object
+`renameProperty('a', 'b', {a:1}) -> {b:1)`
+
+### unwind
+`{ x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }]`
+Just like mongo's `$unwind`
+
+### flattenObject
+`{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`
+Flatten an object with the paths for keys
 
 ## String
 *TODO*
