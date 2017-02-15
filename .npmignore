@@ -1,3 +1,5 @@
+# This file needed so lib isn't ignored
+
 # Logs
 logs
 *.log
@@ -35,6 +37,3 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
-
-# Build Output
-lib
