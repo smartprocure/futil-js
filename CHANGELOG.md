@@ -1,3 +1,6 @@
+# 1.5.0
+- Add `pickIn`
+
 # 1.4.1
 - `maybeCall` fixed, rest params added to get the `fn` arguments
 

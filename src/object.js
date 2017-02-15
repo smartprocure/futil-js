@@ -1,7 +1,7 @@
-import _            from 'lodash/fp'
-import {dotJoin}    from './array'
-import {overNone}   from './function'
-import {reduce}     from './conversion'
+import _                from 'lodash/fp'
+import {dotJoin}        from './array'
+import {overNone}       from './function'
+import {reduce, pickIn} from './conversion'
 
 // (k, v) -> {k: v}
 export const singleObject = _.curry((key, value) => ({
@@ -28,7 +28,7 @@ export const stripEmptyObjects = _.pickBy(isNotEmptyObject)
 
 // TODO: Pick Into needs tests
 // const crazyBS = (f, g) => (a, b) => f(a)(g(b))
-export const pickInto = (map, source) => _.mapValues(_.pick(source), map)
+export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 
 // map rename implementation (not used here yet):
 // http://jsfiddle.net/daedalus28/8uQUD/
