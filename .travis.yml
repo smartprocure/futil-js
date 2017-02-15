@@ -7,3 +7,9 @@ cache:
     - node_modules
 notifications:
   email: false
+deploy:
+  provider: npm
+  email: $NPM_EMAIL
+  api_key: $NPM_KEY
+  on:
+    branch: master
