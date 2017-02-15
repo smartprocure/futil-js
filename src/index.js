@@ -14,8 +14,6 @@ export const greaterThanOne = _.lt(1);
 export const wrap = (pre, post, content) => (pre || '') + content + (post || pre || '')
 export const quote = _.partial(wrap, ['"', '"'])
 export const parens = _.partial(wrap, ['(', ')'])
-export const processQuotes = (word) => _.replace(/(")|(\\")/g, '$2', word)
-export const getUniqueWords = _.flow(_.trim, _.split(' '), _.compact, _.uniq, _.without(['and', 'or', 'not']))
 
 // Collection
 // --------
