@@ -87,9 +87,9 @@ Check if it's a `{}`
 Check if it's not a `{}`
 
 ### stripEmptyObjects
-*TODO* remname to `omitEmptyObjects`
 `{ a:1, b:{}, c:2 } -> {a:1, c:2}`
 Omit properties whose values are empty objects
+(*TODO* remame to `omitEmptyObjects`)
 
 ### pickInto
 *TODO*
