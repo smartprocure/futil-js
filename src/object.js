@@ -1,7 +1,7 @@
-import _                from 'lodash/fp'
-import {dotJoin}        from './array'
-import {overNone}       from './function'
-import {reduce, pickIn} from './conversion'
+import _                  from 'lodash/fp'
+import { dotJoin }        from './array'
+import { overNone }       from './function'
+import { reduce, pickIn } from './conversion'
 
 // (k, v) -> {k: v}
 export const singleObject = _.curry((key, value) => ({
