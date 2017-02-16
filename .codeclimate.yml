@@ -3,25 +3,19 @@ engines:
     enabled: true
     config:
       languages:
-      - ruby
       - javascript
-      - python
-      - php
   eslint:
     enabled: true
+    channel: "eslint-3"
+    config:
+      config: .eslintrc.js
+    extensions:
+    - .js
   fixme:
     enabled: true
 ratings:
   paths:
-  - "**.inc"
   - "**.js"
   - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
-  - "**.rb"
 exclude_paths:
 - "lib/"
-- "tests/"
-- "spec/"
-- "**/vendor/"
