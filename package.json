@@ -33,6 +33,7 @@
     "chai": "^3.5.0",
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
+    "codacy-coverage": "^2.0.1",
     "coveralls": "^2.11.16",
     "eslint": "^3.7.1",
     "eslint-config-smartprocure": "^0.0.4",
