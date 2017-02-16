@@ -48,7 +48,7 @@ These methods provide alternative orderings that are sometimes more convenient.
 The idea of `In` methods is to name them by convention, so when ever you need a method that actually takes the collection first (e.g. a `get` where the data is static but the field is dynamic), you can just add `In` to the end (such as `getIn` which takes the object first)
 
 ### `On`s (Immutable False)
-`extendOn`
+`extendOn`, `defaultsOn`
 lodash/fp likes to keep things pure, but sometimes JS can get pretty dirty.
 These methods are alternatives for working with data that--for whatever the use case is--needs to be mutable
 Any methods that interact with mutable data will use the `On` convention (as it is some action occuring `On` some data)
