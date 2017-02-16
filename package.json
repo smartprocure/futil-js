@@ -39,10 +39,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/smartprocure/futil.git"
+    "url": "git+ssh://git@github.com/smartprocure/futil-js.git"
   },
   "bugs": {
-    "url": "https://github.com/smartprocure/futil/issues"
+    "url": "https://github.com/smartprocure/futil-js/issues"
   },
-  "homepage": "https://github.com/smartprocure/futil#readme"
+  "homepage": "https://github.com/smartprocure/futil-js#readme"
 }
