@@ -7,8 +7,8 @@ const expect = chai.expect
 describe('Collections Functions', function() {
     it('flowMap', function() {
         expect(f.flowMap(
-            n => n+n,
-            n => n*n
+            n => n + n,
+            n => n * n
         )([
             0, 1, 2, 3, 4
         ])).to.eql([

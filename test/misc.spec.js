@@ -5,14 +5,13 @@ const expect = chai.expect
 
 describe('Basic Functions', function() {
     it('maybeCall', function() {
-        expect(f.maybeCall(x => 5)).to.deep.equal(5)
+        expect(f.maybeCall(() => 5)).to.deep.equal(5)
         expect(f.maybeCall(null)).to.deep.equal(false)
     })
-    it('maybeCall should call fn with parameters', function(){
-        const fn = (x,y) => x+y;
-        expect(f.maybeCall(fn, 5, 6)).to.deep.equal(fn(5,6));
+    it('maybeCall should call fn with parameters', function() {
+        const fn = (x, y) => x + y;
+        expect(f.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6));
     })
-
 })
 
 describe('String Functions', function() {
