@@ -12,7 +12,6 @@ describe('Basic Functions', function() {
         const fn = (x, y) => x + y;
         expect(f.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6));
     })
-
 })
 
 describe('String Functions', function() {
