@@ -8,6 +8,7 @@
     "test": "mocha",
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
     "coverage": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
+    "cicoverage": "babel-node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha  --report lcovonly -- -R spec && cat ./coverage/lcov.info",
     "pretest": "npm run build",
     "precoverage": "npm run build"
   },
@@ -30,8 +31,10 @@
     "chai": "^3.5.0",
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
+    "coveralls": "^2.11.16",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "mocha-lcov-reporter": "^1.2.0",
     "webpack": "^2.2.1"
   },
   "directories": {
