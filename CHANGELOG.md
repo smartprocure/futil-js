@@ -1,3 +1,6 @@
+# 1.6.0
+- Add `exportOn`
+
 # 1.5.1 and 1.5.2
 Travis related CI stuff
 
