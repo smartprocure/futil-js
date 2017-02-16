@@ -1,4 +1,4 @@
-﻿# futil
+# futil
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
@@ -47,6 +47,11 @@ lodash/fp is great, but sometimes the curry order isn't exactly what you want.
 These methods provide alternative orderings that are sometimes more convenient.
 The idea of `In` methods is to name them by convention, so when ever you need a method that actually takes the collection first (e.g. a `get` where the data is static but the field is dynamic), you can just add `In` to the end (such as `getIn` which takes the object first)
 
+### `On`s (Immutable False)
+`extendOn`
+lodash/fp likes to keep things pure, but sometimes JS can get pretty dirty.
+These methods are alternatives for working with data that--for whatever the use case is--needs to be mutable
+Any methods that interact with mutable data will use the `On` convention (as it is some action occuring `On` some data)
 
 ## Array
 
