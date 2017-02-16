@@ -14,4 +14,6 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
-after_script: npm run cicoverage | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+after_script:
+    - npm run cicoverage | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+    - npm run cicoverage | ./node_modules/.bin/codacy-coverage
