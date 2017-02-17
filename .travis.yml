@@ -19,4 +19,6 @@ before_script:
     - git fetch
     - LIST=$(git diff-index --name-only origin/master | grep .*\\.js | grep -v json | grep -v eslint | tr '\n' ' '); if [ "$LIST" ]; then eslint $LIST; fi
 after_script:
-    - npm run cicoverage | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+    - npm run cicoverage | ./node_modules/coveralls/bin/coveralls.js
+    - npm run cicoverage | ./node_modules/.bin/codacy-coverage
+    - rm -fr ./coverage
