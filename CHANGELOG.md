@@ -1,3 +1,6 @@
+# 1.7.0
+- Add `defaultsOn`
+
 # 1.6.0
 - Add `extendOn`
 
