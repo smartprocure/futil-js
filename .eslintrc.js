@@ -1,9 +1,11 @@
 module.exports = {
-    parser: 'babel-eslint',
-    'extends': 'smartprocure',
+    'extends': 'standard',
     plugins: [
         'mocha'
     ],
+    env: {
+        mocha: true
+    },
     rules: {
         // Mocha plugin
         'mocha/no-exclusive-tests':      'error',
@@ -15,7 +17,6 @@ module.exports = {
         'mocha/no-sibling-hooks':        'error',
         'mocha/no-identical-title':      'warn',
         // Because of should.be.true and so on
-        'no-unused-expressions':         0,
-        semi:                            0
+        indent:                          ['error', 4]
     }
 };

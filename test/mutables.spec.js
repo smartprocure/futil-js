@@ -4,8 +4,8 @@ import * as f from '../src'
 chai.expect()
 const expect = chai.expect
 
-describe('Mutable FP Functions', function() {
-    it('extendOn', function() {
+describe('Mutable FP Functions', function () {
+    it('extendOn', function () {
         expect(f.extendOn({
             a: 1
         }, {
@@ -18,8 +18,8 @@ describe('Mutable FP Functions', function() {
             c: 4
         })
     })
-    
-    it('defaultsOn', function() {
+
+    it('defaultsOn', function () {
         expect(f.defaultsOn({
             a: 2,
             b: 3,
