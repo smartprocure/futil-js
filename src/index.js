@@ -23,7 +23,3 @@ export const flowMap = (...fns) => _.map(_.flow(...fns))
 // ----
 export const testRegex = regex => regex.test.bind(regex)
 export const compareDeep = _.curry((path, item, other) => _.get(path, item) == other)
-// Returns true if object keys are only elements from signature list (but does not require all signature keys to be present)
-export const matchesSignature = _.curry((signature, value) =>
-    _.isObject(value) && !_.difference(_.keys(value), signature).length
-)
