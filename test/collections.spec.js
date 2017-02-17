@@ -1,5 +1,5 @@
 import chai from 'chai'
-import * as f from '../lib/futil-js'
+import * as f from '../src/'
 
 chai.expect()
 const expect = chai.expect
