@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
     "coverage": "nyc --require babel-core/register node_modules/.bin/mocha test",
     "cicoverage": "nyc --reporter=lcov --require babel-core/register node_modules/.bin/mocha test && cat ./coverage/lcov.info",
-    "lint": "eslint src/*.js test/*.js"
+    "lint": "eslint src/*.js test/*.js",
+    "prepublish": "webpack"
   },
   "author": "Samuel Greene <sgreene@smartprocure.us>",
   "license": "MIT",
