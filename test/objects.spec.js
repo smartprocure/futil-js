@@ -72,7 +72,7 @@ describe('Object Functions', function () {
         })
     })
     it('renameProperty', function () {
-        const o = { a: 1 };
+        const o = { a: 1 }
         const newO = f.renameProperty('a', 'b', o)
         expect(o).to.deep.equal(newO)
         expect(o).to.deep.equal({ b: 1 })
