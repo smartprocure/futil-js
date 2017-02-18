@@ -1,3 +1,6 @@
+# 1.7.1
+- Fix npm publish
+
 # 1.7.0
 - Add `defaultsOn`
 
