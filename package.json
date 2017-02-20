@@ -8,7 +8,7 @@
     "test": "babel-node ./node_modules/mocha/bin/_mocha",
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
     "coverage": "nyc --require babel-core/register node_modules/.bin/mocha test",
-    "cicoverage": "nyc --reporter=lcov --require babel-core/register node_modules/.bin/mocha test && cat ./coverage/lcov.info",
+    "cicoverage": "nyc --reporter=lcov --require babel-core/register node_modules/.bin/mocha test",
     "lint": "eslint src/*.js test/*.js",
     "prepublish": "webpack"
   },
