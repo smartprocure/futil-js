@@ -1,6 +1,6 @@
-import _                  from 'lodash/fp'
-import { dotJoin }        from './array'
-import { overNone }       from './function'
+import _ from 'lodash/fp'
+import { dotJoin } from './array'
+import { overNone } from './function'
 import { reduce, pickIn } from './conversion'
 
 // (k, v) -> {k: v}
@@ -32,17 +32,17 @@ export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 
 // map rename implementation (not used here yet):
 // http://jsfiddle.net/daedalus28/8uQUD/
-export const renameProperty = _.curry(function(from, to, target) {
-    target[to] = target[from];
-    delete target[from];
-    return target;
+export const renameProperty = _.curry(function (from, to, target) {
+    target[to] = target[from]
+    delete target[from]
+    return target
 })
 
 // { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
 export const unwind = _.curry((prop, x) => _.map(y => _.set(prop, y, x), _.get(prop, x)))
 
 // { a: { b: { c: 1 } } } => { 'a.b.c' : 1 }
-let isFlat = overNone([_.isPlainObject, _.isArray]);
+let isFlat = overNone([_.isPlainObject, _.isArray])
 export const flattenObject = (input, paths) => reduce((output, value, key) => _.merge(output,
     (isFlat(value) ? singleObjectR : flattenObject)(value, dotJoin([paths, key]))
 ), {}, input)
