@@ -90,4 +90,11 @@ describe('Object Functions', function () {
         expect(f.matchesSignature([ 'a' ], { a: undefined, b: undefined })).to.be.false
         expect(f.matchesSignature([ 'a', 'b' ], { a: undefined })).to.be.true
     })
+    it('compareDeep', function () {
+        const o = { a: { b: { c: 1 } } }
+        expect(f.compareDeep('a.b.c', o, 1)).to.deep.equal(true)
+        expect(f.compareDeep('a.b.c', o, 2)).to.deep.equal(false)
+        expect(f.compareDeep('a.b.c')(o, '1')).to.deep.equal(true)
+        expect(f.compareDeep('a.b.c')(o)('1')).to.deep.equal(true)
+    })
 })
