@@ -4,13 +4,13 @@ import * as f from '../src'
 chai.expect()
 const expect = chai.expect
 
-describe('Object Functions', function () {
-    it('singleObject', function () {
+describe('Object Functions', () => {
+    it('singleObject', () => {
         expect(f.singleObject('a', 'b')).to.deep.equal({
             a: 'b'
         })
     })
-    it('chunkObject', function () {
+    it('chunkObject', () => {
         expect(f.chunkObject([1])).to.deep.equal([1])
         expect(f.chunkObject({
             a: 1,
@@ -21,7 +21,7 @@ describe('Object Functions', function () {
             b: 2
         }])
     })
-    it('compactObject', function () {
+    it('compactObject', () => {
         expect(f.compactObject({
             a: 1,
             b: null,
@@ -30,15 +30,15 @@ describe('Object Functions', function () {
             a: 1
         })
     })
-    it('isEmptyObject', function () {
+    it('isEmptyObject', () => {
         expect(f.isEmptyObject({ a: 1 })).to.equal(false)
         expect(f.isEmptyObject({})).to.equal(true)
     })
-    it('isNotEmptyObject', function () {
+    it('isNotEmptyObject', () => {
         expect(f.isNotEmptyObject({ a: 1 })).to.equal(true)
         expect(f.isNotEmptyObject({})).to.equal(false)
     })
-    it('stripEmptyObjects', function () {
+    it('stripEmptyObjects', () => {
         expect(f.stripEmptyObjects({
             a: 1,
             b: {},
@@ -48,7 +48,7 @@ describe('Object Functions', function () {
             c: 2
         })
     })
-    it('unwind', function () {
+    it('unwind', () => {
         expect(f.unwind('x', {
             x: ['a', 'b'],
             y: 1
@@ -60,7 +60,7 @@ describe('Object Functions', function () {
             y: 1
         }])
     })
-    it('flattenObject', function () {
+    it('flattenObject', () => {
         expect(f.flattenObject({
             a: {
                 b: {
@@ -71,14 +71,14 @@ describe('Object Functions', function () {
             'a.b.c': 1
         })
     })
-    it('renameProperty', function () {
+    it('renameProperty', () => {
         const o = { a: 1 }
         const newO = f.renameProperty('a', 'b', o)
         expect(o).to.deep.equal(newO)
         expect(o).to.deep.equal({ b: 1 })
         expect(newO).to.deep.equal({ b: 1 })
     })
-    it('matchesSignature', function () {
+    it('matchesSignature', () => {
         expect(f.matchesSignature([], 0)).to.be.false
         expect(f.matchesSignature([], '')).to.be.false
         expect(f.matchesSignature([], x => x)).to.be.true
@@ -90,7 +90,7 @@ describe('Object Functions', function () {
         expect(f.matchesSignature([ 'a' ], { a: undefined, b: undefined })).to.be.false
         expect(f.matchesSignature([ 'a', 'b' ], { a: undefined })).to.be.true
     })
-    it('compareDeep', function () {
+    it('compareDeep', () => {
         const o = { a: { b: { c: 1 } } }
         expect(f.compareDeep('a.b.c', o, 1)).to.deep.equal(true)
         expect(f.compareDeep('a.b.c', o, 2)).to.deep.equal(false)
