@@ -94,7 +94,7 @@ describe('Object Functions', () => {
         const o = { a: { b: { c: 1 } } }
         expect(f.compareDeep('a.b.c', o, 1)).to.deep.equal(true)
         expect(f.compareDeep('a.b.c', o, 2)).to.deep.equal(false)
-        expect(f.compareDeep('a.b.c')(o, '1')).to.deep.equal(true)
-        expect(f.compareDeep('a.b.c')(o)('1')).to.deep.equal(true)
+        expect(f.compareDeep('a.b.c')(o, '1')).to.deep.equal(false)
+        expect(f.compareDeep('a.b.c')(o)('1')).to.deep.equal(false)
     })
 })

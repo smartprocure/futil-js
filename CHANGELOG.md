@@ -1,3 +1,7 @@
+﻿# 1.7.3
+- `compareDeep` is ok with ===, and it's now tested
+- Eslint, coverage and CI fixes
+ 
 # 1.7.1
 - Fix npm publish
 

@@ -49,4 +49,4 @@ export const matchesSignature = _.curry((signature, value) =>
     _.isObject(value) && !_.difference(_.keys(value), signature).length)
 
 // Checks if a property deep in a given item equals to a given value
-export const compareDeep = _.curry((path, item, value) => _.get(path, item) == value) // eslint-disable-line eqeqeq
+export const compareDeep = _.curry((path, item, value) => _.get(path, item) === value)
