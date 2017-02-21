@@ -1,22 +1,24 @@
 import _ from 'lodash/fp'
 
+const noRearg = { rearg: false }
+const mutable = { immutable: false }
+const noCap = { cap: false }
+
 // Flips
 // ----------
-export const getIn = _.get.convert({ rearg: false })
-export const pickIn = _.pick.convert({ rearg: false })
-export const includesIn = _.includes.convert({ rearg: false })
+export const getIn = _.get.convert(noRearg)
+export const pickIn = _.pick.convert(noRearg)
+export const includesIn = _.includes.convert(noRearg)
 
 // Mutables
 // ----------
-export const extendOn = _.extend.convert({ immutable: false })
-export const defaultsOn = _.defaults.convert({ immutable: false })
+export const extendOn = _.extend.convert(mutable)
+export const defaultsOn = _.defaults.convert(mutable)
 
 // This reduce based version is easier to maintain but requires calling `F.inversions.fn` instead of `F.fn`
-let inversionList = ['get', 'pick', 'includes']
-export const inversions = _.reduce((memo, x) => _.set(x + 'In', _[x].convert({
-    rearg: false
-}), memo), {}, inversionList)
+const inversionList = ['get', 'pick', 'includes']
+export const inversions = _.reduce((memo, x) => _.set(x + 'In', _[x].convert(noRearg), memo), {}, inversionList)
 
 // Uncaps
 // ------
-export const reduce = _.reduce.convert({ cap: false })
+export const reduce = _.reduce.convert(noCap)
