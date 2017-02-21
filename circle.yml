@@ -1,0 +1,34 @@
+# For more options, check: https://circleci.com/docs/config-sample/
+machine:
+  timezone:
+    America/New_York
+  node:
+    version:
+        7.5.0
+
+# Authenticating to NPM using an existing token obtained from ~/.npmrc
+dependencies:
+  pre:
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+
+test:
+  pre:
+    - git remote set-branches --add origin master
+    - git fetch
+    - LIST=$(git diff-index --name-only origin/master | grep .*\\.js | grep -v json | grep -v eslint | tr '\n' ' '); if [ "$LIST" ]; then eslint $LIST; fi
+# # This should be doing the same as travis, let's avoid triggering this twice for now
+#  post:
+#    - npm run cicoverage
+#    - ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
+#    - ./node_modules/.bin/codacy-coverage < ./coverage/lcov.info
+#    - rm -fr ./coverage
+
+# run npm publish on tagged commits
+# To deploy a new version, simply run:
+#     npm version 0.0.1 # New version instead of 0.0.1
+#     git push --follow-tags
+# deployment:
+#   npm:
+#     tag: /v[0-9]+(\.[0-9]+)*/
+#     commands:
+#       - npm publish
