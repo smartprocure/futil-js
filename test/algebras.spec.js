@@ -5,7 +5,7 @@ chai.expect()
 const expect = chai.expect
 
 describe('Algebras', () => {
-    it('foldObject', () => {
+    it('fold defaults for plain objects', () => {
         const obj = {
             a: {
                 match: {
@@ -28,7 +28,7 @@ describe('Algebras', () => {
 
         const path = 'match.matched'
         const setMatched = e => e.match && _.set(path, true, e)
-        const objMutated = f.foldObject(e => setMatched(e) || e)(obj)
+        const objMutated = f.fold(e => setMatched(e) || e)(obj)
 
         // Checking immutability
         expect(obj).to.eql(objBackup)
@@ -55,12 +55,12 @@ describe('Algebras', () => {
         })
     })
 
-    it('foldArray', () => {
+    it('folding arrays', () => {
         const arr = [ 0, [ 1, [ 2, [ ] ] ] ]
 
         const arrBackup = _.cloneDeep(arr)
 
-        const arrMutated = f.foldArray(e => e.concat(101), arr)
+        const arrMutated = f.fold(e => e.concat(101), arr, _.map, _.isArray)
 
         // Checking immutability
         expect(arr).to.eql(arrBackup)

@@ -21,11 +21,9 @@ export const flowMap = (...fns) => _.map(_.flow(...fns))
 
 // Algebras
 // --------
-// Folds for recursive algebraic data types
-export const foldObject = _.curry((fn, obj) =>
-    _.merge(_.mapValues(foldObject(fn), obj), _.isPlainObject(obj) ? fn(obj) : {}))
-export const foldArray = _.curry((fn, arr) =>
-    _.map(e => _.isArray(e) ? foldArray(fn, fn(e)) : e, arr))
+// Folding recursive algebraic data types
+export const fold = _.curry((fn, obj, map = _.mapValues, is = _.isPlainObject) =>
+    map(e => is(e) ? fold(fn, fn(e), map, is) : e, obj))
 
 // Misc
 // ----
