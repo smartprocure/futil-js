@@ -19,10 +19,13 @@ export const parens = _.partial(wrap, ['(', ')'])
 // ----------
 export const flowMap = (...fns) => _.map(_.flow(...fns))
 
-// Trees
-// -----
-// Depth-first maps plain object leaves
-export const depthMap = f => o => _.merge(_.mapValues(depthMap(f), o), _.isPlainObject(o) ? f(o) : {})
+// Algebras
+// --------
+// Folds for recursive algebraic data types
+export const foldObject = _.curry((fn, obj) =>
+    _.merge(_.mapValues(foldObject(fn), obj), _.isPlainObject(obj) ? fn(obj) : {}))
+export const foldArray = _.curry((fn, arr) =>
+    _.map(e => _.isArray(e) ? foldArray(fn, fn(e)) : e, arr))
 
 // Misc
 // ----

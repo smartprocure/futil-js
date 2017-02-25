@@ -4,8 +4,8 @@ import _ from 'lodash/fp'
 chai.expect()
 const expect = chai.expect
 
-describe('Tree Functions', () => {
-    it('depthMap', () => {
+describe('Algebras', () => {
+    it('foldObject', () => {
         const obj = {
             a: {
                 match: {
@@ -28,7 +28,7 @@ describe('Tree Functions', () => {
 
         const path = 'match.matched'
         const setMatched = e => e.match && _.set(path, true, e)
-        const objMutated = f.depthMap(e => setMatched(e) || e)(obj)
+        const objMutated = f.foldObject(e => setMatched(e) || e)(obj)
 
         // Checking immutability
         expect(obj).to.eql(objBackup)
@@ -53,5 +53,18 @@ describe('Tree Functions', () => {
                 }
             }
         })
+    })
+
+    it('foldArray', () => {
+        const arr = [ 0, [ 1, [ 2, [ ] ] ] ]
+
+        const arrBackup = _.cloneDeep(arr)
+
+        const arrMutated = f.foldArray(e => e.concat(101), arr)
+
+        // Checking immutability
+        expect(arr).to.eql(arrBackup)
+
+        expect(arrMutated).to.eql([ 0, [ 1, [ 2, [ 101 ], 101 ], 101 ] ])
     })
 })
