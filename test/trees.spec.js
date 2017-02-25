@@ -5,7 +5,7 @@ chai.expect()
 const expect = chai.expect
 
 describe('Tree Functions', () => {
-    it('deepSearch', () => {
+    it('depthMap', () => {
         const obj = {
             a: {
                 match: {
@@ -24,11 +24,16 @@ describe('Tree Functions', () => {
             }
         }
 
-        _.map(e => { // eslint-disable-line lodash-fp/no-unused-result
-            e.matched = true
-        }, f.deepSearch('match', obj))
+        const objBackup = _.cloneDeep(obj)
 
-        expect(obj).to.eql({
+        const path = 'match.matched'
+        const setMatched = e => e.match && _.set(path, true, e)
+        const objMutated = f.depthMap(e => setMatched(e) || e)(obj)
+
+        // Checking immutability
+        expect(obj).to.eql(objBackup)
+
+        expect(objMutated).to.eql({
             a: {
                 match: {
                     id: 1,

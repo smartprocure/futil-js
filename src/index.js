@@ -21,10 +21,8 @@ export const flowMap = (...fns) => _.map(_.flow(...fns))
 
 // Trees
 // -----
-// deepSearch recursively finds all the values of the matching keys in an object
-// It's useful to apply transformations to all the found nodes
-const dSearch = (key, obj) => _.reduce((a, e) => a.concat(_.get(key, e), dSearch(key, e)), [], _.values(obj))
-export const deepSearch = _.flow(dSearch, _.compact)
+// Depth-first maps plain object leaves
+export const depthMap = f => o => _.merge(_.mapValues(depthMap(f), o), _.isPlainObject(o) ? f(o) : {})
 
 // Misc
 // ----
