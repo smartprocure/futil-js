@@ -84,7 +84,7 @@ Flipped version of `singleObject`
 Breaks an object into an array of objects with one key each
 
 ### compactObject
-Remove properties with falsey values: ({ a: 1, b: null, c: false }) -> {a:1}
+Remove properties with falsey values: `({ a: 1, b: null, c: false }) -> {a:1}`
 
 ### isEmptyObject
 Check if it's a `{}`
