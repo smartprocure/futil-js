@@ -5,7 +5,20 @@ chai.expect()
 const expect = chai.expect
 
 describe('Algebras', () => {
-    it('fold defaults for plain objects', () => {
+    it('rmap', () => {
+        const arr = [ 0, [ 1, [ 2, [ ] ] ] ]
+
+        const arrBackup = _.cloneDeep(arr)
+
+        const arrMutated = f.rmap(e => e.concat(101), arr)
+
+        // Checking immutability
+        expect(arr).to.eql(arrBackup)
+
+        expect(arrMutated).to.eql([ 0, [ 1, [ 2, [ 101 ], 101 ], 101 ] ])
+    })
+
+    it('rmapValues', () => {
         const obj = {
             a: {
                 match: {
@@ -28,7 +41,7 @@ describe('Algebras', () => {
 
         const path = 'match.matched'
         const setMatched = e => e.match && _.set(path, true, e)
-        const objMutated = f.fold(e => setMatched(e) || e)(obj)
+        const objMutated = f.rmapValues(e => setMatched(e) || e)(obj)
 
         // Checking immutability
         expect(obj).to.eql(objBackup)
@@ -55,16 +68,32 @@ describe('Algebras', () => {
         })
     })
 
-    it('folding arrays', () => {
-        const arr = [ 0, [ 1, [ 2, [ ] ] ] ]
+    it('rmap Sets', () => {
+        const setRoot = new Set()
+        const set1 = new Set()
+        const set2 = new Set()
+        setRoot.add(0)
+        setRoot.add(set1)
+        set1.add(1)
+        set1.add(set2)
+        set2.add(2)
 
-        const arrBackup = _.cloneDeep(arr)
+        const map = (f, s) => {
+            const values = []
+            for (let v of s.values()) {
+                values.push(v)
+            }
+            for (let v of values) {
+                s.delete(v)
+                s.add(f(v))
+            }
+            return s
+        }
 
-        const arrMutated = f.fold(e => e.concat(101), arr, _.map, _.isArray)
+        const is = s => Object.prototype.toString.call(s) === '[object Set]'
 
-        // Checking immutability
-        expect(arr).to.eql(arrBackup)
+        const setMutated = f.rmap(s => s.add(101), setRoot, map, is)
 
-        expect(arrMutated).to.eql([ 0, [ 1, [ 2, [ 101 ], 101 ], 101 ] ])
+        expect(JSON.stringify(setMutated)).to.equal('[0,[1,[2,101],101]]')
     })
 })

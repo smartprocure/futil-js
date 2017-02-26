@@ -21,9 +21,11 @@ export const flowMap = (...fns) => _.map(_.flow(...fns))
 
 // Algebras
 // --------
-// Folding recursive algebraic data types
-export const fold = _.curry((fn, obj, map = _.mapValues, is = _.isPlainObject) =>
-    map(e => is(e) ? fold(fn, fn(e), map, is) : e, obj))
+// Map for any recursive algebraic data structure
+// defaults in multidimensional arrays
+export const rmap = _.curry((fn, obj, map = _.map, is = _.isArray) =>
+    map(e => is(e) ? rmap(fn, fn(e), map, is) : e, obj))
+export const rmapValues = _.curry((fn, obj) => rmap(fn, obj, _.mapValues, _.isPlainObject))
 
 // Misc
 // ----
