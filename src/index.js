@@ -23,9 +23,10 @@ export const flowMap = (...fns) => _.map(_.flow(...fns))
 // --------
 // Map for any recursive algebraic data structure
 // defaults in multidimensional arrays
-export const rmap = _.curry((fn, obj, map = _.map, is = _.isArray) =>
-    map(e => is(e) ? rmap(fn, fn(e), map, is) : e, obj))
-export const rmapValues = _.curry((fn, obj) => rmap(fn, obj, _.mapValues, _.isPlainObject))
+export const deepMap = _.curry((fn, obj, map = _.map, is = _.isArray) =>
+    map(e => is(e) ? deepMap(fn, fn(e), map, is) : e, obj))
+// deepMap for plain objects
+export const deepMapValues = _.curry((fn, obj) => deepMap(fn, obj, _.mapValues, _.isPlainObject))
 
 // Misc
 // ----
