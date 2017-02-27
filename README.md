@@ -17,30 +17,28 @@ See our [changelog](https://github.com/smartprocure/futil-js/blob/master/CHANGEL
 # Installing
 `npm i -S futil-js`
 
-This package require `lodash/fp`, so make sure that's available in your app.
+This package requires `lodash/fp`, so make sure that's available in your app.
 
 # API
 
 ## Function
 
 ### maybeCall
-`(fn, a, b) -> fn(a, b)`
-Calls a function with the passed in arguments if it's a function
+`(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `false`.
+
 
 ### overNone
-`([f, g]) -> !f(x) && !g(x)`
-Combinator that returns a function which will pass if none of the functions pass
+`([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
 
 
 ## Collection
 
 ### flowMap
-`...fns:functions -> map:function`
-Runs a map function that runs a `flow` of the functions passed in to this method
+`...fns:functions -> map:function` Runs a map function that runs a `flow` of the functions passed in to this method.
 
 
 ## Lodash Conversions
-These are conversions of lodash fp methods
+These are conversions of lodash fp methods.
 
 ### `In`s (Rearg False)
 `getIn`, `includesIn`, `pickIn`
@@ -57,82 +55,92 @@ Any methods that interact with mutable data will use the `On` convention (as it 
 ## Array
 
 ### compactJoin
-`join:string -> data:array -> result:string`
-Joins an array after compacting
+`join:string -> data:array -> result:string` Joins an array after compacting.
+
 
 ### dotJoin
-`data:array -> result:string`
-Compacts and joins an array with '.'
+`data:array -> result:string` Compacts and joins an array with '.'
+
 
 ### repeated
-`data:array -> result:array`
-Returns an array of elements the are repeated in the array
+`data:array -> result:array` Returns an array of elements that are repeated in the array.
 
 
 ## Object
 
 ### singleObject
-`(k, v) -> {k: v}`
-Creates an object with a key and value
+`(k, v) -> {k: v}` Creates an object with a key and value.
+
 
 ### singleObjectE
-`(v, k) -> {k: v}`
-Flipped version of `singleObject`
+`(v, k) -> {k: v}` Flipped version of `singleObject`.
+
 
 ### chunkObject
-`({a, b}) -> [{a}, {b}]`
-Breaks an object into an array of objects with one key each
+`({a, b}) -> [{a}, {b}]` Breaks an object into an array of objects with one key each.
+
 
 ### compactObject
-Remove properties with falsey values: `({ a: 1, b: null, c: false }) -> {a:1}`
+Remove properties with falsey values.
 
-### isEmptyObject
-Check if it's a `{}`
+Example: `({ a: 1, b: null, c: false }) -> {a:1}` 
 
-### isNotEmptyObject
-Check if it's not a `{}`
+### isEmptyObject:
+Check if the variable is an empty object (`{}`).
+
+
+### isNotEmptyObject:
+Check if the variable is **not** an empty object (`{}`).
+
 
 ### stripEmptyObjects
-`{ a:1, b:{}, c:2 } -> {a:1, c:2}`
-Omit properties whose values are empty objects
+Omit properties whose values are empty objects.
+
+Example: `{ a:1, b:{}, c:2 } -> {a:1, c:2}` 
 (*TODO* remame to `omitEmptyObjects`)
 
+
 ### compareDeep
-Checks if an object's property is equal to a value
+Checks if an object's property is equal to a value.
+
 
 ### matchesSignature
-Returns true if object keys are only elements from signature list (but does not require all signature keys to be present)
+Returns true if object keys are only elements from signature list. (but does not require all signature keys to be present)
+
 
 ### pickInto
 *TODO*
 
+
 ### renameProperty
 `from:string -> to:string: -> target:object -> result:object`
-Rename a property on an object
-`renameProperty('a', 'b', {a:1}) -> {b:1)`
+Rename a property on an object.
+
+Example: `renameProperty('a', 'b', {a:1}) -> {b:1)` 
+
 
 ### unwind
-`{ x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }]`
-Just like mongo's `$unwind`
+Just like mongo's `$unwind`.
+
+Example: `{ x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }]` 
+
 
 ### flattenObject
-`{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`
-Flatten an object with the paths for keys
+Flatten an object with the paths for keys.
+
+Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 
 ## String
 ### parens
-`'asdf' -> '(asdf)'`
-Wraps a string in parenthesis
+`'asdf' -> '(asdf)'` Wraps a string in parenthesis.
 
 
 ## Misc
 
 ### testRegex
-`regex -> string -> bool`
-Just like rambda test, creates a function to test a regex on a string
+`regex -> string -> bool` Just like rambda test, creates a function to test a regex on a string.
 
 
 ## Math
 ### greaterThanOne
-`number -> bool`
-Returns true if number is greater than one
+`number -> bool` Returns true if number is greater than one.
