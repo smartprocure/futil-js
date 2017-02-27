@@ -1,4 +1,12 @@
-﻿# 1.7.3
+﻿# 1.8.0-1.8.3
+- `map` added to seamlessly map array and plain objects.
+- `deepMap` added to seamlessly map recursive arrays and plain
+  objects. Also optionally allows mappings to any recursive algebraic
+  data structure.
+- Versions in the range 1.8.0-1.8.3 were swallowed by a mystical sea
+  monster.
+
+# 1.7.3
 - `compareDeep` is ok with ===, and it's now tested
 - Eslint, coverage and CI fixes
  
