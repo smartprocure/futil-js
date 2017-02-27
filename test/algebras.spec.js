@@ -132,11 +132,7 @@ describe('Algebras', () => {
         set2.add(2)
 
         const map = (f, s) => {
-            const values = []
-            for (let v of s.values()) {
-                values.push(v)
-            }
-            for (let v of values) {
+            for (let v of Array.from(s.values())) {
                 s.delete(v)
                 s.add(f(v))
             }
