@@ -144,3 +144,16 @@ Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 ## Math
 ### greaterThanOne
 `number -> bool` Returns true if number is greater than one.
+
+## Algebras or composable/recursive data types
+
+## map
+`map :: (a -> b) -> [a] -> [b]`
+Maps a function over an iterable. Works by default for Arrays and Plain Objects.
+
+## deepMap
+`deepMap :: (a -> b) -> [a] -> [b]`
+Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed
+nested Arrays and Plain Objects. Also works for any other iterable data type as long as
+two other values are sent: a mapping function, and a type checker (See the
+unit tests for deepMap).
