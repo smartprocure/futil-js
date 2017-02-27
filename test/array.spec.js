@@ -16,4 +16,7 @@ describe('Array Functions', () => {
         expect(f.repeated([ 1, 1, 2, 3, 3, 4 ])).to.eql([ 1, 3 ])
         expect(f.repeated([ 'a', 'b', 'b' ])).to.eql([ 'b' ])
     })
+    it('oops', function() {
+        expect(true).to.be.true
+    })
 })
