@@ -10,6 +10,11 @@ describe('Object Functions', () => {
             a: 'b'
         })
     })
+    it('singleObjectR', () => {
+        expect(f.singleObjectR('a', 'b')).to.deep.equal({
+            b: 'a'
+        })
+    })
     it('chunkObject', () => {
         expect(f.chunkObject([1])).to.deep.equal([1])
         expect(f.chunkObject({
@@ -46,6 +51,17 @@ describe('Object Functions', () => {
         })).to.deep.equal({
             a: 1,
             c: 2
+        })
+    })
+    it('pickInto', () => {
+        expect(f.pickInto({
+            a: [ 'a' ],
+            b: [ 'b' ],
+            c: [ 'c' ]
+        }, { a: 1, b: 2 })).to.deep.equal({
+            a: { a: 1 },
+            b: { b: 2 },
+            c: {}
         })
     })
     it('unwind', () => {

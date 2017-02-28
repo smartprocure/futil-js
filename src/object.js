@@ -23,8 +23,9 @@ export const isNotEmptyObject = _.negate(isEmptyObject)
 // { a:1, b:{}, c:2 } -> {a:1, c:2}
 export const stripEmptyObjects = _.pickBy(isNotEmptyObject)
 
-// TODO: Pick Into needs tests
 // const crazyBS = (f, g) => (a, b) => f(a)(g(b))
+
+// { a: { b: 1, c: 2 } }, [ 'b' ] -> { a: { b: 1 } }
 export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 
 // map rename implementation (not used here yet):

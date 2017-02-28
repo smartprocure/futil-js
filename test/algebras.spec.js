@@ -5,6 +5,14 @@ chai.expect()
 const expect = chai.expect
 
 describe('Algebras', () => {
+    it('map arrays', () => {
+        expect(f.map(x => x * x, [ 1, 2, 3 ])).to.deep.equal([ 1, 4, 9 ])
+    })
+
+    it('map plain objects', () => {
+        expect(f.map(x => x * x, { a: 1, b: 2, c: 3 })).to.deep.equal({ a: 1, b: 4, c: 9 })
+    })
+
     it('deepMap arrays', () => {
         const arr = [ 0, [ 1, [ 2, [ ] ] ] ]
 
@@ -131,16 +139,26 @@ describe('Algebras', () => {
         set1.add(set2)
         set2.add(2)
 
-        const map = (f, s) => {
+        const immutableSetMap = (f, s) => {
+            const set = new Set()
             for (let v of Array.from(s.values())) {
-                s.delete(v)
-                s.add(f(v))
+                set.add(f(v))
             }
-            return s
+            return set
         }
 
-        const setMutated = f.deepMap(s => s.add(101), setRoot, map, _.isSet)
+        const setMutated = f.deepMap(s => {
+            const set = new Set(s)
+            set.add(101)
+            return set
+        }, setRoot, immutableSetMap, _.isSet)
 
-        expect(JSON.stringify(setMutated)).to.equal('[0,[1,[2,101],101]]')
+        // Necessary since babel-core/register doesn't properly JSON.stringify Sets
+        const setToArray = set => f.deepMap(x => x, set, (f, s) => _.map(f, Array.from(s.values())), _.isSet)
+
+        // Checking immutability
+        expect(setToArray(setRoot)).to.eql([ 0, [ 1, [ 2 ] ] ])
+
+        expect(setToArray(setMutated)).to.eql([ 0, [ 1, [ 2, 101 ], 101 ] ])
     })
 })
