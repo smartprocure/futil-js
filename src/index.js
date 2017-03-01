@@ -27,7 +27,7 @@ export const map = _.curry((f, x) =>
     (_.isPlainObject(x) && _.mapValues(f, x)) || x)
 // Map for any recursive algebraic data structure
 // defaults in multidimensional arrays and recursive plain objects
-export const deepMap = _.curry((f, o) => map(deepMap(f), f(o)))
+export const deepMap = f => o => map(deepMap(f), f(o))
 
 // Misc
 // ----
