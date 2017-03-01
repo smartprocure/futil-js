@@ -120,22 +120,4 @@ describe('Algebras', () => {
             }
         })
     })
-
-    it('deepMap Sets', () => {
-        const setRoot = new Set()
-        const set1 = new Set()
-        const set2 = new Set()
-        setRoot.add(0)
-        setRoot.add(set1)
-        set1.add(1)
-        set1.add(set2)
-        set2.add(2)
-
-        const setMutated = f.deepMap(s => _.isSet(s) ? (new Set(s)).add(101) : s, setRoot)
-
-        // Checking immutability
-        expect(JSON.stringify(setRoot)).to.equal('[0,[1,[2]]]')
-
-        expect(JSON.stringify(setMutated)).to.equal('[0,[1,[2,101],101],101]')
-    })
 })
