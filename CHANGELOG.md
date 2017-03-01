@@ -1,4 +1,7 @@
-﻿# 1.8.0-1.8.3
+﻿# 1.9.0
+- `deepMap` also works at the root level
+
+# 1.8.0-1.8.3
 - `map` added to seamlessly map array and plain objects.
 - `deepMap` added to seamlessly map recursive arrays and plain
   objects. Also optionally allows mappings to any recursive algebraic

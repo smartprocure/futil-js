@@ -15,7 +15,7 @@ describe('Algebras', () => {
         // Checking immutability
         expect(arr).to.eql(arrBackup)
 
-        expect(arrMutated).to.eql([ 0, [ 1, [ 2, [ 101 ], 101 ], 101 ] ])
+        expect(arrMutated).to.eql([ 0, [ 1, [ 2, [ 101 ], 101 ], 101 ], 101 ])
     })
 
     it('deepMap plain objects', () => {
@@ -141,6 +141,6 @@ describe('Algebras', () => {
 
         const setMutated = f.deepMap(s => s.add(101), setRoot, map, _.isSet)
 
-        expect(JSON.stringify(setMutated)).to.equal('[0,[1,[2,101],101]]')
+        expect(JSON.stringify(setMutated)).to.equal('[0,[1,[2,101],101],101]')
     })
 })
