@@ -10,7 +10,7 @@ describe('Algebras', () => {
 
         const arrBackup = _.cloneDeep(arr)
 
-        const arrMutated = f.deepMap(e => e.concat(101), arr)
+        const arrMutated = f.deepMap(e => _.isArray(e) ? e.concat(101) : e, arr)
 
         // Checking immutability
         expect(arr).to.eql(arrBackup)
@@ -131,15 +131,10 @@ describe('Algebras', () => {
         set1.add(set2)
         set2.add(2)
 
-        const map = (f, s) => {
-            for (let v of Array.from(s.values())) {
-                s.delete(v)
-                s.add(f(v))
-            }
-            return s
-        }
+        const setMutated = f.deepMap(s => _.isSet(s) ? (new Set(s)).add(101) : s, setRoot)
 
-        const setMutated = f.deepMap(s => s.add(101), setRoot, map, _.isSet)
+        // Checking immutability
+        expect(JSON.stringify(setRoot)).to.equal('[0,[1,[2]]]')
 
         expect(JSON.stringify(setMutated)).to.equal('[0,[1,[2,101],101],101]')
     })
