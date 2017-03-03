@@ -128,4 +128,32 @@ describe('Algebras', () => {
             }
         })
     })
+
+    it('deepFind', () => {
+        const target = {
+            N1: [ {
+                N2: [ { N21: [ 210 ], N22: [ 220 ] } ],
+                N4: [ { N41: [ 410 ], N42: [ 420 ] } ],
+                N6: [ { N61: [ 610 ], N62: [ 620 ] } ],
+                N8: [ { N81: [ 810 ], N82: [ 820 ] } ]
+            }, {
+                N3: [ { N31: [ 310 ], N32: [ 320 ] } ],
+                N5: [ { N51: [ 510 ], N52: [ 520 ] } ],
+                N7: [ { N71: [ 710 ], N72: [ 720 ] } ],
+                N9: [ { N91: [ 910 ], N92: [ 920 ] } ]
+            } ]
+        }
+
+        const keyToInt = k => parseInt(k.slice(1))
+        const isPair = v => v % 2 === 0
+        const keysToNumbers = keys => _.map(_.flow(_.keys, _.head, keyToInt), keys)
+
+        const pairKeys = keysToNumbers(f.deepFind(_.flow(keyToInt, isPair), target))
+
+        expect(pairKeys).to.deep.equal([ 2, 22, 4, 42, 6, 62, 8, 82, 32, 52, 72, 92 ])
+
+        const twoPairKeys = keysToNumbers(f.deepFind(_.flow(keyToInt, isPair), target, 4))
+
+        expect(twoPairKeys).to.deep.equal([ 2, 22, 4, 42 ])
+    })
 })
