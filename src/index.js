@@ -29,7 +29,7 @@ export const map = _.curry((f, x) => (_.isArray(x) ? _.map : _.mapValues)(f, x))
 export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
     _map(e => is(e) ? deepMap(fn, fn(e), _map, is) : e, obj))
 
-// Trasnform any recursive algebraic datastructure
+// Transform any recursive algebraic datastructure
 export const deepTransform = fn => obj => _.transform((result, pair) => {
     let { 0: key, 1: value, bool } = pair
     if (!fn(result, value, key)) return false
