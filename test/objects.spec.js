@@ -79,16 +79,16 @@ describe('Object Functions', () => {
         expect(newO).to.deep.equal({ b: 1 })
     })
     it('matchesSignature', () => {
-        expect(f.matchesSignature([], 0)).to.be.false
-        expect(f.matchesSignature([], '')).to.be.false
-        expect(f.matchesSignature([], x => x)).to.be.true
-        expect(f.matchesSignature([], [])).to.be.true
-        expect(f.matchesSignature([], { a: 1 })).to.be.false
-        expect(f.matchesSignature([ 'a' ], { a: 1 })).to.be.true
-        expect(f.matchesSignature([ 'b' ], { a: 1 })).to.be.false
-        expect(f.matchesSignature([ 'a' ], { a: 1, b: 2 })).to.be.false
-        expect(f.matchesSignature([ 'a' ], { a: undefined, b: undefined })).to.be.false
-        expect(f.matchesSignature([ 'a', 'b' ], { a: undefined })).to.be.true
+        expect(f.matchesSignature([], 0)).to.equal(false)
+        expect(f.matchesSignature([], '')).to.equal(false)
+        expect(f.matchesSignature([], x => x)).to.equal(true)
+        expect(f.matchesSignature([], [])).to.equal(true)
+        expect(f.matchesSignature([], { a: 1 })).to.equal(false)
+        expect(f.matchesSignature([ 'a' ], { a: 1 })).to.equal(true)
+        expect(f.matchesSignature([ 'b' ], { a: 1 })).to.equal(false)
+        expect(f.matchesSignature([ 'a' ], { a: 1, b: 2 })).to.equal(false)
+        expect(f.matchesSignature([ 'a' ], { a: undefined, b: undefined })).to.equal(false)
+        expect(f.matchesSignature([ 'a', 'b' ], { a: undefined })).to.equal(true)
     })
     it('compareDeep', () => {
         const o = { a: { b: { c: 1 } } }
