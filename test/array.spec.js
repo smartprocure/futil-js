@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 import chai from 'chai'
 import * as f from '../src/'
 chai.expect()

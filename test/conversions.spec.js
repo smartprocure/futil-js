@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 import _ from 'lodash/fp'
 import chai from 'chai'
 import * as f from '../src'

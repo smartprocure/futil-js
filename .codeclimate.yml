@@ -9,12 +9,10 @@ engines:
     channel: "eslint-3"
     config:
       config: .eslintrc.js
-    extensions:
-    - .js
-  fixme:
-    enabled: true
+      extensions:
+      - .js
 ratings:
   paths:
   - "**.js"
-exclude_paths:
-- "lib/"
+  exclude_paths:
+  - "lib/"
