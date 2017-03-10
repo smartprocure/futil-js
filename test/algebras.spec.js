@@ -156,4 +156,87 @@ describe('Algebras', () => {
 
         expect(twoPairKeys).to.deep.equal([ 2, 22, 4, 42 ])
     })
+
+    it('deepFind nested objects', () => {
+        const target = {
+            something: {
+                mostly_empty: {}
+            },
+            deep: {
+                object: {
+                    matching: {
+                        key: 'value'
+                    }
+                }
+            }
+        }
+
+        let found = f.deepFind((k, v) => k === 'matching', target, 2)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value' }
+        }])
+    })
+
+    it('deepFind nested objects, ignoring fields', () => {
+        const target = {
+            something: {
+                mostly_empty: {}
+            },
+            deep: {
+                object1: {
+                    matching: {
+                        key: 'value'
+                    },
+                    deeper: {
+                        object: {
+                            matching: {
+                                key: 'value',
+                                ignore: true
+                            }
+                        }
+                    }
+                },
+                object2: {
+                    matching: {
+                        key: 'value',
+                        ignore: true
+                    },
+                    deeper: {
+                        object: {
+                            matching: {
+                                key: 'value'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        let found = f.deepFind((k, v) => k === 'matching' && v && !v.ignore, target, 2)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value' }
+        }, {
+            matching: { key: 'value' }
+        }])
+
+        for (let v of found) {
+            v.matching.modified = true
+        }
+
+        let foundAgain = f.deepFind((k, v) => k === 'matching' && v && !v.ignore, target, 2)
+
+        expect(foundAgain).to.deep.equal([{
+            matching: {
+                key: 'value',
+                modified: true
+            }
+        }, {
+            matching: {
+                key: 'value',
+                modified: true
+            }
+        }])
+    })
 })

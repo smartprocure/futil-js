@@ -30,17 +30,17 @@ export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
     _map(e => is(e) ? deepMap(fn, fn(e), _map, is) : e, obj))
 
 // Transform any recursive algebraic datastructure
-export const deepTransform = fn => obj => _.transform((result, pair) => {
-    let { 0: key, 1: value, bool } = pair
-    if (!fn(result, value, key)) return false
-    result.push(_.flatten(deepTransform(_.flow(fn, x => (bool = x)))(value)))
+export const deepTransform = fn => obj => isTraversable(obj) ? _.transform((result, pair) => {
+    let { 0: k, 1: v } = pair
+    let bool = false
+    if (fn(result, v, k)) result.push(_.flatten(deepTransform(_.flow(fn, x => (bool = x)))(v)))
     return bool
-}, [], _.toPairs(obj))
+}, [], _.toPairs(obj)) : false
 
 // Finds matching keys or values in recursively nested datastructures
 export const deepFind = (fn, obj, limit = Infinity, skip = 0) =>
-    _.flatten(deepTransform((obj, value, key) => {
-        fn(key, value) && obj.push({ [key]: value }) && skip++
+    _.flatten(deepTransform((obj, v, k) => {
+        fn(k, v) && obj.push({ [k]: v }) && skip++
         return skip < limit
     })(obj))
 
