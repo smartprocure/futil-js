@@ -143,4 +143,115 @@ describe('Algebras', () => {
 
         expect(JSON.stringify(setMutated)).to.equal('[0,[1,[2,101],101]]')
     })
+
+    it('deepFind', () => {
+        const target = {
+            N1: [ {
+                N2: [ { N21: [ 210 ], N22: [ 220 ] } ],
+                N4: [ { N41: [ 410 ], N42: [ 420 ] } ],
+                N6: [ { N61: [ 610 ], N62: [ 620 ] } ],
+                N8: [ { N81: [ 810 ], N82: [ 820 ] } ]
+            }, {
+                N3: [ { N31: [ 310 ], N32: [ 320 ] } ],
+                N5: [ { N51: [ 510 ], N52: [ 520 ] } ],
+                N7: [ { N71: [ 710 ], N72: [ 720 ] } ],
+                N9: [ { N91: [ 910 ], N92: [ 920 ] } ]
+            } ]
+        }
+
+        const keyToInt = k => parseInt(k.slice(1))
+        const isPair = v => v % 2 === 0
+        const keysToNumbers = keys => _.map(_.flow(_.keys, _.head, keyToInt), keys)
+
+        const pairKeys = keysToNumbers(f.deepFind(_.flow(keyToInt, isPair), target))
+
+        expect(pairKeys).to.deep.equal([ 2, 22, 4, 42, 6, 62, 8, 82, 32, 52, 72, 92 ])
+
+        const twoPairKeys = keysToNumbers(f.deepFind(_.flow(keyToInt, isPair), target, 4))
+
+        expect(twoPairKeys).to.deep.equal([ 2, 22, 4, 42 ])
+    })
+
+    it('deepFind nested objects', () => {
+        const target = {
+            something: {
+                mostly_empty: {}
+            },
+            deep: {
+                object: {
+                    matching: {
+                        key: 'value'
+                    }
+                }
+            }
+        }
+
+        let found = f.deepFind((k, v) => k === 'matching', target, 2)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value' }
+        }])
+    })
+
+    it('deepFind nested objects, ignoring fields', () => {
+        const target = {
+            something: {
+                mostly_empty: {}
+            },
+            deep: {
+                object1: {
+                    matching: {
+                        key: 'value'
+                    },
+                    deeper: {
+                        object: {
+                            matching: {
+                                key: 'value',
+                                ignore: true
+                            }
+                        }
+                    }
+                },
+                object2: {
+                    matching: {
+                        key: 'value',
+                        ignore: true
+                    },
+                    deeper: {
+                        object: {
+                            matching: {
+                                key: 'value'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        let found = f.deepFind((k, v) => k === 'matching' && v && !v.ignore, target, 2)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value' }
+        }, {
+            matching: { key: 'value' }
+        }])
+
+        for (let v of found) {
+            v.matching.modified = true
+        }
+
+        let foundAgain = f.deepFind((k, v) => k === 'matching' && v && !v.ignore, target, 2)
+
+        expect(foundAgain).to.deep.equal([{
+            matching: {
+                key: 'value',
+                modified: true
+            }
+        }, {
+            matching: {
+                key: 'value',
+                modified: true
+            }
+        }])
+    })
 })

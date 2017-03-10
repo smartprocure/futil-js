@@ -29,6 +29,24 @@ export const map = _.curry((f, x) => (_.isArray(x) ? _.map : _.mapValues)(f, x))
 export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
     _map(e => is(e) ? deepMap(fn, fn(e), _map, is) : e, obj))
 
+// Transform any recursive algebraic datastructure
+export const deepTransform = fn => obj => isTraversable(obj) ? _.transform((result, pair) => {
+    let { 0: k, 1: v } = pair
+    let bool = false
+    if (fn(result, v, k)) result.push(_.flatten(deepTransform(_.flow(fn, x => (bool = x)))(v)))
+    return bool
+}, [], _.toPairs(obj)) : false
+
+// Finds matching keys or values in recursively nested datastructures
+export const deepFind = (fn, obj, limit = Infinity, skip = 0) =>
+    _.flatten(deepTransform((obj, v, k) => {
+        fn(k, v) && obj.push({ [k]: v }) && skip++
+        return skip < limit
+    })(obj))
+
+// Queries a traversable data structure
+// query(fn, limit, obj)
+
 // Misc
 // ----
 export const testRegex = regex => regex.test.bind(regex)

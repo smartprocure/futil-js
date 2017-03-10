@@ -157,3 +157,17 @@ Maps a function over a recursive iterable. Works by default for nested Arrays, n
 nested Arrays and Plain Objects. Also works for any other iterable data type as long as
 two other values are sent: a mapping function, and a type checker (See the
 unit tests for deepMap).
+
+## deepTransform
+`deepTransform :: (a -> b) -> [a] -> [b]`
+Transforms a recursive iterable by a given function. Works like deepMap but
+allows you to stop transforming at any point of the tree. The traversing
+happens depth first.
+
+## deepFind
+`deepFind :: (a -> b) -> [a] -> [b]`
+Goes over every `{ key, value }` of a recursive iterable data structure (for
+arrays being numeric key and the value at the key position), and uses a function to extract
+elements at any point in the tree onto an array that is returned. If a third
+argument, the limit, is provided, it will stop iterating as soon as the number
+of found objects reaches that limit.
