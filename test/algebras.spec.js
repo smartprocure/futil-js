@@ -128,37 +128,4 @@ describe('Algebras', () => {
             }
         })
     })
-
-    it('deepMap Sets', () => {
-        const setRoot = new Set()
-        const set1 = new Set()
-        const set2 = new Set()
-        setRoot.add(0)
-        setRoot.add(set1)
-        set1.add(1)
-        set1.add(set2)
-        set2.add(2)
-
-        const immutableSetMap = (f, s) => {
-            const set = new Set()
-            for (let v of Array.from(s.values())) {
-                set.add(f(v))
-            }
-            return set
-        }
-
-        const setMutated = f.deepMap(s => {
-            const set = new Set(s)
-            set.add(101)
-            return set
-        }, setRoot, immutableSetMap, _.isSet)
-
-        // Necessary since babel-core/register doesn't properly JSON.stringify Sets
-        const setToArray = set => f.deepMap(x => x, set, (f, s) => _.map(f, Array.from(s.values())), _.isSet)
-
-        // Checking immutability
-        expect(setToArray(setRoot)).to.eql([ 0, [ 1, [ 2 ] ] ])
-
-        expect(setToArray(setMutated)).to.eql([ 0, [ 1, [ 2, 101 ], 101 ] ])
-    })
 })

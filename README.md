@@ -1,10 +1,10 @@
-﻿# futil
+# futil
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
 [![Code Climate](https://codeclimate.com/github/smartprocure/futil-js/badges/gpa.svg)](https://codeclimate.com/github/smartprocure/futil-js)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1302fe4c3f0447be9d5dbd00f9baa12f)](https://www.codacy.com/app/daedalus28/futil-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=smartprocure/futil-js&amp;utm_campaign=Badge_Grade)
-[![Coverage Status](https://coveralls.io/repos/github/smartprocure/futil-js/badge.svg?branch=feature%2Fcoverallsio)](https://coveralls.io/github/smartprocure/futil-js?branch=feature%2Fcoverallsio)
+[![Coverage Status](https://coveralls.io/repos/github/smartprocure/futil-js/badge.svg?branch=master)](https://coveralls.io/github/smartprocure/futil-js?branch=master)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 A collection of F(unctional) Util(ities). Resistance is futile.
