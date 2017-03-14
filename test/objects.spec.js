@@ -31,12 +31,14 @@ describe('Object Functions', () => {
         })
     })
     it('isEmptyObject', () => {
-        expect(f.isEmptyObject({ a: 1 })).to.equal(false)
-        expect(f.isEmptyObject({})).to.equal(true)
+        let expectEql = (obj, v) => expect(f.isEmptyObject(obj)).to.equal(v)
+        expectEql({ a: 1 }, false)
+        expectEql({}, true)
     })
     it('isNotEmptyObject', () => {
-        expect(f.isNotEmptyObject({ a: 1 })).to.equal(true)
-        expect(f.isNotEmptyObject({})).to.equal(false)
+        let expectEql = (obj, v) => expect(f.isNotEmptyObject(obj)).to.equal(v)
+        expectEql({ a: 1 }, true)
+        expectEql({}, false)
     })
     it('stripEmptyObjects', () => {
         expect(f.stripEmptyObjects({
