@@ -129,7 +129,7 @@ describe('Algebras', () => {
         })
     })
 
-    it('flowWhile', () => {
+    it('foldWhile simple test', () => {
         const target = {
             N1: [ {
                 N2: [ { N21: [ 210 ], N22: [ 220 ] } ],
@@ -156,7 +156,7 @@ describe('Algebras', () => {
         expect(pairKeys).to.deep.equal([ 2, 22, 4, 42 ])
     })
 
-    it('flowWhile nested objects', () => {
+    it('foldWhile nested objects', () => {
         const target = {
             something: {
                 mostly_empty: {}
@@ -177,7 +177,7 @@ describe('Algebras', () => {
         }])
     })
 
-    it('flowWhile nested objects, ignoring fields', () => {
+    it('foldWhile nested objects, ignoring fields', () => {
         const target = {
             something: {
                 mostly_empty: {}
