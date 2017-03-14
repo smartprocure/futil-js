@@ -129,7 +129,7 @@ describe('Algebras', () => {
         })
     })
 
-    it('deepFind', () => {
+    it('flowWhile', () => {
         const target = {
             N1: [ {
                 N2: [ { N21: [ 210 ], N22: [ 220 ] } ],
@@ -145,19 +145,18 @@ describe('Algebras', () => {
         }
 
         const keyToInt = k => parseInt(k.slice(1))
-        const isPair = v => v % 2 === 0
-        const keysToNumbers = keys => _.map(_.flow(_.keys, _.head, keyToInt), keys)
+        const pushIfPair = (k, r) => (k % 2 === 0) && r.push(k) || true
 
-        const pairKeys = keysToNumbers(f.deepFind(_.flow(keyToInt, isPair), target))
+        let pairKeys = f.foldWhile((r, v, k) => pushIfPair(keyToInt(k), r), target)
 
         expect(pairKeys).to.deep.equal([ 2, 22, 4, 42, 6, 62, 8, 82, 32, 52, 72, 92 ])
 
-        const twoPairKeys = keysToNumbers(f.deepFind(_.flow(keyToInt, isPair), target, 4))
+        pairKeys = f.foldWhile((r, v, k) => pushIfPair(keyToInt(k), r) && r.length < 4, target)
 
-        expect(twoPairKeys).to.deep.equal([ 2, 22, 4, 42 ])
+        expect(pairKeys).to.deep.equal([ 2, 22, 4, 42 ])
     })
 
-    it('deepFind nested objects', () => {
+    it('flowWhile nested objects', () => {
         const target = {
             something: {
                 mostly_empty: {}
@@ -171,14 +170,14 @@ describe('Algebras', () => {
             }
         }
 
-        let found = f.deepFind((k, v) => k === 'matching', target, 2)
+        let found = f.foldWhile((r, v, k) => k === 'matching' ? r.push({ [k]: v }) && r.length < 2 : true, target)
 
         expect(found).to.deep.equal([{
             matching: { key: 'value' }
         }])
     })
 
-    it('deepFind nested objects, ignoring fields', () => {
+    it('flowWhile nested objects, ignoring fields', () => {
         const target = {
             something: {
                 mostly_empty: {}
@@ -213,7 +212,7 @@ describe('Algebras', () => {
             }
         }
 
-        let found = f.deepFind((k, v) => k === 'matching' && v && !v.ignore, target, 2)
+        let found = f.foldWhile((r, v, k) => (k === 'matching' && v && !v.ignore) ? r.push({ [k]: v }) && r.length < 2 : true, target)
 
         expect(found).to.deep.equal([{
             matching: { key: 'value' }
@@ -225,9 +224,9 @@ describe('Algebras', () => {
             v.matching.modified = true
         }
 
-        let foundAgain = f.deepFind((k, v) => k === 'matching' && v && !v.ignore, target, 2)
+        found = f.foldWhile((r, v, k) => (k === 'matching' && v && !v.ignore) ? r.push({ [k]: v }) && r.length < 2 : true, target)
 
-        expect(foundAgain).to.deep.equal([{
+        expect(found).to.deep.equal([{
             matching: {
                 key: 'value',
                 modified: true
