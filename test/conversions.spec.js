@@ -26,10 +26,9 @@ describe('Converted Functions', () => {
         expect(f.includesIn(hero)('Zeus')).to.eql(_.includes('Zeus')(hero))
     })
     it('extendOn', () => {
-        let clone = _.clone(hero)
-        expect(f.extendOn(clone, { name: 'Hercules' })).to.eql(_.extend({ name: 'Hercules' }, clone))
-        clone = _.clone(hero)
-        expect(f.extendOn(clone, { consort: 'Auge' })).to.eql(_.extend({ consort: 'Auge' }, clone))
+        let expectEql = (clone, obj) => expect(f.extendOn(clone, obj)).to.eql(_.extend(obj, clone))
+        expectEql(_.clone(hero), { name: 'Hercules' })
+        expectEql(_.clone(hero), { consort: 'Auge' })
     })
     it('defaultsOn', () => {
         let clone = _.clone(hero)
