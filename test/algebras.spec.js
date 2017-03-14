@@ -10,7 +10,7 @@ describe('Algebras', () => {
 
         const arrBackup = _.cloneDeep(arr)
 
-        const arrMutated = f.deepMap(e => e.concat(101), arr)
+        const arrMutated = f.deepMap(e => _.isArray(e) ? e.concat(101) : e)(arr)
 
         // Checking immutability
         expect(arr).to.eql(arrBackup)
