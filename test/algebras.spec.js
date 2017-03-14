@@ -120,27 +120,4 @@ describe('Algebras', () => {
             }
         })
     })
-
-    it('deepMap Sets', () => {
-        const setRoot = new Set()
-        const set1 = new Set()
-        const set2 = new Set()
-        setRoot.add(0)
-        setRoot.add(set1)
-        set1.add(1)
-        set1.add(set2)
-        set2.add(2)
-
-        const map = (f, s) => {
-            for (let v of Array.from(s.values())) {
-                s.delete(v)
-                s.add(f(v))
-            }
-            return s
-        }
-
-        const setMutated = f.deepMap(s => s.add(101), setRoot, map, _.isSet)
-
-        expect(JSON.stringify(setMutated)).to.equal('[0,[1,[2,101],101]]')
-    })
 })
