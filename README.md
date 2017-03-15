@@ -19,6 +19,13 @@ See our [changelog](https://github.com/smartprocure/futil-js/blob/master/CHANGEL
 
 This package requires `lodash/fp`, so make sure that's available in your app.
 
+# Usage
+`import * as f from futil-js`
+or
+`import {x,y,z} from fuitl-js`
+
+The syntax: `import f from fuitl-js` is not currently supported.
+
 # API
 
 ## Function
