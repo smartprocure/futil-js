@@ -1,4 +1,4 @@
-# futil
+﻿# futil
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
@@ -164,3 +164,8 @@ Maps a function over a recursive iterable. Works by default for nested Arrays, n
 nested Arrays and Plain Objects. Also works for any other iterable data type as long as
 two other values are sent: a mapping function, and a type checker (See the
 unit tests for deepMap).
+
+## flowReduce
+`flowReduce :: (a -> b ... -> c) -> [a] -> [b]`
+Recursive reduce nested objects of any kind that
+stops at any point if a falsy value is returned.

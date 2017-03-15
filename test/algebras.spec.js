@@ -128,4 +128,130 @@ describe('Algebras', () => {
             }
         })
     })
+
+    it('flowReduce with integer accumulator', () => {
+        expect(f.flowReduce(acc => acc < 3, acc => ++acc)([ 1, 2, 3, 4 ], 0)).to.equal(3)
+    })
+
+    it('flowReduce simple test', () => {
+        const target = {
+            N1: [ {
+                N2: [ { N21: [ 210 ], N22: [ 220 ] } ],
+                N4: [ { N41: [ 410 ], N42: [ 420 ] } ],
+                N6: [ { N61: [ 610 ], N62: [ 620 ] } ],
+                N8: [ { N81: [ 810 ], N82: [ 820 ] } ]
+            }, {
+                N3: [ { N31: [ 310 ], N32: [ 320 ] } ],
+                N5: [ { N51: [ 510 ], N52: [ 520 ] } ],
+                N7: [ { N71: [ 710 ], N72: [ 720 ] } ],
+                N9: [ { N91: [ 910 ], N92: [ 920 ] } ]
+            } ]
+        }
+
+        const keyToInt = key => parseInt(key.slice(1))
+        const concatIfPair = (key, acc) => (key % 2 === 0) ? acc.concat(key) : acc
+
+        let pairKeys = f.flowReduce((acc, val, key) => concatIfPair(keyToInt(key), acc))(target)
+
+        expect(pairKeys).to.deep.equal([ 2, 22, 4, 42, 6, 62, 8, 82, 32, 52, 72, 92 ])
+
+        pairKeys = f.flowReduce(
+            acc => acc.length < 4,
+            (acc, val, key) => concatIfPair(keyToInt(key), acc)
+        )(target)
+
+        expect(pairKeys).to.deep.equal([ 2, 22, 4, 42 ])
+    })
+
+    it('flowReduce nested objects', () => {
+        const target = {
+            something: {
+                mostly_empty: {}
+            },
+            deep: {
+                object: {
+                    matching: {
+                        key: 'value'
+                    }
+                }
+            }
+        }
+
+        let found = f.flowReduce(
+            acc => acc.length < 2,
+            (acc, val, key) => key === 'matching' ? acc.concat({ [key]: val }) : acc
+        )(target)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value' }
+        }])
+    })
+
+    it('flowReduce nested objects, ignoring fields', () => {
+        const target = {
+            something: {
+                mostly_empty: {}
+            },
+            deep: {
+                object1: {
+                    matching: {
+                        key: 'value'
+                    },
+                    deeper: {
+                        object: {
+                            matching: {
+                                key: 'value',
+                                ignore: true
+                            }
+                        }
+                    }
+                },
+                object2: {
+                    matching: {
+                        key: 'value',
+                        ignore: true
+                    },
+                    deeper: {
+                        object: {
+                            matching: {
+                                key: 'value'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        let found = f.flowReduce(
+            acc => acc.length < 2,
+            (acc, val, key) => (key === 'matching' && val && !val.ignore) ? acc.concat({ [key]: val }) : acc
+        )(target)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value' }
+        }, {
+            matching: { key: 'value' }
+        }])
+
+        for (let v of found) {
+            v.matching.modified = true
+        }
+
+        found = f.flowReduce(
+            acc => acc.length < 2,
+            (acc, val, key) => (key === 'matching' && val && !val.ignore) ? acc.concat({ [key]: val }) : acc
+        )(target)
+
+        expect(found).to.deep.equal([{
+            matching: {
+                key: 'value',
+                modified: true
+            }
+        }, {
+            matching: {
+                key: 'value',
+                modified: true
+            }
+        }])
+    })
 })
