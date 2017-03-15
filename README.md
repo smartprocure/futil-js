@@ -22,9 +22,9 @@ This package requires `lodash/fp`, so make sure that's available in your app.
 # Usage
 `import * as f from futil-js`
 or
-`import {x,y,z} from fuitl-js`
+`import {x,y,z} from futil-js`
 
-The syntax: `import f from fuitl-js` is not currently supported.
+The syntax: `import f from futil-js` is not currently supported.
 
 # API
 
