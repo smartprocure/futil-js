@@ -128,4 +128,114 @@ describe('Algebras', () => {
             }
         })
     })
+
+    it('foldWhile simple test', () => {
+        const target = {
+            N1: [ {
+                N2: [ { N21: [ 210 ], N22: [ 220 ] } ],
+                N4: [ { N41: [ 410 ], N42: [ 420 ] } ],
+                N6: [ { N61: [ 610 ], N62: [ 620 ] } ],
+                N8: [ { N81: [ 810 ], N82: [ 820 ] } ]
+            }, {
+                N3: [ { N31: [ 310 ], N32: [ 320 ] } ],
+                N5: [ { N51: [ 510 ], N52: [ 520 ] } ],
+                N7: [ { N71: [ 710 ], N72: [ 720 ] } ],
+                N9: [ { N91: [ 910 ], N92: [ 920 ] } ]
+            } ]
+        }
+
+        const keyToInt = k => parseInt(k.slice(1))
+        const pushIfPair = (k, r) => (k % 2 === 0) && r.push(k) || true
+
+        let pairKeys = f.foldWhile((r, v, k) => pushIfPair(keyToInt(k), r), target)
+
+        expect(pairKeys).to.deep.equal([ 2, 22, 4, 42, 6, 62, 8, 82, 32, 52, 72, 92 ])
+
+        pairKeys = f.foldWhile((r, v, k) => pushIfPair(keyToInt(k), r) && r.length < 4, target)
+
+        expect(pairKeys).to.deep.equal([ 2, 22, 4, 42 ])
+    })
+
+    it('foldWhile nested objects', () => {
+        const target = {
+            something: {
+                mostly_empty: {}
+            },
+            deep: {
+                object: {
+                    matching: {
+                        key: 'value'
+                    }
+                }
+            }
+        }
+
+        let found = f.foldWhile((r, v, k) => k === 'matching' ? r.push({ [k]: v }) && r.length < 2 : true, target)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value' }
+        }])
+    })
+
+    it('foldWhile nested objects, ignoring fields', () => {
+        const target = {
+            something: {
+                mostly_empty: {}
+            },
+            deep: {
+                object1: {
+                    matching: {
+                        key: 'value'
+                    },
+                    deeper: {
+                        object: {
+                            matching: {
+                                key: 'value',
+                                ignore: true
+                            }
+                        }
+                    }
+                },
+                object2: {
+                    matching: {
+                        key: 'value',
+                        ignore: true
+                    },
+                    deeper: {
+                        object: {
+                            matching: {
+                                key: 'value'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        let found = f.foldWhile((r, v, k) => (k === 'matching' && v && !v.ignore) ? r.push({ [k]: v }) && r.length < 2 : true, target)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value' }
+        }, {
+            matching: { key: 'value' }
+        }])
+
+        for (let v of found) {
+            v.matching.modified = true
+        }
+
+        found = f.foldWhile((r, v, k) => (k === 'matching' && v && !v.ignore) ? r.push({ [k]: v }) && r.length < 2 : true, target)
+
+        expect(found).to.deep.equal([{
+            matching: {
+                key: 'value',
+                modified: true
+            }
+        }, {
+            matching: {
+                key: 'value',
+                modified: true
+            }
+        }])
+    })
 })

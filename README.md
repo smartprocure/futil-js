@@ -164,3 +164,10 @@ Maps a function over a recursive iterable. Works by default for nested Arrays, n
 nested Arrays and Plain Objects. Also works for any other iterable data type as long as
 two other values are sent: a mapping function, and a type checker (See the
 unit tests for deepMap).
+
+## foldWhile
+`foldWhile :: (a -> b) -> [a] -> [b]`
+Folds a recursive iterable by a given function which receives
+an accumulator, a value and a key. Returns the accumulator
+when the given function returns false at any point.
+Works just like haskell's `fold takeWhile`.

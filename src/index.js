@@ -29,6 +29,13 @@ export const map = _.curry((f, x) => (_.isArray(x) ? _.map : _.mapValues)(f, x))
 export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
     _map(e => is(e) ? deepMap(fn, fn(e), _map, is) : e, obj))
 
+// Recursive fold takeWhile (like in haskell)
+export const foldWhile = _.curry((fn, obj, r = []) => {
+    let innerFold = o => !isTraversable(o) ? o : _.every(k => fn(r, o[k], k) && innerFold(o[k]), _.keys(o))
+    innerFold(obj)
+    return r
+})
+
 // Misc
 // ----
 export const testRegex = regex => regex.test.bind(regex)
