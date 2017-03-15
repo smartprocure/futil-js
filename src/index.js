@@ -29,12 +29,24 @@ export const map = _.curry((f, x) => (_.isArray(x) ? _.map : _.mapValues)(f, x))
 export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
     _map(e => is(e) ? deepMap(fn, fn(e), _map, is) : e, obj))
 
-// Recursive fold takeWhile (like in haskell)
-export const foldWhile = _.curry((fn, obj, r = []) => {
-    let innerFold = o => !isTraversable(o) ? o : _.every(k => fn(r, o[k], k) && innerFold(o[k]), _.keys(o))
-    innerFold(obj)
-    return r
-})
+// Recursive reduce nested objects of any kind that
+// stops at any point if a falsy value is returned.
+export const flowReduce = (...fns) => (obj, acc = []) => {
+    if (typeof obj !== 'object') return acc
+    let _acc = acc
+    const type = typeof acc
+    // eslint-disable-next-line lodash-fp/no-unused-result
+    _.every(key => {
+        const pass = _.every(f => {
+            let result = f(_acc, obj[key], key)
+            if (typeof result === type) _acc = result
+            return result
+        }, fns)
+        if (pass) _acc = flowReduce(...fns)(obj[key], _acc)
+        return pass
+    }, _.keys(obj))
+    return _acc
+}
 
 // Misc
 // ----

@@ -1,4 +1,4 @@
-# futil
+﻿# futil
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
@@ -158,9 +158,7 @@ nested Arrays and Plain Objects. Also works for any other iterable data type as 
 two other values are sent: a mapping function, and a type checker (See the
 unit tests for deepMap).
 
-## foldWhile
-`foldWhile :: (a -> b) -> [a] -> [b]`
-Folds a recursive iterable by a given function which receives
-an accumulator, a value and a key. Returns the accumulator
-when the given function returns false at any point.
-Works just like haskell's `fold takeWhile`.
+## flowReduce
+`flowReduce :: (a -> b ... -> c) -> [a] -> [b]`
+Recursive reduce nested objects of any kind that
+stops at any point if a falsy value is returned.

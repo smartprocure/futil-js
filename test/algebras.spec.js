@@ -129,7 +129,11 @@ describe('Algebras', () => {
         })
     })
 
-    it('foldWhile simple test', () => {
+    it('flowReduce with integer accumulator', () => {
+        expect(f.flowReduce(acc => acc < 3, acc => ++acc)([ 1, 2, 3, 4 ], 0)).to.equal(3)
+    })
+
+    it('flowReduce simple test', () => {
         const target = {
             N1: [ {
                 N2: [ { N21: [ 210 ], N22: [ 220 ] } ],
@@ -144,19 +148,22 @@ describe('Algebras', () => {
             } ]
         }
 
-        const keyToInt = k => parseInt(k.slice(1))
-        const pushIfPair = (k, r) => (k % 2 === 0) && r.push(k) || true
+        const keyToInt = key => parseInt(key.slice(1))
+        const concatIfPair = (key, acc) => (key % 2 === 0) ? acc.concat(key) : acc
 
-        let pairKeys = f.foldWhile((r, v, k) => pushIfPair(keyToInt(k), r), target)
+        let pairKeys = f.flowReduce((acc, val, key) => concatIfPair(keyToInt(key), acc))(target)
 
         expect(pairKeys).to.deep.equal([ 2, 22, 4, 42, 6, 62, 8, 82, 32, 52, 72, 92 ])
 
-        pairKeys = f.foldWhile((r, v, k) => pushIfPair(keyToInt(k), r) && r.length < 4, target)
+        pairKeys = f.flowReduce(
+            acc => acc.length < 4,
+            (acc, val, key) => concatIfPair(keyToInt(key), acc)
+        )(target)
 
         expect(pairKeys).to.deep.equal([ 2, 22, 4, 42 ])
     })
 
-    it('foldWhile nested objects', () => {
+    it('flowReduce nested objects', () => {
         const target = {
             something: {
                 mostly_empty: {}
@@ -170,14 +177,17 @@ describe('Algebras', () => {
             }
         }
 
-        let found = f.foldWhile((r, v, k) => k === 'matching' ? r.push({ [k]: v }) && r.length < 2 : true, target)
+        let found = f.flowReduce(
+            acc => acc.length < 2,
+            (acc, val, key) => key === 'matching' ? acc.concat({ [key]: val }) : acc
+        )(target)
 
         expect(found).to.deep.equal([{
             matching: { key: 'value' }
         }])
     })
 
-    it('foldWhile nested objects, ignoring fields', () => {
+    it('flowReduce nested objects, ignoring fields', () => {
         const target = {
             something: {
                 mostly_empty: {}
@@ -212,7 +222,10 @@ describe('Algebras', () => {
             }
         }
 
-        let found = f.foldWhile((r, v, k) => (k === 'matching' && v && !v.ignore) ? r.push({ [k]: v }) && r.length < 2 : true, target)
+        let found = f.flowReduce(
+            acc => acc.length < 2,
+            (acc, val, key) => (key === 'matching' && val && !val.ignore) ? acc.concat({ [key]: val }) : acc
+        )(target)
 
         expect(found).to.deep.equal([{
             matching: { key: 'value' }
@@ -224,7 +237,10 @@ describe('Algebras', () => {
             v.matching.modified = true
         }
 
-        found = f.foldWhile((r, v, k) => (k === 'matching' && v && !v.ignore) ? r.push({ [k]: v }) && r.length < 2 : true, target)
+        found = f.flowReduce(
+            acc => acc.length < 2,
+            (acc, val, key) => (key === 'matching' && val && !val.ignore) ? acc.concat({ [key]: val }) : acc
+        )(target)
 
         expect(found).to.deep.equal([{
             matching: {
