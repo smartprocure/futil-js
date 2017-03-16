@@ -158,7 +158,9 @@ nested Arrays and Plain Objects. Also works for any other iterable data type as 
 two other values are sent: a mapping function, and a type checker (See the
 unit tests for deepMap).
 
-## flowReduce
-`flowReduce :: (a -> b ... -> c) -> [a] -> [b]`
-Recursive reduce nested objects of any kind that
-stops at any point if a falsy value is returned.
+## groupoid
+`groupoid :: (a -> b ... -> c) -> [a] -> [b]`
+General variable automata is the definition of
+non-deterministic input iterators over discrete state changes,
+aka groupoid category.
+See: <https://en.wikipedia.org/wiki/Automata_theory#Connection_to_category_theory>

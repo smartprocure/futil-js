@@ -129,11 +129,27 @@ describe('Algebras', () => {
         })
     })
 
-    it('flowReduce with integer accumulator', () => {
-        expect(f.flowReduce(acc => acc < 3, acc => ++acc)([ 1, 2, 3, 4 ], 0)).to.equal(3)
+    it('groupoid for variable accumulator', () => {
+        // Count until
+        expect(f.groupoid(acc => acc < 3, acc => ++acc)([ 1, 2, 3, 4 ], 0)).to.equal(3)
+        // Process number until
+        expect(f.groupoid(
+            x => x + 1,
+            x => x * x * x,
+            x => x / 2,
+            x => x < 1000
+        )('128023.9375'.split(''), 1)).to.equal(128023.9375)
+        // Process string until
+        expect(f.groupoid(
+            s => (x => x < 1000 && x)(parseFloat(s)),
+            x => x + 1,
+            x => x * x * x,
+            x => x / 2,
+            x => `${x}`
+        )('128023.9375'.split(''), '1')).to.equal('128023.9375')
     })
 
-    it('flowReduce simple test', () => {
+    it('groupoid simple test', () => {
         const target = {
             N1: [ {
                 N2: [ { N21: [ 210 ], N22: [ 220 ] } ],
@@ -151,11 +167,11 @@ describe('Algebras', () => {
         const keyToInt = key => parseInt(key.slice(1))
         const concatIfPair = (key, acc) => (key % 2 === 0) ? acc.concat(key) : acc
 
-        let pairKeys = f.flowReduce((acc, val, key) => concatIfPair(keyToInt(key), acc))(target)
+        let pairKeys = f.groupoid((acc, val, key) => concatIfPair(keyToInt(key), acc))(target)
 
         expect(pairKeys).to.deep.equal([ 2, 22, 4, 42, 6, 62, 8, 82, 32, 52, 72, 92 ])
 
-        pairKeys = f.flowReduce(
+        pairKeys = f.groupoid(
             acc => acc.length < 4,
             (acc, val, key) => concatIfPair(keyToInt(key), acc)
         )(target)
@@ -163,7 +179,7 @@ describe('Algebras', () => {
         expect(pairKeys).to.deep.equal([ 2, 22, 4, 42 ])
     })
 
-    it('flowReduce nested objects', () => {
+    it('groupoid for nested objects', () => {
         const target = {
             something: {
                 mostly_empty: {}
@@ -177,7 +193,7 @@ describe('Algebras', () => {
             }
         }
 
-        let found = f.flowReduce(
+        let found = f.groupoid(
             acc => acc.length < 2,
             (acc, val, key) => key === 'matching' ? acc.concat({ [key]: val }) : acc
         )(target)
@@ -187,7 +203,7 @@ describe('Algebras', () => {
         }])
     })
 
-    it('flowReduce nested objects, ignoring fields', () => {
+    it('groupoid for nested objects, ignoring fields', () => {
         const target = {
             something: {
                 mostly_empty: {}
@@ -222,7 +238,7 @@ describe('Algebras', () => {
             }
         }
 
-        let found = f.flowReduce(
+        let found = f.groupoid(
             acc => acc.length < 2,
             (acc, val, key) => (key === 'matching' && val && !val.ignore) ? acc.concat({ [key]: val }) : acc
         )(target)
@@ -237,7 +253,7 @@ describe('Algebras', () => {
             v.matching.modified = true
         }
 
-        found = f.flowReduce(
+        found = f.groupoid(
             acc => acc.length < 2,
             (acc, val, key) => (key === 'matching' && val && !val.ignore) ? acc.concat({ [key]: val }) : acc
         )(target)
