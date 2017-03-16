@@ -34,7 +34,7 @@ export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
 // aka groupoid category
 // See: https://en.m.wikipedia.org/wiki/Automata_theory#Connection_to_category_theory
 export const groupoid = (...funs) => function G (field, acc = []) {
-    if (typeof field !== 'object') return acc
+    if (!field || typeof field !== 'object') return acc
     let accepted = acc
     let state = acc
     let keys = Object.keys(field)

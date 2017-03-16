@@ -203,6 +203,67 @@ describe('Algebras', () => {
         }])
     })
 
+    it('groupoid doesn\'t stop with objects with null and undefined properties', () => {
+        const target = {
+            something: {
+                mostly_empty: {},
+                empty_property: null,
+                empty_property2: undefined,
+                some_empty_values: [
+                    null,
+                    undefined,
+                    {
+                        matching: {
+                            key: 'value1'
+                        }
+                    }
+                ]
+            },
+            empty_property: null,
+            empty_property2: undefined,
+            some_empty_values: [
+                null,
+                undefined,
+                {
+                    matching: {
+                        key: 'value2'
+                    }
+                }
+            ],
+            deep: {
+                object: {
+                    matching: {
+                        key: 'value3'
+                    },
+                    empty_property: null,
+                    empty_property2: undefined,
+                    some_empty_values: [
+                        null,
+                        undefined,
+                        {
+                            matching: {
+                                key: 'value4'
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+
+        let found = f.groupoid(
+            acc => acc.length < 3,
+            (acc, val, key) => key === 'matching' ? acc.concat({ [key]: val }) : acc
+        )(target)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value1' }
+        }, {
+            matching: { key: 'value2' }
+        }, {
+            matching: { key: 'value3' }
+        }])
+    })
+
     it('groupoid for nested objects, ignoring fields', () => {
         const target = {
             something: {
@@ -269,5 +330,36 @@ describe('Algebras', () => {
                 modified: true
             }
         }])
+    })
+
+    it('implementation of getPath with groupoids', () => {
+        let path = ['x', 'y', 'z']
+        let obj = {
+            key: 'root',
+            items: [{
+                key: 'x',
+                items: [{
+                    key: 'y',
+                    items: [{
+                        key: 'z',
+                        extra: 'blah'
+                    }, {
+                        key: 's'
+                    }]
+                }]
+            }]
+        }
+
+        const getPath = _.reduce((acc, k) => f.groupoid(
+            (a, b) => _.get('key', b) === k ? b : a,
+            a => a && !a.key
+        )(acc, null))
+
+        expect(getPath(obj, path)).to.deep.equal({
+            key: 'z',
+            extra: 'blah'
+        })
+
+        expect(getPath(obj, ['a'])).to.be.null
     })
 })
