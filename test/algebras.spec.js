@@ -132,6 +132,10 @@ describe('Algebras', () => {
     it('groupoid for variable accumulator', () => {
         // Count until
         expect(f.groupoid(acc => acc < 3, acc => ++acc)([ 1, 2, 3, 4 ], 0)).to.equal(3)
+        // Sum until
+        expect(f.groupoid(acc => acc < 4, (acc, v) => acc + v)([ 1, 2, 3, 4 ], 0)).to.equal(6)
+        // Sum backwards until
+        expect(f.groupoid(acc => acc < 4, (acc, v) => acc + v)([ 1, 2, 3, 4 ], 0, false, -1)).to.equal(4)
         // Process number until
         expect(f.groupoid(
             x => x + 1,
@@ -195,11 +199,112 @@ describe('Algebras', () => {
 
         let found = f.groupoid(
             acc => acc.length < 2,
-            (acc, val, key) => key === 'matching' ? acc.concat({ [key]: val }) : acc
+            (acc, val, key, path) =>
+                key.indexOf('matching') >= 0
+                ? acc.concat({ [key]: val, path }) : acc
         )(target)
 
         expect(found).to.deep.equal([{
-            matching: { key: 'value' }
+            matching: { key: 'value' },
+            path: [ 'deep', 'object' ]
+        }])
+    })
+
+    it('groupoid breadth first for nested objects', () => {
+        const target = {
+            something: {
+                matching: {
+                    key: 'value3'
+                }
+            },
+            matching: {
+                key: 'value1'
+            },
+            matchingToo: {
+                key: 'value2'
+            },
+            deep: {
+                object: {
+                    matching: {
+                        key: 'value4'
+                    },
+                    matchingToo: {
+                        key: 'value5'
+                    }
+                }
+            }
+        }
+
+        let found = f.groupoid(
+            (acc, val, key, path) =>
+                key.indexOf('matching') >= 0
+                ? acc.concat({ [key]: val, path }) : acc
+        )(target, [], true)
+
+        expect(found).to.deep.equal([{
+            matching: { key: 'value1' },
+            path: []
+        }, {
+            matchingToo: { key: 'value2' },
+            path: []
+        }, {
+            matching: { key: 'value3' },
+            path: [ 'something' ]
+        }, {
+            matching: { key: 'value4' },
+            path: [ 'deep', 'object' ]
+        }, {
+            matchingToo: { key: 'value5' },
+            path: [ 'deep', 'object' ]
+        }])
+    })
+
+    it('groupoid reverse breadth first for nested objects', () => {
+        const target = {
+            something: {
+                matching: {
+                    key: 'value3'
+                }
+            },
+            matching: {
+                key: 'value1'
+            },
+            matchingToo: {
+                key: 'value2'
+            },
+            deep: {
+                object: {
+                    matching: {
+                        key: 'value4'
+                    },
+                    matchingToo: {
+                        key: 'value5'
+                    }
+                }
+            }
+        }
+
+        let found = f.groupoid(
+            (acc, val, key, path) =>
+                key.indexOf('matching') >= 0
+                ? acc.concat({ [key]: val, path }) : acc
+        )(target, [], true, -1)
+
+        expect(found).to.deep.equal([{
+            matchingToo: { key: 'value2' },
+            path: []
+        }, {
+            matching: { key: 'value1' },
+            path: []
+        }, {
+            matchingToo: { key: 'value5' },
+            path: [ 'deep', 'object' ]
+        }, {
+            matching: { key: 'value4' },
+            path: [ 'deep', 'object' ]
+        }, {
+            matching: { key: 'value3' },
+            path: [ 'something' ]
         }])
     })
 
@@ -361,5 +466,51 @@ describe('Algebras', () => {
         })
 
         expect(getPath(obj, ['a'])).to.be.null
+    })
+
+    it('groupoid changing values in place, like a map', () => {
+        let target = {
+            key: 'root',
+            items: [{
+                key: 'x',
+                items: [{
+                    key: 'y',
+                    items: [{
+                        key: 'z',
+                        extra: 'blah'
+                    }, {
+                        key: 's'
+                    }]
+                }]
+            }]
+        }
+
+        const fixArrayKeys = k => isNaN(parseInt(k)) ? k : `[${k}]`
+        const fixPath = _.flow(_.map(fixArrayKeys), _.join('.'), x => x.replace(/\.\[/g, '['))
+        const mapStrings = (fn, obj) => f.groupoid(
+            (o, v, k, path) => {
+                if (!_.isString(v)) return o
+                let loPath = fixPath(path.concat(k))
+                return _.has(loPath, o) ? _.set(loPath, fn(v), o) : o
+            }
+        )(obj, obj)
+
+        const result = mapStrings(x => x.toUpperCase(), target)
+
+        expect(result).to.deep.equal({
+            key: 'ROOT',
+            items: [{
+                key: 'X',
+                items: [{
+                    key: 'Y',
+                    items: [{
+                        key: 'Z',
+                        extra: 'BLAH'
+                    }, {
+                        key: 'S'
+                    }]
+                }]
+            }]
+        })
     })
 })

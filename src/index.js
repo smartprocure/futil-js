@@ -33,23 +33,46 @@ export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
 // non-deterministic input iterators over discrete state changes
 // aka groupoid category
 // See: https://en.m.wikipedia.org/wiki/Automata_theory#Connection_to_category_theory
-export const groupoid = (...funs) => function G (field, acc = []) {
+export const groupoid = (...funs) => function G (
+    field,
+    acc = [],
+    breadth,
+    orientation = 1,
+    path = []
+) {
     if (!field || typeof field !== 'object') return acc
     let accepted = acc
     let state = acc
     let keys = Object.keys(field)
+    if (orientation < 0) keys = keys.reverse()
     let key = keys.shift()
     let fN = 0
+    let nextBreadth = []
     while (state !== false) {
         accepted = state
-        if (!funs[fN]) {
+        let f = funs[fN]
+        if (!f) {
             key = keys.shift()
             fN = 0
+            f = funs[fN]
         }
         if (!key) break
-        let result = G(field[key], funs[fN](state, field[key], key))
+        let val = field[key]
+        let result = f(state, val, key, path)
+        if (breadth && val && typeof val === 'object') {
+            nextBreadth.push({ val, key })
+        } else {
+            result = G(val, result, breadth, orientation, path.concat(key))
+        }
         if (result !== true) state = result
         fN++
+    }
+    if (nextBreadth.length) {
+        accepted = [accepted].concat(nextBreadth).reduce((a, { val, key }) => {
+            let result = G(val, a, breadth, orientation, path.concat(key))
+            if (result === true) return a
+            return result
+        })
     }
     return accepted
 }
