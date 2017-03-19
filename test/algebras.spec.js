@@ -135,6 +135,14 @@ describe('Algebras', () => {
         expect(f.groupoid(reducer)(numbers)).to.deep.equal(_.reduce(reducer)([], numbers))
     })
 
+    it('groupoid follows circular references as they are', () => {
+        let reducer = (a, b, k) => b === true ? a.concat(a.length) : a
+        let stopAtTen = a => a.length < 10
+        let circular = { count: true }
+        circular.circular = circular
+        expect(f.groupoid(reducer, stopAtTen)(circular)).to.deep.equal([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ])
+    })
+
     it('groupoid for variable accumulator', () => {
         // Count until
         expect(f.groupoid(acc => acc < 3, acc => ++acc)([ 1, 2, 3, 4 ], 0)).to.equal(3)

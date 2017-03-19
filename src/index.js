@@ -46,8 +46,8 @@ export const groupoid = (...funs) => function G (
     // Optional parameters
     acc = [], // accumulator
     breadth, // breadth first is falsy by default
-    orientation = 1, // > 0 by default, goes bottom to top if < 0
-    path = [] // only used for recursion purposes
+    orientation = 1, // > 0 by default, goes bottom to top if < 0 // TODO: Expose a groupoidRight to make this easier
+    path = [] // only used for recursion purposes, to expose the parent keys of the current key value pair
 ) {
     // return the current accumulator if the field is not iterable
     if (!field || typeof field !== 'object') return acc
