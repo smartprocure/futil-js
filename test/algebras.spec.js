@@ -129,6 +129,12 @@ describe('Algebras', () => {
         })
     })
 
+    it('groupoid is just like reduce, but also for more than one dimension', () => {
+        let reducer = (a, b) => a.concat(b * b)
+        let numbers = [ 1, 2, 3, 4 ]
+        expect(f.groupoid(reducer)(numbers)).to.deep.equal(_.reduce(reducer)([], numbers))
+    })
+
     it('groupoid for variable accumulator', () => {
         // Count until
         expect(f.groupoid(acc => acc < 3, acc => ++acc)([ 1, 2, 3, 4 ], 0)).to.equal(3)
