@@ -90,12 +90,11 @@ export const groupoid = (...funs) => function G (
         fN++
     }
     // if breadth first, going recursive on what was nested in this layer
-    if (nextBreadth.length) {
-        accepted = [accepted].concat(nextBreadth).reduce((a, { val, key }) => {
-            let result = G(val, a, breadth, orientation, path.concat(key))
-            if (result === true) return a
-            return result
-        })
+    let result = accepted
+    while (result && nextBreadth.length) {
+        let { val, key } = nextBreadth.shift()
+        result = G(val, accepted, breadth, orientation, path.concat(key))
+        if (result && result !== true) accepted = result
     }
     return accepted
 }
