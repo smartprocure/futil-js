@@ -1,4 +1,4 @@
-# futil
+﻿# futil
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
@@ -164,3 +164,10 @@ Maps a function over a recursive iterable. Works by default for nested Arrays, n
 nested Arrays and Plain Objects. Also works for any other iterable data type as long as
 two other values are sent: a mapping function, and a type checker (See the
 unit tests for deepMap).
+
+## groupoid
+`groupoid :: (a -> b ... -> c) -> [a] -> [b]`
+General variable automata is the definition of
+non-deterministic input iterators over discrete state changes,
+aka groupoid category.
+See: <https://en.wikipedia.org/wiki/Automata_theory#Connection_to_category_theory>
