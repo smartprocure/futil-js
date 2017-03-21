@@ -1,9 +1,8 @@
 module.exports = {
     'extends': 'standard',
+    parser: 'babel-eslint',
     plugins: [
-        'mocha'
-    ],
-    plugins: [
+        'mocha',
         'lodash-fp'
     ],
     rules: {
@@ -27,6 +26,12 @@ module.exports = {
         'lodash-fp/prefer-get': 'error',
         'lodash-fp/prefer-identity': [ 'error', { arrowFunctions: false } ],
         'lodash-fp/preferred-alias': 'off',
-        'lodash-fp/use-fp': 'error'
+        'lodash-fp/use-fp': 'error',
+        'mocha/no-exclusive-tests': 'error',
+        'mocha/no-skipped-tests': 'error',
+        'mocha/handle-done-callback': 'error',
+        'mocha/no-global-tests': 'error',
+        'mocha/valid-suite-description': 'error',
+        'mocha/no-sibling-hooks': 'error'
     }
 }

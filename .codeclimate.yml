@@ -7,19 +7,13 @@ engines:
           mass_threshold: 80
   eslint:
     enabled: true
-  fixme:
-    enabled: true
+    channel: "eslint-3"
+    config:
+      config: .eslintrc.js
+      extensions:
+      - .js
 ratings:
   paths:
-  - "**.inc"
   - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
-  - "**.rb"
-exclude_paths:
-- "lib/"
-- "tests/"
-- "spec/"
-- "**/vendor/"
+  exclude_paths:
+  - "lib/"

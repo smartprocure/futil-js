@@ -21,6 +21,7 @@ test:
 #    - npm run cicoverage
 #    - ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
 #    - ./node_modules/.bin/codacy-coverage < ./coverage/lcov.info
+#    - ./node_modules/.bin/codeclimate-test-reporter < ./coverage/lcov.info
 #    - rm -fr ./coverage
 
 # run npm publish on tagged commits
