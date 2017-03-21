@@ -6,6 +6,14 @@ chai.expect()
 const expect = chai.expect
 
 describe('Algebras', () => {
+    it('map arrays', () => {
+        expect(f.map(x => x * x, [ 1, 2, 3 ])).to.deep.equal([ 1, 4, 9 ])
+    })
+
+    it('map plain objects', () => {
+        expect(f.map(x => x * x, { a: 1, b: 2, c: 3 })).to.deep.equal({ a: 1, b: 4, c: 9 })
+    })
+
     it('deepMap arrays', () => {
         const arr = [ 0, [ 1, [ 2, [ ] ] ] ]
 

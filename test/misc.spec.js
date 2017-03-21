@@ -18,11 +18,27 @@ describe('Basic Functions', () => {
 describe('String Functions', () => {
     it('wrap', () => {
         expect(f.wrap('(', ')', 'asdf')).to.equal('(asdf)')
+        expect(f.wrap(null, null, 'asdf')).to.equal('asdf')
     })
     it('quote', () => {
         expect(f.quote('asdf')).to.equal('"asdf"')
     })
     it('parens', () => {
         expect(f.parens('asdf')).to.equal('(asdf)')
+    })
+})
+
+describe('Math Functions', () => {
+    it('greaterThanOne', () => {
+        for (let i = -10; i < 10; i++) {
+            expect(f.greaterThanOne(i)).to.equal(i > 1)
+        }
+    })
+})
+
+describe('Regexp Functions', () => {
+    it('testRegex', () => {
+        expect(f.testRegex(/smart/i)('SmartProcure')).to.equal(true)
+        expect(f.testRegex(/smart/)('SmartProcure')).to.equal(false)
     })
 })
