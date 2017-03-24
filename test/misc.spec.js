@@ -51,7 +51,7 @@ describe('Regexp Functions', () => {
     it('makeAndTest', () => {
         const reText = 'Some text'
         const options = 'gi'
-        const text = "Here is some text to test"
+        const text = 'Here is some text to test'
         const regex = RegExp(reText, options)
 
         expect(f.makeAndTest(options)(reText)(text)).to.deep.equal(regex.test(text))
@@ -60,9 +60,8 @@ describe('Regexp Functions', () => {
     it('matchAnyWord', () => {
         const reText = 'Some text'
         const options = 'gi'
-        const text = "Here is some text to test"
-        const regex = RegExp(reText, options)
-        const match = f.matchAnyWord(reText)
+        const text = 'Here is some text to test'
+
         expect(match(text)).to.equal(true)
     })
 })
