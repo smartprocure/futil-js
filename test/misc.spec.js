@@ -59,9 +59,8 @@ describe('Regexp Functions', () => {
 
     it('matchAnyWord', () => {
         const reText = 'Some text'
-        const options = 'gi'
         const text = 'Here is some text to test'
-
+        const match = f.matchAnyWord(reText)
         expect(match(text)).to.equal(true)
     })
 })
