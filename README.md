@@ -146,6 +146,11 @@ Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 
 ### testRegex
 `regex -> string -> bool` Just like rambda test, creates a function to test a regex on a string.
+`makeRegex -> options -> string -> regex` Just a curry implementation of RegExp construction.
+`makeAndTest -> options -> (string) -> ` makes and tests a RegExp with makeRegex and testRegex
+`matchAnyWord -> string -> string -> bool` 
+takes a string to split into words and returns true if second string match any of the words
+
 
 
 ## Math
