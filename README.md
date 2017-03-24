@@ -155,7 +155,7 @@ Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 
 ### matchAnyWord
 `matchAnyWord -> string -> string -> bool` 
-takes a string to split into words and returns true if second string match any of the words
+takes a string to split into words and returns true if the second string match any of the words
 
 
 
