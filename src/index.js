@@ -32,3 +32,7 @@ export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
 // Misc
 // ----
 export const testRegex = regex => regex.test.bind(regex)
+
+// Gets all the regexp.exec indexes and their respective lastIndexes
+export const postings = _.curry((r, s) =>
+    _.map(x => (m => [m.index, r.lastIndex])(r.exec(s)), s.match(r)))

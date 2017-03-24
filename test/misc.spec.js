@@ -40,4 +40,8 @@ describe('Regexp Functions', () => {
         expect(f.testRegex(/smart/i)('SmartProcure')).to.equal(true)
         expect(f.testRegex(/smart/)('SmartProcure')).to.equal(false)
     })
+    it('postings', () => {
+        expect(f.postings(/p/gi, 'pretty please')).to.deep.equal([[0, 1], [7, 8]])
+        expect(f.postings(/wh/gi, 'what whale')).to.deep.equal([[0, 2], [5, 7]])
+    })
 })
