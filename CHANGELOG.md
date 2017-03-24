@@ -1,4 +1,9 @@
-﻿# 1.8.0-1.8.3
+# 1.9.0
+- `makeRegex` curried implementation of the RegExp construction.
+- `makeAndTest` makes and tests a RegExp with `makeRegex` and `testRegex`
+- `matchAnyWord` takes a string and returns an array of matching words
+
+# 1.8.0-1.8.3
 - `map` added to seamlessly map array and plain objects.
 - `deepMap` added to seamlessly map recursive arrays and plain
   objects. Also optionally allows mappings to any recursive algebraic
