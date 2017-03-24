@@ -148,7 +148,7 @@ Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 `regex -> string -> bool` Just like rambda test, creates a function to test a regex on a string.
 
 ### makeRegex
-`makeRegex -> options -> string -> regex` Just a curry implementation of RegExp construction.
+`makeRegex -> options -> string -> regex` Just a curried implementation of the RegExp construction.
 
 ### makeAndTest
 `makeAndTest -> options -> (string) -> ` makes and tests a RegExp with makeRegex and testRegex
