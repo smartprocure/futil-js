@@ -1,5 +1,5 @@
 # 1.9.0
-- `makeRegex` curry implementation of RegExp construction.
+- `makeRegex` curried implementation of the RegExp construction.
 - `makeAndTest` makes and tests a RegExp with `makeRegex` and `testRegex`
 - `matchAnyWord` takes a string and returns an array of matching words
 
