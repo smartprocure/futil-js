@@ -38,14 +38,11 @@ const mergeRangesOver = (result, posting) => {
     : result.push(posting)
   return result
 }
-
-export const flattenPostings = arrOfPostingsByWord => {
-  const sortedFlatten = _.flow(
-    _.flatten,
-    _.sortBy([0, 1])
-  )(arrOfPostingsByWord)
-  return _.reduce(mergeRangesOver, [])(sortedFlatten)
-}
+const flattenPostings = _.flow(
+  _.flatten,
+  _.sortBy([0, 1]),
+  _.reduce(mergeRangesOver, [])
+)
 
 export const highlight = (start, end, postings, str) => {
   let offset = 0
