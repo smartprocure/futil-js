@@ -157,6 +157,29 @@ Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 `matchAnyWord -> string -> string -> bool` 
 takes a string to split into words and returns true if the second string match any of the words
 
+### postings
+`(regex, string) -> []`
+takes a RegEx and a string and return an array of postings (ranges)
+
+### postingsForWords
+`(wordsString, string) -> []`
+takes a string of words and an string to match, return an array of arrays of postings (ranges)
+
+### highlight
+`(start, end, postings, string) -> string`
+takes start and end tags to enclose the postings into the string
+
+### flattenPostings
+`flattenPostings -> [] -> []`
+takes an array of postings or postingsForWords and return a flattened and ordered array of postings
+
+### mergeRanges
+`mergeRangesr -> (r1, r2) -> []`
+takes two ranges and return the merge of both if they intersect else return both
+
+### insertAtIndex
+`insertAtIndex -> (index, val, string) -> string`
+insert the val into the string at the specified index and return the modified string 
 
 ## Math
 ### greaterThanOne
