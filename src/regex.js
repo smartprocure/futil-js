@@ -20,13 +20,10 @@ export const postings = (regex, str) => {
   return result
 }
 
-export const postingsForWords = (string, str) => {
-  const postingsByWord = (result, word) => {
-    result.push(postings(RegExp(word, 'gi'), str))
-    return result
-  }
-  return _.reduce(postingsByWord, [])(_.words(string))
-}
+let push = (val, arr) => arr.concat([val])
+export const postingsForWords = (string, str) => _.reduce(
+  (result, word) => push(postings(RegExp(word, 'gi'), str), result), []
+)(_.words(string))
 
 export const insertAtIndex = (index, val, str) => str.slice(0, index) + val + str.slice(index)
 
