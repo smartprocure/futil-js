@@ -1,30 +1,24 @@
-var path = require('path');
-
-var libraryName = 'futil-js';
-var outputFile = libraryName + '.js';
+var path = require('path')
+var libraryName = 'futil-js'
+var outputFile = libraryName + '.js'
 
 module.exports = {
-    devtool: 'source-map',
-    entry: __dirname + '/src/index.js',
-    output: {
-        path: __dirname + '/lib',
-        filename: outputFile,
-        library: libraryName,
-        libraryTarget: 'umd'//,
-        // umdNamedDefine: true
-    },
-    module: {
-        loaders: [{
-            test: /(\.jsx|\.js)$/,
-            loader: 'babel-loader',
-            exclude: /(node_modules|bower_components)/
-        // }, {
-        //     test: /(\.jsx|\.js)$/,
-        //     loader: "eslint-loader",
-        //     exclude: /node_modules/
-        }]
-    },
-    externals: {
-        'lodash/fp': 'lodash/fp'
-    }
-};
+  devtool: 'source-map',
+  entry: path.join(__dirname, 'src/index.js'),
+  output: {
+    path: path.join(__dirname, 'lib'),
+    filename: outputFile,
+    library: libraryName,
+    libraryTarget: 'umd'
+  },
+  module: {
+    loaders: [{
+      test: /(\.jsx|\.js)$/,
+      loader: 'babel-loader',
+      exclude: /(node_modules|bower_components)/
+    }]
+  },
+  externals: {
+    'lodash/fp': 'lodash/fp'
+  }
+}
