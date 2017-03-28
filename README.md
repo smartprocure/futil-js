@@ -174,7 +174,7 @@ takes start and end tags to enclose the postings into the string
 takes an array of postings or postingsForWords and return a flattened and ordered array of postings
 
 ### mergeRanges
-`mergeRangesr -> (r1, r2) -> []`
+`mergeRanges -> (r1, r2) -> []`
 takes two ranges and return the merge of both if they intersect else return both
 
 ### insertAtIndex
