@@ -73,6 +73,17 @@ Any methods that interact with mutable data will use the `On` convention (as it 
 `data:array -> result:array` Returns an array of elements that are repeated in the array.
 
 
+### mergeRanges
+`mergeRanges -> (r1, r2) -> []` Takes two ranges and return the merge of both if they intersect else return both.
+
+Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
+
+### insertAtIndex
+`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
+
+Example: `(1, '123', 'hi') -> 'h123i'`
+
+
 ## Object
 
 ### singleObject
@@ -145,41 +156,24 @@ Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 ## Regex
 
 ### testRegex
-`regex -> string -> bool` Just like rambda test, creates a function to test a regex on a string.
+`regex -> string -> bool` Just like ramda test, creates a function to test a regex on a string.
 
 ### makeRegex
-`makeRegex -> options -> string -> regex` Just a curried implementation of the RegExp construction.
+`options:string -> string -> regex` A curried implementation of `RegExp` construction.
 
 ### makeAndTest
-`makeAndTest -> options -> (string) -> ` makes and tests a RegExp with makeRegex and testRegex
+`options:string -> string -> (string -> bool)` Makes and tests a RegExp with makeRegex and testRegex.
 
 ### matchAnyWord
-`matchAnyWord -> string -> string -> bool` 
-takes a string to split into words and returns true if the second string match any of the words
+`string -> string -> bool` Returns true if the second string matches any of the words in the first string.
 
 ### postings
-`(regex, string) -> []`
-takes a RegEx and a string and return an array of postings (ranges)
-
-### postingsForWords
-`(wordsString, string) -> []`
-takes a string of words and an string to match, return an array of arrays of postings (ranges)
+`regex -> string -> [Range:[number, number]]` Returns an array of postings (position ranges) for a regex and string to test.
 
 ### highlight
-`(start, end, postings, string) -> string`
-takes start and end tags to enclose the postings into the string
+`start:string -> end:string -> postings:[Range:[number, number]] -> input:string -> string` Highlights postings in a string wrapping in `start` and `end`.
 
-### flattenPostings
-`flattenPostings -> [] -> []`
-takes an array of postings or postingsForWords and return a flattened and ordered array of postings
-
-### mergeRanges
-`mergeRanges -> (r1, r2) -> []`
-takes two ranges and return the merge of both if they intersect else return both
-
-### insertAtIndex
-`insertAtIndex -> (index, val, string) -> string`
-insert the val into the string at the specified index and return the modified string 
+Example: `('<b>', '<b>', [[0,1]], 'hi') -> '<b>h</b>i'`
 
 ## Math
 ### greaterThanOne
