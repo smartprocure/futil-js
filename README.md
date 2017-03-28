@@ -142,10 +142,20 @@ Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 `'asdf' -> '(asdf)'` Wraps a string in parenthesis.
 
 
-## Misc
+## Regex
 
 ### testRegex
 `regex -> string -> bool` Just like rambda test, creates a function to test a regex on a string.
+
+### makeRegex
+`makeRegex -> options -> string -> regex` Just a curried implementation of the RegExp construction.
+
+### makeAndTest
+`makeAndTest -> options -> (string) -> ` makes and tests a RegExp with makeRegex and testRegex
+
+### matchAnyWord
+`matchAnyWord -> string -> string -> bool` 
+takes a string to split into words and returns true if the second string match any of the words
 
 
 ## Math
