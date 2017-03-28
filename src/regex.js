@@ -9,7 +9,6 @@ export const matchAnyWord = _.flow(
   _.overSome
 )
 
-// TODO: decrapify
 export const postings = (regex, str) => {
   var match = regex.exec(str)
   let result = []
