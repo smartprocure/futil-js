@@ -4,6 +4,7 @@ export * from './conversion'
 export * from './function'
 export * from './array'
 export * from './object'
+export * from './regex'
 
 // Math
 // ----
@@ -28,7 +29,3 @@ export const map = _.curry((f, x) => (_.isArray(x) ? _.map : _.mapValues)(f, x))
 // defaults in multidimensional arrays and recursive plain objects
 export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
     _map(e => is(e) ? deepMap(fn, fn(e), _map, is) : e, obj))
-
-// Misc
-// ----
-export const testRegex = regex => regex.test.bind(regex)

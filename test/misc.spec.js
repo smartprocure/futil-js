@@ -34,10 +34,3 @@ describe('Math Functions', () => {
         }
     })
 })
-
-describe('Regexp Functions', () => {
-    it('testRegex', () => {
-        expect(f.testRegex(/smart/i)('SmartProcure')).to.equal(true)
-        expect(f.testRegex(/smart/)('SmartProcure')).to.equal(false)
-    })
-})
