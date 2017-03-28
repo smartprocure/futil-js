@@ -17,7 +17,7 @@ deploy:
 before_script:
     - git remote set-branches --add origin master
     - git fetch
-    - LIST=$(git diff-index --name-only origin/master | grep .*\\.js | grep -v json | grep -v eslint | tr '\n' ' '); if [ "$LIST" ]; then eslint $LIST; fi
+    - LIST=$(git diff-index --name-only origin/master | grep .*\\.js | grep -v json | grep -v eslint | tr '\n' ' '); if [ "$LIST" ]; then eslint -c .eslintrc.js $LIST; fi
 after_script:
     - npm run cicoverage
     - ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
