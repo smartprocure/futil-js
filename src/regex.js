@@ -31,7 +31,7 @@ export const postingsForWords = (string, str) => {
 
 export const insertAtIndex = (index, val, str) => str.slice(0, index) + val + str.slice(index)
 
-export const mergeRanges = (p1, p2) => (p2[0] <= p1[1]) && [[p1[0], _.max([p1[1], p2[1]])]] || [p1, p2]
+export const mergeRanges = ((p1, p2) => (p2[0] <= p1[1]) && [[p1[0], _.max([p1[1], p2[1]])]]) || [p1, p2]
 
 const mergeRangesOver = (result, posting) => {
   result.length
