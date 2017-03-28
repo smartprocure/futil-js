@@ -31,9 +31,9 @@ export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 // map rename implementation (not used here yet):
 // http://jsfiddle.net/daedalus28/8uQUD/
 export const renameProperty = _.curry((from, to, target) => {
-    target[to] = target[from]
-    delete target[from]
-    return target
+  target[to] = target[from]
+  delete target[from]
+  return target
 })
 
 // { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
