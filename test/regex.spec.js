@@ -33,3 +33,70 @@ describe('Regexp Functions', () => {
         expect(match(text)).to.equal(true)
     })
 })
+
+describe('Posting Highlight Functions', () => {
+    it('should get postings', function () {
+        var result = f.postings(RegExp('p', 'gi'), 'pretty please')
+        expect(result).to.deep.equal([[0, 1], [7, 8]])
+    })
+    it('should get postings by word', function () {
+        var result = f.postingsForWords('pret pr t ', 'pretty prease')
+        expect(result).to.deep.equal([
+            [
+                [0, 4]
+            ],
+            [
+                [0, 2], [7, 9]
+            ],
+            [
+                [3, 4],
+                [4, 5]
+            ]
+        ])
+    })
+    it('should insertAtIndex', function () {
+        var result = f.insertAtIndex(0, '<span>', 'pretty please')
+        expect(result).to.equal('<span>pretty please')
+    })
+    it('should highlight', function () {
+        let input = 'pretty please'
+        let postings = f.postings(RegExp('p', 'gi'), input)
+        expect(f.highlight('<span class="highlight">', '</span>', postings, input))
+            .to
+            .equal('</span><span class="highlight"></span><span class="highlight"></span><span class="highlight"></span><span class="highlight">pretty please')
+    })
+    it('should highlight backwards postings', function () {
+        let input = 'pretty please'
+        expect(f.highlight('<span class="highlight">', '</span>', [[7, 8], [0, 1]], input))
+            .to
+            .equal('</span><span class="highlight"></span><span class="highlight"></span><span class="highlight"></span><span class="highlight">pretty please')
+    })
+    it('should flatten pstings by word', () => {
+        expect(f.flattenPostings([
+            [
+                [0, 4]
+            ],
+            [
+                [0, 2], [7, 9]
+            ],
+            [
+                [3, 4],
+                [4, 5]
+            ]
+        ])).to.deep.equal([[0, 5], [7, 9]])
+    })
+    it('should flatten pstings by word', () => {
+        expect(f.flattenPostings([
+            [
+                [0, 4]
+            ],
+            [
+                [0, 2], [7, 9]
+            ],
+            [
+                [3, 4],
+                [4, 5]
+            ]
+        ])).to.deep.equal([[0, 5], [7, 9]])
+    })
+})
