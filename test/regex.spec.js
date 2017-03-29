@@ -61,7 +61,7 @@ describe('Posting Highlight Functions', () => {
   })
   var start = '<span class="highlight">'
   var end = '</span>'
-  
+
   it('should highlight', () => {
     let input = 'pretty please'
     let postings = f.postings(RegExp('p', 'gi'), input)
