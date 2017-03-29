@@ -1,4 +1,6 @@
-﻿# 1.9.0
+# 1.9.0
+- Added regex and postings based highlighting functions `postings`, `postingsForWords`, `highlightFromPostings`, `highlight`
+- Added range manipulation funcitons `push`, `mergeRanges`, `insertAtIndex`
 - `makeRegex` curried implementation of the RegExp construction.
 - `makeAndTest` makes and tests a RegExp with `makeRegex` and `testRegex`
 - `matchAnyWord` takes a string and returns an array of matching words
