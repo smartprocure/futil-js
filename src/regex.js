@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import {push, insertAtIndex, mergeRanges} from './array'
 
 export const testRegex = regex => regex.test.bind(regex)
 export const makeRegex = options => text => RegExp(text, options)
@@ -20,25 +21,21 @@ export const postings = (regex, str) => {
   return result
 }
 
-let push = (val, arr) => arr.concat([val])
 export const postingsForWords = (string, str) => _.reduce(
   (result, word) => push(postings(RegExp(word, 'gi'), str), result), []
 )(_.words(string))
 
-export const insertAtIndex = (index, val, str) => str.slice(0, index) + val + str.slice(index)
-
-export const mergeRanges = (p1, p2) => ((p2[0] <= p1[1]) && [[p1[0], _.max([p1[1], p2[1]])]]) || [p1, p2]
-
-const mergeRangesOver = (result, posting) => {
+const mergeAllRanges = _.reduce((result, range) => {
   result.length
-    ? result = _.concat(result, mergeRanges(result.pop(), posting))
-    : result.push(posting)
+    ? result = _.concat(result, mergeRanges(result.pop(), range))
+    : result.push(range)
   return result
-}
+},[])
+
 const flattenPostings = _.flow(
   _.flatten,
   _.sortBy([0, 1]),
-  _.reduce(mergeRangesOver, [])
+  mergeAllRanges
 )
 
 export const highlight = (start, end, postings, str) => {

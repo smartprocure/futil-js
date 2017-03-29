@@ -83,6 +83,9 @@ Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
 
 Example: `(1, '123', 'hi') -> 'h123i'`
 
+### push
+`(val, array) -> array Return the array with the val pushed`
+
 
 ## Object
 

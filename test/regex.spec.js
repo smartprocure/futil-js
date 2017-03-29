@@ -1,5 +1,6 @@
 import chai from 'chai'
 import * as f from '../src/regex'
+import {insertAtIndex} from '../src/array'
 chai.expect()
 const expect = chai.expect
 
@@ -55,7 +56,7 @@ describe('Posting Highlight Functions', () => {
     ])
   })
   it('should insertAtIndex', function () {
-    var result = f.insertAtIndex(0, '<span>', 'pretty please')
+    var result = insertAtIndex(0, '<span>', 'pretty please')
     expect(result).to.equal('<span>pretty please')
   })
   it('should highlight', function () {
@@ -70,33 +71,5 @@ describe('Posting Highlight Functions', () => {
     expect(f.highlight('<span class="highlight">', '</span>', [[7, 8], [0, 1]], input))
       .to
       .equal('</span><span class="highlight"></span><span class="highlight"></span><span class="highlight"></span><span class="highlight">pretty please')
-  })
-  it('should flatten pstings by word', () => {
-    expect(f.flattenPostings([
-      [
-        [0, 4]
-      ],
-      [
-        [0, 2], [7, 9]
-      ],
-      [
-        [3, 4],
-        [4, 5]
-      ]
-    ])).to.deep.equal([[0, 5], [7, 9]])
-  })
-  it('should flatten pstings by word', () => {
-    expect(f.flattenPostings([
-      [
-        [0, 4]
-      ],
-      [
-        [0, 2], [7, 9]
-      ],
-      [
-        [3, 4],
-        [4, 5]
-      ]
-    ])).to.deep.equal([[0, 5], [7, 9]])
   })
 })
