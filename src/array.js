@@ -1,5 +1,15 @@
 import _ from 'lodash/fp'
 
+// TODO: Move to proper files and expose
+let callUnless = check => failFn => fn => (x, y) =>
+  check(x) ? failFn(y) : 
+  check(y) ? failFn(x) : fn(x, y)
+let callUnlessEmpty = callUnless(_.isEmpty)
+let wrapArray = x => [x]
+let callUnlessEmptyArray = callUnlessEmpty(wrapArray)
+let dropRight = _.dropRight(1)
+let last = _.takeRight(1)
+
 // Arrays
 // ------
 export const compactJoin = _.curry((join, x) => _.compact(x).join(join))
@@ -10,5 +20,12 @@ export const insertAtIndex = (index, val, str) => str.slice(0, index) + val + st
 
 let overlaps = (x, y) =>  y[0] > x[1]
 let mergeRange = (x, y) => [[x[0], _.max(x.concat(y))]]
-export const mergeRanges = (x, y) => overlaps(x, y) ? [x, y] : mergeRange(x, y)
-
+let actuallMergeRanges = callUnlessEmptyArray(
+  (x, y) => overlaps(x, y) ? [x, y] : mergeRange(x, y)
+)
+export const mergeRanges = _.flow(
+  _.sortBy([0, 1]),
+  _.reduce((result, range) => 
+    dropRight(result).concat(actuallMergeRanges(_.flatten(last(result)), range))
+  , [])
+)

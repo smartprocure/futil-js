@@ -74,9 +74,10 @@ Any methods that interact with mutable data will use the `On` convention (as it 
 
 
 ### mergeRanges
-`mergeRanges -> (r1, r2) -> []` Takes two ranges and return the merge of both if they intersect else return both.
+`([[], [], []]) -> [[], []]` Takes any number of ranges and return the result of merging them all.
 
 Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
+
 
 ### insertAtIndex
 `insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
