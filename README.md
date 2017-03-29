@@ -73,6 +73,21 @@ Any methods that interact with mutable data will use the `On` convention (as it 
 `data:array -> result:array` Returns an array of elements that are repeated in the array.
 
 
+### mergeRanges
+`([[], [], []]) -> [[], []]` Takes any number of ranges and return the result of merging them all.
+
+Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
+
+
+### insertAtIndex
+`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
+
+Example: `(1, '123', 'hi') -> 'h123i'`
+
+### push
+`(val, array) -> array Return the array with the val pushed`
+
+
 ## Object
 
 ### singleObject
@@ -142,11 +157,27 @@ Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 `'asdf' -> '(asdf)'` Wraps a string in parenthesis.
 
 
-## Misc
+## Regex
 
 ### testRegex
-`regex -> string -> bool` Just like rambda test, creates a function to test a regex on a string.
+`regex -> string -> bool` Just like ramda test, creates a function to test a regex on a string.
 
+### makeRegex
+`options:string -> string -> regex` A curried implementation of `RegExp` construction.
+
+### makeAndTest
+`options:string -> string -> (string -> bool)` Makes and tests a RegExp with makeRegex and testRegex.
+
+### matchAnyWord
+`string -> string -> bool` Returns true if the second string matches any of the words in the first string.
+
+### postings
+`regex -> string -> [Range:[number, number]]` Returns an array of postings (position ranges) for a regex and string to test.
+
+### highlight
+`start:string -> end:string -> postings:[Range:[number, number]] -> input:string -> string` Highlights postings in a string wrapping in `start` and `end`.
+
+Example: `('<b>', '<b>', [[0,1]], 'hi') -> '<b>h</b>i'`
 
 ## Math
 ### greaterThanOne
