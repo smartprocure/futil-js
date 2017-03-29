@@ -66,17 +66,17 @@ describe('Posting Highlight Functions', () => {
     let input = 'pretty please'
     let postings = f.postings(RegExp('p', 'gi'), input)
     let expected = '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
-    expect(f.highlight(start, end, postings, input)).to.equal(expected)
+    expect(f.highlightFromPostings(start, end, postings, input)).to.equal(expected)
   })
   it('should highlight backwards postings', () => {
     let input = 'pretty please'
     let expected = '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
-    expect(f.highlight(start, end, [[7, 8], [0, 1]], input)).to.equal(expected)
+    expect(f.highlightFromPostings(start, end, [[7, 8], [0, 1]], input)).to.equal(expected)
   })
   it('should high level highlight', () => {
     let input = 'pretty please'
     let pattern = 'pr pl'
     let expected = '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease'
-    expect(f.highlightString(start, end, pattern, input)).to.deep.equal(expected)
+    expect(f.highlight(start, end, pattern, input)).to.deep.equal(expected)
   })
 })

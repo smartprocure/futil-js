@@ -25,7 +25,7 @@ export const postingsForWords = (string, str) => _.reduce(
   (result, word) => push(postings(RegExp(word, 'gi'), str), result), []
 )(_.words(string))
 
-export const highlight = (start, end, postings, str) => {
+export const highlightFromPostings = (start, end, postings, str) => {
   let offset = 0
   _.each(posting => {
     str = insertAtIndex(posting[0] + offset, start, str)
@@ -35,5 +35,5 @@ export const highlight = (start, end, postings, str) => {
   }, mergeRanges(postings))
   return str
 }
-export const highlightString = (start, end, pattern, input) =>
-  highlight(start, end, _.flatten(postingsForWords(pattern, input)), input)
+export const highlight = (start, end, pattern, input) =>
+  highlightFromPostings(start, end, _.flatten(postingsForWords(pattern, input)), input)
