@@ -30,7 +30,7 @@ const mergeAllRanges = _.reduce((result, range) => {
     ? result = _.concat(result, mergeRanges(result.pop(), range))
     : result.push(range)
   return result
-},[])
+}, [])
 
 const flattenPostings = _.flow(
   _.flatten,
