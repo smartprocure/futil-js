@@ -41,7 +41,6 @@ describe('Regexp Functions', () => {
 
     expect(match(text)).to.equal(false)
   })
-
 })
 
 describe('Posting Highlight Functions', () => {
