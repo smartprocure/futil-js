@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import {push, insertAtIndex, mergeRanges} from './array'
 
-export const testRegex = regex => regex.test.bind(regex)
+export const testRegex = _.curry((regex, str) => (new RegExp(regex)).test(str))
 export const makeRegex = options => text => RegExp(text, options)
 export const makeAndTest = options => _.flow(makeRegex(options), testRegex)
 export const matchAnyWord = _.flow(
