@@ -170,7 +170,8 @@ Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 
 ### matchAnyWord
 `string -> string -> bool` Returns true if the second string matches any of the words in the first string.
-### matchAllWord
+
+### matchAllWords
 `string -> string -> bool` Returns true if the second string matches all of the words in the first string.
 
 ### postings
