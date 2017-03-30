@@ -33,6 +33,14 @@ describe('Regexp Functions', () => {
 
     expect(match(text)).to.equal(true)
   })
+
+  it('matchAllWords', () => {
+    const reText = 'Some text'
+    const text = 'Here is some to test'
+    const match = f.matchAllWords(reText)
+
+    expect(match(text)).to.equal(false)
+  })
 })
 
 describe('Posting Highlight Functions', () => {

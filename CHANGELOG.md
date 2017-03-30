@@ -1,3 +1,6 @@
+# 1.10.0
+- Add `matchAllWords`
+
 # 1.9.0
 - Added regex and postings based highlighting functions `postings`, `postingsForWords`, `highlightFromPostings`, `highlight`
 - Added range manipulation funcitons `push`, `mergeRanges`, `insertAtIndex`
