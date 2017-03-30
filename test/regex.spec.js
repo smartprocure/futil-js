@@ -34,10 +34,10 @@ describe('Regexp Functions', () => {
     expect(match(text)).to.equal(true)
   })
 
-  it('matchAllWord', () => {
+  it('matchAllWords', () => {
     const reText = 'Some text'
     const text = 'Here is some to test'
-    const match = f.matchAllWord(reText)
+    const match = f.matchAllWords(reText)
 
     expect(match(text)).to.equal(false)
   })
