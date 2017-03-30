@@ -1,3 +1,6 @@
+# 1.10.1
+- Fix `testRegex`
+
 # 1.10.0
 - Add `matchAllWords`
 
