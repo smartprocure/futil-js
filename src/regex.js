@@ -9,7 +9,7 @@ export const matchAnyWord = _.flow(
   _.map(makeAndTest('gi')),
   _.overSome
 )
-export const matchAllWord = _.flow(
+export const matchAllWords = _.flow(
   _.words,
   _.map(makeAndTest('gi')),
   _.overEvery
