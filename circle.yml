@@ -13,7 +13,6 @@ notify:
   webhooks:
     - url: https://coveralls.io/webhook?repo_token=cptV1A70KJcrp2KvsAKcct7kHytmE7uq9
 
-# Authenticating to NPM using an existing token obtained from ~/.npmrc
 dependencies:
   pre:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
