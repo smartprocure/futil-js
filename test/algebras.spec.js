@@ -51,7 +51,7 @@ describe('Algebras', () => {
     const setMatched = e => e.match && _.set(path, true, e)
     const objMutated = f.deepMap(e => setMatched(e) || e)(obj)
 
-        // Checking immutability
+    // Checking immutability
     expect(obj).to.eql(objBackup)
 
     expect(objMutated).to.eql({
@@ -103,7 +103,7 @@ describe('Algebras', () => {
     const push101 = e => _.isArray(e) && e.concat(101)
     const objMutated = f.deepMap(e => push101(e) || setMatched(e) || e)(obj)
 
-        // Checking immutability
+    // Checking immutability
     expect(obj).to.eql(objBackup)
 
     expect(objMutated).to.eql({
