@@ -5,11 +5,12 @@
   "main": "lib/futil-js.js",
   "scripts": {
     "build": "webpack",
+    "danger": "danger",
     "test": "babel-node ./node_modules/mocha/bin/_mocha",
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
     "coverage": "nyc --require babel-core/register node_modules/.bin/mocha test",
     "cicoverage": "nyc --reporter=lcov --require babel-core/register node_modules/.bin/mocha test",
-    "lint": "eslint src/*.js test/*.js",
+    "lint": "eslint dangerfile.js src/*.js test/*.js",
     "prepublish": "webpack"
   },
   "author": "Samuel Greene <sgreene@smartprocure.us>",
@@ -34,6 +35,7 @@
     "chokidar-cli": "^1.2.0",
     "codacy-coverage": "^2.0.1",
     "coveralls": "^2.11.16",
+    "danger": "^0.15.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.0.0",
     "eslint-plugin-import": "^2.2.0",
