@@ -1,5 +1,5 @@
 var path = require('path')
-var libraryName = 'futil-js'
+var libraryName = require('./package.json').name
 var outputFile = libraryName + '.js'
 
 module.exports = {
