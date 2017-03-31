@@ -5,13 +5,10 @@ machine:
   node:
     version:
         7.5.0
-  environment:
-    COVERALLS_REPO_TOKEN: cptV1A70KJcrp2KvsAKcct7kHytmE7uq9
-    COVERALLS_PARALLEL: true
 
 notify:
   webhooks:
-    - url: https://coveralls.io/webhook?repo_token=cptV1A70KJcrp2KvsAKcct7kHytmE7uq9
+    - url: https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN
 
 dependencies:
   pre:
