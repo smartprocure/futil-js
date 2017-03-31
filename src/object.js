@@ -10,8 +10,8 @@ export const singleObjectR = _.flip(singleObject)
 // Formerly objToObjArr
 // ({a, b}) -> [{a}, {b}]
 export const chunkObject = value =>
-    _.isArray(value) ? value
-    : _.map(_.spread(singleObject), _.toPairs(value))
+  _.isArray(value) ? value
+  : _.map(_.spread(singleObject), _.toPairs(value))
 
 // Remove properties with falsey values: ({ a: 1, b: null, c: false}) -> {a:1}
 export const compactObject = _.pickBy(_.identity)
@@ -20,7 +20,7 @@ export const isEmptyObject = _.isEqual({})
 
 export const isNotEmptyObject = _.negate(isEmptyObject)
 
-// { a:1, b:{}, c:2 } -> {a:1, c:2}
+// { a:1, b:{}, c:2 } -> { a:1, c:2 }
 export const stripEmptyObjects = _.pickBy(isNotEmptyObject)
 
 // const crazyBS = (f, g) => (a, b) => f(a)(g(b))
@@ -43,11 +43,11 @@ export const isFlatObject = overNone([_.isPlainObject, _.isArray])
 
 // { a: { b: { c: 1 } } } => { 'a.b.c' : 1 }
 export const flattenObject = (input, paths) => reduce((output, value, key) =>
-    _.merge(output, (isFlatObject(value) ? singleObjectR : flattenObject)(value, dotJoin([paths, key]))), {}, input)
+  _.merge(output, (isFlatObject(value) ? singleObjectR : flattenObject)(value, dotJoin([paths, key]))), {}, input)
 
 // Returns true if object keys are only elements from signature list (but does not require all signature keys to be present)
 export const matchesSignature = _.curry((signature, value) =>
-    _.isObject(value) && !_.difference(_.keys(value), signature).length)
+  _.isObject(value) && !_.difference(_.keys(value), signature).length)
 
 // Checks if a property deep in a given item equals to a given value
 export const compareDeep = _.curry((path, item, value) => _.get(path, item) === value)

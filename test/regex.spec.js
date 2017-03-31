@@ -51,16 +51,9 @@ describe('Posting Highlight Functions', () => {
   it('should get postings by word', () => {
     var result = f.postingsForWords('pret pr t ', 'pretty prease')
     expect(result).to.deep.equal([
-      [
-        [0, 4]
-      ],
-      [
-        [0, 2], [7, 9]
-      ],
-      [
-        [3, 4],
-        [4, 5]
-      ]
+      [ [0, 4] ],
+      [ [0, 2], [7, 9] ],
+      [ [3, 4], [4, 5] ]
     ])
   })
   it('should insertAtIndex', () => {
