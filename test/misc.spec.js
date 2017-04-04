@@ -12,6 +12,17 @@ describe('Basic Functions', () => {
     const fn = (x, y) => x + y
     expect(f.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6))
   })
+  it('toggler', () => {
+    const toggle1Or2 = f.toggler(1)(2)
+    expect(toggle1Or2(1)).to.equal(2)
+    expect(toggle1Or2(2)).to.equal(1)
+    expect(toggle1Or2(0)).to.equal(1)
+
+    const toggleBool = f.toggler(true)(false)
+    expect(toggleBool(true)).to.equal(false)
+    expect(toggleBool(false)).to.equal(true)
+    expect(toggleBool()).to.equal(true)
+  })
 })
 
 describe('String Functions', () => {

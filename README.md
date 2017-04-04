@@ -1,4 +1,4 @@
-# futil
+﻿# futil
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
@@ -33,16 +33,16 @@ The syntax: `import f from futil-js` is not currently supported.
 ### maybeCall
 `(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `false`.
 
-
 ### overNone
 `([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
 
+### toggler
+`a -> a -> b -> a` Creates a function that toggles between two values pre-defined.
 
 ## Collection
 
 ### flowMap
 `...fns:functions -> map:function` Runs a map function that runs a `flow` of the functions passed in to this method.
-
 
 ## Lodash Conversions
 These are conversions of lodash fp methods.
