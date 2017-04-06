@@ -1,4 +1,4 @@
-# futil
+﻿# futil
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
@@ -33,16 +33,13 @@ The syntax: `import f from futil-js` is not currently supported.
 ### maybeCall
 `(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `false`.
 
-
 ### overNone
 `([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
-
 
 ## Collection
 
 ### flowMap
 `...fns:functions -> map:function` Runs a map function that runs a `flow` of the functions passed in to this method.
-
 
 ## Lodash Conversions
 These are conversions of lodash fp methods.
@@ -64,20 +61,16 @@ Any methods that interact with mutable data will use the `On` convention (as it 
 ### compactJoin
 `join:string -> data:array -> result:string` Joins an array after compacting.
 
-
 ### dotJoin
 `data:array -> result:string` Compacts and joins an array with '.'
 
-
 ### repeated
 `data:array -> result:array` Returns an array of elements that are repeated in the array.
-
 
 ### mergeRanges
 `([[], [], []]) -> [[], []]` Takes any number of ranges and return the result of merging them all.
 
 Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
-
 
 ### insertAtIndex
 `insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
@@ -87,6 +80,8 @@ Example: `(1, '123', 'hi') -> 'h123i'`
 ### push
 `(val, array) -> array Return the array with the val pushed`
 
+### cycle
+`[a, b...] -> a -> b` Creates a function that always return the element next to the one received, based on an input previously received.
 
 ## Object
 

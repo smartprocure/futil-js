@@ -32,3 +32,6 @@ export const mergeRanges = _.flow(
     dropRight(result).concat(actuallMergeRanges(_.flatten(last(result)), range))
   , [])
 )
+
+// [a, b...] -> a -> b
+export const cycle = _.curry((a, n) => a[(a.indexOf(n) + 1) % a.length])
