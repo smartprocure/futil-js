@@ -22,7 +22,9 @@ describe('Basic Functions', () => {
     cycle = f.cycle([true, false])
     expect(cycle(true)).to.equal(false)
     expect(cycle(false)).to.equal(true)
-    expect(cycle()).to.equal(true)
+    expect(cycle(null)).to.equal(true)
+
+    expect(f.cycle([true, false], true)).to.equal(false)
   })
 })
 

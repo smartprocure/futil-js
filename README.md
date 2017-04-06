@@ -36,7 +36,7 @@ The syntax: `import f from futil-js` is not currently supported.
 ### overNone
 `([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
 
-### cycler
+### cycle
 `[a, b...] -> a -> b` Creates a function that always return the element next to the one received, based on an input previously received.
 
 ## Collection
