@@ -12,20 +12,6 @@ describe('Basic Functions', () => {
     const fn = (x, y) => x + y
     expect(f.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6))
   })
-  it('cycle', () => {
-    let cycle = f.cycle([1, 2, 3])
-    expect(cycle(1)).to.equal(2)
-    expect(cycle(2)).to.equal(3)
-    expect(cycle(3)).to.equal(1)
-    expect(cycle(4)).to.equal(1)
-
-    cycle = f.cycle([true, false])
-    expect(cycle(true)).to.equal(false)
-    expect(cycle(false)).to.equal(true)
-    expect(cycle(null)).to.equal(true)
-
-    expect(f.cycle([true, false], true)).to.equal(false)
-  })
 })
 
 describe('String Functions', () => {

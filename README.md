@@ -36,9 +36,6 @@ The syntax: `import f from futil-js` is not currently supported.
 ### overNone
 `([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
 
-### cycle
-`[a, b...] -> a -> b` Creates a function that always return the element next to the one received, based on an input previously received.
-
 ## Collection
 
 ### flowMap
@@ -64,20 +61,16 @@ Any methods that interact with mutable data will use the `On` convention (as it 
 ### compactJoin
 `join:string -> data:array -> result:string` Joins an array after compacting.
 
-
 ### dotJoin
 `data:array -> result:string` Compacts and joins an array with '.'
 
-
 ### repeated
 `data:array -> result:array` Returns an array of elements that are repeated in the array.
-
 
 ### mergeRanges
 `([[], [], []]) -> [[], []]` Takes any number of ranges and return the result of merging them all.
 
 Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
-
 
 ### insertAtIndex
 `insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
@@ -87,6 +80,8 @@ Example: `(1, '123', 'hi') -> 'h123i'`
 ### push
 `(val, array) -> array Return the array with the val pushed`
 
+### cycle
+`[a, b...] -> a -> b` Creates a function that always return the element next to the one received, based on an input previously received.
 
 ## Object
 
