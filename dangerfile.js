@@ -2,8 +2,8 @@ import { danger, fail, warn } from 'danger'
 import _ from 'lodash/fp'
 
 const changed = {
-  changelog: _.includes(danger.git.modified_files, 'CHANGELOG.md'),
-  packageJSON: _.includes(danger.git.modified_files, 'package.json')
+  changelog: _.includes('CHANGELOG.md', danger.git.modified_file),
+  packageJSON: _.includes('package.json', danger.git.modified_files)
 }
 
 // No PR is too small to warrant a paragraph or two of summary
