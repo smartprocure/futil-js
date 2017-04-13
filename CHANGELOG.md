@@ -1,6 +1,10 @@
 ﻿# 1.11.0
 - Added `cycle`
 
+# 1.10.2
+- Circle CI now help us enforce CHANGELOG.md and package.json
+  updates in any PR.
+
 # 1.10.1
 - Fix `testRegex`
 

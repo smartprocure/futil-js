@@ -4,24 +4,22 @@ machine:
     America/New_York
   node:
     version:
-        7.5.0
-  environment:
-    COVERALLS_REPO_TOKEN: cptV1A70KJcrp2KvsAKcct7kHytmE7uq9
-    COVERALLS_PARALLEL: true
+      7.5.0
 
 notify:
   webhooks:
-    - url: https://coveralls.io/webhook?repo_token=cptV1A70KJcrp2KvsAKcct7kHytmE7uq9
+    - url: https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN
 
-# Authenticating to NPM using an existing token obtained from ~/.npmrc
 dependencies:
   pre:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 
 test:
   pre:
+    - npm run danger
     - git remote set-branches --add origin master
     - git fetch
+    # Eslint changed files only
     - LIST=$(git diff-index --name-only origin/master | grep .*\\.js | grep -v json | grep -v eslint | tr '\n' ' '); if [ "$LIST" ]; then eslint $LIST; fi
     - npm run cicoverage
     - ./node_modules/.bin/codacy-coverage < ./coverage/lcov.info
