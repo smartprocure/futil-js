@@ -25,8 +25,7 @@
 - `deepMap` added to seamlessly map recursive arrays and plain
   objects. Also optionally allows mappings to any recursive algebraic
   data structure.
-- Versions in the range 1.8.0-1.8.3 were swallowed by a mystical sea
-  monster.
+- Versions 1.8.0-1.8.3 were assimilated by the borg.
 
 # 1.7.3
 - `compareDeep` is ok with ===, and it's now tested
