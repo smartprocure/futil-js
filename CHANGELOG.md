@@ -1,4 +1,7 @@
-﻿# 1.11.0
+# 1.11.1
+- Greenkeeper udpated the babel-loader and danger-js
+
+# 1.11.0
 - Added `cycle`
 
 # 1.10.2
