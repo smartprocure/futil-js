@@ -12,6 +12,16 @@ describe('Basic Functions', () => {
     const fn = (x, y) => x + y
     expect(f.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6))
   })
+  it('boundMethod should bind a method of an object to it\'s object', () => {
+    let obj = {
+      name: 'Wade Watts',
+      greet: function () {
+        return `Welcome, ${this.name}`
+      }
+    }
+    expect(obj.greet.call({ name: 'John Henry' })).to.equal('Welcome, John Henry')
+    expect(f.boundMethod('greet', obj)()).to.equal('Welcome, Wade Watts')
+  })
 })
 
 describe('String Functions', () => {
