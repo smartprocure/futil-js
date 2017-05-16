@@ -36,6 +36,9 @@ The syntax: `import f from futil-js` is not currently supported.
 ### overNone
 `([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
 
+### boundMethod
+`(a, Monoid f) -> f[a] :: f a` Binds a function of an object to it's object.
+
 ## Collection
 
 ### flowMap

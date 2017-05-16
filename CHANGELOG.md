@@ -1,3 +1,6 @@
+﻿# 1.12.0
+- Added `boundMethod`.
+
 # 1.11.1
 - Greenkeeper udpated the babel-loader and danger-js
 
