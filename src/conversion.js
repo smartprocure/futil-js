@@ -22,3 +22,4 @@ export const inversions = _.reduce((memo, x) => _.set(x + 'In', _[x].convert(noR
 // Uncaps
 // ------
 export const reduce = _.reduce.convert(noCap)
+export const mapValues = _.mapValues.convert(noCap)

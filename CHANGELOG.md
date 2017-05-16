@@ -1,4 +1,7 @@
-﻿# 1.12.0
+﻿# 1.13.0
+- Added a noCap conversion for `mapValues`.
+
+# 1.12.0
 - Added `boundMethod`.
 
 # 1.11.1
