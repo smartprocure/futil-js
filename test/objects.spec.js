@@ -116,7 +116,7 @@ describe('Object Functions', () => {
     expect(f.compareDeep('a.b.c')(o)('1')).to.deep.equal(false)
   })
   it('mapProp', () => {
-    const a = f.mapProp((val => val * val), 'a', {a:2, b:1})
-    expect(o).to.deep.equal({a:4, b:1})
+    const a = f.mapProp(val => val * val, 'a', {a: 2, b: 1})
+    expect(a).to.deep.equal({a: 4, b: 1})
   })
 })
