@@ -1,4 +1,4 @@
-import chai from ' b'
+import chai from 'chai'
 import * as f from '../src'
 
 chai.expect()
