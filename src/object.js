@@ -51,3 +51,7 @@ export const matchesSignature = _.curry((signature, value) =>
 
 // Checks if a property deep in a given item equals to a given value
 export const compareDeep = _.curry((path, item, value) => _.get(path, item) === value)
+
+// Applies a map function at a specific path
+// e.g.: mapProp(double, 'a', {a:2, b:1}) -> {a:4, b:1}
+export const mapProp = _.curry((fn, key, obj) => _.set(key, fn(_.get(key, obj)), obj))

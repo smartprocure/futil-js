@@ -1,4 +1,7 @@
-﻿# 1.13.0
+﻿# 1.14.0
+- Added a `mapProp`.
+
+# 1.13.0
 - Added a noCap conversion for `mapValues`.
 
 # 1.12.0
