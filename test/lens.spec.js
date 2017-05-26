@@ -4,9 +4,6 @@ import * as f from '../src'
 chai.expect()
 const expect = chai.expect
 
-// Mock functional lens for testing
-
-
 describe('Lens Functions', () => {
   describe('Stubs', () => {
     it('functionLens', () => {
