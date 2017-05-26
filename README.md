@@ -1,4 +1,4 @@
-﻿# futil
+# futil
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
@@ -103,7 +103,7 @@ Example: `(1, '123', 'hi') -> 'h123i'`
 ### compactObject
 Remove properties with falsey values.
 
-Example: `({ a: 1, b: null, c: false }) -> {a:1}` 
+Example: `({ a: 1, b: null, c: false }) -> {a:1}`
 
 ### isEmptyObject:
 Check if the variable is an empty object (`{}`).
@@ -116,7 +116,7 @@ Check if the variable is **not** an empty object (`{}`).
 ### stripEmptyObjects
 Omit properties whose values are empty objects.
 
-Example: `{ a:1, b:{}, c:2 } -> {a:1, c:2}` 
+Example: `{ a:1, b:{}, c:2 } -> {a:1, c:2}`
 (*TODO* remame to `omitEmptyObjects`)
 
 
@@ -136,13 +136,13 @@ Returns true if object keys are only elements from signature list. (but does not
 `from:string -> to:string: -> target:object -> result:object`
 Rename a property on an object.
 
-Example: `renameProperty('a', 'b', {a:1}) -> {b:1)` 
+Example: `renameProperty('a', 'b', {a:1}) -> {b:1)`
 
 
 ### unwind
 Just like mongo's `$unwind`.
 
-Example: `{ x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }]` 
+Example: `{ x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }]`
 
 
 ### flattenObject
@@ -192,13 +192,80 @@ Example: `('<b>', '<b>', [[0,1]], 'hi') -> '<b>h</b>i'`
 
 ## Algebras or composable/recursive data types
 
-## map
+### map
 `map :: (a -> b) -> [a] -> [b]`
 Maps a function over an iterable. Works by default for Arrays and Plain Objects.
 
-## deepMap
+### deepMap
 `deepMap :: (a -> b) -> [a] -> [b]`
 Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed
 nested Arrays and Plain Objects. Also works for any other iterable data type as long as
 two other values are sent: a mapping function, and a type checker (See the
 unit tests for deepMap).
+
+
+## Lens
+A lens is a getter and setter pair, which can be used to interface to some part of an object graph.
+Methods that operate on lenses can encapsulate common operations independent of knowledge of their surrounding context.
+Unlike some traditional functional lenses (like Ramda's), the set methods here are generally mutable.
+
+An object lens is simply an object that has a `get` and `set` function.
+An example of this is a mobx boxed observable.
+
+A function lens is a lense expressed as a single function that takes the value to set or returns the current value if nothing is passed.
+Examples of this in the wild are knockout observables and jquery plugin api style methods.
+
+The utilities in this library expect can accept either kind of lens, and utilities are provided to seamless convert between the two.
+
+### Stubs
+Lens stubs are primarily a reference implementation, but are useful for testing and mocking purposes
+
+#### functionLens
+Takes a value and returns a function lens for that value
+
+#### objectLens
+Takes a value and returns a object lens for that value
+
+### Lens Conversions
+Methods to convert between lens types
+
+#### fnToObj
+Converts a function lens an object lens
+
+#### objToFn
+Converts an object lens to a function lens
+
+
+### Lens Construction
+This the first main way you'll generally interact with the lens API
+
+#### lensProp
+`lensProp :: string -> object -> { get: () -> T, set: T -> T }`
+Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path
+
+
+#### lensOf
+`{a: T, b: T} -> {a:ObjectLens, b:ObjectLens}`
+Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`.
+
+### Lens Manipulation
+
+#### view
+`Lens -> T`
+Gets the value of the lens, regardless of if it's a function or object lens
+
+#### set
+`T -> Lens -> T`
+Sets the value of the lens, regardless of if it's a function or object lens
+
+#### sets
+Creates a function that will set a lens with the provided value
+
+#### flip
+Takes a lens and negates its value
+
+#### on
+Returns a function that will set a lens to `true`
+
+#### off
+Returns a function that will set a lens to `false`
