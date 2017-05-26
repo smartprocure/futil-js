@@ -1,4 +1,7 @@
-﻿# 1.14.0
+# 1.15.0
+- Added `lens` functions `functionLens`, `objectLens`, `fnToObj`, `objToFn`, `lensProp`, `lensOf`, `view`, `set`, `sets`, `flip`, `on`, `off`
+
+# 1.14.0
 - Added a `mapProp`.
 
 # 1.13.0
