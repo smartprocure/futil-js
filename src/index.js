@@ -5,6 +5,7 @@ export * from './function'
 export * from './array'
 export * from './object'
 export * from './regex'
+export * from './lens'
 
 // Math
 // ----
