@@ -58,6 +58,12 @@ describe('Lens Functions', () => {
       expect(f.view(fl)).to.equal(1)
       expect(f.view(ol)).to.equal(1)
     })
+    it('views', () => {
+      let fl = f.functionLens(1)
+      let ol = f.objectLens(1)
+      expect(f.views(fl)()).to.equal(1)
+      expect(f.views(ol)()).to.equal(1)
+    })
     it('set', () => {
       let object = {
         a: 1

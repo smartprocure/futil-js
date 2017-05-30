@@ -254,6 +254,10 @@ Takes an object and returns an object with lenses at the values of each path. Ba
 `Lens -> T`
 Gets the value of the lens, regardless of if it's a function or object lens
 
+#### views
+`Lens -> (() -> T)`
+Returns a function that gets the value of the lens, regardless of if it's a function or object lens
+
 #### set
 `T -> Lens -> T`
 Sets the value of the lens, regardless of if it's a function or object lens
