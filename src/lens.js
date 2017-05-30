@@ -30,6 +30,7 @@ export let lensOf = object => mapValues((val, key) => lensProp(key, object), obj
 
 // Lens Manipulation
 export let view = lens => lens.get ? lens.get() : lens()
+export let views = lens => () => view(lens)
 export let set = _.curry((val, lens) => lens.set ? lens.set(val) : lens(val))
 export let sets = _.curry((val, lens) => () => set(val, lens))
 export let flip = lens => () => set(!view(lens), lens)

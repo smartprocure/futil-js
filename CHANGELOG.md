@@ -1,3 +1,6 @@
+# 1.15.1
+- Added `views`
+
 # 1.15.0
 - Added `lens` functions `functionLens`, `objectLens`, `fnToObj`, `objToFn`, `lensProp`, `lensOf`, `view`, `set`, `sets`, `flip`, `on`, `off`
 
