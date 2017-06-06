@@ -43,11 +43,12 @@ let status = (extend = defaultsOn) => aspect({
 })
 // This is a function just for consistency
 let concurrency = () => aspect({
-  before(params, state) {
-    if (state.processing)
+  before (params, state) {
+    if (state.processing) {
       throw Error({
         message: 'Concurrent Runs Not Allowed'
       })
+    }
   }
 })
 
