@@ -15,9 +15,9 @@ export let aspect = ({
   init(state)
   let result = async (...args) => {
     try {
-      before(state, args)
+      before(args, state)
       let result = await f(...args)
-      after(state, result)
+      after(result, state)
       return result
     } catch (e) {
       return onError(e, state)
@@ -30,7 +30,7 @@ export let aspect = ({
 // Example Aspects
 let logs = (extend = defaultsOn) => aspect({
   init: extend({ logs: [] }),
-  after: (state, result) => state.logs.push(result)
+  after: (result, state) => state.logs.push(result)
 })
 let errors = (extend = defaultsOn) => aspect({
   init: extend({ errors: [] }),
@@ -38,12 +38,12 @@ let errors = (extend = defaultsOn) => aspect({
 })
 let status = (extend = defaultsOn) => aspect({
   init: extend({ processing: false }),
-  before: state => state.processing = true,
-  after: state => state.processing = false
+  before: (params, state) => { state.processing = true },
+  after: (result, state) => { state.processing = false }
 })
 // This is a function just for consistency
 let concurrency = () => aspect({
-  before(state) {
+  before(params, state) {
     if (state.processing)
       throw Error({
         message: 'Concurrent Runs Not Allowed'
