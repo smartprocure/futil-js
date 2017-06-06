@@ -1,5 +1,5 @@
 import chai from 'chai'
-import {aspect, defaultsOn, aspects} from '../src'
+import {aspects} from '../src'
 import _ from 'lodash/fp'
 
 chai.expect()
@@ -30,10 +30,10 @@ describe('Aspect Functions', () => {
     expect(f.state.logs).to.deep.equal([6, 6])
   })
   it('should support .onError and before (`concurrency`, `errors`, and `status` aspects)', async () => {
-    let g = Command(() => { throw 5 })
+    let g = Command(() => { throw Error(5) })
     expect(g.state.processing).to.equal(false)
     await g()
-    expect(g.state.errors).to.deep.equal([5])
+    expect(g.state.errors).to.deep.equal([Error(5)])
     // Should still be processing since it errored and never finished
     expect(g.state.processing).to.equal(true)
     // Should be blocked as a concurrent run since it's still processing
