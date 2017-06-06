@@ -1,7 +1,6 @@
 import _ from 'lodash/fp'
 import {defaultsOn} from './conversion'
-
-let throws = x => { throw x }
+import {throws} from './index'
 
 // Core
 export let aspect = ({

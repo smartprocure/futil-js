@@ -44,3 +44,9 @@ describe('Math Functions', () => {
     }
   })
 })
+
+describe('Lang Functions', () => {
+  it('throws', () => {
+    expect(() => f.throws(Error('oops'))).to.throw
+  })
+})

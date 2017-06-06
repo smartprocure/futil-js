@@ -190,6 +190,13 @@ Example: `('<b>', '<b>', [[0,1]], 'hi') -> '<b>h</b>i'`
 ### greaterThanOne
 `number -> bool` Returns true if number is greater than one.
 
+## Lang
+Language level utilities
+
+### throws
+Just throws whatever it is passed.
+
+
 ## Algebras or composable/recursive data types
 
 ### map
