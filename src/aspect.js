@@ -26,3 +26,34 @@ export let aspect = ({
   result.state = state
   return result
 }
+
+// Example Aspects
+let logs = (extend = defaultsOn) => aspect({
+  init: extend({ logs: [] }),
+  after: (state, result) => state.logs.push(result)
+})
+let errors = (extend = defaultsOn) => aspect({
+  init: extend({ errors: [] }),
+  onError: (e, state) => state.errors.push(e)
+})
+let status = (extend = defaultsOn) => aspect({
+  init: extend({ processing: false }),
+  before: state => state.processing = true,
+  after: state => state.processing = false
+})
+// This is a function just for consistency
+let concurrency = () => aspect({
+  before(state) {
+    if (state.processing)
+      throw Error({
+        message: 'Concurrent Runs Not Allowed'
+      })
+  }
+})
+
+export let aspects = {
+  logs,
+  errors,
+  status,
+  concurrency
+}
