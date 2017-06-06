@@ -273,3 +273,63 @@ Returns a function that will set a lens to `true`
 
 #### off
 Returns a function that will set a lens to `false`
+
+
+## Aspect
+Aspects provide a functional oriented implementation of Aspect Oriented Programming.
+An aspect wraps a function and allows you run code at various points like before and after execution.
+Notably, aspects in this library allow you to have a shared state object between aspects and are very useful for automating things like status indicators, etc on functions.
+
+There is a _lot_ of prior art in the javascript world, but most of them assume a vaguely object oriented context.
+The implementation in `futil-js` is done in just 20 lines of code and seems to capture all of the use cases of AOP.
+
+> Note: To do OO style AOP with this these aspects, just use lodash's `_.update` method and optionally `boundMethod` from `futil` if `this` matters
+
+> Caveat: While you can and should compose (or `_.flow`) aspects together, don't put non aspects in the middle of the composition. Aspects rely on a `.state` property on the wrapped function that they propagate through, but the chain will break if a non-aspect is mixed in between. Additionally, if you need external access to the state, make sure the aspects are the outer most part of the composition so the `.state` property will be available on the result of the composition.
+
+### aspect
+`aspect: {options} -> f -> ()`
+The aspect api takes an options object and returns a function which takes a function to wrap.
+The wrapped function will be decorated with a `state` object and should referentially transparent (e.g. it can be called in the same way as the function it's replacing).
+
+Options supports the following parameters:
+
+| Name | Description |
+| --- | --- |
+| `init: (state) -> ()` | A function for setting any inital state requirements. Should mutate the shared state object. |
+| `after: (state, result) -> ()` | Runs after the wrapped function executes and recieves the shared state and the result of the function. |
+| `before: (state, params) -> ()` | Runs before the wrapped function executes and receves the shared state and the params passed to the wrapped function. |
+| `onError: (error, state) -> ()` | Runs if the wrapped function throws an error. If you don't throw inside this, it will swallow any errors that happen. |
+
+Example Usage:
+```js
+let exampleAspect = aspect({
+  before: () => console.log('pre run'),
+  after: () => console.log('post run')
+})
+let f = () => console.log('run')
+let wrapped = exampleAspect(f)
+wrapped()
+// Logs to the console:
+// pre run
+// run
+// post run
+
+```
+
+### aspects
+There are a few basic aspects included because they seem to be universally useful.
+All of the provided aspects take an `extend` function to allow customizing the state mutation method (e.g. in mobx, you'd use `extendObservable`).
+If null, they default to `defaultsOn` from `futil-js` - check the unit tests for example usage.
+
+#### logs
+Logs adds a `logs` array to the function state and just pushes in results on each run
+
+#### errors
+Captures any exceptions thrown and pushes them into an `errors` array it puts on state
+
+#### status
+Adds a `processing` flag that is set to true before the wrapped function runs and false when it's done
+
+#### concurrency
+Prevents a function from running if it's state has `processing` set to true at the time of invocation
