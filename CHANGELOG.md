@@ -1,3 +1,6 @@
+# 1.16.0
+Added `aspect` and the reusable examples on `aspects` (`logs`, `errors`, `status`, and `concurrency`), as well as `throws`
+
 # 1.15.1
 - Added `views`
 
@@ -48,7 +51,7 @@
 # 1.7.3
 - `compareDeep` is ok with ===, and it's now tested
 - Eslint, coverage and CI fixes
- 
+
 # 1.7.1
 - Fix npm publish
 
@@ -92,4 +95,4 @@ Travis related CI stuff
 - Added flowMap
 
 # 1.0.0
-- Initial Release 
+- Initial Release
