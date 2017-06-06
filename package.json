@@ -11,6 +11,7 @@
     "coverage": "nyc --require babel-core/register node_modules/.bin/mocha test",
     "cicoverage": "nyc --reporter=lcov --require babel-core/register node_modules/.bin/mocha test",
     "lint": "eslint dangerfile.js src/*.js test/*.js",
+    "lint-fix": "eslint dangerfile.js src/*.js test/*.js --fix",
     "prepublish": "webpack"
   },
   "author": "Samuel Greene <sgreene@smartprocure.us>",
