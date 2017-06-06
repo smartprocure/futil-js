@@ -1,3 +1,6 @@
+# 1.16.0
+Added `aspect` and the reusable examples on `aspects` (`logs`, `errors`, `status`, and `concurrency`)
+
 # 1.15.1
 - Added `views`
 
