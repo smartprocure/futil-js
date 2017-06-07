@@ -1,3 +1,6 @@
+# 1.17.0
+Added `unflattenObject` and a deprecation warning about `mapProp` in favor of lodash `_.update`
+
 # 1.16.0
 Added `aspect` and the reusable examples on `aspects` (`logs`, `errors`, `status`, and `concurrency`), as well as `throws`
 

@@ -45,6 +45,9 @@ export const isFlatObject = overNone([_.isPlainObject, _.isArray])
 export const flattenObject = (input, paths) => reduce((output, value, key) =>
   _.merge(output, (isFlatObject(value) ? singleObjectR : flattenObject)(value, dotJoin([paths, key]))), {}, input)
 
+// { 'a.b.c' : 1 } => { a: { b: { c: 1 } } }
+export const unflattenObject = x => _.zipObjectDeep(_.keys(x), _.values(x))
+
 // Returns true if object keys are only elements from signature list (but does not require all signature keys to be present)
 export const matchesSignature = _.curry((signature, value) =>
   _.isObject(value) && !_.difference(_.keys(value), signature).length)

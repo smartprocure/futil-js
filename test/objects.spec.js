@@ -89,6 +89,17 @@ describe('Object Functions', () => {
       'a.b.c': 1
     })
   })
+  it('unflattenObject', () => {
+    expect(f.unflattenObject({
+      'a.b.c': 1
+    })).to.deep.equal({
+      a: {
+        b: {
+          c: 1
+        }
+      }
+    })
+  })
   it('renameProperty', () => {
     const o = { a: 1 }
     const newO = f.renameProperty('a', 'b', o)
