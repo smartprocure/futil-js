@@ -150,9 +150,13 @@ Flatten an object with the paths for keys.
 
 Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
 
+### unflattenObject
+Unlatten an object with the paths for keys.
+
+Example: `{ 'a.b.c' : 1 } => { a: { b: { c: 1 } } }`.
 
 ### mapProp
-Applies a map function at a specific path
+_Deprecated in favor of lodash `update`_ Applies a map function at a specific path
 
 Example: `mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}`.
 
