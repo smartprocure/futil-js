@@ -1,3 +1,6 @@
+# 1.17.1
+Include babel-polyfill in webpack build now that aspects have `async` functions
+
 # 1.17.0
 Added `unflattenObject` and a deprecation warning about `mapProp` in favor of lodash `_.update`
 

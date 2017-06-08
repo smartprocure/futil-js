@@ -4,7 +4,7 @@ var outputFile = libraryName + '.js'
 
 module.exports = {
   devtool: 'source-map',
-  entry: path.join(__dirname, 'src/index.js'),
+  entry: ['babel-polyfill', path.join(__dirname, 'src/index.js')],
   output: {
     path: path.join(__dirname, 'lib'),
     filename: outputFile,
