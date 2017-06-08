@@ -16,10 +16,10 @@ export let aspect = ({
     try {
       before(args, state)
       let result = await f(...args)
-      after(result, state)
+      after(result, state, args)
       return result
     } catch (e) {
-      return onError(e, state)
+      return onError(e, state, args)
     }
   }
   result.state = state

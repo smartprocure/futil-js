@@ -1,3 +1,6 @@
+# 1.17.2
+Pass original params to onError and after
+
 # 1.17.1
 Include babel-polyfill in webpack build now that aspects have `async` functions
 
