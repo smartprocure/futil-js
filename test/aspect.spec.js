@@ -1,7 +1,9 @@
-import chai from 'chai'
-import {aspects} from '../src'
 import _ from 'lodash/fp'
+import chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+import {aspects, aspect} from '../src'
 
+chai.use(chaiAsPromised)
 chai.expect()
 const expect = chai.expect
 
@@ -41,5 +43,16 @@ describe('Aspect Functions', () => {
     expect(g.state.errors[1]).to.deep.equal(Error({
       message: 'Concurrent Runs Not Allowed'
     }))
+  })
+  it('should support throwing in onError', async () => {
+    let ThrowHi = aspect({
+      onError: e => {
+        throw Error('hi from aspect')
+      }
+    })
+    let throwsHi = ThrowHi(() => {
+      throw Error('Not hi')
+    })
+    expect(throwsHi()).to.be.rejectedWith(Error('hi from aspect'))
   })
 })
