@@ -12,15 +12,14 @@ export let aspect = ({
 }) => f => {
   let {state = {}} = f
   init(state)
-  let result = async (...args) => {
-    try {
-      before(args, state)
-      let result = await f(...args)
-      after(result, state, args)
-      return result
-    } catch (e) {
-      return onError(e, state, args)
-    }
+  let result = (...args) => {
+    before(args, state)
+    return Promise.resolve().then(() => {
+      return Promise.resolve(f(...args)).then(result => {
+        after(result, state, args)
+        return result
+      })
+    }).catch(e => onError(e, state, args))
   }
   result.state = state
   return result

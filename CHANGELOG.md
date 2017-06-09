@@ -1,3 +1,6 @@
+# 1.17.3
+Convert aspect to Promise instead of async/await and rip out babel-polyfill
+
 # 1.17.2
 Pass original params to onError and after
 
