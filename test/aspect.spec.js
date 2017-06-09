@@ -3,7 +3,7 @@ import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 import {aspects, aspect} from '../src'
 
-chai.use(chaiAsPromised);
+chai.use(chaiAsPromised)
 chai.expect()
 const expect = chai.expect
 
