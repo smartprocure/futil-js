@@ -1,3 +1,6 @@
+# 1.18.0
+Add `callOrReturn`, `each`, and `mergeOn`
+
 # 1.17.3
 Convert aspect to Promise instead of async/await and rip out babel-polyfill
 
