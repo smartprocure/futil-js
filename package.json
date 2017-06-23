@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.15.1",
+  "version": "1.17.3",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -9,13 +9,15 @@
     "test": "babel-node ./node_modules/mocha/bin/_mocha",
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
     "coverage": "nyc --require babel-core/register node_modules/.bin/mocha test",
-    "cicoverage": "nyc --reporter=lcov --require babel-core/register node_modules/.bin/mocha test",
+    "cicoverage": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill node_modules/.bin/mocha test",
     "lint": "eslint dangerfile.js src/*.js test/*.js",
+    "lint-fix": "eslint dangerfile.js src/*.js test/*.js --fix",
     "prepublish": "webpack"
   },
   "author": "Samuel Greene <sgreene@smartprocure.us>",
   "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "lodash": "^4.17.4"
   },
   "babel": {
@@ -31,6 +33,7 @@
     "babel-loader": "^7.0.0",
     "babel-preset-latest": "^6.22.0",
     "chai": "^4.0.1",
+    "chai-as-promised": "^6.0.0",
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
     "codacy-coverage": "^2.0.1",

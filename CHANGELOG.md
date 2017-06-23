@@ -1,3 +1,18 @@
+# 1.17.3
+Convert aspect to Promise instead of async/await and rip out babel-polyfill
+
+# 1.17.2
+Pass original params to onError and after
+
+# 1.17.1
+Include babel-polyfill in webpack build now that aspects have `async` functions
+
+# 1.17.0
+Added `unflattenObject` and a deprecation warning about `mapProp` in favor of lodash `_.update`
+
+# 1.16.0
+Added `aspect` and the reusable examples on `aspects` (`logs`, `errors`, `status`, and `concurrency`), as well as `throws`
+
 # 1.15.1
 - Added `views`
 
@@ -48,7 +63,7 @@
 # 1.7.3
 - `compareDeep` is ok with ===, and it's now tested
 - Eslint, coverage and CI fixes
- 
+
 # 1.7.1
 - Fix npm publish
 
@@ -92,4 +107,4 @@ Travis related CI stuff
 - Added flowMap
 
 # 1.0.0
-- Initial Release 
+- Initial Release
