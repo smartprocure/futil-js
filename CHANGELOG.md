@@ -1,3 +1,6 @@
+# 1.18.0
+Add `callOrReturn`, `each`, and `mergeOn`
+
 # 1.17.4
 Made f.map uncapped
 

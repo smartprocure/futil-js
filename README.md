@@ -33,6 +33,9 @@ The syntax: `import f from futil-js` is not currently supported.
 ### maybeCall
 `(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `false`.
 
+### callOrReturn
+`(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `fn`.
+
 ### overNone
 `([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
 
