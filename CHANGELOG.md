@@ -1,3 +1,6 @@
+# 1.18.1
+Update lensOf to use reduce instead of mapValues
+
 # 1.18.0
 Add `callOrReturn`, `each`, and `mergeOn`
 
