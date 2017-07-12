@@ -1,5 +1,4 @@
 import _ from 'lodash/fp'
-import {mapValues} from './conversion'
 
 // Stubs
 export let functionLens = val => (...x) => {
@@ -26,7 +25,10 @@ export let lensProp = (field, source) => ({
   get: () => source[field],
   set: value => { source[field] = value }
 })
-export let lensOf = object => mapValues((val, key) => lensProp(key, object), object)
+export let lensOf = object => _.reduce((res, key) => {
+  res[key] = lensProp(key, object)
+  return res
+}, {}, _.keys(object))
 
 // Lens Manipulation
 export let view = lens => lens.get ? lens.get() : lens()
