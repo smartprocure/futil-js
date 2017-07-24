@@ -16,6 +16,14 @@ describe('Logic Functions', () => {
       expect(clamp5(5)).to.equal(5)
       expect(clamp5(13)).to.equal(5)
     })
+    it('should handle passing boolean conditions', () => {
+      let fn = f.ifElse(
+        true,
+        x => 'success ' + x,
+        x => 'fail ' + x
+      )
+      expect(fn(1)).to.equal('success 1')
+    })
     it('should handle fancy shorthand', () => {
       let fancyShortHand = f.ifElse(
         {a: 1},
