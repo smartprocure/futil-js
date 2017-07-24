@@ -36,11 +36,27 @@ The syntax: `import f from futil-js` is not currently supported.
 ### callOrReturn
 `(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `fn`.
 
+### boundMethod
+`(a, Monoid f) -> f[a] :: f a` Binds a function of an object to it's object.
+
+### converge
+http://ramdajs.com/docs/#converge
+
+## Logic
+
 ### overNone
 `([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
 
-### boundMethod
-`(a, Monoid f) -> f[a] :: f a` Binds a function of an object to it's object.
+### ifElse
+http://ramdajs.com/docs/#ifElse + lodash shorthand and f.callOrReturn support
+
+### when
+http://ramdajs.com/docs/#when + lodash shorthand and f.callOrReturn support
+
+### unless
+http://ramdajs.com/docs/#unless + lodash shorthand and f.callOrReturn support
+
+
 
 ## Collection
 
