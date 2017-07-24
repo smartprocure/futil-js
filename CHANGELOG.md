@@ -1,3 +1,6 @@
+# 1.19.0
+Add ramda style `ifElse`, `where`, and `unless` to a new `logic` section
+
 # 1.18.1
 Update lensOf to use reduce instead of mapValues
 
