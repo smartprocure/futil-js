@@ -1,6 +1,6 @@
 import _ from 'lodash/fp'
 import { dotJoin } from './array'
-import { overNone } from './function'
+import { overNone } from './logic'
 import { reduce, pickIn } from './conversion'
 
 // (k, v) -> {k: v}

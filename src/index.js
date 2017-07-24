@@ -5,6 +5,7 @@ export * from './function'
 export * from './array'
 export * from './object'
 export * from './aspect'
+export * from './logic'
 export * from './regex'
 export * from './lens'
 
