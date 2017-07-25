@@ -1,7 +1,8 @@
 import _ from 'lodash/fp'
 import { dotJoin } from './array'
-import { overNone } from './function'
-import { reduce, pickIn } from './conversion'
+import { overNone } from './logic'
+import { reduce, pickIn, getIn } from './conversion'
+import { findApply } from './collection'
 
 // (k, v) -> {k: v}
 export const singleObject = _.curry((key, value) => ({ [key]: value }))
@@ -58,3 +59,17 @@ export const compareDeep = _.curry((path, item, value) => _.get(path, item) === 
 // Applies a map function at a specific path
 // e.g.: mapProp(double, 'a', {a:2, b:1}) -> {a:4, b:1}
 export const mapProp = _.curry((fn, key, obj) => _.set(key, fn(_.get(key, obj)), obj))
+
+// `_.get` that returns the target object if lookup fails
+export let getOrReturn = _.curry((prop, x) => _.getOr(x, prop, x))
+// `_.get` that returns the prop if lookup fails
+export let alias = _.curry((prop, x) => _.getOr(prop, prop, x))
+// flipped alias
+export let aliasIn = _.curry((x, prop) => _.getOr(prop, prop, x))
+
+// A `_.get` that takes an array of paths and returns the value at the first path that matches
+export let cascade = _.curry((paths, obj) => findApply(getIn(obj), paths))
+// Flipped cascade
+export let cascadeIn = _.curry((obj, paths) => cascade(paths, obj))
+// A `_.get` that takes an array of paths and returns the first path that matched
+export let cascadeKey = _.curry((paths, obj) => _.find(getIn(obj), paths))

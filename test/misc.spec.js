@@ -22,6 +22,10 @@ describe('Basic Functions', () => {
     expect(obj.greet.call({ name: 'John Henry' })).to.equal('Welcome, John Henry')
     expect(f.boundMethod('greet', obj)()).to.equal('Welcome, Wade Watts')
   })
+  it('comply', () => {
+    // (5 * 2) +  5
+    expect(f.comply(f.append, x => x * 2)(5)).to.equal(15)
+  })
 })
 
 describe('String Functions', () => {
@@ -35,6 +39,9 @@ describe('String Functions', () => {
   it('parens', () => {
     expect(f.parens('asdf')).to.equal('(asdf)')
   })
+  it('concatStrings', () => {
+    expect(f.concatStrings(['This ', '  is a  ', null, '', 'sentence!'])).to.equal('This is a sentence!')
+  })
 })
 
 describe('Math Functions', () => {
@@ -42,11 +49,5 @@ describe('Math Functions', () => {
     for (let i = -10; i < 10; i++) {
       expect(f.greaterThanOne(i)).to.equal(i > 1)
     }
-  })
-})
-
-describe('Lang Functions', () => {
-  it('throws', () => {
-    expect(() => f.throws(Error('oops'))).to.throw
   })
 })

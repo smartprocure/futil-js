@@ -1,11 +1,14 @@
 import _ from 'lodash/fp'
 
 export * from './conversion'
+export * from './collection'
 export * from './function'
 export * from './array'
 export * from './object'
 export * from './aspect'
+export * from './logic'
 export * from './regex'
+export * from './lang'
 export * from './lens'
 
 // Math
@@ -17,10 +20,7 @@ export const greaterThanOne = _.lt(1)
 export const wrap = (pre, post, content) => (pre || '') + content + (post || pre || '')
 export const quote = _.partial(wrap, ['"', '"'])
 export const parens = _.partial(wrap, ['(', ')'])
-
-// Collection
-// ----------
-export const flowMap = (...fns) => _.map(_.flow(...fns))
+export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
 
 // Algebras
 // --------
@@ -31,6 +31,3 @@ export const map = _.curry((f, x) => (_.isArray(x) ? _.map : _.mapValues).conver
 // defaults in multidimensional arrays and recursive plain objects
 export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
   _map(e => is(e) ? deepMap(fn, fn(e), _map, is) : e, obj))
-
-// Lang
-export let throws = x => { throw x }
