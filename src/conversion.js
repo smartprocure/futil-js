@@ -14,6 +14,7 @@ export const includesIn = _.includes.convert(noRearg)
 // ----------
 export const extendOn = _.extend.convert(mutable)
 export const defaultsOn = _.defaults.convert(mutable)
+export const mergeOn = _.merge.convert(mutable)
 
 // This reduce based version is easier to maintain but requires calling `F.inversions.fn` instead of `F.fn`
 const inversionList = ['get', 'pick', 'includes']
@@ -23,3 +24,4 @@ export const inversions = _.reduce((memo, x) => _.set(x + 'In', _[x].convert(noR
 // ------
 export const reduce = _.reduce.convert(noCap)
 export const mapValues = _.mapValues.convert(noCap)
+export const each = _.each.convert(noCap)

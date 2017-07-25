@@ -1,3 +1,18 @@
+# 1.20.0
+Add `findApply`, `isNotNil`, `exists`, `unlessExists`, `unlessTruth`, `getOrReturn`, `alias`, `cascade`, `cascadeIn`, `cascadeKey`, `isMultiple`, `append`, `composeApply`, `comply`
+
+# 1.19.0
+Add ramda style `ifElse`, `where`, and `unless` to a new `logic` section
+
+# 1.18.1
+Update lensOf to use reduce instead of mapValues
+
+# 1.18.0
+Add `callOrReturn`, `each`, and `mergeOn`
+
+# 1.17.4
+Made f.map uncapped
+
 # 1.17.3
 Convert aspect to Promise instead of async/await and rip out babel-polyfill
 

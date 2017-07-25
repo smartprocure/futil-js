@@ -33,16 +33,47 @@ The syntax: `import f from futil-js` is not currently supported.
 ### maybeCall
 `(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `false`.
 
-### overNone
-`([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
+### callOrReturn
+`(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `fn`.
 
 ### boundMethod
 `(a, Monoid f) -> f[a] :: f a` Binds a function of an object to it's object.
+
+### converge
+http://ramdajs.com/docs/#converge
+
+### comply (alias: composeApply)
+`(f, g) => x => f(g(x))(x)`
+A combinator that combines compose and apply
+
+## Logic
+
+### overNone
+`([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
+
+### ifElse
+http://ramdajs.com/docs/#ifElse + lodash shorthand and f.callOrReturn support
+
+### when
+http://ramdajs.com/docs/#when + lodash shorthand and f.callOrReturn support
+
+### unless
+http://ramdajs.com/docs/#unless + lodash shorthand and f.callOrReturn support
+
+### whenTruthy
+`when` curried with `Boolean`
+
+### whenExists
+`when` curried with `exists`
 
 ## Collection
 
 ### flowMap
 `...fns:functions -> map:function` Runs a map function that runs a `flow` of the functions passed in to this method.
+
+### findApply
+`f -> x -> f(find(f, x))`
+A version of `find` that also applies the predicate function to the result. Useful in gets
 
 ## Lodash Conversions
 These are conversions of lodash fp methods.
@@ -160,6 +191,24 @@ _Deprecated in favor of lodash `update`_ Applies a map function at a specific pa
 
 Example: `mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}`.
 
+### getOrReturn
+`_.get` that returns the target object if lookup fails
+
+### alias
+`_.get` that returns the prop if lookup fails
+
+### aliasIn
+Flipped `alias`
+
+### cascade
+A `_.get` that takes an array of paths and returns the value at the first path that matches
+
+### cascadeIn
+Flipped cascade
+
+### cascadeKey
+A `_.get` that takes an array of paths and returns the first path that matched
+
 ## String
 ### parens
 `'asdf' -> '(asdf)'` Wraps a string in parenthesis.
@@ -200,6 +249,14 @@ Language level utilities
 ### throws
 Just throws whatever it is passed.
 
+### exists (alias: isNotNil)
+Negated `_.isNil`
+
+### isMultiple
+Returns true if the input has a `length` property > 1, such as arrays, strings, or custom objects with a lenth property
+
+### append
+A curried, flipped `add`
 
 ## Algebras or composable/recursive data types
 
