@@ -25,4 +25,8 @@ describe('Lang Functions', () => {
     expect(f.isMultiple({x:1, y:2})).to.be.false
     expect(f.isMultiple({x:1, y:2, length:2})).to.be.true
   })
+  it('append', () => {
+    expect(f.append('a', 'b')).to.equal('ba')
+    expect(f.append(1, 4)).to.equal(5)
+  })
 })

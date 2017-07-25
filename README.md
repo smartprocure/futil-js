@@ -251,6 +251,9 @@ Negated `_.isNil`
 ### isMultiple
 Returns true if the input has a `length` property > 1, such as arrays, strings, or custom objects with a lenth property
 
+### append
+A curried, flipped `add`
+
 ## Algebras or composable/recursive data types
 
 ### map
