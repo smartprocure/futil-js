@@ -42,6 +42,10 @@ The syntax: `import f from futil-js` is not currently supported.
 ### converge
 http://ramdajs.com/docs/#converge
 
+### comply (alias: composeApply)
+`(f, g) => x => f(g(x))(x)`
+A combinator that combines compose and apply
+
 ## Logic
 
 ### overNone

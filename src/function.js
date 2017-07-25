@@ -11,3 +11,6 @@ export const boundMethod = (method, object) => object[method].bind(object)
 
 // http://ramdajs.com/docs/#converge
 export const converge = (converger, branches) => (...args) => converger(_.over(branches)(...args))
+
+export let composeApply = (f, g) => x => f(g(x))(x)
+export let comply = composeApply
