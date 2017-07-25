@@ -30,8 +30,8 @@ describe('Logic Functions', () => {
         'Has a1',
         () => 'No a1'
       )
-      expect(fancyShortHand({a:1})).to.equal('Has a1')
-      expect(fancyShortHand({a:2})).to.equal('No a1')
+      expect(fancyShortHand({a: 1})).to.equal('Has a1')
+      expect(fancyShortHand({a: 2})).to.equal('No a1')
     })
   })
   it('when', () => {
