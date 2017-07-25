@@ -20,7 +20,6 @@ export const greaterThanOne = _.lt(1)
 export const wrap = (pre, post, content) => (pre || '') + content + (post || pre || '')
 export const quote = _.partial(wrap, ['"', '"'])
 export const parens = _.partial(wrap, ['(', ')'])
-// Collection
 export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
 
 // Algebras
