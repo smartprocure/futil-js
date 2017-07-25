@@ -187,6 +187,24 @@ _Deprecated in favor of lodash `update`_ Applies a map function at a specific pa
 
 Example: `mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}`.
 
+### getOrReturn
+`_.get` that returns the target object if lookup fails
+
+### alias
+`_.get` that returns the prop if lookup fails
+
+### aliasIn
+Flipped `alias`
+
+### cascade
+A `_.get` that takes an array of paths and returns the value at the first path that matches
+
+### cascadeIn
+Flipped cascade
+
+### cascadeKey
+A `_.get` that takes an array of paths and returns the first path that matched
+
 ## String
 ### parens
 `'asdf' -> '(asdf)'` Wraps a string in parenthesis.

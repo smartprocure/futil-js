@@ -130,4 +130,23 @@ describe('Object Functions', () => {
     const a = f.mapProp(val => val * val, 'a', {a: 2, b: 1})
     expect(a).to.deep.equal({a: 4, b: 1})
   })
+
+  it('getOrReturn', () => {
+    expect(f.getOrReturn('x', {a:1})).to.deep.equal({a:1})
+  })
+  it('alias', () => {
+    expect(f.alias('x', {a:1})).to.deep.equal('x')
+  })
+  it('aliasIn', () => {
+    expect(f.aliasIn({a:1}, 'x')).to.deep.equal('x')
+  })
+  it('cascade', () => {
+    expect(f.cascade(['x', 'y'], {a:1, y:2})).to.deep.equal(2)
+  })
+  it('cascadeIn', () => {
+    expect(f.cascadeIn({a:1, y:2}, ['x', 'y'])).to.deep.equal(2)
+  })
+  it('cascadeKey', () => {
+    expect(f.cascadeKey(['x', 'y'], {a:1, x:2})).to.deep.equal('x')
+  })
 })
