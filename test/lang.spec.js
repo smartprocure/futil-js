@@ -17,4 +17,12 @@ describe('Lang Functions', () => {
   it('exists', () => {
     expect(f.exists).to.equal(f.isNotNil)
   })
+  it('isMultiple', () => {
+    expect(f.isMultiple([''])).to.be.false
+    expect(f.isMultiple(['', ''])).to.be.true
+    expect(f.isMultiple('a')).to.be.false
+    expect(f.isMultiple('asdf')).to.be.true
+    expect(f.isMultiple({x:1, y:2})).to.be.false
+    expect(f.isMultiple({x:1, y:2, length:2})).to.be.true
+  })
 })
