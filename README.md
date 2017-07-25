@@ -63,6 +63,10 @@ http://ramdajs.com/docs/#unless + lodash shorthand and f.callOrReturn support
 ### flowMap
 `...fns:functions -> map:function` Runs a map function that runs a `flow` of the functions passed in to this method.
 
+### findApply
+`f -> x -> f(find(f, x))`
+A version of `find` that also applies the predicate function to the result. Useful in gets
+
 ## Lodash Conversions
 These are conversions of lodash fp methods.
 

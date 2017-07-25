@@ -25,4 +25,11 @@ describe('Collections Functions', () => {
       'TRAMS', 'ERUCORP'
     ])
   })
+  it('findApply', () => {
+    let x = {
+      a: 1
+    }
+    expect(f.findApply(f => x[f], ['b', 'c', 'a'])).to.equal(1)
+    expect(f.findApply(f => x[f], ['b', 'c'])).to.equal(undefined)
+  })
 })
