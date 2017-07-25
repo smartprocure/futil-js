@@ -46,4 +46,16 @@ describe('Logic Functions', () => {
     expect(clamp5(5)).to.equal(5)
     expect(clamp5(13)).to.equal(5)
   })
+  it('whenExists', () => {
+    let fn = f.whenExists(5)
+    expect(fn(3)).to.equal(5)
+    expect(fn(null)).to.equal(null)
+    expect(fn(false)).to.equal(5)
+  })
+  it('whenTruthy', () => {
+    let fn = f.whenTruthy(5)
+    expect(fn(3)).to.equal(5)
+    expect(fn(null)).to.equal(null)
+    expect(fn(false)).to.equal(false)
+  })
 })

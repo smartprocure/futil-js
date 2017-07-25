@@ -56,7 +56,11 @@ http://ramdajs.com/docs/#when + lodash shorthand and f.callOrReturn support
 ### unless
 http://ramdajs.com/docs/#unless + lodash shorthand and f.callOrReturn support
 
+### whenTruthy
+`when` curried with `Boolean`
 
+### whenExists
+`when` curried with `exists`
 
 ## Collection
 

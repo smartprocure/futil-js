@@ -1,5 +1,6 @@
 import _ from 'lodash/fp'
 import {callOrReturn} from './function'
+import {exists} from './lang'
 
 // ([f, g]) -> !f(x) && !g(x)
 export const overNone = _.flow(_.overSome, _.negate)
@@ -12,3 +13,6 @@ export let ifElse = _.curry((condition, onTrue, onFalse) => x =>
     callOrReturn(onFalse, x))
 export let when = _.curry((condition, t) => ifElse(condition, t, _.identity))
 export let unless = _.curry((condition, f) => ifElse(condition, _.identity, f))
+
+export let whenExists = when(exists)
+export let whenTruthy = when(Boolean)
