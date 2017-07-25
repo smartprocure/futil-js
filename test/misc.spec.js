@@ -35,6 +35,9 @@ describe('String Functions', () => {
   it('parens', () => {
     expect(f.parens('asdf')).to.equal('(asdf)')
   })
+  it('concatStrings', () => {
+    expect(f.concatStrings(['This ', '  is a  ', null, '', 'sentence!'])).to.equal('This is a sentence!')
+  })
 })
 
 describe('Math Functions', () => {
