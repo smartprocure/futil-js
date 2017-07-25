@@ -219,6 +219,8 @@ Language level utilities
 ### throws
 Just throws whatever it is passed.
 
+### exists (alias: isNotNil)
+Negated `_.isNil`
 
 ## Algebras or composable/recursive data types
 
