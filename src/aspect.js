@@ -16,8 +16,9 @@ export let aspect = ({
     let result
     return Promise.resolve()
       .then(() => before(args, state))
-      .then(() => {
-        result = f(...args)
+      .then(() => f(...args))
+      .then(r => {
+        result = r
       })
       .then(() => after(result, state, args))
       .then(() => result)
