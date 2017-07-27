@@ -3,7 +3,6 @@ import {defaultsOn} from './conversion'
 import {throws} from './index'
 
 // Core
-// Core
 export let aspect = ({
   init = _.noop,
   after = _.noop,
