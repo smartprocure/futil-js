@@ -1,3 +1,6 @@
+# 1.21.0
+`aspect` now supports async `before`, `after`, and `onError`
+
 # 1.20.0
 Add `findApply`, `isNotNil`, `exists`, `unlessExists`, `unlessTruth`, `getOrReturn`, `alias`, `cascade`, `cascadeIn`, `cascadeKey`, `isMultiple`, `append`, `composeApply`, `comply`
 

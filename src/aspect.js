@@ -13,13 +13,16 @@ export let aspect = ({
   let {state = {}} = f
   init(state)
   let result = (...args) => {
-    before(args, state)
-    return Promise.resolve().then(() => {
-      return Promise.resolve(f(...args)).then(result => {
-        after(result, state, args)
-        return result
+    let result
+    return Promise.resolve()
+      .then(() => before(args, state))
+      .then(() => f(...args))
+      .then(r => {
+        result = r
       })
-    }).catch(e => onError(e, state, args))
+      .then(() => after(result, state, args))
+      .then(() => result)
+      .catch(e => onError(e, state, args))
   }
   result.state = state
   return result

@@ -365,8 +365,8 @@ Options supports the following parameters:
 | Name | Description |
 | --- | --- |
 | `init: (state) -> ()` | A function for setting any inital state requirements. Should mutate the shared state object. |
-| `after: (result, state, params) -> ()` | Runs after the wrapped function executes and recieves the shared state and the result of the function. |
-| `before: (params, state) -> ()` | Runs before the wrapped function executes and receves the shared state and the params passed to the wrapped function. |
+| `after: (result, state, params) -> ()` | Runs after the wrapped function executes and recieves the shared state and the result of the function. Can be async. |
+| `before: (params, state) -> ()` | Runs before the wrapped function executes and receves the shared state and the params passed to the wrapped function. Can be async. |
 | `onError: (error, state, params) -> ()` | Runs if the wrapped function throws an error. If you don't throw inside this, it will swallow any errors that happen. |
 
 Example Usage:
