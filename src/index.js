@@ -16,13 +16,6 @@ export * from './lens'
 // ----
 export const greaterThanOne = _.lt(1)
 
-// String
-// ------
-export const wrap = (pre, post, content) => (pre || '') + content + (post || pre || '')
-export const quote = _.partial(wrap, ['"', '"'])
-export const parens = _.partial(wrap, ['(', ')'])
-export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
-
 // Algebras
 // --------
 const isTraversable = x => _.isArray(x) || _.isPlainObject(x)
@@ -33,5 +26,10 @@ export const map = _.curry((f, x) => (_.isArray(x) ? _.map : _.mapValues).conver
 export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
   _map(e => is(e) ? deepMap(fn, fn(e), _map, is) : e, obj))
 
-// A map that trims all the string values
-export let trimStrings = map(when(_.isString, _.trim))
+// String
+// ------
+export const wrap = (pre, post, content) => (pre || '') + content + (post || pre || '')
+export const quote = _.partial(wrap, ['"', '"'])
+export const parens = _.partial(wrap, ['(', ')'])
+export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
+export const trimStrings = map(when(_.isString, _.trim))
