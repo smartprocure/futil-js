@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import {when} from './logic'
 
 export * from './conversion'
 export * from './collection'
@@ -31,3 +32,6 @@ export const map = _.curry((f, x) => (_.isArray(x) ? _.map : _.mapValues).conver
 // defaults in multidimensional arrays and recursive plain objects
 export const deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
   _map(e => is(e) ? deepMap(fn, fn(e), _map, is) : e, obj))
+
+// A map that trims all the string values
+export let trimStrings = map(when(_.isString, _.trim))
