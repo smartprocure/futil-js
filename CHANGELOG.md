@@ -1,3 +1,6 @@
+﻿# 1.24.0
+Added `trimStrings`
+
 # 1.23.0
 Add `setOn` (mutable set)
 
