@@ -1,4 +1,4 @@
-# <img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+﻿# <img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
@@ -213,6 +213,8 @@ A `_.get` that takes an array of paths and returns the first path that matched
 ## String
 ### parens
 `'asdf' -> '(asdf)'` Wraps a string in parenthesis.
+### trimStrings
+Maps `_.trim` through all the strings of a given object or array.
 
 
 ## Regex
