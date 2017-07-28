@@ -43,9 +43,19 @@ The syntax: `import f from futil-js` is not currently supported.
 ### converge
 http://ramdajs.com/docs/#converge
 
+### callWith
+`x => f => f(x)` the T combinator.
+
+### ap
+`f => g => x => f(x)(g(x))` the S combinator.
+
 ### comply (alias: composeApply)
-`(f, g) => x => f(g(x))(x)`
-A combinator that combines compose and apply
+`f => g => x => f(g(x))(x)`
+A combinator that combines compose (B) and apply (A)
+
+### joinWith
+`f => g => x => y => f(g(x))(g(y))` the P combinator. Known as the
+`psi` bird, or as the operator `on` in Haskell.
 
 ## Logic
 

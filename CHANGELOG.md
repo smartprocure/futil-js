@@ -1,4 +1,7 @@
-﻿# 1.24.0
+﻿# 1.25.0
+Added the combinators  T (callWith), S (ap) and P (joinWith).
+
+# 1.24.0
 Added `trimStrings`, and our new shiny logo on the README thanks to @giulianok
 
 # 1.23.0
