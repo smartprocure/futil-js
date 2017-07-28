@@ -1,3 +1,6 @@
+# 1.23.0
+Add `setOn` (mutable set)
+
 # 1.22.0
 Add `error` aspect example
 

@@ -15,6 +15,7 @@ export const includesIn = _.includes.convert(noRearg)
 export const extendOn = _.extend.convert(mutable)
 export const defaultsOn = _.defaults.convert(mutable)
 export const mergeOn = _.merge.convert(mutable)
+export const setOn = _.set.convert(mutable)
 
 // This reduce based version is easier to maintain but requires calling `F.inversions.fn` instead of `F.fn`
 const inversionList = ['get', 'pick', 'includes']
