@@ -393,8 +393,11 @@ If null, they default to `defaultsOn` from `futil-js` - check the unit tests for
 #### logs
 Logs adds a `logs` array to the function state and just pushes in results on each run
 
+#### error
+Captures any exceptions thrown and set it on an `error` error it puts on state
+
 #### errors
-Captures any exceptions thrown and pushes them into an `errors` array it puts on state
+Captures any exceptions thrown and pushes them sequentially into an `errors` array it puts on state
 
 #### status
 Adds a `processing` flag that is set to true before the wrapped function runs and false when it's done

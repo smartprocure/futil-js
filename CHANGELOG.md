@@ -1,3 +1,6 @@
+# 1.22.0
+Add `error` aspect example
+
 # 1.21.0
 `aspect` now supports async `before`, `after`, and `onError`
 

@@ -33,6 +33,10 @@ let logs = (extend = defaultsOn) => aspect({
   init: extend({ logs: [] }),
   after: (result, state) => state.logs.push(result)
 })
+let error = (extend = defaultsOn) => aspect({
+  init: extend({ error: null }),
+  onError: (e, state) => { state.error = e }
+})
 let errors = (extend = defaultsOn) => aspect({
   init: extend({ errors: [] }),
   onError: (e, state) => state.errors.push(e)
@@ -55,6 +59,7 @@ let concurrency = () => aspect({
 
 export let aspects = {
   logs,
+  error,
   errors,
   status,
   concurrency
