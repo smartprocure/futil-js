@@ -4,8 +4,8 @@ import _ from 'lodash/fp'
 const log = (f, s) => console.log(f.name, s) & f(s)
 
 const changed = {
-  changelog: _.includes('CHANGELOG.md', danger.git.modified_files),
-  packageJSON: _.includes('package.json', danger.git.modified_files)
+  changelog: _.includes('./CHANGELOG.md', danger.git.modified_files),
+  packageJSON: _.includes('./package.json', danger.git.modified_files)
 }
 
 // No PR is too small to warrant a paragraph or two of summary
