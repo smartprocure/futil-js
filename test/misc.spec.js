@@ -42,6 +42,10 @@ describe('String Functions', () => {
   it('concatStrings', () => {
     expect(f.concatStrings(['This ', '  is a  ', null, '', 'sentence!'])).to.equal('This is a sentence!')
   })
+  it('trimStrings', () => {
+    expect(f.trimStrings(['This ', '  is a  ', null, '', 'sentence!'])).to.deep.equal(['This', 'is a', null, '', 'sentence!'])
+    expect(f.trimStrings({a: 'a', b: ' b ', c: 'c ', d: ' d', e: 5})).to.deep.equal({a: 'a', b: 'b', c: 'c', d: 'd', e: 5})
+  })
 })
 
 describe('Math Functions', () => {

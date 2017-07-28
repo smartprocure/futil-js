@@ -1,3 +1,6 @@
+﻿# 1.24.0
+Added `trimStrings`, and our new shiny logo on the README thanks to @giulianok
+
 # 1.23.0
 Add `setOn` (mutable set)
 
