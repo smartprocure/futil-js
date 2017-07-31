@@ -1,4 +1,6 @@
-﻿# <img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+
+---
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
@@ -371,6 +373,7 @@ Options supports the following parameters:
 | `after: (result, state, params) -> ()` | Runs after the wrapped function executes and recieves the shared state and the result of the function. Can be async. |
 | `before: (params, state) -> ()` | Runs before the wrapped function executes and receves the shared state and the params passed to the wrapped function. Can be async. |
 | `onError: (error, state, params) -> ()` | Runs if the wrapped function throws an error. If you don't throw inside this, it will swallow any errors that happen. |
+| `always: (state, params) -> ()` | Runs after the wrapped function whether it throws an error or not, similar to a `Promise.catch` |
 
 Example Usage:
 ```js
