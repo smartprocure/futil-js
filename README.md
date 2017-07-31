@@ -254,6 +254,9 @@ Language level utilities
 ### throws
 Just throws whatever it is passed.
 
+### tapError
+Tap error will run the provided function and then throw the first argument. It's like `_.tap` for rethrowing errors.
+
 ### exists (alias: isNotNil)
 Negated `_.isNil`
 
@@ -406,7 +409,7 @@ Captures any exceptions thrown and set it on an `error` error it puts on state
 Captures any exceptions thrown and pushes them sequentially into an `errors` array it puts on state
 
 #### status
-Adds a `processing` flag that is set to true before the wrapped function runs and false when it's done
+Adds a `status` property that is set to `processing` before the wrapped function runs and `succeeded` when it's done or `failed` if it threw an exception. Also adds shortcuts on state for `processing`, `succeeded`, and `failed`, which are booleans which are based on the value of `status`. Also adds a `setStatus` method which is used internally to update these properties.
 
 #### concurrency
 Prevents a function from running if it's state has `processing` set to true at the time of invocation
