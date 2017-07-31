@@ -36,8 +36,7 @@ describe('Aspect Functions', () => {
     expect(g.state.processing).to.equal(false)
     await g()
     expect(g.state.errors).to.deep.equal([Error(5)])
-    // Should still be processing since it errored and never finished
-    expect(g.state.processing).to.equal(true)
+    expect(g.state.processing).to.equal(false)
     // Should be blocked as a concurrent run since it's still processing
     await g()
     expect(g.state.errors[1]).to.deep.equal(Error({
@@ -54,5 +53,12 @@ describe('Aspect Functions', () => {
       throw Error('Not hi')
     })
     expect(throwsHi()).to.be.rejectedWith(Error('hi from aspect'))
+  }),
+  it('should support single error', async () => {
+    let throwsHi = aspects.error()(() => {
+      throw Error('Hi')
+    })
+    await throwsHi()
+    expect(throwsHi.state.error).to.deep.equal(Error('Hi'))
   })
 })
