@@ -64,11 +64,7 @@ describe('Aspect Functions', () => {
     expect(throwsHi.state.error).to.deep.equal(Error('Hi'))
   })
   it('should support status and clearing status', async () => {
-    let clearingStatus = _.flow(
-      aspects.status(),
-      aspects.clearStatus(10),
-      aspects.error()
-    )
+    let clearingStatus = aspects.command(undefined, 10)
     let f = clearingStatus(async () => Promise.delay(2))
     let result = f()
     await Promise.delay(0)
