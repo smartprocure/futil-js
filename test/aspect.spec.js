@@ -19,7 +19,10 @@ describe('Aspect Functions', () => {
   it('should combine aspect states', async () => {
     let f = Command(() => 6)
     expect(f.state).to.deep.equal({
+      status: null,
       processing: false,
+      failed: false,
+      succeeded: false,
       logs: [],
       errors: []
     })
@@ -53,7 +56,7 @@ describe('Aspect Functions', () => {
       throw Error('Not hi')
     })
     expect(throwsHi()).to.be.rejectedWith(Error('hi from aspect'))
-  }) 
+  })
   it('should support single error', async () => {
     let throwsHi = aspects.error()(() => {
       throw Error('Hi')

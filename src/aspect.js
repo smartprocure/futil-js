@@ -58,10 +58,39 @@ let errors = (extend = defaultsOn) => aspect({
   name: 'errors'
 })
 let status = (extend = defaultsOn) => aspect({
-  init: extend({ processing: false }),
-  before: (params, state) => { state.processing = true },
-  always: setOn('processing', false),
+  init: state => {
+    extend({
+      get processing () {
+        return state.status === 'processing'
+      },
+      get succeeded () {
+        return state.status === 'succeeded'
+      },
+      get failed () {
+        return state.status === 'failed'
+      },
+      status: null
+    }, state)
+  },
+  before(params, state) {
+    state.status = 'processing'
+  },
+  after(result, state) {
+    state.status = 'succeeded'
+  },
+  onError(e, state) {
+    state.status = 'failed'
+    throw e
+  },
   name: 'status'
+})
+let clearStatus = (timeout = 500) => aspect({
+  always(state) {
+    setTimeout(() => {
+      state.status = null
+    }, timeout)
+  },
+  name: 'clearStatus'
 })
 // This is a function just for consistency
 let concurrency = () => aspect({
@@ -80,5 +109,6 @@ export let aspects = {
   error,
   errors,
   status,
+  clearStatus,
   concurrency
 }
