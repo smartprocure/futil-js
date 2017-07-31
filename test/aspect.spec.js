@@ -2,6 +2,7 @@ import _ from 'lodash/fp'
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 import {aspects, aspect} from '../src'
+import Promise from 'bluebird'
 
 chai.use(chaiAsPromised)
 chai.expect()
@@ -18,14 +19,12 @@ describe('Aspect Functions', () => {
 
   it('should combine aspect states', async () => {
     let f = Command(() => 6)
-    expect(f.state).to.deep.equal({
-      status: null,
-      processing: false,
-      failed: false,
-      succeeded: false,
-      logs: [],
-      errors: []
-    })
+    expect(f.state.status).to.equal(null)
+    expect(f.state.processing).to.equal(false)
+    expect(f.state.failed).to.equal(false)
+    expect(f.state.succeeded).to.equal(false)
+    expect(f.state.logs).to.deep.equal([])
+    expect(f.state.errors).to.deep.equal([])
   })
   it('should support .after calls (`logs` aspect)', async () => {
     let f = Command(() => 6)
@@ -63,5 +62,30 @@ describe('Aspect Functions', () => {
     })
     await throwsHi()
     expect(throwsHi.state.error).to.deep.equal(Error('Hi'))
+  })
+  it('should support status and clearing status', async() => {
+    let clearingStatus = _.flow(
+      aspects.status(),
+      aspects.clearStatus(10),
+      aspects.error()
+    )
+    let f = clearingStatus(async () => Promise.delay(2))
+    let result = f()
+    await Promise.delay(0)
+    expect(f.state.status).to.equal('processing')
+    expect(f.state.processing).to.equal(true)
+    await result
+    expect(f.state.status).to.equal('succeeded')
+    expect(f.state.succeeded).to.be.true
+    await Promise.delay(15)
+    expect(f.state.status).to.equal(null)
+    let g = clearingStatus(async () => {
+      throw Error('error')
+    })
+    await g()
+    expect(g.state.status).to.equal('failed')
+    expect(g.state.failed).to.be.true
+    await Promise.delay(15)
+    expect(f.state.status).to.equal(null)
   })
 })
