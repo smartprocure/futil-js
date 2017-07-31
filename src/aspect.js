@@ -1,6 +1,6 @@
 import _ from 'lodash/fp'
 import {defaultsOn, setOn} from './conversion'
-import {throws} from './index'
+import {throws, tapError} from './lang'
 
 // Core
 export let aspect = ({
@@ -58,36 +58,34 @@ let errors = (extend = defaultsOn) => aspect({
   name: 'errors'
 })
 let status = (extend = defaultsOn) => aspect({
-  init: state => {
-    extend({
-      get processing () {
-        return state.status === 'processing'
-      },
-      get succeeded () {
-        return state.status === 'succeeded'
-      },
-      get failed () {
-        return state.status === 'failed'
-      },
-      status: null
-    }, state)
-  },
+  init: extend({
+    status: null,
+    processing: false,
+    succeeded: false,
+    failed: false,
+    // Computed get/set properties don't work, probably because lodash extend methods don't support copying them
+    setStatus(x) {
+      this.status = x
+      this.failed = x === 'failed'
+      this.succeeded = x === 'succeeded'
+      this.processing = x === 'processing'
+    }
+  }),
   before(params, state) {
-    state.status = 'processing'
+    state.setStatus('processing')
   },
   after(result, state) {
-    state.status = 'succeeded'
+    state.setStatus('succeeded')
   },
-  onError(e, state) {
-    state.status = 'failed'
-    throw e
-  },
+  onError: tapError((e, state) => {
+    state.setStatus('failed')
+  }),
   name: 'status'
 })
 let clearStatus = (timeout = 500) => aspect({
   always(state) {
     setTimeout(() => {
-      state.status = null
+      state.setStatus(null)
     }, timeout)
   },
   name: 'clearStatus'
