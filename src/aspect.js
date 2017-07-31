@@ -84,9 +84,11 @@ let status = (extend = defaultsOn) => aspect({
 })
 let clearStatus = (timeout = 500) => aspect({
   always (state) {
-    setTimeout(() => {
-      state.setStatus(null)
-    }, timeout)
+    if (timeout !== null) {
+      setTimeout(() => {
+        state.setStatus(null)
+      }, timeout)
+    }
   },
   name: 'clearStatus'
 })
@@ -102,11 +104,19 @@ let concurrency = () => aspect({
   name: 'concurrency'
 })
 
+let command = (extend, timeout) => _.flow(
+  status(extend),
+  clearStatus(timeout),
+  concurrency(extend),
+  error(extend)
+)
+
 export let aspects = {
   logs,
   error,
   errors,
   status,
   clearStatus,
-  concurrency
+  concurrency,
+  command
 }
