@@ -17,8 +17,8 @@ export let fnToObj = fn => ({
 })
 export let objToFn = lens => (...values) =>
   values.length
-  ? lens.set(values[0])
-  : lens.get()
+    ? lens.set(values[0])
+    : lens.get()
 
 // Lens Construction
 export let lensProp = (field, source) => ({

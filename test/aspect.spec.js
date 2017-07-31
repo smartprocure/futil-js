@@ -63,7 +63,7 @@ describe('Aspect Functions', () => {
     await throwsHi()
     expect(throwsHi.state.error).to.deep.equal(Error('Hi'))
   })
-  it('should support status and clearing status', async() => {
+  it('should support status and clearing status', async () => {
     let clearingStatus = _.flow(
       aspects.status(),
       aspects.clearStatus(10),

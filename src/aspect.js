@@ -64,17 +64,17 @@ let status = (extend = defaultsOn) => aspect({
     succeeded: false,
     failed: false,
     // Computed get/set properties don't work, probably because lodash extend methods don't support copying them
-    setStatus(x) {
+    setStatus (x) {
       this.status = x
       this.failed = x === 'failed'
       this.succeeded = x === 'succeeded'
       this.processing = x === 'processing'
     }
   }),
-  before(params, state) {
+  before (params, state) {
     state.setStatus('processing')
   },
-  after(result, state) {
+  after (result, state) {
     state.setStatus('succeeded')
   },
   onError: tapError((e, state) => {
@@ -83,7 +83,7 @@ let status = (extend = defaultsOn) => aspect({
   name: 'status'
 })
 let clearStatus = (timeout = 500) => aspect({
-  always(state) {
+  always (state) {
     setTimeout(() => {
       state.setStatus(null)
     }, timeout)
