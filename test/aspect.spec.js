@@ -53,7 +53,7 @@ describe('Aspect Functions', () => {
       throw Error('Not hi')
     })
     expect(throwsHi()).to.be.rejectedWith(Error('hi from aspect'))
-  }),
+  }) 
   it('should support single error', async () => {
     let throwsHi = aspects.error()(() => {
       throw Error('Hi')
