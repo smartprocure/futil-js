@@ -12,7 +12,7 @@ export const singleObjectR = _.flip(singleObject)
 // ({a, b}) -> [{a}, {b}]
 export const chunkObject = value =>
   _.isArray(value) ? value
-  : _.map(_.spread(singleObject), _.toPairs(value))
+    : _.map(_.spread(singleObject), _.toPairs(value))
 
 // Remove properties with falsey values: ({ a: 1, b: null, c: false}) -> {a:1}
 export const compactObject = _.pickBy(_.identity)

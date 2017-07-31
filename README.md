@@ -1,4 +1,6 @@
-﻿# <img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+
+---
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
@@ -252,6 +254,9 @@ Language level utilities
 ### throws
 Just throws whatever it is passed.
 
+### tapError
+Tap error will run the provided function and then throw the first argument. It's like `_.tap` for rethrowing errors.
+
 ### exists (alias: isNotNil)
 Negated `_.isNil`
 
@@ -371,6 +376,7 @@ Options supports the following parameters:
 | `after: (result, state, params) -> ()` | Runs after the wrapped function executes and recieves the shared state and the result of the function. Can be async. |
 | `before: (params, state) -> ()` | Runs before the wrapped function executes and receves the shared state and the params passed to the wrapped function. Can be async. |
 | `onError: (error, state, params) -> ()` | Runs if the wrapped function throws an error. If you don't throw inside this, it will swallow any errors that happen. |
+| `always: (state, params) -> ()` | Runs after the wrapped function whether it throws an error or not, similar to a `Promise.catch` |
 
 Example Usage:
 ```js
@@ -403,7 +409,13 @@ Captures any exceptions thrown and set it on an `error` error it puts on state
 Captures any exceptions thrown and pushes them sequentially into an `errors` array it puts on state
 
 #### status
-Adds a `processing` flag that is set to true before the wrapped function runs and false when it's done
+Adds a `status` property that is set to `processing` before the wrapped function runs and `succeeded` when it's done or `failed` if it threw an exception. Also adds shortcuts on state for `processing`, `succeeded`, and `failed`, which are booleans which are based on the value of `status`. Also adds a `setStatus` method which is used internally to update these properties.
+
+#### clearStatus
+Sets `status` to null after provided timeout (default is 500ms) elapses. If a null timeout is passed, it will never set status to null.
 
 #### concurrency
 Prevents a function from running if it's state has `processing` set to true at the time of invocation
+
+#### command
+Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `extend` and `timeout` as optional parameters to construct the aspect

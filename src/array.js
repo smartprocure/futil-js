@@ -30,7 +30,7 @@ export const mergeRanges = _.flow(
   _.sortBy([0, 1]),
   _.reduce((result, range) =>
     dropRight(result).concat(actuallMergeRanges(_.flatten(last(result)), range))
-  , [])
+    , [])
 )
 
 // [a, b...] -> a -> b

@@ -1,4 +1,7 @@
-﻿# 1.24.0
+# 1.25.0
+Add support for aspect `always`, `name`, and bug fix for processing sample aspect. Also added `tapError` and new high level aspect, `command`
+
+# 1.24.0
 Added `trimStrings`, and our new shiny logo on the README thanks to @giulianok
 
 # 1.23.0
