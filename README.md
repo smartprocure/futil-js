@@ -411,5 +411,11 @@ Captures any exceptions thrown and pushes them sequentially into an `errors` arr
 #### status
 Adds a `status` property that is set to `processing` before the wrapped function runs and `succeeded` when it's done or `failed` if it threw an exception. Also adds shortcuts on state for `processing`, `succeeded`, and `failed`, which are booleans which are based on the value of `status`. Also adds a `setStatus` method which is used internally to update these properties.
 
+#### clearStatus
+Sets `status` to null after provided timeout (default is 500ms) elapses. If a null timeout is passed, it will never set status to null.
+
 #### concurrency
 Prevents a function from running if it's state has `processing` set to true at the time of invocation
+
+#### command
+Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `extend` and `timeout` as optional parameters to construct the aspect
