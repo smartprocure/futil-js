@@ -1,5 +1,4 @@
 import _ from 'lodash/fp'
-import {mapValues} from './conversion'
 
 // Stubs
 export let functionLens = val => (...x) => {
@@ -18,15 +17,23 @@ export let fnToObj = fn => ({
 })
 export let objToFn = lens => (...values) =>
   values.length
-  ? lens.set(values[0])
-  : lens.get()
+    ? lens.set(values[0])
+    : lens.get()
 
 // Lens Construction
 export let lensProp = (field, source) => ({
   get: () => source[field],
   set: value => { source[field] = value }
 })
-export let lensOf = object => mapValues((val, key) => lensProp(key, object), object)
+
+// NOTE: This used to use mapValues; however, doing so would sometimes cause issues
+// in some edge cases like trying to lens state coming from an inject function
+// in the mobx library. It would inadvertently cause the inject to re-run.
+// Using reduce here alleviates that issue.
+export let lensOf = object => _.reduce((res, key) => {
+  res[key] = lensProp(key, object)
+  return res
+}, {}, _.keys(object))
 
 // Lens Manipulation
 export let view = lens => lens.get ? lens.get() : lens()

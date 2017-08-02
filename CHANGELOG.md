@@ -1,3 +1,33 @@
+# 1.26.0
+Add `autoLabel`, `autoLabelOption`, and `autoLabelOptions`. Also rearranged test files a bit.
+
+# 1.25.1
+Fixed issue where concurrency aspect should throw Error using the string constructor. Also fixed failing unit tests.
+
+# 1.25.0
+Add support for aspect `always`, `name`, and bug fix for processing sample aspect. Also added `tapError` and new high level aspect, `command`
+
+# 1.24.0
+Added `trimStrings`, and our new shiny logo on the README thanks to @giulianok
+
+# 1.23.0
+Add `setOn` (mutable set)
+
+# 1.22.0
+Add `error` aspect example
+
+# 1.21.0
+`aspect` now supports async `before`, `after`, and `onError`
+
+# 1.20.0
+Add `findApply`, `isNotNil`, `exists`, `unlessExists`, `unlessTruth`, `getOrReturn`, `alias`, `cascade`, `cascadeIn`, `cascadeKey`, `isMultiple`, `append`, `composeApply`, `comply`
+
+# 1.19.0
+Add ramda style `ifElse`, `where`, and `unless` to a new `logic` section
+
+# 1.18.1
+Update lensOf to use reduce instead of mapValues
+
 # 1.18.0
 Add `callOrReturn`, `each`, and `mergeOn`
 

@@ -22,18 +22,9 @@ describe('Basic Functions', () => {
     expect(obj.greet.call({ name: 'John Henry' })).to.equal('Welcome, John Henry')
     expect(f.boundMethod('greet', obj)()).to.equal('Welcome, Wade Watts')
   })
-})
-
-describe('String Functions', () => {
-  it('wrap', () => {
-    expect(f.wrap('(', ')', 'asdf')).to.equal('(asdf)')
-    expect(f.wrap(null, null, 'asdf')).to.equal('asdf')
-  })
-  it('quote', () => {
-    expect(f.quote('asdf')).to.equal('"asdf"')
-  })
-  it('parens', () => {
-    expect(f.parens('asdf')).to.equal('(asdf)')
+  it('comply', () => {
+    // (5 * 2) +  5
+    expect(f.comply(f.append, x => x * 2)(5)).to.equal(15)
   })
 })
 
@@ -42,11 +33,5 @@ describe('Math Functions', () => {
     for (let i = -10; i < 10; i++) {
       expect(f.greaterThanOne(i)).to.equal(i > 1)
     }
-  })
-})
-
-describe('Lang Functions', () => {
-  it('throws', () => {
-    expect(() => f.throws(Error('oops'))).to.throw
   })
 })

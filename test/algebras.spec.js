@@ -20,7 +20,7 @@ describe('Algebras', () => {
 
     const arrMutated = f.deepMap(e => e.concat(101), arr)
 
-        // Checking immutability
+    // Checking immutability
     expect(arr).to.eql(arrBackup)
 
     expect(arrMutated).to.eql([ 0, [ 1, [ 2, [ 101 ], 101 ], 101 ] ])

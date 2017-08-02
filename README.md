@@ -1,4 +1,7 @@
-# futil
+<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+
+---
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
@@ -36,16 +39,58 @@ The syntax: `import f from futil-js` is not currently supported.
 ### callOrReturn
 `(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `fn`.
 
+### boundMethod
+`(a, Monoid f) -> f[a] :: f a` Binds a function of an object to it's object.
+
+### converge
+http://ramdajs.com/docs/#converge
+
+### comply (alias: composeApply)
+`(f, g) => x => f(g(x))(x)`
+A combinator that combines compose and apply
+
+## Logic
+
 ### overNone
 `([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
 
-### boundMethod
-`(a, Monoid f) -> f[a] :: f a` Binds a function of an object to it's object.
+### ifElse
+http://ramdajs.com/docs/#ifElse + lodash shorthand and f.callOrReturn support
+
+### when
+http://ramdajs.com/docs/#when + lodash shorthand and f.callOrReturn support
+
+### unless
+http://ramdajs.com/docs/#unless + lodash shorthand and f.callOrReturn support
+
+### whenTruthy
+`when` curried with `Boolean`
+
+### whenExists
+`when` curried with `exists`
 
 ## Collection
 
 ### flowMap
 `...fns:functions -> map:function` Runs a map function that runs a `flow` of the functions passed in to this method.
+
+### findApply
+`f -> x -> f(find(f, x))`
+A version of `find` that also applies the predicate function to the result. Useful in gets
+
+## Collection Algebras or composable/recursive data types
+
+### map
+`map :: (a -> b) -> [a] -> [b]`
+Maps a function over an iterable. Works by default for Arrays and Plain Objects.
+
+### deepMap
+`deepMap :: (a -> b) -> [a] -> [b]`
+Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed
+nested Arrays and Plain Objects. Also works for any other iterable data type as long as
+two other values are sent: a mapping function, and a type checker (See the
+unit tests for deepMap).
+
 
 ## Lodash Conversions
 These are conversions of lodash fp methods.
@@ -57,7 +102,7 @@ These methods provide alternative orderings that are sometimes more convenient.
 The idea of `In` methods is to name them by convention, so when ever you need a method that actually takes the collection first (e.g. a `get` where the data is static but the field is dynamic), you can just add `In` to the end (such as `getIn` which takes the object first)
 
 ### `On`s (Immutable False)
-`extendOn`, `defaultsOn`
+`extendOn`, `defaultsOn`, `mergeOn`, `setOn`
 lodash/fp likes to keep things pure, but sometimes JS can get pretty dirty.
 These methods are alternatives for working with data that--for whatever the use case is--needs to be mutable
 Any methods that interact with mutable data will use the `On` convention (as it is some action occuring `On` some data)
@@ -163,9 +208,41 @@ _Deprecated in favor of lodash `update`_ Applies a map function at a specific pa
 
 Example: `mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}`.
 
+### getOrReturn
+`_.get` that returns the target object if lookup fails
+
+### alias
+`_.get` that returns the prop if lookup fails
+
+### aliasIn
+Flipped `alias`
+
+### cascade
+A `_.get` that takes an array of paths and returns the value at the first path that matches
+
+### cascadeIn
+Flipped cascade
+
+### cascadeKey
+A `_.get` that takes an array of paths and returns the first path that matched
+
+
 ## String
+
 ### parens
 `'asdf' -> '(asdf)'` Wraps a string in parenthesis.
+
+### trimStrings
+Maps `_.trim` through all the strings of a given object or array.
+
+### autoLabel
+`string -> string` Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support.
+
+### autoLabelOption
+`string -> {value:string, label:string}` Creates a `{value, label}` which applies `autoLabel` the string parameter on puts it on the label property, with the original on the value property. You can also pass in an object with value or with both value and label.
+
+### autoLabelOptions
+`[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
 
 ## Regex
@@ -193,9 +270,11 @@ Example: `mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}`.
 
 Example: `('<b>', '<b>', [[0,1]], 'hi') -> '<b>h</b>i'`
 
+
 ## Math
 ### greaterThanOne
 `number -> bool` Returns true if number is greater than one.
+
 
 ## Lang
 Language level utilities
@@ -203,19 +282,17 @@ Language level utilities
 ### throws
 Just throws whatever it is passed.
 
+### tapError
+Tap error will run the provided function and then throw the first argument. It's like `_.tap` for rethrowing errors.
 
-## Algebras or composable/recursive data types
+### exists (alias: isNotNil)
+Negated `_.isNil`
 
-### map
-`map :: (a -> b) -> [a] -> [b]`
-Maps a function over an iterable. Works by default for Arrays and Plain Objects.
+### isMultiple
+Returns true if the input has a `length` property > 1, such as arrays, strings, or custom objects with a lenth property
 
-### deepMap
-`deepMap :: (a -> b) -> [a] -> [b]`
-Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed
-nested Arrays and Plain Objects. Also works for any other iterable data type as long as
-two other values are sent: a mapping function, and a type checker (See the
-unit tests for deepMap).
+### append
+A curried, flipped `add`
 
 
 ## Lens
@@ -311,9 +388,10 @@ Options supports the following parameters:
 | Name | Description |
 | --- | --- |
 | `init: (state) -> ()` | A function for setting any inital state requirements. Should mutate the shared state object. |
-| `after: (result, state, params) -> ()` | Runs after the wrapped function executes and recieves the shared state and the result of the function. |
-| `before: (params, state) -> ()` | Runs before the wrapped function executes and receves the shared state and the params passed to the wrapped function. |
+| `after: (result, state, params) -> ()` | Runs after the wrapped function executes and recieves the shared state and the result of the function. Can be async. |
+| `before: (params, state) -> ()` | Runs before the wrapped function executes and receves the shared state and the params passed to the wrapped function. Can be async. |
 | `onError: (error, state, params) -> ()` | Runs if the wrapped function throws an error. If you don't throw inside this, it will swallow any errors that happen. |
+| `always: (state, params) -> ()` | Runs after the wrapped function whether it throws an error or not, similar to a `Promise.catch` |
 
 Example Usage:
 ```js
@@ -339,11 +417,20 @@ If null, they default to `defaultsOn` from `futil-js` - check the unit tests for
 #### logs
 Logs adds a `logs` array to the function state and just pushes in results on each run
 
+#### error
+Captures any exceptions thrown and set it on an `error` error it puts on state
+
 #### errors
-Captures any exceptions thrown and pushes them into an `errors` array it puts on state
+Captures any exceptions thrown and pushes them sequentially into an `errors` array it puts on state
 
 #### status
-Adds a `processing` flag that is set to true before the wrapped function runs and false when it's done
+Adds a `status` property that is set to `processing` before the wrapped function runs and `succeeded` when it's done or `failed` if it threw an exception. Also adds shortcuts on state for `processing`, `succeeded`, and `failed`, which are booleans which are based on the value of `status`. Also adds a `setStatus` method which is used internally to update these properties.
+
+#### clearStatus
+Sets `status` to null after provided timeout (default is 500ms) elapses. If a null timeout is passed, it will never set status to null.
 
 #### concurrency
 Prevents a function from running if it's state has `processing` set to true at the time of invocation
+
+#### command
+Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `extend` and `timeout` as optional parameters to construct the aspect
