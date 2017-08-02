@@ -1,5 +1,5 @@
 # 1.26.4 - August 2nd, 2017 18:21
-Added release dates to change log file. Upgraded danger to version 1.1.0.
+Added release dates to change log file. Downgrade danger to version 0.17.0.
 
 # 1.26.3 - August 2nd, 2017 17:54
 Update danger to version 0.19.0
