@@ -1,3 +1,6 @@
+# 1.26.3
+Update danger to version 0.19.0
+
 # 1.26.2
 Update webpack to version 3.0.0
 
