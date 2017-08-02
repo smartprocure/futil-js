@@ -51,7 +51,7 @@
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0",
     "nyc": "^11.0.2",
-    "webpack": "^2.2.1"
+    "webpack": "^3.0.0"
   },
   "directories": {
     "test": "test"
