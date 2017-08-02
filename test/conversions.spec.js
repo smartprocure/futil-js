@@ -18,12 +18,12 @@ describe('Converted Functions', () => {
       expect(f.inversions.getIn(obj)('a')).to.equal(1)
       expect(f.getIn(obj)('a')).to.equal(1)
     })
-  
+
     it('pickIn', () => {
       expect(f.pickIn(hero, 'name')).to.eql(_.pick('name', hero))
       expect(f.pickIn(hero, ['name', 'father'])).to.eql(_.pick(['name', 'father'], hero))
     })
-  
+
     it('includesIn', () => {
       let expectEql = (obj, name) => expect(f.includesIn(obj, name)).to.eql(_.includes(name, obj))
       expectEql(hero, 'name')
@@ -49,7 +49,7 @@ describe('Converted Functions', () => {
         c: 4
       })
     })
-  
+
     it('defaultsOn', () => {
       let clone = _.clone(hero)
       expect(f.defaultsOn(clone, { consort: 'Auge' })).to.eql(_.defaults({ consort: 'Auge' }, clone))
