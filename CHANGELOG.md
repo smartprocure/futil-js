@@ -1,3 +1,6 @@
+# 1.26.3 - August 2nd, 2017 17:54
+Update danger to version 0.19.0
+
 # 1.26.2 - August 2nd, 2017 17:54
 Update webpack to version 3.0.0
 
@@ -118,13 +121,13 @@ Added `aspect` and the reusable examples on `aspects` (`logs`, `errors`, `status
 # 1.5.1 and 1.5.2 - February 16th, 2017 21:35
 Travis related CI stuff
 
-# 1.5.0 - February 16th, 2017 21:35
+# 1.5.0 - February 15th, 2017 22:11
 - Add `pickIn`
 
-# 1.4.1 - February 16th, 2017 21:35
+# 1.4.1 - February 10th, 2017 23:40
 - `maybeCall` fixed, rest params added to get the `fn` arguments
 
-# 1.4.0 - February 16th, 2017 21:35
+# 1.4.0 - February 10th, 2017 23:40
 - Added Array Function `repeated`
 - Added String Functions
 	* `quote`
@@ -132,21 +135,21 @@ Travis related CI stuff
 	* `processQuotes`
 	* `getUniqueWords`
 
-# 1.3.0 - February 16th, 2017 21:35
+# 1.3.0 - February 10th, 2017 23:40
 - Added `flattenObject` and `singleObjectR`
 - Split index to multiple files
 
-# 1.2.2 - February 16th, 2017 21:35
+# 1.2.2 - February 10th, 2017 20:14
 - Changed filename to `futil-js` to match the current npm package name
 
-# 1.2.1 - February 16th, 2017 21:35
+# 1.2.1 - February 10th, 2017 16:51
 - Changed package.json main entry point to reflect the built output
 
-# 1.2.0 - February 16th, 2017 21:35
+# 1.2.0 - February 9th, 2017 05:21
 - Added unwind
 
-# 1.1.0 - February 16th, 2017 21:35
+# 1.1.0 - February 8th, 2017 20:04
 - Added flowMap
 
-# 1.0.0 - February 16th, 2017 21:35
+# 1.0.0 - February 6th, 2017 21:16
 - Initial Release
