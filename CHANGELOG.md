@@ -1,4 +1,7 @@
 # 1.26.0
+Update chai to version 4.1.0
+
+# 1.26.0
 Add `autoLabel`, `autoLabelOption`, and `autoLabelOptions`. Also rearranged test files a bit.
 
 # 1.25.1
