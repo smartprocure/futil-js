@@ -78,6 +78,20 @@ http://ramdajs.com/docs/#unless + lodash shorthand and f.callOrReturn support
 `f -> x -> f(find(f, x))`
 A version of `find` that also applies the predicate function to the result. Useful in gets
 
+## Collection Algebras or composable/recursive data types
+
+### map
+`map :: (a -> b) -> [a] -> [b]`
+Maps a function over an iterable. Works by default for Arrays and Plain Objects.
+
+### deepMap
+`deepMap :: (a -> b) -> [a] -> [b]`
+Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed
+nested Arrays and Plain Objects. Also works for any other iterable data type as long as
+two other values are sent: a mapping function, and a type checker (See the
+unit tests for deepMap).
+
+
 ## Lodash Conversions
 These are conversions of lodash fp methods.
 
@@ -212,11 +226,23 @@ Flipped cascade
 ### cascadeKey
 A `_.get` that takes an array of paths and returns the first path that matched
 
+
 ## String
+
 ### parens
 `'asdf' -> '(asdf)'` Wraps a string in parenthesis.
+
 ### trimStrings
 Maps `_.trim` through all the strings of a given object or array.
+
+### autoLabel
+`string -> string` Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support.
+
+### autoLabelOption
+`string -> {value:string, label:string}` Creates a `{value, label}` which applies `autoLabel` the string parameter on puts it on the label property, with the original on the value property. You can also pass in an object with value or with both value and label.
+
+### autoLabelOptions
+`[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
 
 ## Regex
@@ -244,9 +270,11 @@ Maps `_.trim` through all the strings of a given object or array.
 
 Example: `('<b>', '<b>', [[0,1]], 'hi') -> '<b>h</b>i'`
 
+
 ## Math
 ### greaterThanOne
 `number -> bool` Returns true if number is greater than one.
+
 
 ## Lang
 Language level utilities
@@ -265,19 +293,6 @@ Returns true if the input has a `length` property > 1, such as arrays, strings, 
 
 ### append
 A curried, flipped `add`
-
-## Algebras or composable/recursive data types
-
-### map
-`map :: (a -> b) -> [a] -> [b]`
-Maps a function over an iterable. Works by default for Arrays and Plain Objects.
-
-### deepMap
-`deepMap :: (a -> b) -> [a] -> [b]`
-Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed
-nested Arrays and Plain Objects. Also works for any other iterable data type as long as
-two other values are sent: a mapping function, and a type checker (See the
-unit tests for deepMap).
 
 
 ## Lens
