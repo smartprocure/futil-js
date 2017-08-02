@@ -96,9 +96,7 @@ let clearStatus = (timeout = 500) => aspect({
 let concurrency = () => aspect({
   before (params, state) {
     if (state.processing) {
-      throw Error({
-        message: 'Concurrent Runs Not Allowed'
-      })
+      throw Error('Concurrent Runs Not Allowed')
     }
   },
   name: 'concurrency'
