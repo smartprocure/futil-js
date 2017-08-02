@@ -1,13 +1,13 @@
-# 1.26.2
+# 1.26.2 - August 2nd, 2017 17:54
 Update webpack to version 3.0.0
 
-# 1.26.1
+# 1.26.1 - August 2nd, 2017 14:37
 Update chai to version 4.1.0
 
-# 1.26.0
+# 1.26.0 - August 2nd, 2017 06:46
 Add `autoLabel`, `autoLabelOption`, and `autoLabelOptions`. Also rearranged test files a bit.
 
-# 1.25.1
+# 1.25.1 - August 2nd, 2017 06:26
 Fixed issue where concurrency aspect should throw Error using the string constructor. Also fixed failing unit tests.
 
 # 1.25.0 - July 31st, 2017 19:49
@@ -121,10 +121,10 @@ Travis related CI stuff
 # 1.5.0 - February 16th, 2017 21:35
 - Add `pickIn`
 
-# 1.4.1 - February 16th
+# 1.4.1 - February 16th, 2017 21:35
 - `maybeCall` fixed, rest params added to get the `fn` arguments
 
-# 1.4.0 - February 16th
+# 1.4.0 - February 16th, 2017 21:35
 - Added Array Function `repeated`
 - Added String Functions
 	* `quote`
@@ -132,21 +132,21 @@ Travis related CI stuff
 	* `processQuotes`
 	* `getUniqueWords`
 
-# 1.3.0 - February 16th
+# 1.3.0 - February 16th, 2017 21:35
 - Added `flattenObject` and `singleObjectR`
 - Split index to multiple files
 
-# 1.2.2 - February 16th
+# 1.2.2 - February 16th, 2017 21:35
 - Changed filename to `futil-js` to match the current npm package name
 
-# 1.2.1 - February 16th
+# 1.2.1 - February 16th, 2017 21:35
 - Changed package.json main entry point to reflect the built output
 
-# 1.2.0 - February 16th
+# 1.2.0 - February 16th, 2017 21:35
 - Added unwind
 
-# 1.1.0 - February 16th
+# 1.1.0 - February 16th, 2017 21:35
 - Added flowMap
 
-# 1.0.0 - February 16th, 2017
+# 1.0.0 - February 16th, 2017 21:35
 - Initial Release
