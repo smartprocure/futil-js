@@ -1,3 +1,6 @@
+# 1.26.2
+Update webpack to version 3.0.0
+
 # 1.26.1
 Update chai to version 4.1.0
 
