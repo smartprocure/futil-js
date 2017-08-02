@@ -1,4 +1,4 @@
-# 1.26.0
+# 1.26.1
 Update chai to version 4.1.0
 
 # 1.26.0
