@@ -231,8 +231,18 @@ A `_.get` that takes an array of paths and returns the first path that matched
 
 ### parens
 `'asdf' -> '(asdf)'` Wraps a string in parenthesis.
+
 ### trimStrings
 Maps `_.trim` through all the strings of a given object or array.
+
+### autoLabel
+`string -> string` Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support.
+
+### autoLabelOption
+`string -> {value:string, label:string}` Creates a `{value, label}` which applies `autoLabel` the string parameter on puts it on the label property, with the original on the value property. You can also pass in an object with value or with both value and label.
+
+### autoLabelOptions
+`[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
 
 ## Regex
