@@ -1,6 +1,9 @@
 # 1.26.0
 Add `autoLabel`, `autoLabelOption`, and `autoLabelOptions`. Also rearranged test files a bit.
 
+# 1.25.1
+Fixed issue where concurrency aspect should throw Error using the string constructor. Also fixed failing unit tests.
+
 # 1.25.0
 Add support for aspect `always`, `name`, and bug fix for processing sample aspect. Also added `tapError` and new high level aspect, `command`
 

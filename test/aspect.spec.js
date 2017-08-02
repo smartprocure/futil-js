@@ -37,13 +37,12 @@ describe('Aspect Functions', () => {
     let g = Command(() => { throw Error(5) })
     expect(g.state.processing).to.equal(false)
     await g()
-    expect(g.state.errors).to.deep.equal([Error(5)])
+    expect(g.state.errors[0].message).to.equal('5')
     expect(g.state.processing).to.equal(false)
     // Should be blocked as a concurrent run since it's still processing
+    g.state.processing = true
     await g()
-    expect(g.state.errors[1]).to.deep.equal(Error({
-      message: 'Concurrent Runs Not Allowed'
-    }))
+    expect(g.state.errors[1].message).to.equal('Concurrent Runs Not Allowed')
   })
   it('should support throwing in onError', async () => {
     let ThrowHi = aspect({
@@ -61,7 +60,7 @@ describe('Aspect Functions', () => {
       throw Error('Hi')
     })
     await throwsHi()
-    expect(throwsHi.state.error).to.deep.equal(Error('Hi'))
+    expect(throwsHi.state.error.message).to.deep.equal('Hi')
   })
   it('should support status and clearing status', async () => {
     let clearingStatus = aspects.command(undefined, 10)
