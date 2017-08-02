@@ -34,6 +34,11 @@ describe('String Functions', () => {
       [
         'thisIs_startCaseWithACRONYMSAndNumbersLike123and4',
         'This Is Start Case With ACRONYMS And Numbers Like 123 And 4'
+      ],
+      // Passive aggressive example of how to better auto generate PR titles from branch names...
+      [
+        'Feature/AutoLabel#126',
+        'Feature Auto Label 126'
       ]
     ]
     f.each(
