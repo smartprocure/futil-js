@@ -39,7 +39,7 @@
     "chokidar-cli": "^1.2.0",
     "codacy-coverage": "^2.0.1",
     "coveralls": "^2.11.16",
-    "danger": "^0.17.0",
+    "danger": "^1.1.0",
     "eslint": "4.1.0",
     "eslint-config-standard": "^10.0.0",
     "eslint-plugin-import": "^2.2.0",
