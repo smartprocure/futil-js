@@ -21,4 +21,43 @@ describe('String Functions', () => {
     expect(f.trimStrings(['This ', '  is a  ', null, '', 'sentence!'])).to.deep.equal(['This', 'is a', null, '', 'sentence!'])
     expect(f.trimStrings({a: 'a', b: ' b ', c: 'c ', d: ' d', e: 5})).to.deep.equal({a: 'a', b: 'b', c: 'c', d: 'd', e: 5})
   })
+  it('autoLabel', () => {
+    let tests = [
+      [
+        'whatDoYouThinkOfThisHTML5Stuff? IThinkItIsREALLYCool',
+        'What Do You Think Of This HTML 5 Stuff I Think It Is REALLY Cool'
+      ],
+      [
+        'thisIsAVariable',
+        'This Is A Variable'
+      ],
+      [
+        'thisIs_startCaseWithACRONYMSAndNumbersLike123and4',
+        'This Is Start Case With ACRONYMS And Numbers Like 123 And 4'
+      ]
+    ]
+    f.each(
+      ([input, output]) => expect(f.autoLabel(input)).to.equal(output),
+      tests
+    )
+  })
+  it('autoLabelOption', () => {
+    expect(f.autoLabelOption('someValue')).to.deep.equal({
+      value: 'someValue',
+      label: 'Some Value'
+    })
+  })
+  it('autoLabelOptions', () => {
+    expect(
+      f.autoLabelOptions([
+        'someValue',
+        {value: 'justAValue'},
+        {value: 'bothValueAndLabel', label: 'Custom Label'}
+      ])
+    ).to.deep.equal([
+      {value: 'someValue', label: 'Some Value'},
+      {value: 'justAValue', label: 'Just A Value'},
+      {value: 'bothValueAndLabel', label: 'Custom Label'}
+    ])
+  })
 })
