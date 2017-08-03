@@ -1,3 +1,6 @@
+﻿# 1.27.0 - August 3rd, 2017 14:22
+Added the `cascadeKey` function.
+
 # 1.26.4 - August 2nd, 2017 18:21
 Added release dates to change log file. Downgrade danger to version 0.17.0.
 
