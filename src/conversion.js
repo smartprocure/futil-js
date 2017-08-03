@@ -7,6 +7,7 @@ const noCap = { cap: false }
 // Flips
 // ----------
 export const getIn = _.get.convert(noRearg)
+export const hasIn = _.has.convert(noRearg)
 export const pickIn = _.pick.convert(noRearg)
 export const includesIn = _.includes.convert(noRearg)
 
