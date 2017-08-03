@@ -96,7 +96,7 @@ unit tests for deepMap).
 These are conversions of lodash fp methods.
 
 ### `In`s (Rearg False)
-`getIn`, `includesIn`, `pickIn`
+`getIn`, `hasIn`, `includesIn`, `pickIn`
 lodash/fp is great, but sometimes the curry order isn't exactly what you want.
 These methods provide alternative orderings that are sometimes more convenient.
 The idea of `In` methods is to name them by convention, so when ever you need a method that actually takes the collection first (e.g. a `get` where the data is static but the field is dynamic), you can just add `In` to the end (such as `getIn` which takes the object first)
