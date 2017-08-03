@@ -74,4 +74,6 @@ export let cascadeIn = _.curry((obj, paths) => cascade(paths, obj))
 // A `_.get` that takes an array of paths and returns the first path that matched
 export let cascadeKey = _.curry((paths, obj) => _.find(getIn(obj), paths))
 // A `_.get` that takes an array of paths and returns the first path that exists
-export let cascadeProp = _.curry((paths, obj) => _.get(_.find(hasIn(obj), paths), obj))
+export let cascadePropKey = _.curry((paths, obj) => _.find(hasIn(obj), paths))
+// A `_.get` that takes an array of paths and returns the first value that has an existing path
+export let cascadeProp = _.curry((paths, obj) => _.get(cascadePropKey(paths, obj), obj))

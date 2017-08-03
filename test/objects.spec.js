@@ -150,7 +150,10 @@ describe('Object Functions', () => {
   it('cascadeKey', () => {
     expect(f.cascadeKey(['x', 'y'], {a: 1, x: 2})).to.deep.equal('x')
   })
-  it('cascadeKey', () => {
+  it('cascadePropKey', () => {
+    expect(f.cascadePropKey(['x', 'y'], {a: 1, x: null, y: 2})).to.deep.equal('x')
+  })
+  it('cascadeProp', () => {
     expect(f.cascadeProp(['x', 'y'], {a: 1, x: null, y: 2})).to.deep.equal(null)
   })
 })
