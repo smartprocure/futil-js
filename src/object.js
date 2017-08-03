@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import { dotJoin } from './array'
 import { overNone } from './logic'
-import { reduce, pickIn, getIn } from './conversion'
+import { reduce, pickIn, getIn, hasIn } from './conversion'
 import { findApply } from './collection'
 
 // (k, v) -> {k: v}
@@ -73,3 +73,7 @@ export let cascade = _.curry((paths, obj) => findApply(getIn(obj), paths))
 export let cascadeIn = _.curry((obj, paths) => cascade(paths, obj))
 // A `_.get` that takes an array of paths and returns the first path that matched
 export let cascadeKey = _.curry((paths, obj) => _.find(getIn(obj), paths))
+// A `_.get` that takes an array of paths and returns the first path that exists
+export let cascadePropKey = _.curry((paths, obj) => _.find(hasIn(obj), paths))
+// A `_.get` that takes an array of paths and returns the first value that has an existing path
+export let cascadeProp = _.curry((paths, obj) => _.get(cascadePropKey(paths, obj), obj))

@@ -142,11 +142,18 @@ describe('Object Functions', () => {
   })
   it('cascade', () => {
     expect(f.cascade(['x', 'y'], {a: 1, y: 2})).to.deep.equal(2)
+    expect(f.cascade(['x', 'y'], {a: 1, x: null, y: 2})).to.deep.equal(2)
   })
   it('cascadeIn', () => {
     expect(f.cascadeIn({a: 1, y: 2}, ['x', 'y'])).to.deep.equal(2)
   })
   it('cascadeKey', () => {
     expect(f.cascadeKey(['x', 'y'], {a: 1, x: 2})).to.deep.equal('x')
+  })
+  it('cascadePropKey', () => {
+    expect(f.cascadePropKey(['x', 'y'], {a: 1, x: null, y: 2})).to.deep.equal('x')
+  })
+  it('cascadeProp', () => {
+    expect(f.cascadeProp(['x', 'y'], {a: 1, x: null, y: 2})).to.deep.equal(null)
   })
 })

@@ -1,3 +1,6 @@
+﻿# 1.27.0
+Added `hasIn`, `cascadeProp` and `cascadePropKey`.
+
 # 1.26.4 - August 2nd, 2017 18:21
 Added release dates to change log file. Downgrade danger to version 0.17.0.
 

@@ -1,4 +1,4 @@
-<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -96,7 +96,7 @@ unit tests for deepMap).
 These are conversions of lodash fp methods.
 
 ### `In`s (Rearg False)
-`getIn`, `includesIn`, `pickIn`
+`getIn`, `hasIn`, `includesIn`, `pickIn`
 lodash/fp is great, but sometimes the curry order isn't exactly what you want.
 These methods provide alternative orderings that are sometimes more convenient.
 The idea of `In` methods is to name them by convention, so when ever you need a method that actually takes the collection first (e.g. a `get` where the data is static but the field is dynamic), you can just add `In` to the end (such as `getIn` which takes the object first)
@@ -225,6 +225,12 @@ Flipped cascade
 
 ### cascadeKey
 A `_.get` that takes an array of paths and returns the first path that matched
+
+### cascadeProp
+A `_.get` that takes an array of paths and returns the first value that has an existing path
+
+### cascadePropKey
+A `_.get` that takes an array of paths and returns the first path that exists
 
 
 ## String
