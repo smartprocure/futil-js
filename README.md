@@ -1,4 +1,4 @@
-<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -225,6 +225,12 @@ Flipped cascade
 
 ### cascadeKey
 A `_.get` that takes an array of paths and returns the first path that matched
+
+### cascadeProp
+// A `_.get` that takes an array of paths and returns the first value that has an existing path
+
+### cascadePropKey
+// A `_.get` that takes an array of paths and returns the first path that exists
 
 
 ## String

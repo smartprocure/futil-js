@@ -1,4 +1,4 @@
-﻿# 1.27.0 - August 3rd, 2017 14:22
+﻿# 1.27.0
 Added the `cascadeProp` and `cascadePropKey` functions.
 
 # 1.26.4 - August 2nd, 2017 18:21
