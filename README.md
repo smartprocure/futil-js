@@ -227,10 +227,10 @@ Flipped cascade
 A `_.get` that takes an array of paths and returns the first path that matched
 
 ### cascadeProp
-// A `_.get` that takes an array of paths and returns the first value that has an existing path
+A `_.get` that takes an array of paths and returns the first value that has an existing path
 
 ### cascadePropKey
-// A `_.get` that takes an array of paths and returns the first path that exists
+A `_.get` that takes an array of paths and returns the first path that exists
 
 
 ## String
