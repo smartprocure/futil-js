@@ -3,7 +3,6 @@ import { dotJoin } from './array'
 import { overNone } from './logic'
 import { reduce, pickIn, getIn, hasIn } from './conversion'
 import { findApply } from './collection'
-import { when } from './logic'
 
 // (k, v) -> {k: v}
 export const singleObject = _.curry((key, value) => ({ [key]: value }))
