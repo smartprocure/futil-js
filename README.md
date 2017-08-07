@@ -422,6 +422,9 @@ wrapped()
 
 ```
 
+### aspectSync
+This is a synchronous version of `aspect`, for situations when it's not desirable to `await` a method you're adding aspects to. The API is the same, but things like `onError` won't work if you pass an async function to the aspect.
+
 ### aspects
 There are a few basic aspects included because they seem to be universally useful.
 All of the provided aspects take an `extend` function to allow customizing the state mutation method (e.g. in mobx, you'd use `extendObservable`).
@@ -447,3 +450,6 @@ Prevents a function from running if it's state has `processing` set to true at t
 
 #### command
 Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `extend` and `timeout` as optional parameters to construct the aspect
+
+#### deprecate
+Utility for marking functions as deprecated - it's just a `before` with a console.warn. Takes the name of thing being deprecated, optionally deprecation version, and optionally an alternative and returns a higher order function which you can wrap deprecated methods in. This is what's used internally to mark deprecations.
