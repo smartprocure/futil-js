@@ -1,4 +1,4 @@
-﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -106,6 +106,12 @@ The idea of `In` methods is to name them by convention, so when ever you need a 
 lodash/fp likes to keep things pure, but sometimes JS can get pretty dirty.
 These methods are alternatives for working with data that--for whatever the use case is--needs to be mutable
 Any methods that interact with mutable data will use the `On` convention (as it is some action occuring `On` some data)
+
+### `Indexed` (Cap False)
+`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`
+lodash/fp caps iteratees to one argument by default, but sometimes you need the index.
+These methods are uncapped versions of lodash's methods.
+Any method with uncapped iteratee arguments will use the `Indexed` convention.
 
 ## Array
 
@@ -232,6 +238,7 @@ A `_.get` that takes an array of paths and returns the first value that has an e
 ### cascadePropKey
 A `_.get` that takes an array of paths and returns the first path that exists
 
+### unkeyBy
 
 ## String
 

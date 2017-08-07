@@ -1,4 +1,6 @@
-﻿# 1.27.0
+# Current (1.28.0)
+- Added `Indexed` conversions(`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`)
+- Deprecated the uncap conversions that don't follow the naming convention
 Added `hasIn`, `cascadeProp` and `cascadePropKey`.
 
 # 1.26.4 - August 2nd, 2017 18:21

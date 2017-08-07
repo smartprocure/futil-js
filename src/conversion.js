@@ -27,3 +27,8 @@ export const inversions = _.reduce((memo, x) => _.set(x + 'In', _[x].convert(noR
 export const reduce = _.reduce.convert(noCap)
 export const mapValues = _.mapValues.convert(noCap)
 export const each = _.each.convert(noCap)
+
+export const mapIndexed = _.map.convert(noCap)
+export const eachIndexed = _.each.convert(noCap)
+export const reduceIndexed = _.reduce.convert(noCap)
+export const mapValuesIndexed = _.mapValues.convert(noCap)
