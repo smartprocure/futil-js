@@ -79,7 +79,7 @@ export let cascadePropKey = _.curry((paths, obj) => _.find(hasIn(obj), paths))
 export let cascadeProp = _.curry((paths, obj) => _.get(cascadePropKey(paths, obj), obj))
 
 export let unkeyBy = _.curry((keyName, obj) =>
-  mapIndexed((val, key) => _.extend(val, {[keyName || key]:key}))(obj))
+  mapIndexed((val, key) => _.extend(val, {[keyName || key]: key}))(obj))
 
 export let simpleDiff = (original, deltas) => {
   let o = flattenObject(original)

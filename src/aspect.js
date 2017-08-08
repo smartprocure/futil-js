@@ -55,19 +55,16 @@ export let aspectSync = ({
   // Trick to set function.name of anonymous function
   let x = {
     [name]: (...args) => {
-      let result
-      let error
       try {
         before(args, state)
-        result = f(...args)
+        let result = f(...args)
         after(result, state, args)
+        return result
       } catch (e) {
-        error = onError(e, state, args)
+        onError(e, state, args)
+        throw e
       } finally {
         always(state, args)
-        if (error)
-          throw error
-        return result
       }
     }
   }
@@ -145,7 +142,7 @@ let command = (extend, timeout) => _.flow(
 
 let deprecate = (subject, version, alternative) => aspectSync({
   before: () =>
-    console.warn(`${subject} is deprecated${version ? ` as of ${version}`: ''}${alternative ? ` in favor of ${alternative}`: ''}`)
+    console.warn(`${subject} is deprecated${version ? ` as of ${version}` : ''}${alternative ? ` in favor of ${alternative}` : ''}`)
 })
 
 export let aspects = {
