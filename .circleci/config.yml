@@ -11,8 +11,6 @@ jobs:
       - restore_cache:
           key: dependency-cache
       - run:
-          name: 
-      - run:
           name: install
           command: npm install
       - save_cache:
