@@ -1,3 +1,6 @@
+﻿# 1.33.1
+- Currying the postings and highlighting functions.
+
 # 1.33.0
 - Add `debounceAsync` and `defer`
 
