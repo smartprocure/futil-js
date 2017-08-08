@@ -18,6 +18,7 @@ test:
   pre:
     - git remote set-branches --add origin master
     - git fetch
+    - rm -rf test-results.json lint-results.json
   override:
     # Eslint changed files only
     - LIST=$(git diff-index --name-only origin/master | grep .*\\.js | grep -v json | grep -v eslint | tr '\n' ' '); if [ "$LIST" ]; then npm run lint:ci -- $LIST; fi
@@ -25,7 +26,6 @@ test:
     - ./node_modules/.bin/codacy-coverage < ./coverage/lcov.info
     - rm -fr ./coverage
     - npm run danger
-    - rm -rf test-results.json lint-results.json
 
 deployment:
   npm:
