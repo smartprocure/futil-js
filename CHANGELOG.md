@@ -3,6 +3,7 @@
 - Add `aspectSync` and `deprecate`
 - Deprecated the uncap conversions that don't follow the naming convention
 - Add `unkeyBy`
+- Add `simpleDiff` and `simpleDiffArray`
 
 # 1.27.0
 - Added `hasIn`, `cascadeProp` and `cascadePropKey`.
