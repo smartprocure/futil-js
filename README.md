@@ -239,6 +239,8 @@ A `_.get` that takes an array of paths and returns the first value that has an e
 A `_.get` that takes an array of paths and returns the first path that exists
 
 ### unkeyBy
+`{a:x, b:y} -> [{...x, a}, {...y, b}]` Opposite of `_.keyBy`. Creates an array from an object where the key is merged into the values with a property with the name passed in. If no key is passed in, it will use each prop's key as both the key and value.
+
 
 ## String
 

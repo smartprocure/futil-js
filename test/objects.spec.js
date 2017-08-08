@@ -156,4 +156,36 @@ describe('Object Functions', () => {
   it('cascadeProp', () => {
     expect(f.cascadeProp(['x', 'y'], {a: 1, x: null, y: 2})).to.deep.equal(null)
   })
+  it('unkeyBy', () => {
+    expect(f.unkeyBy('field', {
+      a: {
+        x: 1
+      },
+      'd.e': {
+        x: 5
+      }
+    })).to.deep.equal([{
+      x: 1,
+      field: 'a'
+    }, {
+      x: 5,
+      field: 'd.e'
+    }])
+  })
+  it('unkeyBy', () => {
+    expect(f.unkeyBy('', {
+      a: {
+        x: 1
+      },
+      'd.e': {
+        x: 5
+      }
+    })).to.deep.equal([{
+      x: 1,
+      a: 'a'
+    }, {
+      x: 5,
+      'd.e': 'd.e'
+    }])
+  })
 })

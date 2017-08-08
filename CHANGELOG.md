@@ -2,6 +2,7 @@
 - Added `Indexed` conversions(`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`)
 - Add `aspectSync` and `deprecate`
 - Deprecated the uncap conversions that don't follow the naming convention
+- Add `unkeyBy`
 
 # 1.27.0
 - Added `hasIn`, `cascadeProp` and `cascadePropKey`.
