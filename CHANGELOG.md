@@ -1,4 +1,7 @@
-﻿# 1.27.0
+﻿# 1.27.1
+Add Duti to the repo
+
+# 1.27.0
 Added `hasIn`, `cascadeProp` and `cascadePropKey`.
 
 # 1.26.4 - August 2nd, 2017 18:21

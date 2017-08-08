@@ -2,6 +2,7 @@
 
 ---
 
+[![CircleCI](https://circleci.com/gh/smartprocure/futil-js.svg?style=svg)](https://circleci.com/gh/smartprocure/futil-js)
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
