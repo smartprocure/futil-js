@@ -5,7 +5,7 @@
 - Add `unkeyBy`
 - Add `simpleDiff` and `simpleDiffArray`
 
-# 1.27.0
+# 1.27.0 August 3rd, 2017 15:58
 - Added `hasIn`, `cascadeProp` and `cascadePropKey`.
 
 # 1.26.4 - August 2nd, 2017 18:21
