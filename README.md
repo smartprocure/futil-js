@@ -1,4 +1,4 @@
-﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -106,6 +106,12 @@ The idea of `In` methods is to name them by convention, so when ever you need a 
 lodash/fp likes to keep things pure, but sometimes JS can get pretty dirty.
 These methods are alternatives for working with data that--for whatever the use case is--needs to be mutable
 Any methods that interact with mutable data will use the `On` convention (as it is some action occuring `On` some data)
+
+### `Indexed` (Cap False)
+`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`
+lodash/fp caps iteratees to one argument by default, but sometimes you need the index.
+These methods are uncapped versions of lodash's methods.
+Any method with uncapped iteratee arguments will use the `Indexed` convention.
 
 ## Array
 
@@ -231,6 +237,15 @@ A `_.get` that takes an array of paths and returns the first value that has an e
 
 ### cascadePropKey
 A `_.get` that takes an array of paths and returns the first path that exists
+
+### unkeyBy
+`{a:x, b:y} -> [{...x, a}, {...y, b}]` Opposite of `_.keyBy`. Creates an array from an object where the key is merged into the values with a property with the name passed in. If no key is passed in, it will use each prop's key as both the key and value.
+
+### simpleDiff
+`(from, to) -> simpleDiff` Produces a simple flattened (see `flattenObject`) diff between two objects. For each (flattened) key, it produced a `from` and a `to` value. Note that this will omit any values that aren't present in the deltas object.
+
+### simpleDiffArray
+`(from, to) -> [simpleDiffChanges]` Same as `simpleDiff`, but produces an array instead of `{field, from, to}` objects instead of `{field: {from, to}`
 
 
 ## String
@@ -415,6 +430,9 @@ wrapped()
 
 ```
 
+### aspectSync
+This is a synchronous version of `aspect`, for situations when it's not desirable to `await` a method you're adding aspects to. The API is the same, but things like `onError` won't work if you pass an async function to the aspect.
+
 ### aspects
 There are a few basic aspects included because they seem to be universally useful.
 All of the provided aspects take an `extend` function to allow customizing the state mutation method (e.g. in mobx, you'd use `extendObservable`).
@@ -440,3 +458,6 @@ Prevents a function from running if it's state has `processing` set to true at t
 
 #### command
 Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `extend` and `timeout` as optional parameters to construct the aspect
+
+#### deprecate
+Utility for marking functions as deprecated - it's just a `before` with a console.warn. Takes the name of thing being deprecated, optionally deprecation version, and optionally an alternative and returns a higher order function which you can wrap deprecated methods in. This is what's used internally to mark deprecations.

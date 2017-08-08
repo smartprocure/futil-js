@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import { dotJoin } from './array'
 import { overNone } from './logic'
-import { reduce, pickIn, getIn, hasIn } from './conversion'
+import { reduce, pickIn, getIn, hasIn, mapIndexed, mapValues } from './conversion'
 import { findApply } from './collection'
 
 // (k, v) -> {k: v}
@@ -77,3 +77,16 @@ export let cascadeKey = _.curry((paths, obj) => _.find(getIn(obj), paths))
 export let cascadePropKey = _.curry((paths, obj) => _.find(hasIn(obj), paths))
 // A `_.get` that takes an array of paths and returns the first value that has an existing path
 export let cascadeProp = _.curry((paths, obj) => _.get(cascadePropKey(paths, obj), obj))
+
+export let unkeyBy = _.curry((keyName, obj) =>
+  mapIndexed((val, key) => _.extend(val, {[keyName || key]: key}))(obj))
+
+export let simpleDiff = (original, deltas) => {
+  let o = flattenObject(original)
+  return _.flow(
+    flattenObject,
+    mapValues((to, field) => ({ from: o[field], to })),
+    _.omit(x => x.from === x.to)
+  )(deltas)
+}
+export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))

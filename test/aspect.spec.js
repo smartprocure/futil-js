@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
-import {aspects, aspect} from '../src'
+import {aspects, aspect, aspectSync} from '../src'
 import Promise from 'bluebird'
 
 chai.use(chaiAsPromised)
@@ -82,5 +82,19 @@ describe('Aspect Functions', () => {
     expect(g.state.failed).to.be.true
     await Promise.delay(15)
     expect(f.state.status).to.equal(null)
+  })
+  it('should support synchronous aspects', () => {
+    let x = 1
+    let y = 0
+    let firstIncrementX = aspectSync({
+      before: () => {
+        x++
+      }
+    })
+    let f = firstIncrementX(() => {
+      y = x
+    })
+    f()
+    expect(y).to.equal(2)
   })
 })

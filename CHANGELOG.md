@@ -1,68 +1,75 @@
-﻿# 1.27.0
-Added `hasIn`, `cascadeProp` and `cascadePropKey`.
+# 1.28.0 (Current)
+- Added `Indexed` conversions(`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`)
+- Add `aspectSync` and `deprecate`
+- Deprecated the uncap conversions that don't follow the naming convention
+- Add `unkeyBy`
+- Add `simpleDiff` and `simpleDiffArray`
+
+# 1.27.0 August 3rd, 2017 15:58
+- Added `hasIn`, `cascadeProp` and `cascadePropKey`.
 
 # 1.26.4 - August 2nd, 2017 18:21
-Added release dates to change log file. Downgrade danger to version 0.17.0.
+- Added release dates to change log file. Downgrade danger to version 0.17.0.
 
 # 1.26.3 - August 2nd, 2017 17:54
-Update danger to version 0.19.0
+- Update danger to version 0.19.0
 
 # 1.26.2 - August 2nd, 2017 17:54
-Update webpack to version 3.0.0
+- Update webpack to version 3.0.0
 
 # 1.26.1 - August 2nd, 2017 14:37
-Update chai to version 4.1.0
+- Update chai to version 4.1.0
 
 # 1.26.0 - August 2nd, 2017 06:46
-Add `autoLabel`, `autoLabelOption`, and `autoLabelOptions`. Also rearranged test files a bit.
+- Add `autoLabel`, `autoLabelOption`, and `autoLabelOptions`. Also rearranged test files a bit.
 
 # 1.25.1 - August 2nd, 2017 06:26
-Fixed issue where concurrency aspect should throw Error using the string constructor. Also fixed failing unit tests.
+- Fixed issue where concurrency aspect should throw Error using the string constructor. Also fixed failing unit tests.
 
 # 1.25.0 - July 31st, 2017 19:49
-Add support for aspect `always`, `name`, and bug fix for processing sample aspect. Also added `tapError` and new high level aspect, `command`
+- Add support for aspect `always`, `name`, and bug fix for processing sample aspect. Also added `tapError` and new high level aspect, `command`
 
 # 1.24.0 - July 28th, 2017 16:07
-Added `trimStrings`, and our new shiny logo on the README thanks to @giulianok
+- Added `trimStrings`, and our new shiny logo on the README thanks to @giulianok
 
 # 1.23.0 - July 28th, 2017 05:40
-Add `setOn` (mutable set)
+- Add `setOn` (mutable set)
 
 # 1.22.0 - July 28th, 2017 03:25
-Add `error` aspect example
+- Add `error` aspect example
 
 # 1.21.0 - July 27th, 2017 21:37
-`aspect` now supports async `before`, `after`, and `onError`
+- `aspect` now supports async `before`, `after`, and `onError`
 
 # 1.20.0 - July 25th, 2017 20:04
-Add `findApply`, `isNotNil`, `exists`, `unlessExists`, `unlessTruth`, `getOrReturn`, `alias`, `cascade`, `cascadeIn`, `cascadeKey`, `isMultiple`, `append`, `composeApply`, `comply`
+- Add `findApply`, `isNotNil`, `exists`, `unlessExists`, `unlessTruth`, `getOrReturn`, `alias`, `cascade`, `cascadeIn`, `cascadeKey`, `isMultiple`, `append`, `composeApply`, `comply`
 
 # 1.19.0 - July 13th, 2017 14:23
-Add ramda style `ifElse`, `where`, and `unless` to a new `logic` section
+- Add ramda style `ifElse`, `where`, and `unless` to a new `logic` section
 
 # 1.18.1 - July 13th, 2017 14:23
-Update lensOf to use reduce instead of mapValues
+- Update lensOf to use reduce instead of mapValues
 
 # 1.18.0 - June 23rd, 2017 22:01
-Add `callOrReturn`, `each`, and `mergeOn`
+- Add `callOrReturn`, `each`, and `mergeOn`
 
 # 1.17.4 - June 23rd, 2017 21:58
-Made f.map uncapped
+- Made f.map uncapped
 
 # 1.17.3 - June 9th, 2017 23:47
-Convert aspect to Promise instead of async/await and rip out babel-polyfill
+- Convert aspect to Promise instead of async/await and rip out babel-polyfill
 
 # 1.17.2 - June 8th, 2017 21:27
-Pass original params to onError and after
+- Pass original params to onError and after
 
 # 1.17.1 - June 8th, 2017 19:18
-Include babel-polyfill in webpack build now that aspects have `async` functions
+- Include babel-polyfill in webpack build now that aspects have `async` functions
 
 # 1.17.0 - June 7th, 2017 22:51
-Added `unflattenObject` and a deprecation warning about `mapProp` in favor of lodash `_.update`
+- Added `unflattenObject` and a deprecation warning about `mapProp` in favor of lodash `_.update`
 
 # 1.16.0 - June 6th, 2017 22:30
-Added `aspect` and the reusable examples on `aspects` (`logs`, `errors`, `status`, and `concurrency`), as well as `throws`
+- Added `aspect` and the reusable examples on `aspects` (`logs`, `errors`, `status`, and `concurrency`), as well as `throws`
 
 # 1.15.1 - May 30th, 2017 15:57
 - Added `views`
