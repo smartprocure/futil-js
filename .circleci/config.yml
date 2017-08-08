@@ -21,7 +21,7 @@ jobs:
             - ./api/node_modules
       - run:
           name: lint
-          command: LIST=$(git diff-index --name-only origin/master | grep .*\\.js | grep -v json | grep -v eslint | tr '\n' ' '); if [ "$LIST" ]; then npm run lint:ci -- $LIST; fi
+          command: npm run lint:ci
       - run:
           name: test
           command: npm run cicoverage
