@@ -4,7 +4,7 @@ machine:
     America/New_York
   node:
     version:
-      7.5.0
+      stable
 
 notify:
   webhooks:
