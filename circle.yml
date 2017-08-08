@@ -23,6 +23,8 @@ test:
     - npm run cicoverage
     - ./node_modules/.bin/codacy-coverage < ./coverage/lcov.info
     - rm -fr ./coverage
+  override:
+    - npm run test:ci
     - npm run danger
 
 deployment:
