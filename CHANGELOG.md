@@ -1,3 +1,6 @@
+# 1.28.2
+Use Circle 2.0 configuration
+
 # 1.28.1
 Add Duti to the repo
 
