@@ -25,6 +25,7 @@ test:
     - ./node_modules/.bin/codacy-coverage < ./coverage/lcov.info
     - rm -fr ./coverage
     - npm run danger
+    - rm -rf test-results.json lint-results.json
 
 deployment:
   npm:
