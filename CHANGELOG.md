@@ -1,3 +1,6 @@
+# 1.28.1
+Add Duti to the repo
+
 # 1.28.0 (Current)
 - Added `Indexed` conversions(`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`)
 - Add `aspectSync` and `deprecate`
