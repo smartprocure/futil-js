@@ -156,4 +156,135 @@ describe('Object Functions', () => {
   it('cascadeProp', () => {
     expect(f.cascadeProp(['x', 'y'], {a: 1, x: null, y: 2})).to.deep.equal(null)
   })
+  it('unkeyBy', () => {
+    expect(f.unkeyBy('field', {
+      a: {
+        x: 1
+      },
+      'd.e': {
+        x: 5
+      }
+    })).to.deep.equal([{
+      x: 1,
+      field: 'a'
+    }, {
+      x: 5,
+      field: 'd.e'
+    }])
+  })
+  it('unkeyBy', () => {
+    expect(f.unkeyBy('', {
+      a: {
+        x: 1
+      },
+      'd.e': {
+        x: 5
+      }
+    })).to.deep.equal([{
+      x: 1,
+      a: 'a'
+    }, {
+      x: 5,
+      'd.e': 'd.e'
+    }])
+  })
+  it('simpleDiff', () => {
+    expect(f.simpleDiff({
+      x: 1,
+      a: 3,
+      d: {
+        f: 6
+      },
+      price: 20,
+      notChanged: 45
+    }, {
+      x: 1,
+      a: 1,
+      b: 2,
+      c: 3,
+      d: {
+        e: 5
+      },
+      price: undefined,
+      amount: 20
+    })).to.deep.equal({
+      a: {
+        from: 3,
+        to: 1
+      },
+      b: {
+        from: undefined,
+        to: 2
+      },
+      c: {
+        from: undefined,
+        to: 3
+      },
+      x: {
+        from: 1,
+        to: 1
+      },
+      'd.e': {
+        from: undefined,
+        to: 5
+      },
+      amount: {
+        from: undefined,
+        to: 20
+      },
+      price: {
+        from: 20,
+        to: undefined
+      }
+    })
+  })
+  it('simpleDiffArray', () => {
+    expect(f.simpleDiffArray({
+      x: 1,
+      a: 3,
+      d: {
+        f: 6
+      },
+      price: 20,
+      notChanged: 45
+    }, {
+      a: 1,
+      b: 2,
+      c: 3,
+      x: 1,
+      d: {
+        e: 5
+      },
+      price: undefined,
+      amount: 20
+    })).to.deep.equal([{
+      field: 'a',
+      from: 3,
+      to: 1
+    }, {
+      field: 'b',
+      from: undefined,
+      to: 2
+    }, {
+      field: 'c',
+      from: undefined,
+      to: 3
+    }, {
+      field: 'x',
+      from: 1,
+      to: 1
+    }, {
+      field: 'd.e',
+      from: undefined,
+      to: 5
+    }, {
+      field: 'price',
+      from: 20,
+      to: undefined
+    }, {
+      field: 'amount',
+      from: undefined,
+      to: 20
+    }])
+  })
 })

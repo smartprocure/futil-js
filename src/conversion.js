@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import {aspects} from './aspect'
 
 const noRearg = { rearg: false }
 const mutable = { immutable: false }
@@ -24,6 +25,12 @@ export const inversions = _.reduce((memo, x) => _.set(x + 'In', _[x].convert(noR
 
 // Uncaps
 // ------
-export const reduce = _.reduce.convert(noCap)
-export const mapValues = _.mapValues.convert(noCap)
-export const each = _.each.convert(noCap)
+// Un-prefixed Deprecated
+export const reduce = aspects.deprecate('reduce', '1.28.0', 'reduceIndexed')(_.reduce.convert(noCap))
+export const mapValues = aspects.deprecate('mapValues', '1.28.0', 'mapValuesIndexed')(_.mapValues.convert(noCap))
+export const each = aspects.deprecate('each', '1.28.0', 'eachIndexed')(_.each.convert(noCap))
+
+export const mapIndexed = _.map.convert(noCap)
+export const eachIndexed = _.each.convert(noCap)
+export const reduceIndexed = _.reduce.convert(noCap)
+export const mapValuesIndexed = _.mapValues.convert(noCap)

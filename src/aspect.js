@@ -41,6 +41,37 @@ export let aspect = ({
   return x[name]
 }
 
+export let aspectSync = ({
+  name = 'aspect',
+  init = _.noop,
+  after = _.noop,
+  before = _.noop,
+  always = _.noop,
+  onError = throws
+  // ?: interceptParams, interceptResult, wrap
+}) => f => {
+  let {state = {}} = f
+  init(state)
+  // Trick to set function.name of anonymous function
+  let x = {
+    [name]: (...args) => {
+      try {
+        before(args, state)
+        let result = f(...args)
+        after(result, state, args)
+        return result
+      } catch (e) {
+        onError(e, state, args)
+        throw e
+      } finally {
+        always(state, args)
+      }
+    }
+  }
+  x[name].state = state
+  return x[name]
+}
+
 // Example Aspects
 let logs = (extend = defaultsOn) => aspect({
   init: extend({ logs: [] }),
@@ -109,11 +140,17 @@ let command = (extend, timeout) => _.flow(
   error(extend)
 )
 
+let deprecate = (subject, version, alternative) => aspectSync({
+  before: () =>
+    console.warn(`${subject} is deprecated${version ? ` as of ${version}` : ''}${alternative ? ` in favor of ${alternative}` : ''}`)
+})
+
 export let aspects = {
   logs,
   error,
   errors,
   status,
+  deprecate,
   clearStatus,
   concurrency,
   command
