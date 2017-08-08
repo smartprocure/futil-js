@@ -9,7 +9,7 @@
     "test": "babel-node ./node_modules/mocha/bin/_mocha",
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
     "coverage": "nyc --require babel-core/register node_modules/.bin/mocha test",
-    "cicoverage": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill mocha test --reporter json > test-output.json",
+    "cicoverage": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill mocha test --reporter json > test-results.json",
     "lint": "eslint dangerfile.js src/*.js test/*.js",
     "lint:ci": "npm run lint -- -o lint-results.json -f json",
     "lint-fix": "eslint dangerfile.js src/*.js test/*.js --fix",
