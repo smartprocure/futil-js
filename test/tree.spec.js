@@ -46,11 +46,12 @@ describe('Tree Functions', () => {
     })
     it('halting', () => {
       let values = []
-      f.walk()(tree => {
+      let r = f.walk()(tree => {
         values.push(tree)
         return _.isNumber(tree)
       })(x)
       expect(values).to.deep.equal([x, x.a])
+      expect(r).to.equal(x.a)
     })
     it('should retain parent and parents stack', () => {
       let values = []
