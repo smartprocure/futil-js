@@ -325,7 +325,7 @@ Designed to determine if something has a meaningful value, like a ux version of 
 Opposite of `isBlank`
 
 ### isBlankDeep
-`f-> x -> bool`
+`f -> x -> bool`
 Recurses through an object's leaf properties and passes an array of booleans to the combinator, such as `_.some`, `_.every`, and `F.none`
 
 
