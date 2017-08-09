@@ -11,11 +11,12 @@ export const matchAnyWord = _.flow(
   _.overSome
 )
 
-export const matchAllWords = _.flow(
-  _.words,
-  _.map(makeAndTest('gi')),
-  _.overEvery
-)
+export const matchAllWords = x => {
+  /* eslint-disable */
+  let regexp = new RegExp(`(?=.*${_.join(')(?=.*', _.split(' ', x.replace(/[^a-zA-Z0-9 ]/g, '')))})`, 'gi')
+  return y => y && y.match(regexp) || false
+  /* eslint-enable */
+}
 
 export const postings = (regex, str) => {
   var match = regex.exec(str)
