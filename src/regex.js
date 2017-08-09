@@ -12,10 +12,10 @@ export const matchAnyWord = _.flow(
 )
 
 export const matchAllWords = x => {
-  /* eslint-disable */
-  let regexp = new RegExp(`(?=.*${_.join(')(?=.*', _.split(' ', x.replace(/[^a-zA-Z0-9\s]/g, '')))})`, 'gi')
-  return y => y && y.match(regexp) || false
-  /* eslint-enable */
+  let joinStr = ')(?=.*'
+  let cleanX = x.replace(/[^a-zA-Z0-9\s]/g, '')
+  let regexp = new RegExp(`(?=.*${_.join(joinStr, _.split(' ', cleanX))})`, 'gi')
+  return y => !!(y && y.match(regexp))
 }
 
 export const postings = (regex, str) => {
