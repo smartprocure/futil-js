@@ -47,6 +47,9 @@ describe('Lang Functions', () => {
     expect(f.isBlank({})).to.be.true
   })
   it('should isBlankDeep', () => {
+    expect(f.isBlankDeep(_.every)(1)).to.be.false
+    expect(f.isBlankDeep(_.every)(false)).to.be.false
+    expect(f.isBlankDeep(_.every)('')).to.be.true
     expect(f.isBlankDeep(_.every)({
       a: 1,
       b: 'as'
