@@ -474,3 +474,37 @@ Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `exte
 
 #### deprecate
 Utility for marking functions as deprecated - it's just a `before` with a console.warn. Takes the name of thing being deprecated, optionally deprecation version, and optionally an alternative and returns a higher order function which you can wrap deprecated methods in. This is what's used internally to mark deprecations.
+
+
+## Trees
+All tree functions take a traversal function so that you can customize how to traverse arbitrary nested structures.
+
+### isTraversable
+A default check if something can be traversed - currently it is arrays and plain objects.
+
+### traverse
+The default traversal function used in other tree methods if you don't supply one. It returns `_.values` if it has any or the passed in value if doesn't
+
+### walk
+`traverse -> (pre, post=_.noop) -> tree -> x`
+A depth first search which visits every node returned by `traverse` recursively. Both `pre-order` and `post-order` traversals are supported (and can be mixed freely). `walk` also supports exiting iteration early by returning a truthy value from either the `pre` or `post` functions. The returned value is also the return value of `walk`.
+
+### treeReduce
+`traverse -> (accumulator, initialValue, tree) -> x`
+Just like `_.reduce`, but traverses over the tree with the traversal function in `pre-order`.
+
+### treeToArray
+`traverse -> tree -> [treeNode, treeNode, ...]`
+Flattens the tree nodes into an array, simply recording the node values in pre-order traversal.
+
+### treeToArrayBy
+`traverse -> f -> tree -> [f(treeNode), f(treeNode), ...]
+Like `treeToArray`, but accepts a customizer to process the tree nodes before putting them in an array. It's `_.map` for trees - but it's not called treeMap because it does not preserve the structure as you might expect `map` to do.
+
+### leaves
+`traverse -> tree -> [treeNodes]`
+Returns an array of the tree nodes that can't be traversed into in `pre-order`.
+
+### tree
+`traverse -> {walk, reduce, toArray, toArrayBy, leaves}`
+Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
