@@ -1,5 +1,6 @@
 # 1.29.0
 - Add tree functions `traverse`, `walk`, `reduceTree`, `treeToArray`, `treeToArrayBy`, `leaves`, and `tree`
+- Add `isBlank`, `isNotBlank`, and `isBlankDeep`
 
 # 1.28.3
 Remove old dangerfile

@@ -1,5 +1,6 @@
 import chai from 'chai'
 import * as f from '../src'
+import _ from 'lodash/fp'
 chai.expect()
 const expect = chai.expect
 
@@ -28,5 +29,35 @@ describe('Lang Functions', () => {
   it('append', () => {
     expect(f.append('a', 'b')).to.equal('ba')
     expect(f.append(1, 4)).to.equal(5)
+  })
+  it('isBlank', () => {
+    expect(f.isBlank(1)).to.be.false
+    expect(f.isBlank('asdf')).to.be.false
+    expect(f.isBlank({ a: 1 })).to.be.false
+    expect(f.isBlank([3, 4])).to.be.false
+    expect(f.isBlank(new Date())).to.be.false
+    expect(f.isBlank({
+      a: 1,
+      b: 'as'
+    })).to.be.false
+    expect(f.isBlank(null)).to.be.true
+    expect(f.isBlank(undefined)).to.be.true
+    expect(f.isBlank('')).to.be.true
+    expect(f.isBlank([])).to.be.true
+    expect(f.isBlank({})).to.be.true
+  })
+  it('should isBlankDeep', () => {
+    expect(f.isBlankDeep(_.every)({
+      a: 1,
+      b: 'as'
+    })).to.be.false
+    expect(f.isBlankDeep(_.every)({
+      a: null,
+      b: '',
+      c: [],
+      d: {
+        b: ''
+      }
+    })).to.be.true
   })
 })
