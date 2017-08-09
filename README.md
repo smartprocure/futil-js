@@ -498,7 +498,7 @@ Just like `_.reduce`, but traverses over the tree with the traversal function in
 Flattens the tree nodes into an array, simply recording the node values in pre-order traversal.
 
 ### treeToArrayBy
-`traverse -> f -> tree -> [f(treeNode), f(treeNode), ...]
+`traverse -> f -> tree -> [f(treeNode), f(treeNode), ...]`
 Like `treeToArray`, but accepts a customizer to process the tree nodes before putting them in an array. It's `_.map` for trees - but it's not called treeMap because it does not preserve the structure as you might expect `map` to do.
 
 ### leaves
