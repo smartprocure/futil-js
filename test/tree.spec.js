@@ -6,10 +6,10 @@ const expect = chai.expect
 
 describe('Tree Functions', () => {
   it('isTraversable', () => {
-    expect(f.isTraversable([])).to.be.true
-    expect(f.isTraversable({})).to.be.true
-    expect(f.isTraversable('')).to.be.false
-    expect(f.isTraversable(5)).to.be.false
+    expect(f.isTraversable([])).to.equal(true)
+    expect(f.isTraversable({})).to.equal(true)
+    expect(f.isTraversable('')).to.equal(false)
+    expect(f.isTraversable(5)).to.equal(false)
   })
   it('traverse', () => {
     let x = {
