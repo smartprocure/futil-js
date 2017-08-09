@@ -1,3 +1,6 @@
+# 1.29.0
+- Add tree functions `traverse`, `walk`, `reduceTree`, `treeToArray`, `treeToArrayBy`, `leaves`, and `tree`
+
 # 1.28.3
 Remove old dangerfile
 
@@ -7,7 +10,7 @@ Use Circle 2.0 configuration
 # 1.28.1
 Add Duti to the repo
 
-# 1.28.0 (Current)
+# 1.28.0
 - Added `Indexed` conversions(`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`)
 - Add `aspectSync` and `deprecate`
 - Deprecated the uncap conversions that don't follow the naming convention
