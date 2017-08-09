@@ -13,7 +13,7 @@ export const matchAnyWord = _.flow(
 
 export const matchAllWords = x => {
   /* eslint-disable */
-  let regexp = new RegExp(`(?=.*${_.join(')(?=.*', _.split(' ', x.replace(/[^a-zA-Z0-9 ]/g, '')))})`, 'gi')
+  let regexp = new RegExp(`(?=.*${_.join(')(?=.*', _.split(' ', x.replace(/[^a-zA-Z0-9\s]/g, '')))})`, 'gi')
   return y => y && y.match(regexp) || false
   /* eslint-enable */
 }
