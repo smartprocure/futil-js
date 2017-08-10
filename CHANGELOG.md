@@ -1,3 +1,6 @@
+# 1.28.4
+Fix for diff functions to properly ignore things that didn't change.
+
 # 1.28.3
 Remove old dangerfile
 
