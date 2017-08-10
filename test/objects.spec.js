@@ -220,10 +220,6 @@ describe('Object Functions', () => {
         from: undefined,
         to: 3
       },
-      x: {
-        from: 1,
-        to: 1
-      },
       'd.e': {
         from: undefined,
         to: 5
@@ -269,10 +265,6 @@ describe('Object Functions', () => {
       field: 'c',
       from: undefined,
       to: 3
-    }, {
-      field: 'x',
-      from: 1,
-      to: 1
     }, {
       field: 'd.e',
       from: undefined,
