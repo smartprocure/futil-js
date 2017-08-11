@@ -18,8 +18,9 @@ let wordsToRegexp = _.flow(
 )
 
 export const matchAllWords = x => {
-  let regexp = new RegExp(wordsToRegexp(x), 'gi')
-  return y => regexp.test(y)
+  // Not inlining so that we don't create the regexp every time
+  let regexp = RegExp(wordsToRegexp(x), 'gi')
+  return y => !!(y && y.match(regexp))
 }
 
 export const postings = (regex, str) => {
