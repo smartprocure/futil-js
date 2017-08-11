@@ -57,7 +57,7 @@ describe('Tree Functions', () => {
       let values = []
       let r = f.walk()(
         () => {},
-        (tree, parent) => {
+        (tree, [parent]) => {
           values.push(tree)
           if (!parent) return tree
         }
@@ -71,10 +71,10 @@ describe('Tree Functions', () => {
         values.push(args)
       })(x)
       expect(values).to.deep.equal([
-        [x, undefined, []],
-        [x.a, x, [x]],
-        [x.b, x, [x]],
-        [x.b.c, x.b, [x.b, x]]
+        [x, []],
+        [x.a, [x]],
+        [x.b, [x]],
+        [x.b.c, [x.b, x]]
       ])
     })
   })
