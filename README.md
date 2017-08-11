@@ -142,7 +142,7 @@ Example: `(1, '123', 'hi') -> 'h123i'`
 `[a, b...] -> a -> b` Creates a function that always return the element next to the one received, based on an input previously received.
 
 ### arrayToObject
-`[k, v, a] -> Creates an object from an array by generating a key/value pair by running each element through the key and value mapper functions.`
+`[k, v, a] -> result:object` Creates an object from an array by generating a key/value pair by running each element through the key and value mapper functions.
 
 ## Object
 
