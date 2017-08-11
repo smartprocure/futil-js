@@ -35,4 +35,9 @@ describe('Array Functions', () => {
 
     expect(f.cycle([true, false], true)).to.equal(false)
   })
+  it('arrayToObject', () => {
+    expect(
+      f.arrayToObject(x => `key${x}`, x => `val${x}`, ['a', 'b', 'c'])
+    ).to.deep.equal({keya: 'vala', keyb: 'valb', keyc: 'valc'})
+  })
 })
