@@ -2,19 +2,19 @@
 - Add tree functions `traverse`, `walk`, `reduceTree`, `treeToArray`, `treeToArrayBy`, `leaves`, and `tree`
 - Add `isBlank`, `isNotBlank`, and `isBlankDeep`
 
-# 1.28.4
+# 1.28.4 August 10th, 2017 21:35
 Fix for diff functions to properly ignore things that didn't change.
 
-# 1.28.3
+# 1.28.3 August 9th, 2017 15:10
 Remove old dangerfile
 
-# 1.28.2
+# 1.28.2 August 8th, 2017 20:50
 Use Circle 2.0 configuration
 
 # 1.28.1
 Add Duti to the repo
 
-# 1.28.0
+# 1.28.0 August 8th, 2017 03:29
 - Added `Indexed` conversions(`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`)
 - Add `aspectSync` and `deprecate`
 - Deprecated the uncap conversions that don't follow the naming convention
