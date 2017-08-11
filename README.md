@@ -489,7 +489,7 @@ The default traversal function used in other tree methods if you don't supply on
 `traverse -> (pre, post=_.noop) -> tree -> x`
 A depth first search which visits every node returned by `traverse` recursively. Both `pre-order` and `post-order` traversals are supported (and can be mixed freely). `walk` also supports exiting iteration early by returning a truthy value from either the `pre` or `post` functions. The returned value is also the return value of `walk`. The pre, post, and traversal functions are passed the current node as well as the parent stack (where parents[0] is the direct parent).
 
-### treeReduce
+### reduceTree
 `traverse -> (accumulator, initialValue, tree) -> x`
 Just like `_.reduce`, but traverses over the tree with the traversal function in `pre-order`.
 
