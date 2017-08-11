@@ -1,4 +1,7 @@
-# 1.29.0 (Current)
+﻿# 1.29.1 (Current)
+- 75% faster `matchallwords`
+
+# 1.29.0
 - Add arrayToObject to array.
 
 # 1.28.4
