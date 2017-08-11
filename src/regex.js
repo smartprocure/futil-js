@@ -11,10 +11,14 @@ export const matchAnyWord = _.flow(
   _.overSome
 )
 
+let wordsToRegexp = _.flow(
+  _.words,
+  _.map(x => `(?=.*${x})`),
+  _.join('')
+)
+
 export const matchAllWords = x => {
-  let joinStr = ')(?=.*'
-  let cleanX = x.replace(/[^a-zA-Z0-9\s]/g, '')
-  let regexp = new RegExp(`(?=.*${_.join(joinStr, _.split(' ', cleanX))})`, 'gi')
+  let regexp = new RegExp(wordsToRegexp(x), 'gi')
   return y => !!(y && y.match(regexp))
 }
 
