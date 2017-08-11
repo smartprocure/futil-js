@@ -19,7 +19,7 @@ let wordsToRegexp = _.flow(
 
 export const matchAllWords = x => {
   let regexp = new RegExp(wordsToRegexp(x), 'gi')
-  return y => !!(y && y.match(regexp))
+  return y => regexp.test(y)
 }
 
 export const postings = (regex, str) => {
