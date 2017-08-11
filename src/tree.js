@@ -8,15 +8,14 @@ export let traverse = x =>
 export let walk = (next = traverse) => (
   pre,
   post = _.noop,
-  parent = undefined,
   parents = []
 ) => tree =>
-  pre(tree, parent, parents) ||
+  pre(tree, parents[0], parents) ||
   _.find(
-    walk(next)(pre, post, tree, [tree, ...parents]),
+    walk(next)(pre, post, [tree, ...parents]),
     next(tree) || []
   ) ||
-  post(tree, parent, parents)
+  post(tree, parents[0], parents)
 
 export let reduceTree = (next = traverse) =>
   _.curry((f, result, tree) => {
