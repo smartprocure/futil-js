@@ -65,7 +65,7 @@ describe('Tree Functions', () => {
       expect(values).to.deep.equal([x.a, x.b.c, x.b, x])
       expect(r).to.equal(x)
     })
-    it('should retain parent and parents stack', () => {
+    it('should retain parent stack', () => {
       let values = []
       f.walk()((...args) => {
         values.push(args)
@@ -74,7 +74,7 @@ describe('Tree Functions', () => {
         [x, undefined, []],
         [x.a, x, [x]],
         [x.b, x, [x]],
-        [x.b.c, x.b, [x, x.b]]
+        [x.b.c, x.b, [x.b, x]]
       ])
     })
   })

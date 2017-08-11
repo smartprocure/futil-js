@@ -13,7 +13,7 @@ export let walk = (next = traverse) => (
 ) => tree =>
   pre(tree, parent, parents) ||
   _.find(
-    walk(next)(pre, post, tree, [...parents, tree]),
+    walk(next)(pre, post, tree, [tree, ...parents]),
     next(tree) || []
   ) ||
   post(tree, parent, parents)
