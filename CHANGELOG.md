@@ -1,3 +1,6 @@
+# 1.29.0 (Current)
+- Add arrayToObject to array.
+
 # 1.28.4
 Fix for diff functions to properly ignore things that didn't change.
 
@@ -10,7 +13,7 @@ Use Circle 2.0 configuration
 # 1.28.1
 Add Duti to the repo
 
-# 1.28.0 (Current)
+# 1.28.0
 - Added `Indexed` conversions(`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`)
 - Add `aspectSync` and `deprecate`
 - Deprecated the uncap conversions that don't follow the naming convention
