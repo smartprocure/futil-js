@@ -41,7 +41,7 @@ describe('String Functions', () => {
         'Feature Auto Label 126'
       ]
     ]
-    f.each(
+    f.eachIndexed(
       ([input, output]) => expect(f.autoLabel(input)).to.equal(output),
       tests
     )

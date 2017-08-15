@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import { dotJoin } from './array'
 import { overNone } from './logic'
-import { reduce, pickIn, getIn, hasIn, mapIndexed, mapValues } from './conversion'
+import { reduceIndexed, pickIn, getIn, hasIn, mapIndexed, mapValuesIndexed } from './conversion'
 import { findApply } from './collection'
 
 // (k, v) -> {k: v}
@@ -43,7 +43,7 @@ export const unwind = _.curry((prop, x) => _.map(y => _.set(prop, y, x), _.get(p
 export const isFlatObject = overNone([_.isPlainObject, _.isArray])
 
 // { a: { b: { c: 1 } } } => { 'a.b.c' : 1 }
-export const flattenObject = (input, paths) => reduce((output, value, key) =>
+export const flattenObject = (input, paths) => reduceIndexed((output, value, key) =>
   _.merge(output, (isFlatObject(value) ? singleObjectR : flattenObject)(value, dotJoin([paths, key]))), {}, input)
 
 // { 'a.b.c' : 1 } => { a: { b: { c: 1 } } }
@@ -85,7 +85,7 @@ export let simpleDiff = (original, deltas) => {
   let o = flattenObject(original)
   return _.flow(
     flattenObject,
-    mapValues((to, field) => ({ from: o[field], to })),
+    mapValuesIndexed((to, field) => ({ from: o[field], to })),
     _.omitBy(x => x.from === x.to)
   )(deltas)
 }

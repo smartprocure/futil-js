@@ -71,7 +71,7 @@ describe('Aspect Functions', () => {
     expect(f.state.processing).to.equal(true)
     await result
     expect(f.state.status).to.equal('succeeded')
-    expect(f.state.succeeded).to.be.true
+    expect(f.state.succeeded).to.equal(true)
     await Promise.delay(15)
     expect(f.state.status).to.equal(null)
     let g = clearingStatus(async () => {
@@ -79,7 +79,7 @@ describe('Aspect Functions', () => {
     })
     await g()
     expect(g.state.status).to.equal('failed')
-    expect(g.state.failed).to.be.true
+    expect(g.state.failed).to.equal(true)
     await Promise.delay(15)
     expect(f.state.status).to.equal(null)
   })
