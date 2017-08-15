@@ -1,6 +1,7 @@
 # 1.29.0
 - Add tree functions `traverse`, `walk`, `reduceTree`, `treeToArray`, `treeToArrayBy`, `leaves`, and `tree`
 - Add `isBlank`, `isNotBlank`, and `isBlankDeep`
+- Add `findIndexed`
 
 # 1.28.4
 Fix for diff functions to properly ignore things that didn't change.
