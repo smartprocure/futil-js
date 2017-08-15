@@ -18,7 +18,7 @@ describe('Tree Functions', () => {
         c: 2
       }
     }
-    expect(f.traverse(x)).to.deep.equal([x.a, x.b])
+    expect(f.traverse(x)).to.deep.equal(x)
   })
   describe('walk', () => {
     let x = {
@@ -57,7 +57,7 @@ describe('Tree Functions', () => {
       let values = []
       let r = f.walk()(
         () => {},
-        (tree, [parent]) => {
+        (tree, i, [parent]) => {
           values.push(tree)
           if (!parent) return tree
         }
@@ -65,16 +65,16 @@ describe('Tree Functions', () => {
       expect(values).to.deep.equal([x.a, x.b.c, x.b, x])
       expect(r).to.equal(x)
     })
-    it('should retain parent stack', () => {
+    it('should retain parent stack and indices', () => {
       let values = []
-      f.walk()((...args) => {
-        values.push(args)
+      f.walk()((x, i, parents) => {
+        values.push([x, parents, i])
       })(x)
       expect(values).to.deep.equal([
-        [x, []],
-        [x.a, [x]],
-        [x.b, [x]],
-        [x.b.c, [x.b, x]]
+        [x, [], undefined],
+        [x.a, [x], 'a'],
+        [x.b, [x], 'b'],
+        [x.b.c, [x.b, x], 'c']
       ])
     })
   })
