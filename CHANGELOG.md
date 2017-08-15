@@ -1,8 +1,10 @@
 # 1.29.2
-- Lint and readme cleanup
+- Add missing stack reference to `deprecate`.
+- Fix internal usage of deprecated functions.
+- Lint and readme cleanup.
 
 # 1.29.1
-- 75% faster `matchallwords`
+- 75% faster `matchallwords`.
 
 # 1.29.0 August 11th, 2017 18:53
 - Add arrayToObject to array.
@@ -11,13 +13,13 @@
 Fix for diff functions to properly ignore things that didn't change.
 
 # 1.28.3 August 9th, 2017 15:10
-Remove old dangerfile
+- Remove old dangerfile.
 
 # 1.28.2 August 8th, 2017 20:50
-Use Circle 2.0 configuration
+- Use Circle 2.0 configuration.
 
 # 1.28.1
-Add Duti to the repo
+- Add Duti to the repo.
 
 # 1.28.0 August 8th, 2017 03:29
 - Added `Indexed` conversions(`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`)
