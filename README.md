@@ -141,6 +141,9 @@ Example: `(1, '123', 'hi') -> 'h123i'`
 ### cycle
 `[a, b...] -> a -> b` Creates a function that always return the element next to the one received, based on an input previously received.
 
+### arrayToObject
+`[k, v, a] -> result:object` Creates an object from an array by generating a key/value pair by running each element through the key and value mapper functions.
+
 ## Object
 
 ### singleObject
@@ -479,6 +482,8 @@ Utility for marking functions as deprecated - it's just a `before` with a consol
 ## Trees
 All tree functions take a traversal function so that you can customize how to traverse arbitrary nested structures.
 
+*Note*: Be careful about cyclic structures that can result in infinite loops, such as objects with references to itself. There are cases where you'd intentionally want to visit the same node multiple times, such as traversing a directed acyclic graph (which would work just fine and eventually terminate, but would visit a node once for each parent it has connected to it) - but it's up to the user to be sure you don't create infinite loops.
+
 ### isTraversable
 A default check if something can be traversed - currently it is arrays and plain objects.
 
@@ -489,7 +494,7 @@ The default traversal function used in other tree methods if you don't supply on
 `traverse -> (pre, post=_.noop) -> tree -> x`
 A depth first search which visits every node returned by `traverse` recursively. Both `pre-order` and `post-order` traversals are supported (and can be mixed freely). `walk` also supports exiting iteration early by returning a truthy value from either the `pre` or `post` functions. The returned value is also the return value of `walk`. The pre, post, and traversal functions are passed the current node as well as the parent stack (where parents[0] is the direct parent).
 
-### treeReduce
+### reduceTree
 `traverse -> (accumulator, initialValue, tree) -> x`
 Just like `_.reduce`, but traverses over the tree with the traversal function in `pre-order`.
 
