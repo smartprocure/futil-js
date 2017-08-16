@@ -142,7 +142,7 @@ let command = (extend, timeout) => _.flow(
 
 let deprecate = (subject, version, alternative) => aspectSync({
   before: () =>
-    console.warn(`\`${subject}\` is deprecated${version ? ` as of ${version}` : ''}${alternative ? ` in favor of \`${alternative}\`` : ''} ${_.trim(Error().stack.split('\n')[3])}`)
+    console.warn(`\`${subject}\` is deprecated${version ? ` as of ${version}` : ''}${alternative ? ` in favor of \`${alternative}\`` : ''} ${_.trim((Error().stack || '').split('\n')[3])}`)
 })
 
 export let aspects = {

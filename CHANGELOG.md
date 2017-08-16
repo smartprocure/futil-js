@@ -1,3 +1,6 @@
+# 1.29.3
+- Fix IE 11 erroring when using a deprecated function
+
 # 1.29.2
 - Add missing stack reference to `deprecate`.
 - Fix internal usage of deprecated functions.
