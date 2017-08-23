@@ -1,4 +1,4 @@
-<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -269,6 +269,11 @@ Maps `_.trim` through all the strings of a given object or array.
 ### autoLabelOptions
 `[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
+## `startsWithVowel`
+`string -> bool` checks if a string starts with a vowel.
+
+## `getArticle`
+`string -> string` gets the proper article for a given string.
 
 ## Regex
 

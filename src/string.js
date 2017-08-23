@@ -1,5 +1,5 @@
-import {map} from './collection'
 import _ from 'lodash/fp'
+import {map} from './collection'
 import {when} from './logic'
 
 export const wrap = (pre, post, content) => (pre || '') + content + (post || pre || '')
@@ -29,3 +29,6 @@ export let autoLabelOption = a => ({
   value: a.value || a, label: a.label || autoLabel(a.value || a)
 })
 export let autoLabelOptions = _.map(autoLabelOption)
+
+export let startsWithVowel = x => !!x.match(/^[aeiou]/)
+export let getArticle = x => startsWithVowel(x) ? 'an' : 'a'

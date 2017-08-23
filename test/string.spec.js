@@ -65,4 +65,8 @@ describe('String Functions', () => {
       {value: 'bothValueAndLabel', label: 'Custom Label'}
     ])
   })
+  it('getArticle', () => {
+    expect(f.getArticle('apple')).to.equal('an')
+    expect(f.getArticle('car')).to.equal('a')
+  })
 })
