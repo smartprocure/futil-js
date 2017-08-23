@@ -1,4 +1,7 @@
-# 1.29.4
+﻿# 1.30.0
+- Added `startsWithVowel` and `getArticle`.
+
+ # 1.29.4
 - Use latest duti version
 
 # 1.29.3
