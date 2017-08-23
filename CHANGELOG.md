@@ -1,3 +1,6 @@
+# 1.29.4
+- Use latest duti version
+
 # 1.29.3
 - Fix IE 11 erroring when using a deprecated function
 

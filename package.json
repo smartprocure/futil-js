@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.29.3",
+  "version": "1.29.4",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -40,7 +40,7 @@
     "chokidar-cli": "^1.2.0",
     "codacy-coverage": "^2.0.1",
     "coveralls": "^2.11.16",
-    "duti": "^0.3.3",
+    "duti": "latest",
     "eslint": "4.1.0",
     "eslint-config-standard": "^10.0.0",
     "eslint-plugin-import": "^2.2.0",
