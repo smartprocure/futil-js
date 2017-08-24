@@ -28,6 +28,7 @@ jobs:
       - run:
           name: danger
           command: npm run danger
+          when: always
       - deploy:
           name: Maybe Deploy
           command: |
