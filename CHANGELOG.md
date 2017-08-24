@@ -1,3 +1,6 @@
+# 1.29.5
+- Always run duti in CI
+
 # 1.29.4
 - Use latest duti version
 
