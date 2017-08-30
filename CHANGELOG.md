@@ -1,3 +1,6 @@
+# 1.29.6
+- Faster `matchAnyWord`
+
 # 1.29.5
 - Always run duti in CI
 
