@@ -1,3 +1,6 @@
+﻿# 1.29.7
+- Curried `push`
+
 # 1.29.6
 - Faster `matchAnyWord`
 
