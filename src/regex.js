@@ -16,15 +16,39 @@ const wordsToRegexp = _.flow(
   _.join('')
 )
 
-const matchWords = _.curry((buildRegex, x) => {
+/* const matchWords = _.curry((buildRegex, x) => {
   // Not inlining so that we don't create the regexp every time
   const regexp = RegExp(buildRegex(x), 'gi')
   return y => !!(y && y.match(regexp))
 })
+ */
+/* export const matchAllWords = matchWords(wordsToRegexp)
 
-export const matchAllWords = matchWords(wordsToRegexp)
+export const matchAnyWord = matchWords(anyWordToRegexp) */
+/* const matchWords = (body, query) => {
+  return _.intersection(_.words(body), _.uniq(_.words(query)));
+} */
 
-export const matchAnyWord = matchWords(anyWordToRegexp)
+const _contains = _.curry((body, token) => body.indexOf(token) > -1)
+
+const matchWords = _.curry((fn, body, accumulator, token) => fn(_contains(body), accumulator, token))
+
+const matchAny = matchWords((contains, accumulator, token) => !accumulator ? contains(token) : true)
+
+const matchAll = matchWords((contains, accumulator, token) => (!accumulator ?
+                                                       (accumulator === undefined) ?
+                                                         contains(token) : false
+                                                      : contains(token)))
+export const matchAllWords = _.curry((query, body) => {
+  var match = matchAll(body.toLowerCase())
+  var matches = _.words(query.toLowerCase()).reduce(match);
+  return !!matches;
+})
+export const matchAnyWord = _.curry((query, body) => {
+  var match = matchAny(body.toLowerCase())
+  var matches = _.words(query.toLowerCase()).reduce(match);
+  return !!matches;
+})
 
 export const postings = (regex, str) => {
   var match = regex.exec(str)
