@@ -5,23 +5,26 @@ export const testRegex = _.curry((regex, str) => (new RegExp(regex)).test(str))
 export const makeRegex = options => text => RegExp(text, options)
 export const makeAndTest = options => _.flow(makeRegex(options), testRegex)
 
-export const matchAnyWord = _.flow(
+const anyWordToRegexp = _.flow(
   _.words,
-  _.map(makeAndTest('gi')),
-  _.overSome
+  _.join('|')
 )
 
-let wordsToRegexp = _.flow(
+const wordsToRegexp = _.flow(
   _.words,
   _.map(x => `(?=.*${x})`),
   _.join('')
 )
 
-export const matchAllWords = x => {
+const matchWords = _.curry((buildRegex, x) => {
   // Not inlining so that we don't create the regexp every time
-  let regexp = RegExp(wordsToRegexp(x), 'gi')
+  const regexp = RegExp(buildRegex(x), 'gi')
   return y => !!(y && y.match(regexp))
-}
+})
+
+export const matchAllWords = matchWords(wordsToRegexp)
+
+export const matchAnyWord = matchWords(anyWordToRegexp)
 
 export const postings = (regex, str) => {
   var match = regex.exec(str)

@@ -3,6 +3,21 @@
 - Add `isBlank`, `isNotBlank`, and `isBlankDeep`
 - Add `findIndexed`
 
+# 1.29.7
+- Curried `push`
+
+# 1.29.6
+- Faster `matchAnyWord`
+
+# 1.29.5
+- Always run duti in CI
+
+# 1.29.4
+- Use latest duti version
+
+# 1.29.3
+- Fix IE 11 erroring when using a deprecated function
+
 # 1.29.2
 - Add missing stack reference to `deprecate`.
 - Fix internal usage of deprecated functions.
