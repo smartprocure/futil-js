@@ -3,6 +3,12 @@
 - Add `isBlank`, `isNotBlank`, and `isBlankDeep`
 - Add `findIndexed`
 
+# 1.29.9
+- Added pushOn, like pushIn but it alters the original array.
+ 
+# 1.29.8
+- Added pushIn since `_.curry` doesn't allow us to do `F.push(_, array)`.
+
 # 1.29.7
 - Curried `push`
 
