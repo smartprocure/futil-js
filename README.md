@@ -487,7 +487,7 @@ All tree functions take a traversal function so that you can customize how to tr
 A default check if something can be traversed - currently it is arrays and plain objects.
 
 ### traverse
-The default traversal function used in other tree methods if you don't supply one. It returns `_.values` if it has any or the passed in value if doesn't
+The default traversal function used in other tree methods if you don't supply one. It returns false if it's not traversable or empty, and returns the object if it is.
 
 ### walk
 `traverse -> (pre, post=_.noop) -> tree -> x`
