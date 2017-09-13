@@ -1,5 +1,6 @@
 import chai from 'chai'
 import * as f from '../src'
+import _ from 'lodash/fp'
 chai.expect()
 const expect = chai.expect
 
@@ -28,5 +29,38 @@ describe('Lang Functions', () => {
   it('append', () => {
     expect(f.append('a', 'b')).to.equal('ba')
     expect(f.append(1, 4)).to.equal(5)
+  })
+  it('isBlank', () => {
+    expect(f.isBlank(1)).to.equal(false)
+    expect(f.isBlank('asdf')).to.equal(false)
+    expect(f.isBlank({ a: 1 })).to.equal(false)
+    expect(f.isBlank([3, 4])).to.equal(false)
+    expect(f.isBlank(new Date())).to.equal(false)
+    expect(f.isBlank({
+      a: 1,
+      b: 'as'
+    })).to.equal(false)
+    expect(f.isBlank(null)).to.equal(true)
+    expect(f.isBlank(undefined)).to.equal(true)
+    expect(f.isBlank('')).to.equal(true)
+    expect(f.isBlank([])).to.equal(true)
+    expect(f.isBlank({})).to.equal(true)
+  })
+  it('should isBlankDeep', () => {
+    expect(f.isBlankDeep(_.every)(1)).to.equal(false)
+    expect(f.isBlankDeep(_.every)(false)).to.equal(false)
+    expect(f.isBlankDeep(_.every)('')).to.equal(true)
+    expect(f.isBlankDeep(_.every)({
+      a: 1,
+      b: 'as'
+    })).to.equal(false)
+    expect(f.isBlankDeep(_.every)({
+      a: null,
+      b: '',
+      c: [],
+      d: {
+        b: ''
+      }
+    })).to.equal(true)
   })
 })

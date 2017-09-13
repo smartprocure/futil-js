@@ -31,6 +31,7 @@ export const mapValues = aspects.deprecate('mapValues', '1.28.0', 'mapValuesInde
 export const each = aspects.deprecate('each', '1.28.0', 'eachIndexed')(_.each.convert(noCap))
 
 export const mapIndexed = _.map.convert(noCap)
+export const findIndexed = _.find.convert(noCap)
 export const eachIndexed = _.each.convert(noCap)
 export const reduceIndexed = _.reduce.convert(noCap)
 export const mapValuesIndexed = _.mapValues.convert(noCap)

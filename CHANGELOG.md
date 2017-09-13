@@ -1,4 +1,9 @@
-﻿# 1.29.9
+# 1.30.0
+- Add tree functions `traverse`, `walk`, `reduceTree`, `treeToArray`, `treeToArrayBy`, `leaves`, and `tree`
+- Add `isBlank`, `isNotBlank`, and `isBlankDeep`
+- Add `findIndexed`
+
+# 1.29.9
 - Added pushOn, like pushIn but it alters the original array.
  
 # 1.29.8
@@ -31,7 +36,7 @@
 - Add arrayToObject to array.
 
 # 1.28.4 August 10th, 2017 21:35
-Fix for diff functions to properly ignore things that didn't change.
+- Fix for diff functions to properly ignore things that didn't change.
 
 # 1.28.3 August 9th, 2017 15:10
 - Remove old dangerfile.

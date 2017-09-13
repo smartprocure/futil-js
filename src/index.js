@@ -11,6 +11,7 @@ export * from './logic'
 export * from './regex'
 export * from './lang'
 export * from './lens'
+export * from './tree'
 
 // Math
 // ----

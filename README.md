@@ -319,6 +319,18 @@ Returns true if the input has a `length` property > 1, such as arrays, strings, 
 ### append
 A curried, flipped `add`
 
+### isBlank
+`x -> bool`
+Designed to determine if something has a meaningful value, like a ux version of truthiness. It's true for everything except null, undefined, '', [], and {}. Another way of describing it is that it's the same as falsiness except 0 and false are truthy and {} is falsey. Useful for implementing "required" validation rules.
+
+### isNotBlank
+`x -> bool`
+Opposite of `isBlank`
+
+### isBlankDeep
+`f -> x -> bool`
+Recurses through an object's leaf properties and passes an array of booleans to the combinator, such as `_.some`, `_.every`, and `F.none`
+
 
 ## Lens
 A lens is a getter and setter pair, which can be used to interface to some part of an object graph.
@@ -465,3 +477,38 @@ Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `exte
 
 #### deprecate
 Utility for marking functions as deprecated - it's just a `before` with a console.warn. Takes the name of thing being deprecated, optionally deprecation version, and optionally an alternative and returns a higher order function which you can wrap deprecated methods in. This is what's used internally to mark deprecations. Includes a partial stack trace as part of the deprecation warning.
+
+## Trees
+All tree functions take a traversal function so that you can customize how to traverse arbitrary nested structures.
+
+*Note*: Be careful about cyclic structures that can result in infinite loops, such as objects with references to itself. There are cases where you'd intentionally want to visit the same node multiple times, such as traversing a directed acyclic graph (which would work just fine and eventually terminate, but would visit a node once for each parent it has connected to it) - but it's up to the user to be sure you don't create infinite loops.
+
+### isTraversable
+A default check if something can be traversed - currently it is arrays and plain objects.
+
+### traverse
+The default traversal function used in other tree methods if you don't supply one. It returns false if it's not traversable or empty, and returns the object if it is.
+
+### walk
+`traverse -> (pre, post=_.noop) -> tree -> x`
+A depth first search which visits every node returned by `traverse` recursively. Both `pre-order` and `post-order` traversals are supported (and can be mixed freely). `walk` also supports exiting iteration early by returning a truthy value from either the `pre` or `post` functions. The returned value is also the return value of `walk`. The pre, post, and traversal functions are passed the current node as well as the parent stack (where parents[0] is the direct parent).
+
+### reduceTree
+`traverse -> (accumulator, initialValue, tree) -> x`
+Just like `_.reduce`, but traverses over the tree with the traversal function in `pre-order`.
+
+### treeToArray
+`traverse -> tree -> [treeNode, treeNode, ...]`
+Flattens the tree nodes into an array, simply recording the node values in pre-order traversal.
+
+### treeToArrayBy
+`traverse -> f -> tree -> [f(treeNode), f(treeNode), ...]`
+Like `treeToArray`, but accepts a customizer to process the tree nodes before putting them in an array. It's `_.map` for trees - but it's not called treeMap because it does not preserve the structure as you might expect `map` to do.
+
+### leaves
+`traverse -> tree -> [treeNodes]`
+Returns an array of the tree nodes that can't be traversed into in `pre-order`.
+
+### tree
+`traverse -> {walk, reduce, toArray, toArrayBy, leaves}`
+Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
