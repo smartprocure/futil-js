@@ -19,6 +19,7 @@ export const compactJoin = _.curry((join, x) => _.compact(x).join(join))
 export const dotJoin = compactJoin('.')
 export const repeated = _.flow(_.groupBy(e => e), _.filter(e => e.length > 1), _.flatten, _.uniq)
 export const push = _.curry((val, arr) => arr.concat([val]))
+export const pushIn = _.curry((arr, val) => arr.concat([val]))
 export const insertAtIndex = (index, val, str) => str.slice(0, index) + val + str.slice(index)
 
 let overlaps = (x, y) => y[0] > x[1]

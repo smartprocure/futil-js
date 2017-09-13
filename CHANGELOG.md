@@ -1,4 +1,7 @@
-﻿# 1.29.7
+﻿# 1.29.8
+- Added pushIn since `_.curry` doesn't allow us to do `F.push(_, array)`.
+
+# 1.29.7
 - Curried `push`
 
 # 1.29.6

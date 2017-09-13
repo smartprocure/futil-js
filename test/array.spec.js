@@ -40,4 +40,8 @@ describe('Array Functions', () => {
       f.arrayToObject(x => `key${x}`, x => `val${x}`, ['a', 'b', 'c'])
     ).to.deep.equal({keya: 'vala', keyb: 'valb', keyc: 'valc'})
   })
+  it('pushIn', () => {
+    let fn = f.pushIn([1, 2, 3])
+    expect(fn(4)).to.deep.equal([1, 2, 3, 4])
+  })
 })
