@@ -91,6 +91,7 @@ export let simpleDiff = (original, deltas) => {
 }
 export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
 
+// A `_.pick` that mutates the object
 export let pickOn = (paths = [], obj = {}) => _.flow(
   _.keys,
   _.map(key => {
