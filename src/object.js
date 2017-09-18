@@ -90,3 +90,12 @@ export let simpleDiff = (original, deltas) => {
   )(deltas)
 }
 export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
+
+export let pickOn = (paths = [], obj = {}) => _.flow(
+  _.keys,
+  _.map(key => {
+    if (!_.includes(key, paths)) {
+      delete obj[key]
+    }
+  })
+)(obj)

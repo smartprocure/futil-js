@@ -1,7 +1,11 @@
+# 1.31.0
+- Add new utility for objects called `pickOn`, which works as `pick` in lodash but it mutates the object
+
 # 1.30.0
 - Add tree functions `traverse`, `walk`, `reduceTree`, `treeToArray`, `treeToArrayBy`, `leaves`, and `tree`
 - Add `isBlank`, `isNotBlank`, and `isBlankDeep`
 - Add `findIndexed`
+
 
 # 1.29.9
 - Added pushOn, like pushIn but it alters the original array.
