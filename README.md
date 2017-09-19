@@ -251,6 +251,8 @@ A `_.get` that takes an array of paths and returns the first path that exists
 ### simpleDiffArray
 `(from, to) -> [simpleDiffChanges]` Same as `simpleDiff`, but produces an array instead of `{field, from, to}` objects instead of `{field: {from, to}`
 
+### pickOn
+A `_.pick` that mutates the object
 
 ## String
 
