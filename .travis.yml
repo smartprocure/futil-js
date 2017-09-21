@@ -1,0 +1,18 @@
+sudo: false
+language: node_js
+matrix:
+  fast_finish: true
+  include:
+    - node_js: "6"
+      env: TASK=browser
+cache:
+  directories:
+  - node_modules
+script:
+  - make ${TASK}
+env:
+  # See how to get encrypted env variables for saucelabs here:
+  # https://docs.travis-ci.com/user/sauce-connect/
+  global:
+  - secure: "WaaIMP5tGkZ8epLg8wh9ibwdT9wNLBZgTjjrfj8WHfHXArdpAnWDctuYkbMQb+S4G5YeJOKRw4IQVaXSNKUCrJT7DX9gXebZxrLRCbW8rpYvXDpaQPtfvfQ++7liYuALhrIumGF7OGRt9NQKtm1eG+bcbFjZ4crlVlFCrU8Uw3GopacC87Pn7OV2PQzI4HMz7WDoTbzl5jOic7473BLzH572d0ohYjpR2r6FAV2HFw4dh/XxThPUOd0035Z6JcW76GJpNmC2rNN6wtVgHeJxp859wYYlLv/G5A6TkNDPOpCJ/02y3Kxu7cvuRddefqQvo6d4uyjiyhrBziJoUlZDbv4/jJb4F8ZWM+p6rvUriIAHF4poCqbJMQyXUayvtFNIdfBWgWBgEGgSNREvXoLoAmd9uWmNh41C1Ffyp7c1kU3oZN1eh5rwv5ZPB6VAo0oOAdni2umcpABdmyNFmq59QDlC8cEHv5fyoA0dv7hUQxHfvPl5lswVvanJHIiPcHakdtj/YuJBc82fFQrTZBmE61dnCfNGdwNYEALIZPIwLNrjd2NvemnKnyvc/aARoczmgrIMOrMxZ/boeNtPjPwUa5eVR/wSe5WQSwsz1buCPUO6F9gio5UbRmsGxBMCdkG2qqZi3U8JFLWWhsGuUkcrER+3MU+LOjeB4omBO2gJsfo="
+  - secure: "mQoSFu6SLZsh3izL5CrxpfhMsQV/4BB80LurAeIE+oQJCMuuXir6eXA9sVI1wDg3nc9MGB8kuKM6WyzYAg4RkoUZD024HqwhYgm57Fjg4g7ld7VCI7RT/Jt8cBpOqqH+lT1Q4HHhHI5yXOkucqgPOU6P5jbwM13YdmSkro+wVbliWhDWSn1KknrwBapjOHVYecsd+3JASYsZy25zxu/A7CoDz26d2dNuTjhNVjiRLDIDcayrQHiTp7u6pkfe5ZhK+qB8ei7wmsa78evYZkZg2EsLxy6qrvTzCtplyRmCDpTUNpm0yiFOKKvsE6bC+yROyCCRSqsjeKYKXBIB4znmjR2pPNE7j6asJ0MLAfIM09xQrGYqqYN16g6gByBWvPE56m6oA/kV40wfoh6lwzkR6NAAa4TKqP2LnhZARH0XxIgF8ZU+Hv5Ho49nuv1yd/MPvAyKrg21/b+b/wExiOs/Ui+wq8k2NI2n4ygg9IMEZ6D7tzbRpkIgY9FEfooQF/KRd6dMtMKaMdn5WTh3cA3QQFqxNQAC2ouiCP5cgi4Zegz+DYRF5upl/IDoMjJhffrJN1rPEaEsN0exUlHvJlkJcynp5yIE5x5IG66tLkhucbRTWPBgTMNUUsa7vPLNRJS5VSpRV1JB6JdmyCMhy6OYY79d+YkRL6OTRDwXczfr3pc="
