@@ -11,6 +11,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/smartprocure/futil-js/badge.svg?branch=master)](https://coveralls.io/github/smartprocure/futil-js?branch=master)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/futil.svg)](https://saucelabs.com/u/futil)
+
 A collection of F(unctional) Util(ities). Resistance is futile.
 
 Mostly, these are generic utilities that could conceivably be part of a library like lodash/fp, but for some reason or other are not.
