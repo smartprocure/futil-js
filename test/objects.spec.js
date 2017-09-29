@@ -206,6 +206,97 @@ describe('Object Functions', () => {
         e: 5
       },
       price: undefined,
+      amount: 20
+    })).to.deep.equal({
+      a: {
+        from: 3,
+        to: 1
+      },
+      b: {
+        from: undefined,
+        to: 2
+      },
+      c: {
+        from: undefined,
+        to: 3
+      },
+      'd.e': {
+        from: undefined,
+        to: 5
+      },
+      amount: {
+        from: undefined,
+        to: 20
+      },
+      price: {
+        from: 20,
+        to: undefined
+      }
+    })
+  })
+  it('simpleDiffArray', () => {
+    expect(f.simpleDiffArray({
+      x: 1,
+      a: 3,
+      d: {
+        f: 6
+      },
+      price: 20,
+      notChanged: 45
+    }, {
+      a: 1,
+      b: 2,
+      c: 3,
+      x: 1,
+      d: {
+        e: 5
+      },
+      price: undefined,
+      amount: 20
+    })).to.deep.equal([{
+      field: 'a',
+      from: 3,
+      to: 1
+    }, {
+      field: 'b',
+      from: undefined,
+      to: 2
+    }, {
+      field: 'c',
+      from: undefined,
+      to: 3
+    }, {
+      field: 'd.e',
+      from: undefined,
+      to: 5
+    }, {
+      field: 'price',
+      from: 20,
+      to: undefined
+    }, {
+      field: 'amount',
+      from: undefined,
+      to: 20
+    }])
+  })
+  it('diff', () => {
+    expect(f.diff({
+      x: 1,
+      a: 3,
+      d: {
+        f: 6
+      },
+      price: 20,
+      notChanged: 45
+    }, {
+      x: 1,
+      a: 1,
+      b: 2,
+      c: 3,
+      d: {
+        e: 5
+      },
+      price: undefined,
       notChanged: 45,
       amount: 20
     })).to.deep.equal({
@@ -239,8 +330,8 @@ describe('Object Functions', () => {
       }
     })
   })
-  it('simpleDiffArray', () => {
-    expect(f.simpleDiffArray({
+  it('diffArray', () => {
+    expect(f.diffArray({
       x: 1,
       a: 3,
       d: {

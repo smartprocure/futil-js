@@ -1,7 +1,6 @@
-﻿# 1.31.1
-- Fixed `simpleDiff` and `simpleDiffArray` to take in consideration
-  both removed elements in nested objects and to handle unchanged
-  elements correctly.
+﻿# 1.32.0
+- Added `diff` and `diffArray`, just like `simpleDiff` and
+  `simpleDiffArray`, but they also take in count removed properties.
 
 # 1.31.0
 - Add new utility for objects called `pickOn`, which works as `pick` in lodash but it mutates the object

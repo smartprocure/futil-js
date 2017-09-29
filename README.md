@@ -1,4 +1,4 @@
-<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -250,6 +250,14 @@ A `_.get` that takes an array of paths and returns the first path that exists
 
 ### simpleDiffArray
 `(from, to) -> [simpleDiffChanges]` Same as `simpleDiff`, but produces an array instead of `{field, from, to}` objects instead of `{field: {from, to}`
+
+### diff
+`(from, to) -> diff` Same as `simpleDiff`, but also takes in count deleted properties.
+**Note:** We're considering not maintaining this in the long term, so you might probably have more success with any existing library for this purpose.
+
+### diffArray
+`(from, to) -> [diffChanges]` Same as `simpleDiffArray`, but also takes in count deleted properties.
+**Note:** We're considering not maintaining this in the long term, so you might probably have more success with any existing library for this purpose.
 
 ### pickOn
 A `_.pick` that mutates the object

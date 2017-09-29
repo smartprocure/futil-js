@@ -83,13 +83,23 @@ export let unkeyBy = _.curry((keyName, obj) =>
 
 export let simpleDiff = (original, deltas) => {
   let o = flattenObject(original)
+  return _.flow(
+    flattenObject,
+    mapValuesIndexed((to, field) => ({ from: o[field], to })),
+    _.omitBy(x => x.from === x.to)
+  )(deltas)
+}
+export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
+
+export let diff = (original, deltas) => {
+  let o = flattenObject(original)
   let d = flattenObject(deltas)
   return _.flow(
     mapValuesIndexed((_, field) => ({ from: o[field], to: d[field] })),
     _.omitBy(x => x.from === x.to)
   )(_.merge(o, d))
 }
-export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
+export let diffArray = _.flow(diff, unkeyBy('field'))
 
 // A `_.pick` that mutates the object
 export let pickOn = (paths = [], obj = {}) => _.flow(
