@@ -83,11 +83,11 @@ export let unkeyBy = _.curry((keyName, obj) =>
 
 export let simpleDiff = (original, deltas) => {
   let o = flattenObject(original)
+  let d = flattenObject(deltas)
   return _.flow(
-    flattenObject,
-    mapValuesIndexed((to, field) => ({ from: o[field], to })),
+    mapValuesIndexed((_, field) => ({ from: o[field], to: d[field] })),
     _.omitBy(x => x.from === x.to)
-  )(deltas)
+  )(_.merge(o, d))
 }
 export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
 

@@ -206,6 +206,7 @@ describe('Object Functions', () => {
         e: 5
       },
       price: undefined,
+      notChanged: 45,
       amount: 20
     })).to.deep.equal({
       a: {
@@ -223,6 +224,10 @@ describe('Object Functions', () => {
       'd.e': {
         from: undefined,
         to: 5
+      },
+      'd.f': {
+        from: 6,
+        to: undefined
       },
       amount: {
         from: undefined,
@@ -242,7 +247,9 @@ describe('Object Functions', () => {
         f: 6
       },
       price: 20,
-      notChanged: 45
+      notChanged: 45,
+      collection1: [{a: 1, b: 2}],
+      collection2: [{a: 1, b: 2}]
     }, {
       a: 1,
       b: 2,
@@ -252,11 +259,34 @@ describe('Object Functions', () => {
         e: 5
       },
       price: undefined,
-      amount: 20
+      amount: 20,
+      notChanged: 45,
+      collection1: [{a: 1}],
+      collection2: []
     })).to.deep.equal([{
       field: 'a',
       from: 3,
       to: 1
+    }, {
+      field: 'd.f',
+      from: 6,
+      to: undefined
+    }, {
+      field: 'price',
+      from: 20,
+      to: undefined
+    }, {
+      field: 'collection1.b',
+      from: 2,
+      to: undefined
+    }, {
+      field: 'collection2.a',
+      from: 1,
+      to: undefined
+    }, {
+      field: 'collection2.b',
+      from: 2,
+      to: undefined
     }, {
       field: 'b',
       from: undefined,
@@ -269,10 +299,6 @@ describe('Object Functions', () => {
       field: 'd.e',
       from: undefined,
       to: 5
-    }, {
-      field: 'price',
-      from: 20,
-      to: undefined
     }, {
       field: 'amount',
       from: undefined,
