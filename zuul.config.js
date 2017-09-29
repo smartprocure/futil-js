@@ -13,7 +13,7 @@ module.exports = {
     },
     {
       name: 'firefox',
-      // Older versions of firefox are not passing, mostly caused by modern 
+      // Older versions of firefox are not passing, mostly caused by modern
       // version of lodash.
       version: [18, 'latest']
     },
