@@ -13,6 +13,8 @@
     "lint": "eslint dangerfile.js src/*.js test/*.js",
     "lint:ci": "npm run lint -- -o lint-results.json -f json",
     "lint-fix": "eslint dangerfile.js src/*.js test/*.js --fix",
+    "fmt": "prettier --write '{*.js, src/**/*.js}'",
+    "duti:fix": "",
     "prepublish": "webpack"
   },
   "author": "Samuel Greene <sgreene@smartprocure.us>",
@@ -25,6 +27,11 @@
     "presets": [
       "latest"
     ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "es5"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -52,6 +59,7 @@
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0",
     "nyc": "^11.0.2",
+    "prettier": "^1.7.4",
     "webpack": "^3.0.0"
   },
   "directories": {
