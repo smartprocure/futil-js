@@ -1,8 +1,9 @@
-import {map} from './collection'
+import { map } from './collection'
 import _ from 'lodash/fp'
-import {when} from './logic'
+import { when } from './logic'
 
-export const wrap = (pre, post, content) => (pre || '') + content + (post || pre || '')
+export const wrap = (pre, post, content) =>
+  (pre || '') + content + (post || pre || '')
 export const quote = _.partial(wrap, ['"', '"'])
 export const parens = _.partial(wrap, ['(', ')'])
 export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
@@ -26,6 +27,7 @@ export let autoLabel = (string = '') => {
   return string
 }
 export let autoLabelOption = a => ({
-  value: a.value || a, label: a.label || autoLabel(a.value || a)
+  value: a.value || a,
+  label: a.label || autoLabel(a.value || a),
 })
 export let autoLabelOptions = _.map(autoLabelOption)

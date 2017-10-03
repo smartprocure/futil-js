@@ -1,20 +1,13 @@
 import _ from 'lodash/fp'
-import {push, insertAtIndex, mergeRanges} from './array'
+import { push, insertAtIndex, mergeRanges } from './array'
 
-export const testRegex = _.curry((regex, str) => (new RegExp(regex)).test(str))
+export const testRegex = _.curry((regex, str) => new RegExp(regex).test(str))
 export const makeRegex = options => text => RegExp(text, options)
 export const makeAndTest = options => _.flow(makeRegex(options), testRegex)
 
-const anyWordToRegexp = _.flow(
-  _.words,
-  _.join('|')
-)
+const anyWordToRegexp = _.flow(_.words, _.join('|'))
 
-const wordsToRegexp = _.flow(
-  _.words,
-  _.map(x => `(?=.*${x})`),
-  _.join('')
-)
+const wordsToRegexp = _.flow(_.words, _.map(x => `(?=.*${x})`), _.join(''))
 
 const matchWords = _.curry((buildRegex, x) => {
   // Not inlining so that we don't create the regexp every time
@@ -37,9 +30,11 @@ export const postings = (regex, str) => {
   return result
 }
 
-export const postingsForWords = (string, str) => _.reduce(
-  (result, word) => push(postings(RegExp(word, 'gi'), str), result), []
-)(_.words(string))
+export const postingsForWords = (string, str) =>
+  _.reduce(
+    (result, word) => push(postings(RegExp(word, 'gi'), str), result),
+    []
+  )(_.words(string))
 
 export const highlightFromPostings = (start, end, postings, str) => {
   let offset = 0
@@ -53,4 +48,9 @@ export const highlightFromPostings = (start, end, postings, str) => {
 }
 
 export const highlight = (start, end, pattern, input) =>
-  highlightFromPostings(start, end, _.flatten(postingsForWords(pattern, input)), input)
+  highlightFromPostings(
+    start,
+    end,
+    _.flatten(postingsForWords(pattern, input)),
+    input
+  )

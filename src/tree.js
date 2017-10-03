@@ -1,6 +1,6 @@
 import _ from 'lodash/fp'
-import {push} from './array'
-import {findIndexed} from './conversion'
+import { push } from './array'
+import { findIndexed } from './conversion'
 
 export let isTraversable = x => _.isArray(x) || _.isPlainObject(x)
 export let traverse = x => isTraversable(x) && !_.isEmpty(x) && x
@@ -27,9 +27,7 @@ export let reduceTree = (next = traverse) =>
   })
 
 export let treeToArrayBy = (next = traverse) =>
-  _.curry((fn, tree) =>
-    reduceTree(next)((r, x) => push(fn(x), r), [], tree)
-  )
+  _.curry((fn, tree) => reduceTree(next)((r, x) => push(fn(x), r), [], tree))
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 
 export let leaves = (next = traverse) =>
@@ -40,5 +38,5 @@ export let tree = (next = traverse) => ({
   reduce: reduceTree(next),
   toArrayBy: treeToArrayBy(next),
   toArray: treeToArray(next),
-  leaves: leaves(next)
+  leaves: leaves(next),
 })
