@@ -1,4 +1,7 @@
-﻿# 1.32.0
+﻿# 1.32.1
+- Add autofixing PRs with [Duti](https://github.com/smartprocure/duti)
+
+# 1.32.0
 - Added `diff` and `diffArray`, just like `simpleDiff` and
   `simpleDiffArray`, but they also take in count removed properties.
 
