@@ -19,8 +19,8 @@ describe('Logic Functions', () => {
     it('should handle passing boolean conditions', () => {
       let fn = f.ifElse(
         true,
-        x => 'success ' + x,
-        x => 'fail ' + x
+        x => `success ${  x}`,
+        x => `fail ${  x}`
       )
       expect(fn(1)).to.equal('success 1')
     })

@@ -21,7 +21,7 @@ export const setOn = _.set.convert(mutable)
 
 // This reduce based version is easier to maintain but requires calling `F.inversions.fn` instead of `F.fn`
 const inversionList = ['get', 'pick', 'includes']
-export const inversions = _.reduce((memo, x) => _.set(x + 'In', _[x].convert(noRearg), memo), {}, inversionList)
+export const inversions = _.reduce((memo, x) => _.set(`${x  }In`, _[x].convert(noRearg), memo), {}, inversionList)
 
 // Uncaps
 // ------

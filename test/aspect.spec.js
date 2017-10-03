@@ -46,7 +46,7 @@ describe('Aspect Functions', () => {
   })
   it('should support throwing in onError', async () => {
     let ThrowHi = aspect({
-      onError: e => {
+      onError: () => {
         throw Error('hi from aspect')
       }
     })
