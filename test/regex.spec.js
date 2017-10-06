@@ -1,6 +1,6 @@
 import chai from 'chai'
 import * as f from '../src/regex'
-import {insertAtIndex} from '../src/array'
+import { insertAtIndex } from '../src/array'
 chai.expect()
 const expect = chai.expect
 
@@ -50,11 +50,7 @@ describe('Posting Highlight Functions', () => {
   })
   it('should get postings by word', () => {
     var result = f.postingsForWords('pret pr t ', 'pretty prease')
-    expect(result).to.deep.equal([
-      [ [0, 4] ],
-      [ [0, 2], [7, 9] ],
-      [ [3, 4], [4, 5] ]
-    ])
+    expect(result).to.deep.equal([[[0, 4]], [[0, 2], [7, 9]], [[3, 4], [4, 5]]])
   })
   it('should insertAtIndex', () => {
     var result = insertAtIndex(0, '<span>', 'pretty please')
@@ -66,18 +62,25 @@ describe('Posting Highlight Functions', () => {
   it('should highlight', () => {
     let input = 'pretty please'
     let postings = f.postings(RegExp('p', 'gi'), input)
-    let expected = '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
-    expect(f.highlightFromPostings(start, end, postings, input)).to.equal(expected)
+    let expected =
+      '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
+    expect(f.highlightFromPostings(start, end, postings, input)).to.equal(
+      expected
+    )
   })
   it('should highlight backwards postings', () => {
     let input = 'pretty please'
-    let expected = '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
-    expect(f.highlightFromPostings(start, end, [[7, 8], [0, 1]], input)).to.equal(expected)
+    let expected =
+      '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
+    expect(
+      f.highlightFromPostings(start, end, [[7, 8], [0, 1]], input)
+    ).to.equal(expected)
   })
   it('should high level highlight', () => {
     let input = 'pretty please'
     let pattern = 'pr pl'
-    let expected = '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease'
+    let expected =
+      '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease'
     expect(f.highlight(start, end, pattern, input)).to.deep.equal(expected)
   })
 })

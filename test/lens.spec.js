@@ -36,7 +36,7 @@ describe('Lens Functions', () => {
   describe('Construction', () => {
     it('lensProp', () => {
       let l = f.lensProp('x', {
-        x: 1
+        x: 1,
       })
       expect(l.get()).to.equal(1)
       l.set(5)
@@ -44,7 +44,7 @@ describe('Lens Functions', () => {
     })
     it('lensOf', () => {
       let l = f.lensOf({
-        a: 1
+        a: 1,
       })
       expect(l.a.get()).to.equal(1)
       l.a.set(5)
@@ -66,7 +66,7 @@ describe('Lens Functions', () => {
     })
     it('set', () => {
       let object = {
-        a: 1
+        a: 1,
       }
       let l = f.lensOf(object)
       f.set(5, l.a)
@@ -74,7 +74,7 @@ describe('Lens Functions', () => {
     })
     it('set', () => {
       let object = {
-        a: 1
+        a: 1,
       }
       let l = f.lensOf(object)
       f.sets(5, l.a)()
@@ -82,7 +82,7 @@ describe('Lens Functions', () => {
     })
     it('flip', () => {
       let object = {
-        a: 1
+        a: 1,
       }
       let l = f.lensOf(object)
       f.flip(l.a)()
@@ -90,7 +90,7 @@ describe('Lens Functions', () => {
     })
     it('on', () => {
       let object = {
-        a: 1
+        a: 1,
       }
       let l = f.lensOf(object)
       f.on(l.a)()
@@ -98,7 +98,7 @@ describe('Lens Functions', () => {
     })
     it('off', () => {
       let object = {
-        a: 1
+        a: 1,
       }
       let l = f.lensOf(object)
       f.off(l.a)()

@@ -23,8 +23,8 @@ describe('Lang Functions', () => {
     expect(f.isMultiple(['', ''])).to.equal(true)
     expect(f.isMultiple('a')).to.equal(false)
     expect(f.isMultiple('asdf')).to.equal(true)
-    expect(f.isMultiple({x: 1, y: 2})).to.equal(false)
-    expect(f.isMultiple({x: 1, y: 2, length: 2})).to.equal(true)
+    expect(f.isMultiple({ x: 1, y: 2 })).to.equal(false)
+    expect(f.isMultiple({ x: 1, y: 2, length: 2 })).to.equal(true)
   })
   it('append', () => {
     expect(f.append('a', 'b')).to.equal('ba')
@@ -36,10 +36,12 @@ describe('Lang Functions', () => {
     expect(f.isBlank({ a: 1 })).to.equal(false)
     expect(f.isBlank([3, 4])).to.equal(false)
     expect(f.isBlank(new Date())).to.equal(false)
-    expect(f.isBlank({
-      a: 1,
-      b: 'as'
-    })).to.equal(false)
+    expect(
+      f.isBlank({
+        a: 1,
+        b: 'as',
+      })
+    ).to.equal(false)
     expect(f.isBlank(null)).to.equal(true)
     expect(f.isBlank(undefined)).to.equal(true)
     expect(f.isBlank('')).to.equal(true)
@@ -50,17 +52,21 @@ describe('Lang Functions', () => {
     expect(f.isBlankDeep(_.every)(1)).to.equal(false)
     expect(f.isBlankDeep(_.every)(false)).to.equal(false)
     expect(f.isBlankDeep(_.every)('')).to.equal(true)
-    expect(f.isBlankDeep(_.every)({
-      a: 1,
-      b: 'as'
-    })).to.equal(false)
-    expect(f.isBlankDeep(_.every)({
-      a: null,
-      b: '',
-      c: [],
-      d: {
-        b: ''
-      }
-    })).to.equal(true)
+    expect(
+      f.isBlankDeep(_.every)({
+        a: 1,
+        b: 'as',
+      })
+    ).to.equal(false)
+    expect(
+      f.isBlankDeep(_.every)({
+        a: null,
+        b: '',
+        c: [],
+        d: {
+          b: '',
+        },
+      })
+    ).to.equal(true)
   })
 })

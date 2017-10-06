@@ -5,21 +5,25 @@ const expect = chai.expect
 
 describe('Array Functions', () => {
   it('compactJoin', () => {
-    expect(f.compactJoin(',', [ 1, undefined, 2, null, 3 ])).to.eql('1,2,3')
-    expect(f.compactJoin(' and ', [ null, 'Alice', 'Bob', false ])).to.eql('Alice and Bob')
+    expect(f.compactJoin(',', [1, undefined, 2, null, 3])).to.eql('1,2,3')
+    expect(f.compactJoin(' and ', [null, 'Alice', 'Bob', false])).to.eql(
+      'Alice and Bob'
+    )
   })
   it('dotJoin', () => {
-    expect(f.dotJoin([ 1, undefined, 2, null, 3 ])).to.eql('1.2.3')
-    expect(f.dotJoin([ null, 'Alice', 'Bob', false ])).to.eql('Alice.Bob')
+    expect(f.dotJoin([1, undefined, 2, null, 3])).to.eql('1.2.3')
+    expect(f.dotJoin([null, 'Alice', 'Bob', false])).to.eql('Alice.Bob')
   })
   it('repeated', () => {
-    expect(f.repeated([ 1, 1, 2, 3, 3, 4 ])).to.eql([ 1, 3 ])
-    expect(f.repeated([ 'a', 'b', 'b' ])).to.eql([ 'b' ])
+    expect(f.repeated([1, 1, 2, 3, 3, 4])).to.eql([1, 3])
+    expect(f.repeated(['a', 'b', 'b'])).to.eql(['b'])
   })
   it('mergeRanges', () => {
     expect(f.mergeRanges([[0, 2], [1, 4]])).to.deep.equal([[0, 4]])
     expect(f.mergeRanges([null, [1, 4]])).to.deep.equal([[1, 4]])
-    expect(f.mergeRanges([[0, 1], [1, 4], [2, 4], [3, 5]])).to.deep.equal([[0, 5]])
+    expect(f.mergeRanges([[0, 1], [1, 4], [2, 4], [3, 5]])).to.deep.equal([
+      [0, 5],
+    ])
   })
   it('cycle', () => {
     let cycle = f.cycle([1, 2, 3])
@@ -38,7 +42,7 @@ describe('Array Functions', () => {
   it('arrayToObject', () => {
     expect(
       f.arrayToObject(x => `key${x}`, x => `val${x}`, ['a', 'b', 'c'])
-    ).to.deep.equal({keya: 'vala', keyb: 'valb', keyc: 'valc'})
+    ).to.deep.equal({ keya: 'vala', keyb: 'valb', keyc: 'valc' })
   })
   it('pushIn', () => {
     let fn = f.pushIn([1, 2, 3])
