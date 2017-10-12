@@ -17,14 +17,16 @@ jobs:
           key: dependency-cache
           paths:
             - ./node_modules
-            - ./web/node_modules
-            - ./api/node_modules
       - run:
           name: lint
           command: npm run lint:ci
       - run:
           name: test
           command: npm run cicoverage
+      - run:
+          name: pre-danger
+          command: git config user.email "drodriguez@smartprocure.us" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH
+          when: always
       - run:
           name: danger
           command: npm run danger

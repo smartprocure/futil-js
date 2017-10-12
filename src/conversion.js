@@ -1,5 +1,5 @@
 import _ from 'lodash/fp'
-import {aspects} from './aspect'
+import { aspects } from './aspect'
 
 const noRearg = { rearg: false }
 const mutable = { immutable: false }
@@ -21,14 +21,26 @@ export const setOn = _.set.convert(mutable)
 
 // This reduce based version is easier to maintain but requires calling `F.inversions.fn` instead of `F.fn`
 const inversionList = ['get', 'pick', 'includes']
-export const inversions = _.reduce((memo, x) => _.set(x + 'In', _[x].convert(noRearg), memo), {}, inversionList)
+export const inversions = _.reduce(
+  (memo, x) => _.set(`${x}In`, _[x].convert(noRearg), memo),
+  {},
+  inversionList
+)
 
 // Uncaps
 // ------
 // Un-prefixed Deprecated
-export const reduce = aspects.deprecate('reduce', '1.28.0', 'reduceIndexed')(_.reduce.convert(noCap))
-export const mapValues = aspects.deprecate('mapValues', '1.28.0', 'mapValuesIndexed')(_.mapValues.convert(noCap))
-export const each = aspects.deprecate('each', '1.28.0', 'eachIndexed')(_.each.convert(noCap))
+export const reduce = aspects.deprecate('reduce', '1.28.0', 'reduceIndexed')(
+  _.reduce.convert(noCap)
+)
+export const mapValues = aspects.deprecate(
+  'mapValues',
+  '1.28.0',
+  'mapValuesIndexed'
+)(_.mapValues.convert(noCap))
+export const each = aspects.deprecate('each', '1.28.0', 'eachIndexed')(
+  _.each.convert(noCap)
+)
 
 export const mapIndexed = _.map.convert(noCap)
 export const findIndexed = _.find.convert(noCap)

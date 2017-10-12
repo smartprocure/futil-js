@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
-import {aspects, aspect, aspectSync} from '../src'
+import { aspects, aspect, aspectSync } from '../src'
 import Promise from 'bluebird'
 
 chai.use(chaiAsPromised)
@@ -34,7 +34,9 @@ describe('Aspect Functions', () => {
     expect(f.state.logs).to.deep.equal([6, 6])
   })
   it('should support .onError and before (`concurrency`, `errors`, and `status` aspects)', async () => {
-    let g = Command(() => { throw Error(5) })
+    let g = Command(() => {
+      throw Error(5)
+    })
     expect(g.state.processing).to.equal(false)
     await g()
     expect(g.state.errors[0].message).to.equal('5')
@@ -46,9 +48,9 @@ describe('Aspect Functions', () => {
   })
   it('should support throwing in onError', async () => {
     let ThrowHi = aspect({
-      onError: e => {
+      onError: () => {
         throw Error('hi from aspect')
-      }
+      },
     })
     let throwsHi = ThrowHi(() => {
       throw Error('Not hi')
@@ -89,7 +91,7 @@ describe('Aspect Functions', () => {
     let firstIncrementX = aspectSync({
       before: () => {
         x++
-      }
+      },
     })
     let f = firstIncrementX(() => {
       y = x

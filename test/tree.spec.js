@@ -15,8 +15,8 @@ describe('Tree Functions', () => {
     let x = {
       a: 1,
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     expect(f.traverse(x)).to.deep.equal(x)
   })
@@ -24,8 +24,8 @@ describe('Tree Functions', () => {
     let x = {
       a: 1,
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     let values = []
     it('pre-order traversal', () => {
@@ -74,7 +74,7 @@ describe('Tree Functions', () => {
         [x, [], undefined],
         [x.a, [x], 'a'],
         [x.b, [x], 'b'],
-        [x.b.c, [x.b, x], 'c']
+        [x.b.c, [x.b, x], 'c'],
       ])
     })
   })
@@ -82,22 +82,22 @@ describe('Tree Functions', () => {
     let x = {
       a: 1,
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     expect(f.reduceTree()((r, i) => f.push(i, r), [], x)).to.deep.equal([
       x,
       x.a,
       x.b,
-      x.b.c
+      x.b.c,
     ])
   })
   it('treeToArray', () => {
     let x = {
       a: 1,
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     expect(f.treeToArray()(x)).to.deep.equal([x, x.a, x.b, x.b.c])
   })
@@ -105,8 +105,8 @@ describe('Tree Functions', () => {
     let x = {
       a: 1,
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     expect(
       f.treeToArrayBy()(i => (_.isNumber(i) ? i * 2 : i), x)
@@ -116,8 +116,8 @@ describe('Tree Functions', () => {
     let x = {
       a: 1,
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     expect(f.leaves()(x)).to.deep.equal([1, 2])
   })
@@ -125,8 +125,8 @@ describe('Tree Functions', () => {
     let x = {
       a: 1,
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     let tree = f.tree()
     expect(tree.toArray(x)).to.deep.equal([x, x.a, x.b, x.b.c])
