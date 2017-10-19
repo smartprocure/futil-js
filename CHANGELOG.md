@@ -1,4 +1,7 @@
-﻿# 1.32.1
+# 1.33.0
+- Add `debounceAsync` and `defer`
+
+# 1.32.1
 - Add autofixing PRs with [Duti](https://github.com/smartprocure/duti)
 
 # 1.32.0
@@ -16,7 +19,7 @@
 
 # 1.29.9
 - Added pushOn, like pushIn but it alters the original array.
- 
+
 # 1.29.8
 - Added pushIn since `_.curry` doesn't allow us to do `F.push(_, array)`.
 
