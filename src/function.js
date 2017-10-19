@@ -19,8 +19,9 @@ export let comply = composeApply
 
 // Prettier version of `defer` the one from bluebird docs
 export let defer = () => {
-  var resolve, reject
-  var promise = new Promise((...args) => {
+  let resolve
+  let reject
+  let promise = new Promise((...args) => {
     [resolve, reject] = args
   })
   return {
