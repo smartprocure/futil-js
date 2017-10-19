@@ -21,8 +21,9 @@ export let comply = composeApply
 export let defer = () => {
   let resolve
   let reject
-  let promise = new Promise((...args) => {
-    ;[resolve, reject] = args
+  let promise = new Promise((res, rej) => {
+    resolve = res
+    reject = rej
   })
   return {
     resolve,
