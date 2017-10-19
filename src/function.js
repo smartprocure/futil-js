@@ -22,12 +22,12 @@ export let defer = () => {
   let resolve
   let reject
   let promise = new Promise((...args) => {
-    [resolve, reject] = args
+    ;[resolve, reject] = args
   })
   return {
     resolve,
     reject,
-    promise
+    promise,
   }
 }
 // `_.debounce` for async functions, which require consistently returning a single promise for all queued calls
