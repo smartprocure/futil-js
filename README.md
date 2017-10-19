@@ -1,4 +1,4 @@
-﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -49,6 +49,12 @@ http://ramdajs.com/docs/#converge
 ### comply (alias: composeApply)
 `(f, g) => x => f(g(x))(x)`
 A combinator that combines compose and apply
+
+### defer
+Implement `defer`, ported from bluebird docs and used by debounceAsync
+
+### debounceAsync
+A `_.debounce` for async functions that ensure the returned promise is resolved with the result of the execution of the actual call. Using `_.debounce` with `await` or `.then` would result in the earlier calls never returning because they're not executed - the unit tests demonstate it failing with `_.debounce`.
 
 ## Logic
 

@@ -16,3 +16,28 @@ export const converge = (converger, branches) => (...args) =>
 
 export let composeApply = (f, g) => x => f(g(x))(x)
 export let comply = composeApply
+
+// Prettier version of `defer` the one from bluebird docs
+export let defer = () => {
+  var resolve, reject
+  var promise = new Promise((...args) => {
+    [resolve, reject] = args
+  })
+  return {
+    resolve,
+    reject,
+    promise
+  }
+}
+// `_.debounce` for async functions, which require consistently returning a single promise for all queued calls
+export let debounceAsync = (n, f) => {
+  let deferred = defer()
+  let debounced = _.debounce(n, (...args) => {
+    deferred.resolve(f(...args))
+    deferred = defer()
+  })
+  return (...args) => {
+    debounced(...args)
+    return deferred.promise
+  }
+}
