@@ -46,7 +46,7 @@
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
     "codacy-coverage": "^2.0.1",
-    "coveralls": "^2.11.16",
+    "coveralls": "^3.0.0",
     "duti": "latest",
     "eslint": "4.1.0",
     "eslint-config-smartprocure": "^1.0.2",
