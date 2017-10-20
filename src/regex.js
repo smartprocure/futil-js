@@ -34,7 +34,8 @@ export const postingsForWords = _.curry((string, str) =>
   _.reduce(
     (result, word) => push(postings(RegExp(word, 'gi'), str), result),
     []
-  )(_.words(string)))
+  )(_.words(string))
+)
 
 export const highlightFromPostings = _.curry((start, end, postings, str) => {
   let offset = 0
@@ -53,4 +54,5 @@ export const highlight = _.curry((start, end, pattern, input) =>
     end,
     _.flatten(postingsForWords(pattern, input)),
     input
-  ))
+  )
+)
