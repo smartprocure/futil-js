@@ -52,11 +52,11 @@ module.exports = function(config) {
               presets: ['env'],
             },
           },
-          {
-            // We need to transpile chai-as-promised to ES5
-            test: require.resolve('chai-as-promised'),
-            use: 'babel-loader',
-          },
+          // {
+          //   // We need to transpile chai-as-promised to ES5
+          //   test: require.resolve('chai-as-promised'),
+          //   use: 'babel-loader',
+          // },
         ],
       },
       node: {
@@ -85,7 +85,7 @@ module.exports = function(config) {
       'src/*.js': ['webpack', 'sourcemap'],
       'test/*.js': ['webpack', 'sourcemap'],
       // We need to transpile chai-as-promised to ES5
-      [require.resolve('chai-as-promised')]: ['webpack'],
+      // [require.resolve('chai-as-promised')]: ['webpack'],
     },
 
     // test results reporter to use
