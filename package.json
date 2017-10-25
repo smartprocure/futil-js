@@ -42,7 +42,6 @@
     "babel-preset-env": "^1.6.1",
     "bluebird": "^3.5.0",
     "chai": "^4.1.0",
-    "chai-as-promised": "^7.0.0",
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
     "codacy-coverage": "^2.0.1",
