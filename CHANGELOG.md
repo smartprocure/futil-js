@@ -1,4 +1,10 @@
-﻿# 1.33.1
+﻿# 1.33.2
+- Add cross browsers testing support with `karma + webpack + saucelabs`
+- Use babel-preset-latest instead of babel-preset-env
+- Fixed unstable tests for mobile Safari browsers.
+- Fixed unstable tests for IE9/10/11.
+
+# 1.33.1
 - Currying the postings and highlighting functions.
 
 # 1.33.0

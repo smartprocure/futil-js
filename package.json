@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.33.1",
+  "version": "1.33.2",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -8,6 +8,8 @@
     "danger": "duti",
     "test": "babel-node ./node_modules/mocha/bin/_mocha",
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
+    "browser": "TEST_ENV=browser karma start karma.conf.js",
+    "browser:local": "karma start karma.conf.js",
     "coverage": "nyc --require babel-core/register node_modules/.bin/mocha test",
     "cicoverage": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill mocha test --reporter json > test-results.json",
     "lint": "eslint dangerfile.js src/*.js test/*.js",
@@ -25,7 +27,7 @@
   },
   "babel": {
     "presets": [
-      "latest"
+      "env"
     ]
   },
   "prettier": {
@@ -39,10 +41,10 @@
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
-    "babel-preset-latest": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
     "bluebird": "^3.5.0",
     "chai": "^4.1.0",
-    "chai-as-promised": "^7.0.0",
+    "chai-as-promised": "^7.1.1",
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
     "codacy-coverage": "^2.0.1",
@@ -50,6 +52,14 @@
     "duti": "latest",
     "eslint": "4.1.0",
     "eslint-config-smartprocure": "^1.0.2",
+    "karma": "^1.7.1",
+    "karma-chai": "^0.1.0",
+    "karma-chai-as-promised": "^0.1.2",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-sauce-launcher": "^1.2.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.5",
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0",
     "nyc": "^11.0.2",
