@@ -1,13 +1,13 @@
 // Karma configuration
 // Generated on Tue Oct 03 2017 13:01:40 GMT-0700 (PDT)
 
-var local = false
+let local = false
 
 module.exports = function(config) {
   'use strict'
 
-  var browsers
-  var reporters
+  let browsers
+  let reporters
 
   switch (process.env.TEST_ENV) {
     case 'browser':
@@ -133,7 +133,7 @@ module.exports = function(config) {
 
 // Browsers to run on Sauce Labs
 // Check out https://saucelabs.com/platforms for all browser/OS combos
-var customLaunchers = {
+let customLaunchers = {
   sl_chrome_26: {
     base: 'SauceLabs',
     browserName: 'chrome',

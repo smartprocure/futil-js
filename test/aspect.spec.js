@@ -47,7 +47,7 @@ describe('Aspect Functions', () => {
   it('should support throwing in onError', async () => {
     // Use the single error object to avoid 'Unhandled promise rejection' in
     // some browsers.
-    const theException = new Error('hi from aspect')
+    let theException = new Error('hi from aspect')
     let ThrowHi = aspect({
       onError: () => {
         throw theException
