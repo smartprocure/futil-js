@@ -8,6 +8,8 @@
     "danger": "duti",
     "test": "babel-node ./node_modules/mocha/bin/_mocha",
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
+    "browser": "TEST_ENV=browser karma start karma.conf.js",
+    "browser:local": "karma start karma.conf.js",
     "coverage": "nyc --require babel-core/register node_modules/.bin/mocha test",
     "cicoverage": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill mocha test --reporter json > test-results.json",
     "lint": "eslint dangerfile.js src/*.js test/*.js",
