@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.33.1",
+  "version": "1.33.2",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -44,6 +44,7 @@
     "babel-preset-env": "^1.6.1",
     "bluebird": "^3.5.0",
     "chai": "^4.1.0",
+    "chai-as-promised": "^7.1.1",
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
     "codacy-coverage": "^2.0.1",
