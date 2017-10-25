@@ -31,7 +31,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      // Load the babel polyfill
       'node_modules/babel-polyfill/dist/polyfill.js',
+      // We need to use singl entry file to avoid circular import error between
+      // `aspect.js` and `conversion.js`
       'src/index.js',
       'test/*.spec.js',
     ],
@@ -46,11 +49,11 @@ module.exports = function(config) {
             exclude: /\/node_modules\//,
             loader: 'babel-loader',
             query: {
-              presets: ['latest'],
-              // plugins: ['transform-object-rest-spread', 'transform-class-properties'],
+              presets: ['env'],
             },
           },
           {
+            // We need to transpile chai-as-promised to ES5
             test: require.resolve('chai-as-promised'),
             use: 'babel-loader',
           },
@@ -81,6 +84,7 @@ module.exports = function(config) {
       // add webpack as preprocessor
       'src/*.js': ['webpack', 'sourcemap'],
       'test/*.js': ['webpack', 'sourcemap'],
+      // We need to transpile chai-as-promised to ES5
       [require.resolve('chai-as-promised')]: ['webpack'],
     },
 
@@ -336,11 +340,3 @@ var customLaunchers = {
     deviceOrientation: 'portrait',
   },
 }
-
-// customLaunchers = {
-//   sl_chrome_26: {
-//     base: 'SauceLabs',
-//     browserName: 'chrome',
-//     version: '26',
-//   },
-// }
