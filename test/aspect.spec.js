@@ -47,15 +47,16 @@ describe('Aspect Functions', () => {
     expect(g.state.errors[1].message).to.equal('Concurrent Runs Not Allowed')
   })
   it('should support throwing in onError', async () => {
+    const theException = new Error('hi from aspect')
     let ThrowHi = aspect({
       onError: () => {
-        throw Error('hi from aspect')
+        throw theException
       },
     })
     let throwsHi = ThrowHi(() => {
       throw Error('Not hi')
     })
-    expect(throwsHi()).to.be.rejectedWith(Error('hi from aspect'))
+    expect(throwsHi()).to.be.rejectedWith(theException)
   })
   it('should support single error', async () => {
     let throwsHi = aspects.error()(() => {
