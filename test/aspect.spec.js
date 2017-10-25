@@ -60,6 +60,8 @@ describe('Aspect Functions', () => {
     // Replace chai-as-promised with more traditional try/catch approach.
     try {
       await throwsHi()
+      // The line below should be never called.
+      throw Error('Hi was not thrown')
     } catch (e) {
       expect(e).to.equal(theException)
     }
