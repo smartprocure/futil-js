@@ -1,8 +1,10 @@
 import _ from 'lodash/fp'
 import chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
 import { aspects, aspect, aspectSync } from '../src'
 import Promise from 'bluebird'
 
+chai.use(chaiAsPromised)
 chai.expect()
 const expect = chai.expect
 
@@ -57,14 +59,7 @@ describe('Aspect Functions', () => {
       throw Error('Not hi')
     })
 
-    // Replace chai-as-promised with more traditional try/catch approach.
-    try {
-      await throwsHi()
-      // The line below should be never called.
-      throw Error('Hi was not thrown')
-    } catch (e) {
-      expect(e).to.equal(theException)
-    }
+    expect(throwsHi()).to.be.rejectedWith(theException)
   })
   it('should support single error', async () => {
     let throwsHi = aspects.error()(() => {
