@@ -38,3 +38,6 @@ jspm_packages
 
 # Build Output
 lib
+
+# Package lock files
+package-lock.json
