@@ -8,17 +8,21 @@ module.exports = function(config) {
 
   let browsers
   let reporters
+  let jsonReporter = {
+    stdout: false,
+    outputFile: 'karma-reports.json.log', // defaults to none
+  }
 
   switch (process.env.TEST_ENV) {
     case 'browser':
       browsers = Object.keys(customLaunchers)
-      reporters = ['dots', 'saucelabs']
+      reporters = ['progress', 'json', 'saucelabs']
       break
     // default is local
     default:
       local = true
       browsers = ['Chrome']
-      reporters = ['progress']
+      reporters = ['progress', 'json']
   }
 
   config.set({
@@ -92,6 +96,8 @@ module.exports = function(config) {
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: reporters,
+    // Write testing results to json file.
+    jsonReporter: jsonReporter,
 
     // web server port
     port: 9876,
