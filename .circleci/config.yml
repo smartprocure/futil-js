@@ -25,7 +25,7 @@ jobs:
           command: npm run cicoverage
       - run:
           name: browser
-          command: npm run browser
+          command: if [ "${CIRCLE_BRANCH}" != "master" ]; then npm run browser; fi;
       - run:
           name: pre-danger
           command: git config user.email "drodriguez@smartprocure.us" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH
