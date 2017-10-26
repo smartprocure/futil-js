@@ -410,6 +410,7 @@ describe('Object Functions', () => {
     expect(
       f.diffArray(
         {
+          z: {},
           x: 1,
           a: 3,
           d: {
@@ -421,6 +422,7 @@ describe('Object Functions', () => {
           collection2: [{ a: 1, b: 2 }],
         },
         {
+          z: { zz: 1 },
           a: 1,
           b: 2,
           c: 3,
@@ -465,6 +467,11 @@ describe('Object Functions', () => {
         field: 'collection2.0.b',
         from: 2,
         to: undefined,
+      },
+      {
+        field: 'z.zz',
+        from: undefined,
+        to: 1,
       },
       {
         field: 'b',
