@@ -110,15 +110,15 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: local,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     // browsers: ['Chrome'],
     sauceLabs: {
       testName: 'Futil-js browser tests',
-      recordVideo: true,
-      recordScreenshots: true,
+      recordVideo: local,
+      recordScreenshots: local,
     },
     captureTimeout: 360 * 1000,
     browserNoActivityTimeout: 600 * 1000,
