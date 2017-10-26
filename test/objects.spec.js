@@ -110,13 +110,17 @@ describe('Object Functions', () => {
       'a.b.c': 1,
     })
     expect(
-      f.flattenObject([{
-        a: {
-          b: [{
-            c: 1,
-          }],
+      f.flattenObject([
+        {
+          a: {
+            b: [
+              {
+                c: 1,
+              },
+            ],
+          },
         },
-      }])
+      ])
     ).to.deep.equal({
       '0.a.b.0.c': 1,
     })
