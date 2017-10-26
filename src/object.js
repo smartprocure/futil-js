@@ -1,6 +1,7 @@
 import _ from 'lodash/fp'
-import { dotJoin } from './array'
+import { dotJoinWith } from './array'
 import { overNone } from './logic'
+import { isNotNil } from './lang'
 import {
   reduceIndexed,
   pickIn,
@@ -58,7 +59,7 @@ export const flattenObject = (input, paths) =>
         output,
         (isFlatObject(value) ? singleObjectR : flattenObject)(
           value,
-          dotJoin([paths, key])
+          dotJoinWith(isNotNil)([paths, key])
         )
       ),
     {},

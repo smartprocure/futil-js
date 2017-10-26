@@ -1,4 +1,10 @@
-﻿# 1.33.2
+﻿# 1.34.0
+- Fixed flattenObject and diffArray to properly say the paths of
+  arrays with only one object, by making them use a new function:
+  `dotJoinWith`, which is like `dotJoin` but allows you to provide a
+  function to select which elements to filter by.
+
+# 1.33.2
 - Add cross browsers testing support with `karma + webpack + saucelabs`
 - Use babel-preset-latest instead of babel-preset-env
 - Fixed unstable tests for mobile Safari browsers.
