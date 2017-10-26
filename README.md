@@ -1,4 +1,4 @@
-<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -130,6 +130,10 @@ Any method with uncapped iteratee arguments will use the `Indexed` convention.
 ### dotJoin
 `data:array -> result:string` Compacts and joins an array with '.'
 
+### dotJoinWith
+`filterFunction -> data:array -> result:string` Compacts an array by
+the provided function, then joins it with '.'
+ 
 ### repeated
 `data:array -> result:array` Returns an array of elements that are repeated in the array.
 

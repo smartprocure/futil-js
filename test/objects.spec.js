@@ -109,6 +109,17 @@ describe('Object Functions', () => {
     ).to.deep.equal({
       'a.b.c': 1,
     })
+    expect(
+      f.flattenObject([{
+        a: {
+          b: [{
+            c: 1,
+          }],
+        },
+      }])
+    ).to.deep.equal({
+      '0.a.b.0.c': 1,
+    })
   })
   it('unflattenObject', () => {
     expect(
@@ -437,17 +448,17 @@ describe('Object Functions', () => {
         to: undefined,
       },
       {
-        field: 'collection1.b',
+        field: 'collection1.0.b',
         from: 2,
         to: undefined,
       },
       {
-        field: 'collection2.a',
+        field: 'collection2.0.a',
         from: 1,
         to: undefined,
       },
       {
-        field: 'collection2.b',
+        field: 'collection2.0.b',
         from: 2,
         to: undefined,
       },

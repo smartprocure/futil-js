@@ -13,6 +13,7 @@ let last = _.takeRight(1)
 // ------
 export const compactJoin = _.curry((join, x) => _.compact(x).join(join))
 export const dotJoin = compactJoin('.')
+export const dotJoinWith = fn => x => _.filter(fn, x).join('.')
 export const repeated = _.flow(
   _.groupBy(e => e),
   _.filter(e => e.length > 1),
