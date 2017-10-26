@@ -16,7 +16,7 @@ module.exports = function(config) {
   switch (process.env.TEST_ENV) {
     case 'browser':
       browsers = Object.keys(customLaunchers)
-      reporters = ['progress', 'json', 'saucelabs']
+      reporters = ['dots', 'json', 'saucelabs']
       break
     // default is local
     default:
