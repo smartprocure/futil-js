@@ -10,7 +10,7 @@ module.exports = function(config) {
   let reporters
   let jsonReporter = {
     stdout: false,
-    outputFile: 'karma-reports.json.log', // defaults to none
+    outputFile: 'browser-results.json', // defaults to none
   }
 
   switch (process.env.TEST_ENV) {
