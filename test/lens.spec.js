@@ -42,6 +42,16 @@ describe('Lens Functions', () => {
       l.set(5)
       expect(l.get()).to.equal(5)
     })
+    it('lensProp deep', () => {
+      let l = f.lensProp('x.a', {
+        x: {
+          a: 1
+        },
+      })
+      expect(l.get()).to.equal(1)
+      l.set(5)
+      expect(l.get()).to.equal(5)
+    })
     it('lensOf', () => {
       let l = f.lensOf({
         a: 1,
