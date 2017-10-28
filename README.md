@@ -1,4 +1,4 @@
-﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -111,7 +111,7 @@ These methods provide alternative orderings that are sometimes more convenient.
 The idea of `In` methods is to name them by convention, so when ever you need a method that actually takes the collection first (e.g. a `get` where the data is static but the field is dynamic), you can just add `In` to the end (such as `getIn` which takes the object first)
 
 ### `On`s (Immutable False)
-`extendOn`, `defaultsOn`, `mergeOn`, `setOn`
+`extendOn`, `defaultsOn`, `mergeOn`, `setOn`, `unsetOn`
 lodash/fp likes to keep things pure, but sometimes JS can get pretty dirty.
 These methods are alternatives for working with data that--for whatever the use case is--needs to be mutable
 Any methods that interact with mutable data will use the `On` convention (as it is some action occuring `On` some data)
@@ -133,7 +133,7 @@ Any method with uncapped iteratee arguments will use the `Indexed` convention.
 ### dotJoinWith
 `filterFunction -> data:array -> result:string` Compacts an array by
 the provided function, then joins it with '.'
- 
+
 ### repeated
 `data:array -> result:array` Returns an array of elements that are repeated in the array.
 
@@ -391,7 +391,7 @@ This the first main way you'll generally interact with the lens API
 
 #### lensProp
 `lensProp :: string -> object -> { get: () -> T, set: T -> T }`
-Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path
+Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path. Supports deep paths like lodash get/set.
 
 
 #### lensOf
@@ -531,6 +531,10 @@ Like `treeToArray`, but accepts a customizer to process the tree nodes before pu
 `traverse -> tree -> [treeNodes]`
 Returns an array of the tree nodes that can't be traversed into in `pre-order`.
 
+### treeLookup
+`(traverse, buildIteratee) -> ([path], tree) -> treeNode`
+Looks up a node matching a path, which defaults to lodash `iteratee` but can be customized with buildIteratee.
+
 ### tree
-`traverse -> {walk, reduce, toArray, toArrayBy, leaves}`
+`(traverse, buildIteratee) -> {walk, reduce, toArray, toArrayBy, leaves, lookup}`
 Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.

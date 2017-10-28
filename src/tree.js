@@ -33,10 +33,15 @@ export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 export let leaves = (next = traverse) =>
   _.flow(treeToArray(next), _.reject(next))
 
-export let tree = (next = traverse) => ({
+export let treeLookup = (next = traverse, buildIteratee = _.identity) => (path, tree) =>
+    _.reduce((tree, path) => _.find(buildIteratee(path), next(tree)), tree, path)
+
+
+export let tree = (next = traverse, buildIteratee = _.identity) => ({
   walk: walk(next),
   reduce: reduceTree(next),
   toArrayBy: treeToArrayBy(next),
   toArray: treeToArray(next),
   leaves: leaves(next),
+  lookup: treeLookup(next, buildIteratee)
 })

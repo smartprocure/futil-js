@@ -1,4 +1,9 @@
-﻿# 1.34.1
+# 1.35.0
+- Add tree `treeLookup`
+- Add deep path support to `lensProp`
+- Add `unsetOn`
+
+# 1.34.1
 - Ignore browser testing errors.
 - Add karma JSON reporter.
 - Only watch files and record videos/screenshots for the local test.

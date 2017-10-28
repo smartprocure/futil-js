@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import {setOn} from './conversion'
 
 // Stubs
 export let functionLens = val => (...x) => {
@@ -22,9 +23,10 @@ export let objToFn = lens => (...values) =>
 
 // Lens Construction
 export let lensProp = (field, source) => ({
-  get: () => source[field],
+  get: () => _.get(field, source),//source[field],
   set: value => {
-    source[field] = value
+    setOn(field, value, source)
+    // source[field] = value
   },
 })
 
