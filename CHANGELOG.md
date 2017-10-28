@@ -1,4 +1,9 @@
-﻿# 1.34.0
+# 1.35.0
+- Add tree `treeLookup`
+- Add deep path support to `lensProp`
+- Ass `unsetOn`
+
+# 1.34.0
 - Fixed flattenObject and diffArray to properly say the paths of
   arrays with only one object, by making them use a new function:
   `dotJoinWith`, which is like `dotJoin` but allows you to provide a
