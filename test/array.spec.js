@@ -54,6 +54,12 @@ describe('Array Functions', () => {
     expect(fn(4)).to.deep.equal([1, 2, 3, 4])
     expect(arr).to.deep.equal([1, 2, 3, 4])
   })
+  it('zipObjectDeepWith', () => {
+    expect(f.zipObjectDeepWith(['a', 'b'], () => 1)).to.deep.equal({
+      a: 1,
+      b: 1
+    })
+  })
   it('flags', () => {
     expect(f.flags(['a', 'b', 'c'])).to.deep.equal({
       a: true,

@@ -156,6 +156,9 @@ Example: `(1, '123', 'hi') -> 'h123i'`
 ### arrayToObject
 `[k, v, a] -> result:object` Creates an object from an array by generating a key/value pair by running each element through the key and value mapper functions.
 
+### zipObjectDeepWith
+A version of `_.zipObjectDeep` that supports passing a function to determine values intead of an array, which will be invoked for each key.
+
 ### flags
 `[a, b] -> {a:true, b:true}` Converts an array of strings into an object mapping to true. Useful for optimizing `includes`.
 

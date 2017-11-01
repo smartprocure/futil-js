@@ -1,5 +1,5 @@
 import _ from 'lodash/fp'
-import { dotJoinWith } from './array'
+import { dotJoinWith, zipObjectDeepWith } from './array'
 import { overNone } from './logic'
 import { isNotNil } from './lang'
 import {
@@ -149,8 +149,6 @@ export let mergeAllArrays = _.mergeAllWith((objValue, srcValue) => {
 })
 // { a: [x, y, z], b: [x] } -> { x: [a, b], y: [a], z: [a] }
 export let invertByArray = _.flow(
-  mapIndexed((arr, key) =>
-    _.zipObjectDeep(arr, _.times(() => [key], arr.length))
-  ),
+  mapIndexed((arr, key) => zipObjectDeepWith(arr, () => [key])),
   mergeAllArrays
 )

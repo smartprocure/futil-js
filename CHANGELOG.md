@@ -1,5 +1,5 @@
 # 1.36.0
-- Add `mergeAllArrays`, `invertByArray`, and `flags`
+- Add `mergeAllArrays`, `invertByArray`, `zipObjectDeepWith`, and `flags`
 
 # 1.35.0
 - Add tree `treeLookup`
