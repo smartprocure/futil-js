@@ -134,38 +134,52 @@ describe('Tree Functions', () => {
   it('lookup', () => {
     let x = {
       a: 1,
-      items: [{
-        a: 2,
-        items: [{
-          a: 3
-        }, {
-          a: 4,
-          b: 4
-        }]
-      }, {
-        a: 5
-      }]
+      items: [
+        {
+          a: 2,
+          items: [
+            {
+              a: 3,
+            },
+            {
+              a: 4,
+              b: 4,
+            },
+          ],
+        },
+        {
+          a: 5,
+        },
+      ],
     }
     let tree = f.tree(x => x.items)
 
-    expect(tree.lookup([{a:2}, {a:4}], x)).to.deep.equal(x.items[0].items[1])
+    expect(tree.lookup([{ a: 2 }, { a: 4 }], x)).to.deep.equal(
+      x.items[0].items[1]
+    )
   })
   it('lookup with path', () => {
     let x = {
       a: '1',
-      items: [{
-        a: '2',
-        items: [{
-          a: '3'
-        }, {
-          a: '4',
-          b: 4
-        }]
-      }, {
-        a: '5'
-      }]
+      items: [
+        {
+          a: '2',
+          items: [
+            {
+              a: '3',
+            },
+            {
+              a: '4',
+              b: 4,
+            },
+          ],
+        },
+        {
+          a: '5',
+        },
+      ],
     }
-    let tree = f.tree(x => x.items, a => ({a}))
+    let tree = f.tree(x => x.items, a => ({ a }))
     expect(tree.lookup(['2', '4'], x)).to.deep.equal(x.items[0].items[1])
   })
 })

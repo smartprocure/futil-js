@@ -496,25 +496,32 @@ describe('Object Functions', () => {
     ])
   })
   it('mergeAllArrays', () => {
-    expect(f.mergeAllArrays([{
-      a: 1,
-      b: [2, 3]
-    }, {
+    expect(
+      f.mergeAllArrays([
+        {
+          a: 1,
+          b: [2, 3],
+        },
+        {
+          a: 3,
+          b: [4],
+        },
+      ])
+    ).to.deep.equal({
       a: 3,
-      b: [4]
-    }])).to.deep.equal({
-      a: 3,
-      b: [2, 3, 4]
+      b: [2, 3, 4],
     })
   })
   it('invertByArray', () => {
-    expect(f.invertByArray({
-      a: ['x', 'y', 'z'],
-      b: ['x']
-    })).to.deep.equal({
+    expect(
+      f.invertByArray({
+        a: ['x', 'y', 'z'],
+        b: ['x'],
+      })
+    ).to.deep.equal({
       x: ['a', 'b'],
       y: ['a'],
-      z: ['a']
+      z: ['a'],
     })
   })
 })
