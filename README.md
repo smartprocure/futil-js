@@ -156,6 +156,9 @@ Example: `(1, '123', 'hi') -> 'h123i'`
 ### arrayToObject
 `[k, v, a] -> result:object` Creates an object from an array by generating a key/value pair by running each element through the key and value mapper functions.
 
+### flags
+`[a, b] -> {a:true, b:true}` Converts an array of strings into an object mapping to true. Useful for optimizing `includes`.
+
 ## Object
 
 ### singleObject
@@ -273,6 +276,13 @@ A `_.get` that takes an array of paths and returns the first path that exists
 
 ### pickOn
 A `_.pick` that mutates the object
+
+### mergeAllArrays
+Like `_.mergeAll`, but concats arrays instead of replacing. This is basically the example from the lodash `mergeAllWith` docs.
+
+### invertByArray
+`{ a: [x, y, z], b: [x] } -> { x: [a, b], y: [a], z: [a] }` Similar to `_.invert`, but expands arrays instead of converting them to strings before making them keys.
+
 
 ## String
 
