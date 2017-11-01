@@ -1,3 +1,6 @@
+# 1.36.0
+- Add `mergeAllArrays`, `invertByArray`, and `flags`
+
 # 1.35.0
 - Add tree `treeLookup`
 - Add deep path support to `lensProp`
