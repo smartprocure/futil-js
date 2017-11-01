@@ -140,3 +140,17 @@ export let pickOn = (paths = [], obj = {}) =>
       }
     })
   )(obj)
+
+// Straight from the lodash docs
+export let mergeAllArrays = _.mergeAllWith((objValue, srcValue) => {
+  if (_.isArray(objValue)) {
+    return objValue.concat(srcValue);
+  }
+})
+// { a: [x, y, z], b: [x] } -> { x: [a, b], y: [a], z: [a] }
+export let invertByArray = _.flow(
+  mapIndexed((arr, key) =>
+    _.zipObjectDeep(arr, _.times(() => [key], arr.length))
+  ),
+  mergeAllArrays
+)
