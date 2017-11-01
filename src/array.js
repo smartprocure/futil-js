@@ -51,3 +51,5 @@ export const cycle = _.curry((a, n) => a[(a.indexOf(n) + 1) % a.length])
 export const arrayToObject = _.curry((k, v, a) =>
   _.flow(_.keyBy(k), _.mapValues(v))(a)
 )
+
+export const flags = x => _.zipObject(x, _.times(x => true, x.length))

@@ -54,4 +54,11 @@ describe('Array Functions', () => {
     expect(fn(4)).to.deep.equal([1, 2, 3, 4])
     expect(arr).to.deep.equal([1, 2, 3, 4])
   })
+  it('flags', () => {
+    expect(f.flags(['a', 'b', 'c'])).to.deep.equal({
+      a: true,
+      b: true,
+      c: true
+    })
+  })
 })
