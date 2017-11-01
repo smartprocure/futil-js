@@ -45,7 +45,7 @@ describe('Lens Functions', () => {
     it('lensProp deep', () => {
       let l = f.lensProp('x.a', {
         x: {
-          a: 1
+          a: 1,
         },
       })
       expect(l.get()).to.equal(1)
