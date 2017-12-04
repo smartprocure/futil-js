@@ -82,7 +82,7 @@ describe('Lens Functions', () => {
       f.set(5, l.a)
       expect(object.a).to.equal(5)
     })
-    it('set', () => {
+    it('sets', () => {
       let object = {
         a: 1,
       }
@@ -112,6 +112,59 @@ describe('Lens Functions', () => {
       }
       let l = f.lensOf(object)
       f.off(l.a)()
+      expect(object.a).to.equal(false)
+    })
+  })
+  describe('Implicit Lens Prop', () => {
+    it('view', () => {
+      let x = {
+        a: 1,
+        b: 2
+      }
+      expect(f.view('a', x)).to.equal(1)
+    })
+    it('views', () => {
+      let x = {
+        a: 1,
+        b: 2
+      }
+      expect(f.views('a', x)()).to.equal(1)
+    })
+    it('set', () => {
+      let x = {
+        a: 1,
+        b: 2
+      }
+      f.set(5, 'a', x)
+      expect(x.a).to.equal(5)
+    })
+    it('sets', () => {
+      let x = {
+        a: 1,
+        b: 2
+      }
+      f.sets(5, 'a', x)()
+      expect(x.a).to.equal(5)
+    })
+    it('flip', () => {
+      let object = {
+        a: 1,
+      }
+      f.flip('a', object)()
+      expect(object.a).to.equal(false)
+    })
+    it('on', () => {
+      let object = {
+        a: 1,
+      }
+      f.on('a', object)()
+      expect(object.a).to.equal(true)
+    })
+    it('off', () => {
+      let object = {
+        a: 1,
+      }
+      f.off('a', object)()
       expect(object.a).to.equal(false)
     })
   })
