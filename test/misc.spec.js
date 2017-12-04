@@ -15,7 +15,7 @@ describe('Basic Functions', () => {
   it("boundMethod should bind a method of an object to it's object", () => {
     let obj = {
       name: 'Wade Watts',
-      greet: function() {
+      greet() {
         return `Welcome, ${this.name}`
       },
     }

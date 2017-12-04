@@ -51,7 +51,7 @@ describe('Aspect Functions', () => {
     // some browsers.
     let theException = new Error('hi from aspect')
     let ThrowHi = aspect({
-      onError: () => {
+      onError() {
         throw theException
       },
     })
@@ -100,7 +100,7 @@ describe('Aspect Functions', () => {
     let x = 1
     let y = 0
     let firstIncrementX = aspectSync({
-      before: () => {
+      before() {
         x++
       },
     })

@@ -8,7 +8,7 @@ export let functionLens = val => (...x) => {
 }
 export let objectLens = val => ({
   get: () => val,
-  set: x => {
+  set(x) {
     val = x
   },
 })
@@ -24,7 +24,7 @@ export let objToFn = lens => (...values) =>
 // Lens Construction
 export let lensProp = (field, source) => ({
   get: () => _.get(field, source), //source[field],
-  set: value => {
+  set(value) {
     setOn(field, value, source)
     // source[field] = value
   },
@@ -45,10 +45,13 @@ export let lensOf = object =>
   )
 
 // Lens Manipulation
-export let view = lens => (lens.get ? lens.get() : lens())
-export let views = lens => () => view(lens)
-export let set = _.curry((val, lens) => (lens.set ? lens.set(val) : lens(val)))
-export let sets = _.curry((val, lens) => () => set(val, lens))
-export let flip = lens => () => set(!view(lens), lens)
+let construct = (...lens) => (lens[1] ? lensProp(...lens) : lens[0])
+let read = lens => (lens.get ? lens.get() : lens())
+export let view = (...lens) => read(construct(...lens))
+export let views = (...lens) => () => view(...lens)
+let write = (val, lens) => (lens.set ? lens.set(val) : lens(val))
+export let set = _.curryN(2, (val, ...lens) => write(val, construct(...lens)))
+export let sets = _.curryN(2, (val, ...lens) => () => set(val, ...lens))
+export let flip = (...lens) => () => set(!view(...lens), ...lens)
 export let on = sets(true)
 export let off = sets(false)
