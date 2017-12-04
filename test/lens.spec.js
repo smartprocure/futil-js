@@ -119,21 +119,21 @@ describe('Lens Functions', () => {
     it('view', () => {
       let x = {
         a: 1,
-        b: 2
+        b: 2,
       }
       expect(f.view('a', x)).to.equal(1)
     })
     it('views', () => {
       let x = {
         a: 1,
-        b: 2
+        b: 2,
       }
       expect(f.views('a', x)()).to.equal(1)
     })
     it('set', () => {
       let x = {
         a: 1,
-        b: 2
+        b: 2,
       }
       f.set(5, 'a', x)
       expect(x.a).to.equal(5)
@@ -141,7 +141,7 @@ describe('Lens Functions', () => {
     it('sets', () => {
       let x = {
         a: 1,
-        b: 2
+        b: 2,
       }
       f.sets(5, 'a', x)()
       expect(x.a).to.equal(5)

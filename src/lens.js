@@ -8,7 +8,7 @@ export let functionLens = val => (...x) => {
 }
 export let objectLens = val => ({
   get: () => val,
-  set: x => {
+  set(x) {
     val = x
   },
 })
@@ -24,7 +24,7 @@ export let objToFn = lens => (...values) =>
 // Lens Construction
 export let lensProp = (field, source) => ({
   get: () => _.get(field, source), //source[field],
-  set: value => {
+  set(value) {
     setOn(field, value, source)
     // source[field] = value
   },
