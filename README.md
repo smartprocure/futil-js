@@ -412,6 +412,7 @@ Creates an object lens for a given property on an object. `.get` returns the val
 Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`.
 
 ### Lens Manipulation
+*Note*: As of version 1.37, any manipulation function that takes a lens can also drop in a key and target object for an implicit lensProp conversion (e.g. you can do `view(key, obj)` instead of just `view(lens)`)
 
 #### view
 `Lens -> T`

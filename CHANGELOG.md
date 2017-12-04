@@ -1,3 +1,6 @@
+# 1,37
+- Added implicit `lensProp` support to all current lens functions (`view`, `views`, `set`, `sets`, `flip`, `on`, `off`)
+
 # 1.36.0
 - Add `mergeAllArrays`, `invertByArray`, `zipObjectDeepWith`, and `flags`
 
