@@ -1,5 +1,12 @@
-# 1,37
-- Added implicit `lensProp` support to all current lens functions (`view`, `views`, `set`, `sets`, `flip`, `on`, `off`)
+# 1.38.0
+
+* Add `allMatches`. It creates regexp and returns all matched results with
+  indexes.
+
+# 1.37.0
+
+* Added implicit `lensProp` support to all current lens functions (`view`,
+  `views`, `set`, `sets`, `flip`, `on`, `off`)
 
 # 1.36.0
 - Add `mergeAllArrays`, `invertByArray`, `zipObjectDeepWith`, and `flags`
