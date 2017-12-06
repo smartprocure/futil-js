@@ -330,6 +330,11 @@ Maps `_.trim` through all the strings of a given object or array.
 
 Example: `('<b>', '<b>', [[0,1]], 'hi') -> '<b>h</b>i'`
 
+### allMatches
+
+`string -> string -> [{text: string, start: number, end: number}]` It creates
+regexp using the first string and returns an array of matches with indexes for
+the second string.
 
 ## Math
 ### greaterThanOne
