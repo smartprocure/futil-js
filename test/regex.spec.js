@@ -41,6 +41,18 @@ describe('Regexp Functions', () => {
 
     expect(match(text)).to.equal(false)
   })
+
+  it('should return all matched results', () => {
+    const re = '(\\d+)'
+    const text = `1 22 333 a bb ccc 4444`
+    const matches = f.allMatches(re, text)
+    expect(matches).to.deep.equal([
+      { text: '1', start: 0, end: 1 },
+      { text: '22', start: 2, end: 4 },
+      { text: '333', start: 5, end: 8 },
+      { text: '4444', start: 18, end: 22 },
+    ])
+  })
 })
 
 describe('Posting Highlight Functions', () => {
