@@ -20,4 +20,6 @@ export const asyncReduce = _.curry(async (fn, obj) => {
 export let asyncFlowF = (...fns) => (...x) =>
   fns.slice(1).reduce((v, f) => v.then(f), Promise.resolve(fns[0](...x)))
 export let asyncFlow = (...args) =>
-  args.length === 1 ? _.flow(asyncFlowF, _.curryN(args[0])) : asyncFlowF(...args)
+  args.length === 1
+    ? _.flow(asyncFlowF, _.curryN(args[0]))
+    : asyncFlowF(...args)

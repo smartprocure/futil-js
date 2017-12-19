@@ -4,23 +4,25 @@ import * as f from '../src/'
 chai.expect()
 const expect = chai.expect
 
-describe('Async', function () {
+describe('Async', function() {
   this.timeout(10 * 1000)
 
   it('asyncMap', async () => {
-    let ABAfterAtimesB = a => b => new Promise(resolve => setTimeout(() => resolve(a * b), a * b))
+    let ABAfterAtimesB = a => b =>
+      new Promise(resolve => setTimeout(() => resolve(a * b), a * b))
     let Bs = [1, 2, 3]
 
     let T1 = new Date()
     let ABs = await f.asyncMap(ABAfterAtimesB(100), Bs)
     let T2 = new Date()
 
-    expect(ABs).to.deep.equal([ 100, 200, 300 ])
+    expect(ABs).to.deep.equal([100, 200, 300])
     expect(T2 - T1).to.be.below(400) // Mapped functions run in parallel
   })
 
   it('asyncReduce', async () => {
-    let ABAfterAtimesB = (a, b) => new Promise(resolve => setTimeout(() => resolve(a * b), a * b))
+    let ABAfterAtimesB = (a, b) =>
+      new Promise(resolve => setTimeout(() => resolve(a * b), a * b))
     let Bs = [100, 2, 3]
 
     let T1 = new Date()
