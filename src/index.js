@@ -1,5 +1,6 @@
 import _ from 'lodash/fp'
 
+export * from './async'
 export * from './conversion'
 export * from './collection'
 export * from './function'
