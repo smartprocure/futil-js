@@ -1,4 +1,4 @@
-<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+﻿<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
 
 ---
 
@@ -370,6 +370,29 @@ Opposite of `isBlank`
 ### isBlankDeep
 `f -> x -> bool`
 Recurses through an object's leaf properties and passes an array of booleans to the combinator, such as `_.some`, `_.every`, and `F.none`
+
+
+## Promises
+
+## asyncMap
+Like lodash/fp map, but accepts promises. Promises run unordered.
+
+## asyncSeries
+Like lodash/fp map, but accepts promises. Promises run in order.
+
+## asyncReduce
+Like lodash/fp reduce, but accepts promises. Promises run in order.
+
+## asyncProps
+Like Bluebird's `Promise.all`, but works for object properties.
+Promises run unordered.
+
+## asyncSeriesProps
+Like Bluebird's `Promise.all`, but works for object properties.
+Promises run in order.
+
+## asyncFlow
+Like lodash's _.flow, but for async functions.
 
 
 ## Lens
