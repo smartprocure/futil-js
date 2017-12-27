@@ -231,6 +231,26 @@ describe('Tree Functions', () => {
         },
       ],
     })
+    expect(x).to.deep.equal({
+      a: '1',
+      items: [
+        {
+          a: '2',
+          items: [
+            {
+              a: '3',
+            },
+            {
+              a: '4',
+              b: 4,
+            },
+          ],
+        },
+        {
+          a: '5',
+        },
+      ],
+    })
   })
   it('keyByWith', () => {
     let x = {
