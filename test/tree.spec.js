@@ -182,4 +182,166 @@ describe('Tree Functions', () => {
     let tree = f.tree(x => x.items, a => ({ a }))
     expect(tree.lookup(['2', '4'], x)).to.deep.equal(x.items[0].items[1])
   })
+  it('transform', () => {
+    let x = {
+      a: '1',
+      items: [
+        {
+          a: '2',
+          items: [
+            {
+              a: '3',
+            },
+            {
+              a: '4',
+              b: 4,
+            },
+          ],
+        },
+        {
+          a: '5',
+        },
+      ],
+    }
+    expect(
+      f.transformTree(x => x.items)(x => {
+        x.b = 'transformed'
+      }, x)
+    ).to.deep.equal({
+      a: '1',
+      b: 'transformed',
+      items: [
+        {
+          a: '2',
+          b: 'transformed',
+          items: [
+            {
+              a: '3',
+              b: 'transformed',
+            },
+            {
+              a: '4',
+              b: 'transformed',
+            },
+          ],
+        },
+        {
+          a: '5',
+          b: 'transformed',
+        },
+      ],
+    })
+    expect(x).to.deep.equal({
+      a: '1',
+      items: [
+        {
+          a: '2',
+          items: [
+            {
+              a: '3',
+            },
+            {
+              a: '4',
+              b: 4,
+            },
+          ],
+        },
+        {
+          a: '5',
+        },
+      ],
+    })
+  })
+  it('keyByWith', () => {
+    let x = {
+      a: 'first',
+      items: [
+        {
+          a: 'second',
+          items: [
+            {
+              a: 'first',
+            },
+            {
+              a: 'second',
+              b: 4,
+            },
+            {
+              a: 'second',
+              b: 6,
+            },
+          ],
+        },
+        {
+          a: 'second',
+        },
+      ],
+    }
+    let tree = f.tree(x => x.items)
+
+    expect(
+      tree.keyByWith(
+        (x, matches, group) => {
+          if (matches) x.type = `${group} type`
+        },
+        'a',
+        x
+      )
+    ).to.deep.equal({
+      first: {
+        a: 'first',
+        type: 'first type',
+        items: [
+          {
+            a: 'second',
+            items: [
+              {
+                a: 'first',
+                type: 'first type',
+              },
+              {
+                a: 'second',
+                b: 4,
+              },
+              {
+                a: 'second',
+                b: 6,
+              },
+            ],
+          },
+          {
+            a: 'second',
+          },
+        ],
+      },
+      second: {
+        a: 'first',
+        items: [
+          {
+            a: 'second',
+            type: 'second type',
+            items: [
+              {
+                a: 'first',
+              },
+              {
+                a: 'second',
+                type: 'second type',
+                b: 4,
+              },
+              {
+                a: 'second',
+                type: 'second type',
+                b: 6,
+              },
+            ],
+          },
+          {
+            a: 'second',
+            type: 'second type',
+          },
+        ],
+      },
+    })
+  })
 })
