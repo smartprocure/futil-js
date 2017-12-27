@@ -203,9 +203,11 @@ describe('Tree Functions', () => {
         },
       ],
     }
-    expect(f.transformTree(x => x.items)(x => {
-      x.b = 'transformed'
-    }, x)).to.deep.equal({
+    expect(
+      f.transformTree(x => x.items)(x => {
+        x.b = 'transformed'
+      }, x)
+    ).to.deep.equal({
       a: '1',
       b: 'transformed',
       items: [
@@ -246,8 +248,8 @@ describe('Tree Functions', () => {
             },
             {
               a: 'second',
-              b: 6
-            }
+              b: 6,
+            },
           ],
         },
         {
@@ -256,10 +258,16 @@ describe('Tree Functions', () => {
       ],
     }
     let tree = f.tree(x => x.items)
-    
-    expect(tree.keyByWith((x, matches, group) => {
-      if (matches) x.type = group + ' type'
-    }, 'a', x)).to.deep.equal({
+
+    expect(
+      tree.keyByWith(
+        (x, matches, group) => {
+          if (matches) x.type = `${group} type`
+        },
+        'a',
+        x
+      )
+    ).to.deep.equal({
       first: {
         a: 'first',
         type: 'first type',
