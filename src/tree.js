@@ -18,6 +18,13 @@ export let walk = (next = traverse) => (
   ) ||
   post(tree, index, parents, parentIndexes)
 
+export let transformTree = (next = traverse) =>
+  _.curry((f, x) => {
+    let result = _.cloneDeep(x)
+    walk(next)(f)(result)
+    return result
+  })
+
 export let reduceTree = (next = traverse) =>
   _.curry((f, result, tree) => {
     walk(next)((...x) => {
@@ -41,6 +48,7 @@ export let treeLookup = (next = traverse, buildIteratee = _.identity) => (
 
 export let tree = (next = traverse, buildIteratee = _.identity) => ({
   walk: walk(next),
+  transform: transformTree(next),
   reduce: reduceTree(next),
   toArrayBy: treeToArrayBy(next),
   toArray: treeToArray(next),

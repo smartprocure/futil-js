@@ -182,4 +182,52 @@ describe('Tree Functions', () => {
     let tree = f.tree(x => x.items, a => ({ a }))
     expect(tree.lookup(['2', '4'], x)).to.deep.equal(x.items[0].items[1])
   })
+  it('transform', () => {
+    let x = {
+      a: '1',
+      items: [
+        {
+          a: '2',
+          items: [
+            {
+              a: '3',
+            },
+            {
+              a: '4',
+              b: 4,
+            },
+          ],
+        },
+        {
+          a: '5',
+        },
+      ],
+    }
+    expect(f.transformTree(x => x.items)(x => {
+      x.b = 'transformed'
+    }, x)).to.deep.equal({
+      a: '1',
+      b: 'transformed',
+      items: [
+        {
+          a: '2',
+          b: 'transformed',
+          items: [
+            {
+              a: '3',
+              b: 'transformed',
+            },
+            {
+              a: '4',
+              b: 'transformed',
+            },
+          ],
+        },
+        {
+          a: '5',
+          b: 'transformed',
+        },
+      ],
+    })
+  })
 })
