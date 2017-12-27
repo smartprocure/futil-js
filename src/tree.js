@@ -46,6 +46,21 @@ export let treeLookup = (next = traverse, buildIteratee = _.identity) => (
 ) =>
   _.reduce((tree, path) => _.find(buildIteratee(path), next(tree)), tree, path)
 
+export let keyTreeByWith = (next = traverse) =>
+  _.curry((transformer, groupIteratee, x) =>
+    _.flow(
+      treeToArrayBy(next)(_.iteratee(groupIteratee)),
+      _.uniq,
+      _.keyBy(_.identity),
+      _.mapValues(group =>
+        transformTree(next)(node => {
+          let matches = _.iteratee(groupIteratee)(node) === group
+          transformer(node, matches, group)
+        }, x)
+      )
+    )(x)
+  )
+
 export let tree = (next = traverse, buildIteratee = _.identity) => ({
   walk: walk(next),
   transform: transformTree(next),
@@ -54,4 +69,5 @@ export let tree = (next = traverse, buildIteratee = _.identity) => ({
   toArray: treeToArray(next),
   leaves: leaves(next),
   lookup: treeLookup(next, buildIteratee),
+  keyByWith: keyTreeByWith(next)
 })

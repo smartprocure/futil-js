@@ -1,5 +1,6 @@
 # 1.39.0
 - Add `transformTree`
+- Add `keyTreeByWith`
 
 # 1.38.0
 - Add `allMatches`. It creates regexp and returns all matched results with

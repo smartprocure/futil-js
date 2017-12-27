@@ -230,4 +230,90 @@ describe('Tree Functions', () => {
       ],
     })
   })
+  it('keyByWith', () => {
+    let x = {
+      a: 'first',
+      items: [
+        {
+          a: 'second',
+          items: [
+            {
+              a: 'first',
+            },
+            {
+              a: 'second',
+              b: 4,
+            },
+            {
+              a: 'second',
+              b: 6
+            }
+          ],
+        },
+        {
+          a: 'second',
+        },
+      ],
+    }
+    let tree = f.tree(x => x.items)
+    
+    expect(tree.keyByWith((x, matches, group) => {
+      if (matches) x.type = group + ' type'
+    }, 'a', x)).to.deep.equal({
+      first: {
+        a: 'first',
+        type: 'first type',
+        items: [
+          {
+            a: 'second',
+            items: [
+              {
+                a: 'first',
+                type: 'first type',
+              },
+              {
+                a: 'second',
+                b: 4,
+              },
+              {
+                a: 'second',
+                b: 6,
+              },
+            ],
+          },
+          {
+            a: 'second',
+          },
+        ],
+      },
+      second: {
+        a: 'first',
+        items: [
+          {
+            a: 'second',
+            type: 'second type',
+            items: [
+              {
+                a: 'first',
+              },
+              {
+                a: 'second',
+                type: 'second type',
+                b: 4,
+              },
+              {
+                a: 'second',
+                type: 'second type',
+                b: 6,
+              },
+            ],
+          },
+          {
+            a: 'second',
+            type: 'second type',
+          },
+        ],
+      },
+    })
+  })
 })

@@ -558,6 +558,10 @@ Returns an array of the tree nodes that can't be traversed into in `pre-order`.
 `(traverse, buildIteratee) -> ([path], tree) -> treeNode`
 Looks up a node matching a path, which defaults to lodash `iteratee` but can be customized with buildIteratee.
 
+### keyByWith
+`traverse -> transformer -> iteratee -> tree -> result`
+Similar to a keyBy (aka groupBy) for trees, but also transforms the grouped values (instead of filtering out tree nodes). The transformer takes three args, the current node, a boolean of if the node matches the current group, and what group is being evaluated for this iteratee. The transformer is called on each node for each grouping.
+
 ### tree
 `(traverse, buildIteratee) -> {walk, reduce, transform, toArray, toArrayBy, leaves, lookup}`
 Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
