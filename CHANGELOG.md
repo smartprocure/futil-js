@@ -1,3 +1,6 @@
+# 1.40.0
+- Add support for 
+
 # 1.39.0
 - Add `transformTree`
 - Add `keyTreeByWith`

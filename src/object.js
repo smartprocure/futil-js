@@ -94,9 +94,15 @@ export let alias = _.curry((prop, x) => _.getOr(prop, prop, x))
 export let aliasIn = _.curry((x, prop) => _.getOr(prop, prop, x))
 
 // A `_.get` that takes an array of paths and returns the value at the first path that matches
-export let cascade = _.curry((paths, obj) => findApply(getIn(obj), paths))
+export let cascade = _.curryN(2, (paths, obj, defaultValue) =>
+  _.flow(
+    findApply(x => x && _.iteratee(x)(obj)),
+    _.defaultTo(defaultValue)
+  )(paths)
+)
+
 // Flipped cascade
-export let cascadeIn = _.curry((obj, paths) => cascade(paths, obj))
+export let cascadeIn = _.curryN(2, (obj, paths, defaultValue) => cascade(paths, obj, defaultValue))
 // A `_.get` that takes an array of paths and returns the first path that matched
 export let cascadeKey = _.curry((paths, obj) => _.find(getIn(obj), paths))
 // A `_.get` that takes an array of paths and returns the first path that exists
