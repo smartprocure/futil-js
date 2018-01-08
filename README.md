@@ -1,4 +1,4 @@
-<img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'>
+<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
 
@@ -16,6 +16,9 @@
 A collection of F(unctional) Util(ities). Resistance is futile.
 
 Mostly, these are generic utilities that could conceivably be part of a library like lodash/fp, but for some reason or other are not.
+
+# Docs
+https://smartprocure.github.io/futil-js/
 
 # Version History/Changelog
 See our [changelog](https://github.com/smartprocure/futil-js/blob/master/CHANGELOG.md)
