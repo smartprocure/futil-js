@@ -1,3 +1,6 @@
+# 1.40.1
+- Add docs link
+
 # 1.40.0
 - [`cascade`, `cascadeIn`] added support for an optional defaultValue (last param) and iteratee support instead of just paths
 
