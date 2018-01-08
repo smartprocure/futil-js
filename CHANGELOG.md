@@ -1,3 +1,6 @@
+# 1.40.0
+- [`cascade`, `cascadeIn`] added support for an optional defaultValue (last param) and iteratee support instead of just paths
+
 # 1.39.0
 - Add `transformTree`
 - Add `keyTreeByWith`

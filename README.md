@@ -246,7 +246,7 @@ Example: `mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}`.
 Flipped `alias`
 
 ### cascade
-A `_.get` that takes an array of paths and returns the value at the first path that matches
+A `_.get` that takes an array of paths (or functions to return values) and returns the value at the first path that matches. Similar to _.overSome, but returns the first result that matches instead of just truthy (and supports a default value)
 
 ### cascadeIn
 Flipped cascade
