@@ -8,7 +8,7 @@ describe('Converted Functions', () => {
   const hero = {
     name: 'Heracles',
     father: 'Zeus',
-    bornAt: 'Thebes'
+    bornAt: 'Thebes',
   }
 
   describe('Flips', () => {
@@ -21,11 +21,14 @@ describe('Converted Functions', () => {
 
     it('pickIn', () => {
       expect(f.pickIn(hero, 'name')).to.eql(_.pick('name', hero))
-      expect(f.pickIn(hero, ['name', 'father'])).to.eql(_.pick(['name', 'father'], hero))
+      expect(f.pickIn(hero, ['name', 'father'])).to.eql(
+        _.pick(['name', 'father'], hero)
+      )
     })
 
     it('includesIn', () => {
-      let expectEql = (obj, name) => expect(f.includesIn(obj, name)).to.eql(_.includes(name, obj))
+      let expectEql = (obj, name) =>
+        expect(f.includesIn(obj, name)).to.eql(_.includes(name, obj))
       expectEql(hero, 'name')
       expectEql(hero, 'Heracles')
       expectEql(hero, 'Zeus')
@@ -34,35 +37,48 @@ describe('Converted Functions', () => {
 
   describe('Mutables', () => {
     it('extendOn', () => {
-      let expectEql = (clone, obj) => expect(f.extendOn(clone, obj)).to.eql(_.extend(obj, clone))
+      let expectEql = (clone, obj) =>
+        expect(f.extendOn(clone, obj)).to.eql(_.extend(obj, clone))
       expectEql(_.clone(hero), { name: 'Hercules' })
       expectEql(_.clone(hero), { consort: 'Auge' })
-      expect(f.extendOn({
-        a: 1
-      }, {
+      expect(
+        f.extendOn(
+          {
+            a: 1,
+          },
+          {
+            a: 2,
+            b: 3,
+            c: 4,
+          }
+        )
+      ).to.deep.equal({
         a: 2,
         b: 3,
-        c: 4
-      })).to.deep.equal({
-        a: 2,
-        b: 3,
-        c: 4
+        c: 4,
       })
     })
 
     it('defaultsOn', () => {
       let clone = _.clone(hero)
-      expect(f.defaultsOn(clone, { consort: 'Auge' })).to.eql(_.defaults({ consort: 'Auge' }, clone))
-      expect(f.defaultsOn({
-        a: 2,
-        b: 3,
-        c: 4
-      }, {
-        a: 1
-      })).to.deep.equal({
+      expect(f.defaultsOn(clone, { consort: 'Auge' })).to.eql(
+        _.defaults({ consort: 'Auge' }, clone)
+      )
+      expect(
+        f.defaultsOn(
+          {
+            a: 2,
+            b: 3,
+            c: 4,
+          },
+          {
+            a: 1,
+          }
+        )
+      ).to.deep.equal({
         a: 1,
         b: 3,
-        c: 4
+        c: 4,
       })
     })
   })

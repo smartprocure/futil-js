@@ -9,16 +9,18 @@ module.exports = {
     path: path.join(__dirname, 'lib'),
     filename: outputFile,
     library: libraryName,
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
   module: {
-    loaders: [{
-      test: /(\.jsx|\.js)$/,
-      loader: 'babel-loader',
-      exclude: /(node_modules|bower_components)/
-    }]
+    loaders: [
+      {
+        test: /(\.jsx|\.js)$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules|bower_components)/,
+      },
+    ],
   },
   externals: {
-    'lodash/fp': 'lodash/fp'
-  }
+    'lodash/fp': 'lodash/fp',
+  },
 }

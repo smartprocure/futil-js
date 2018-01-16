@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
-import {aspects, aspect} from '../src'
+import { aspects, aspect, aspectSync } from '../src'
 import Promise from 'bluebird'
 
 chai.use(chaiAsPromised)
@@ -34,7 +34,9 @@ describe('Aspect Functions', () => {
     expect(f.state.logs).to.deep.equal([6, 6])
   })
   it('should support .onError and before (`concurrency`, `errors`, and `status` aspects)', async () => {
-    let g = Command(() => { throw Error(5) })
+    let g = Command(() => {
+      throw Error(5)
+    })
     expect(g.state.processing).to.equal(false)
     await g()
     expect(g.state.errors[0].message).to.equal('5')
@@ -45,15 +47,19 @@ describe('Aspect Functions', () => {
     expect(g.state.errors[1].message).to.equal('Concurrent Runs Not Allowed')
   })
   it('should support throwing in onError', async () => {
+    // Use the single error object to avoid 'Unhandled promise rejection' in
+    // some browsers.
+    let theException = new Error('hi from aspect')
     let ThrowHi = aspect({
-      onError: e => {
-        throw Error('hi from aspect')
-      }
+      onError() {
+        throw theException
+      },
     })
     let throwsHi = ThrowHi(() => {
       throw Error('Not hi')
     })
-    expect(throwsHi()).to.be.rejectedWith(Error('hi from aspect'))
+
+    expect(throwsHi()).to.be.rejectedWith(theException)
   })
   it('should support single error', async () => {
     let throwsHi = aspects.error()(() => {
@@ -63,24 +69,45 @@ describe('Aspect Functions', () => {
     expect(throwsHi.state.error.message).to.deep.equal('Hi')
   })
   it('should support status and clearing status', async () => {
-    let clearingStatus = aspects.command(undefined, 10)
-    let f = clearingStatus(async () => Promise.delay(2))
+    // Increase the timeout/delay to hundreds ms to make testing IE9/10/11 more
+    // stable & avoid exception:
+    // AssertionError: expected null to equal 'processing'
+    let clearingStatus = aspects.command(undefined, 250)
+    let f = clearingStatus(async () => Promise.delay(200))
     let result = f()
-    await Promise.delay(0)
+    await Promise.delay(100)
     expect(f.state.status).to.equal('processing')
     expect(f.state.processing).to.equal(true)
     await result
     expect(f.state.status).to.equal('succeeded')
-    expect(f.state.succeeded).to.be.true
-    await Promise.delay(15)
+    expect(f.state.succeeded).to.equal(true)
+    await Promise.delay(300)
     expect(f.state.status).to.equal(null)
     let g = clearingStatus(async () => {
       throw Error('error')
     })
     await g()
     expect(g.state.status).to.equal('failed')
-    expect(g.state.failed).to.be.true
+    expect(g.state.failed).to.equal(true)
     await Promise.delay(15)
     expect(f.state.status).to.equal(null)
+  })
+    // Try to handle the case for mobile safari browers with error:
+    // Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()"
+    // is called; if returning a Promise, ensure it resolves.
+    .timeout(10000)
+  it('should support synchronous aspects', () => {
+    let x = 1
+    let y = 0
+    let firstIncrementX = aspectSync({
+      before() {
+        x++
+      },
+    })
+    let f = firstIncrementX(() => {
+      y = x
+    })
+    f()
+    expect(y).to.equal(2)
   })
 })

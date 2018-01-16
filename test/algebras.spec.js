@@ -6,15 +6,19 @@ const expect = chai.expect
 
 describe('Algebras', () => {
   it('map arrays', () => {
-    expect(f.map(x => x * x, [ 1, 2, 3 ])).to.deep.equal([ 1, 4, 9 ])
+    expect(f.map(x => x * x, [1, 2, 3])).to.deep.equal([1, 4, 9])
   })
 
   it('map plain objects', () => {
-    expect(f.map(x => x * x, { a: 1, b: 2, c: 3 })).to.deep.equal({ a: 1, b: 4, c: 9 })
+    expect(f.map(x => x * x, { a: 1, b: 2, c: 3 })).to.deep.equal({
+      a: 1,
+      b: 4,
+      c: 9,
+    })
   })
 
   it('deepMap arrays', () => {
-    const arr = [ 0, [ 1, [ 2, [ ] ] ] ]
+    const arr = [0, [1, [2, []]]]
 
     const arrBackup = _.cloneDeep(arr)
 
@@ -23,26 +27,26 @@ describe('Algebras', () => {
     // Checking immutability
     expect(arr).to.eql(arrBackup)
 
-    expect(arrMutated).to.eql([ 0, [ 1, [ 2, [ 101 ], 101 ], 101 ] ])
+    expect(arrMutated).to.eql([0, [1, [2, [101], 101], 101]])
   })
 
   it('deepMap plain objects', () => {
     const obj = {
       a: {
         match: {
-          id: 1
+          id: 1,
         },
         b: {
           match: {
-            id: 2
+            id: 2,
           },
           c: {
             match: {
-              id: 3
-            }
-          }
-        }
-      }
+              id: 3,
+            },
+          },
+        },
+      },
     }
 
     const objBackup = _.cloneDeep(obj)
@@ -58,42 +62,42 @@ describe('Algebras', () => {
       a: {
         match: {
           id: 1,
-          matched: true
+          matched: true,
         },
         b: {
           match: {
             id: 2,
-            matched: true
+            matched: true,
           },
           c: {
             match: {
               id: 3,
-              matched: true
-            }
-          }
-        }
-      }
+              matched: true,
+            },
+          },
+        },
+      },
     })
   })
 
   it('deepMap plain objects with arrays with objects', () => {
     const obj = {
       a: {
-        array: [ 0, [ 1, [ 2, [ { match: { id: 0 } } ] ] ] ],
+        array: [0, [1, [2, [{ match: { id: 0 } }]]]],
         match: {
-          id: 1
+          id: 1,
         },
         b: {
           match: {
-            id: 2
+            id: 2,
           },
           c: {
             match: {
-              id: 3
-            }
-          }
-        }
-      }
+              id: 3,
+            },
+          },
+        },
+      },
     }
 
     const objBackup = _.cloneDeep(obj)
@@ -108,24 +112,28 @@ describe('Algebras', () => {
 
     expect(objMutated).to.eql({
       a: {
-        array: [ 0, [ 1, [ 2, [ { match: { id: 0, matched: true } }, 101 ], 101 ], 101 ], 101 ],
+        array: [
+          0,
+          [1, [2, [{ match: { id: 0, matched: true } }, 101], 101], 101],
+          101,
+        ],
         match: {
           id: 1,
-          matched: true
+          matched: true,
         },
         b: {
           match: {
             id: 2,
-            matched: true
+            matched: true,
           },
           c: {
             match: {
               id: 3,
-              matched: true
-            }
-          }
-        }
-      }
+              matched: true,
+            },
+          },
+        },
+      },
     })
   })
 })

@@ -1,0 +1,43 @@
+version: 2
+notify:
+  webhooks:
+    - url: https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.7
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache
+      - run:
+          name: install
+          command: npm install
+      - save_cache:
+          key: dependency-cache
+          paths:
+            - ./node_modules
+      - run:
+          name: lint
+          command: npm run lint:ci
+      - run:
+          name: test
+          command: npm run cicoverage
+      - run:
+          name: browser
+          command: if [ "${CIRCLE_BRANCH}" != "master" ]; then npm run browser || true; fi;
+      - run:
+          name: pre-danger
+          command: git config user.email "drodriguez@smartprocure.us" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH
+          when: always
+      - run:
+          name: danger
+          command: npm run danger
+          when: always
+      - deploy:
+          name: Maybe Deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+              npm publish
+            fi
