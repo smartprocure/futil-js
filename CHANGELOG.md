@@ -1,3 +1,6 @@
+﻿# 1.40.2
+- Updating babel-eslint, eslint, chokidar and mocha.
+
 # 1.40.1
 - Add docs link
 
