@@ -50,7 +50,7 @@
     "codacy-coverage": "^2.0.1",
     "coveralls": "^3.0.0",
     "duti": "latest",
-    "eslint": "4.4.0",
+    "eslint": "4.16.0",
     "eslint-config-smartprocure": "^1.0.2",
     "karma": "^2.0.0",
     "karma-chai": "^0.1.0",
