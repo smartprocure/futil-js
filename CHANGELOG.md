@@ -1,4 +1,7 @@
-﻿# 1.40.2
+﻿# 1.40.3
+- Updated eslint to version 4.16.0.
+
+# 1.40.2
 - Updating babel-eslint, eslint, chokidar and mocha.
 
 # 1.40.1
