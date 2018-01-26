@@ -67,4 +67,16 @@ describe('Array Functions', () => {
       c: true,
     })
   })
+  it('prefixes', () => {
+    expect(F.prefixes(['root', 'criteria', 'someNode'])).to.deep.equal([
+      ['root'],
+      ['root', 'criteria'],
+      ['root', 'criteria', 'someNode']
+    ])
+    expect(F.prefixes('abc')).to.deep.equal([
+      ['a'],
+      ['a', 'b'],
+      ['a', 'b', 'c']
+    ])
+  })
 })

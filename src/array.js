@@ -58,3 +58,7 @@ export const zipObjectDeepWith = _.curry((x, y) =>
 )
 
 export const flags = zipObjectDeepWith(_, () => true)
+
+
+export const prefixes = list =>
+  _.range(1, list.length + 1).map(x => _.take(x, list))

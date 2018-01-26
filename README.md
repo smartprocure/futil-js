@@ -165,6 +165,10 @@ A version of `_.zipObjectDeep` that supports passing a function to determine val
 ### flags
 `[a, b] -> {a:true, b:true}` Converts an array of strings into an object mapping to true. Useful for optimizing `includes`.
 
+
+### prefixes
+`['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]` Returns a list of all prefixes. Works on strings, too.
+
 ## Object
 
 ### singleObject
