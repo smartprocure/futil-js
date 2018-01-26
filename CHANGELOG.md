@@ -1,4 +1,7 @@
-﻿# 1.40.3
+# 1.41.0
+- Add `pullOn`
+
+# 1.40.3
 - Updated eslint to version 4.16.0.
 
 # 1.40.2
