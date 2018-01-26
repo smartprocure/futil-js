@@ -114,7 +114,7 @@ These methods provide alternative orderings that are sometimes more convenient.
 The idea of `In` methods is to name them by convention, so when ever you need a method that actually takes the collection first (e.g. a `get` where the data is static but the field is dynamic), you can just add `In` to the end (such as `getIn` which takes the object first)
 
 ### `On`s (Immutable False)
-`extendOn`, `defaultsOn`, `mergeOn`, `setOn`, `unsetOn`
+`extendOn`, `defaultsOn`, `mergeOn`, `setOn`, `unsetOn`, `pullOn`
 lodash/fp likes to keep things pure, but sometimes JS can get pretty dirty.
 These methods are alternatives for working with data that--for whatever the use case is--needs to be mutable
 Any methods that interact with mutable data will use the `On` convention (as it is some action occuring `On` some data)
@@ -164,6 +164,19 @@ A version of `_.zipObjectDeep` that supports passing a function to determine val
 
 ### flags
 `[a, b] -> {a:true, b:true}` Converts an array of strings into an object mapping to true. Useful for optimizing `includes`.
+
+### prefixes
+`['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]` Returns a list of all prefixes. Works on strings, too.
+
+### encoder
+`string -> {encode: array -> string, decode: string -> array}` Creates an object with encode and decode functions for encoding arrays as strings. The input string is used as input for join/split.
+
+#### dotEncoder
+`{ encode: ['a', 'b'] -> 'a.b', decode: 'a.b' -> ['a', 'b'] }` An encoder using `.` as the separator
+
+#### slashEncoder
+`{ encode: ['a', 'b'] -> 'a/b', decode: 'a/b' -> ['a', 'b'] }` An encoder using `/` as the separator
+
 
 ## Object
 
@@ -565,6 +578,25 @@ Looks up a node matching a path, which defaults to lodash `iteratee` but can be 
 `traverse -> transformer -> iteratee -> tree -> result`
 Similar to a keyBy (aka groupBy) for trees, but also transforms the grouped values (instead of filtering out tree nodes). The transformer takes three args, the current node, a boolean of if the node matches the current group, and what group is being evaluated for this iteratee. The transformer is called on each node for each grouping.
 
+### flattenTree
+`traverse -> buildPath -> tree -> result`
+Creates a flat object with a property for each node, using `buildPath` to determine the keys. `buildPath` takes the same arguments as a tree walking iteratee. It will default to a dot tree path.
+
+### treePath
+`(build, encoder) -> treePathBuilderFunction`
+Creates a path builder for use in `flattenTree`. By default, the builder will look use child indexes and a dotEncoder. Encoder can be an encoding function or a futil `encoder` (an object with encode and decode functions)
+
+### propTreePath
+`prop -> treePathBuilderFunction`
+Creates a path builder for use in `flattenTree`, using a slashEncoder and using the specified prop function as an iteratee on each node to determine the keys.
+
+### treeKeys
+A utility tree iteratee that returns the stack of node indexes
+
+### treeValues
+A utility tree iteratee that returns the stack of node values
+
 ### tree
-`(traverse, buildIteratee) -> {walk, reduce, transform, toArray, toArrayBy, leaves, lookup}`
+`(traverse, buildIteratee) -> {walk, reduce, transform, toArray, toArrayBy, leaves, lookup, keyByWith, traverse, flatten, flatLeaves }`
 Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
+Exposes provided `traverse` function as `traverse`
