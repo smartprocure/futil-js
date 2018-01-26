@@ -1,6 +1,6 @@
 # 1.41.0
 - Add `pullOn`, `prefixes`
-- Add `endocer`, `dotEncoder`, `slashEncoder`
+- Add `encoder`, `dotEncoder`, `slashEncoder`
 - Add `flattenTree`, `treePath`, `propTreePath`, `treeKeys`, `treeValues`
 - Expose `traverse` on `Tree`
 

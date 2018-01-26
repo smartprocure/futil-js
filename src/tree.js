@@ -1,7 +1,6 @@
 import _ from 'lodash/fp'
-import { push } from './array'
 import { findIndexed } from './conversion'
-import { dotEncoder, slashEncoder } from './array'
+import { push, dotEncoder, slashEncoder } from './array'
 
 export let isTraversable = x => _.isArray(x) || _.isPlainObject(x)
 export let traverse = x => isTraversable(x) && !_.isEmpty(x) && x
@@ -64,7 +63,7 @@ export let keyTreeByWith = (next = traverse) =>
 
 // Flat Tree
 export let treeKeys = (x, i, xs, is) => [i, ...is]
-export let treeValues = (x, i, xs, is) => [x, ...xs]
+export let treeValues = (x, i, xs) => [x, ...xs]
 export let treePath = (build = treeKeys, encoder = dotEncoder) => (...args) =>
   (encoder.encode || encoder)(build(...args).reverse())
 export let propTreePath = prop =>
