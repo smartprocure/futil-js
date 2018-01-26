@@ -1,15 +1,15 @@
 import chai from 'chai'
-import * as f from '../src'
+import * as F from '../src'
 import _ from 'lodash/fp'
 chai.expect()
 const expect = chai.expect
 
 describe('Tree Functions', () => {
   it('isTraversable', () => {
-    expect(f.isTraversable([])).to.equal(true)
-    expect(f.isTraversable({})).to.equal(true)
-    expect(f.isTraversable('')).to.equal(false)
-    expect(f.isTraversable(5)).to.equal(false)
+    expect(F.isTraversable([])).to.equal(true)
+    expect(F.isTraversable({})).to.equal(true)
+    expect(F.isTraversable('')).to.equal(false)
+    expect(F.isTraversable(5)).to.equal(false)
   })
   it('traverse', () => {
     let x = {
@@ -18,7 +18,7 @@ describe('Tree Functions', () => {
         c: 2,
       },
     }
-    expect(f.traverse(x)).to.deep.equal(x)
+    expect(F.traverse(x)).to.deep.equal(x)
   })
   describe('walk', () => {
     let x = {
@@ -29,14 +29,14 @@ describe('Tree Functions', () => {
     }
     let values = []
     it('pre-order traversal', () => {
-      f.walk()(tree => {
+      F.walk()(tree => {
         values.push(tree)
       })(x)
       expect(values).to.deep.equal([x, x.a, x.b, x.b.c])
     })
     it('post-order traversal', () => {
       let values = []
-      f.walk()(
+      F.walk()(
         () => {},
         tree => {
           values.push(tree)
@@ -46,7 +46,7 @@ describe('Tree Functions', () => {
     })
     it('halting', () => {
       let values = []
-      let r = f.walk()(tree => {
+      let r = F.walk()(tree => {
         values.push(tree)
         return _.isNumber(tree)
       })(x)
@@ -55,7 +55,7 @@ describe('Tree Functions', () => {
     })
     it('halting with tree return', () => {
       let values = []
-      let r = f.walk()(
+      let r = F.walk()(
         () => {},
         (tree, i, [parent]) => {
           values.push(tree)
@@ -67,7 +67,7 @@ describe('Tree Functions', () => {
     })
     it('should retain parent stack and indices', () => {
       let values = []
-      f.walk()((x, i, parents) => {
+      F.walk()((x, i, parents) => {
         values.push([x, parents, i])
       })(x)
       expect(values).to.deep.equal([
@@ -85,7 +85,7 @@ describe('Tree Functions', () => {
         c: 2,
       },
     }
-    expect(f.reduceTree()((r, i) => f.push(i, r), [], x)).to.deep.equal([
+    expect(F.reduceTree()((r, i) => F.push(i, r), [], x)).to.deep.equal([
       x,
       x.a,
       x.b,
@@ -99,7 +99,7 @@ describe('Tree Functions', () => {
         c: 2,
       },
     }
-    expect(f.treeToArray()(x)).to.deep.equal([x, x.a, x.b, x.b.c])
+    expect(F.treeToArray()(x)).to.deep.equal([x, x.a, x.b, x.b.c])
   })
   it('treeToArrayBy', () => {
     let x = {
@@ -109,7 +109,7 @@ describe('Tree Functions', () => {
       },
     }
     expect(
-      f.treeToArrayBy()(i => (_.isNumber(i) ? i * 2 : i), x)
+      F.treeToArrayBy()(i => (_.isNumber(i) ? i * 2 : i), x)
     ).to.deep.equal([x, x.a * 2, x.b, x.b.c * 2])
   })
   it('leaves', () => {
@@ -119,7 +119,7 @@ describe('Tree Functions', () => {
         c: 2,
       },
     }
-    expect(f.leaves()(x)).to.deep.equal([1, 2])
+    expect(F.leaves()(x)).to.deep.equal([1, 2])
   })
   it('tree', () => {
     let x = {
@@ -128,7 +128,7 @@ describe('Tree Functions', () => {
         c: 2,
       },
     }
-    let tree = f.tree()
+    let tree = F.tree()
     expect(tree.toArray(x)).to.deep.equal([x, x.a, x.b, x.b.c])
   })
   it('lookup', () => {
@@ -152,7 +152,7 @@ describe('Tree Functions', () => {
         },
       ],
     }
-    let tree = f.tree(x => x.items)
+    let tree = F.tree(x => x.items)
 
     expect(tree.lookup([{ a: 2 }, { a: 4 }], x)).to.deep.equal(
       x.items[0].items[1]
@@ -179,7 +179,7 @@ describe('Tree Functions', () => {
         },
       ],
     }
-    let tree = f.tree(x => x.items, a => ({ a }))
+    let tree = F.tree(x => x.items, a => ({ a }))
     expect(tree.lookup(['2', '4'], x)).to.deep.equal(x.items[0].items[1])
   })
   it('transform', () => {
@@ -204,7 +204,7 @@ describe('Tree Functions', () => {
       ],
     }
     expect(
-      f.transformTree(x => x.items)(x => {
+      F.transformTree(x => x.items)(x => {
         x.b = 'transformed'
       }, x)
     ).to.deep.equal({
@@ -277,7 +277,7 @@ describe('Tree Functions', () => {
         },
       ],
     }
-    let tree = f.tree(x => x.items)
+    let tree = F.tree(x => x.items)
 
     expect(
       tree.keyByWith(
