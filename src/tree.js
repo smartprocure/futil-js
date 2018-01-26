@@ -89,5 +89,5 @@ export let tree = (next = traverse, buildIteratee = _.identity) => ({
   keyByWith: keyTreeByWith(next),
   traverse: next,
   flatten: flattenTree(next),
-  flatLeaves: flatLeaves(next)
+  flatLeaves: flatLeaves(next),
 })
