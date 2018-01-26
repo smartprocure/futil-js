@@ -344,4 +344,137 @@ describe('Tree Functions', () => {
       },
     })
   })
+  it('flattenTree', () => {
+    let properties = {
+      Field1: {
+        type: 'text',
+      },
+      Field2: {
+        properties: {
+          Field2A: {
+            properties: {
+              Field2A1: {
+                type: 'text',
+              },
+              Field2A2: {
+                type: 'text',
+              },
+              Field2A3: {
+                properties: {
+                  Field2A3a: {
+                    type: 'text',
+                  },
+                },
+              },
+            },
+          },
+          Field2B: {
+            type: 'text',
+          },
+          Field2C: {
+            type: 'text',
+          },
+        },
+      },
+    }
+    let Tree = F.tree(x => x.properties)
+    let result = _.flow(Tree.flatten(), _.omitBy(Tree.traverse))({properties})
+    expect(result).to.deep.equal({
+      Field1: {
+        type: 'text',
+      },
+      'Field2.Field2A.Field2A1': {
+        type: 'text',
+      },
+      'Field2.Field2A.Field2A2': {
+        type: 'text',
+      },
+      'Field2.Field2A.Field2A3.Field2A3a': {
+        type: 'text',
+      },
+      'Field2.Field2B': {
+        type: 'text',
+      },
+      'Field2.Field2C': {
+        type: 'text',
+      },
+    })
+  })
+  it('flattenTree with propTreePath', () => {
+    let Tree = F.tree(x => x.children)
+    let result = Tree.flatten(F.propTreePath('key'))({
+      key: 'root',
+      children: [
+        {
+          key: 'criteria',
+          children: [
+            {
+              key: 'filter',
+            },
+          ],
+        },
+        {
+          key: 'analysis',
+          children: [
+            {
+              key: 'results',
+            },
+          ],
+        },
+      ],
+    })
+    expect(result).to.deep.equal({
+      root: {
+        key: 'root',
+        children: [
+          {
+            key: 'criteria',
+            children: [
+              {
+                key: 'filter',
+              },
+            ],
+          },
+          {
+            key: 'analysis',
+            children: [
+              {
+                key: 'results',
+              },
+            ],
+          },
+        ],
+      },
+      'root/analysis': {
+        key: 'analysis',
+        children: [
+          {
+            key: 'results',
+          },
+        ],
+      },
+      'root/analysis/results': {
+        key: 'results',
+      },
+      'root/criteria': {
+        key: 'criteria',
+        children: [
+          {
+            key: 'filter',
+          },
+        ],
+      },
+      'root/criteria/filter': {
+        key: 'filter',
+      },
+    })
+    expect(Tree.flatLeaves(result)).to.deep.equal([
+      {
+        key: 'filter'
+      },
+      {
+        key: 'results'
+      }
+    ])
+  })
 })

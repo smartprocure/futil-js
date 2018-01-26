@@ -578,6 +578,25 @@ Looks up a node matching a path, which defaults to lodash `iteratee` but can be 
 `traverse -> transformer -> iteratee -> tree -> result`
 Similar to a keyBy (aka groupBy) for trees, but also transforms the grouped values (instead of filtering out tree nodes). The transformer takes three args, the current node, a boolean of if the node matches the current group, and what group is being evaluated for this iteratee. The transformer is called on each node for each grouping.
 
+### flattenTree
+`traverse -> buildPath -> tree -> result`
+Creates a flat object with a property for each node, using `buildPath` to determine the keys. `buildPath` takes the same arguments as a tree walking iteratee. It will default to a dot tree path.
+
+### treePath
+`(build, encoder) -> treePathBuilderFunction`
+Creates a path builder for use in `flattenTree`. By default, the builder will look use child indexes and a dotEncoder. Encoder can be an encoding function or a futil `encoder` (an object with encode and decode functions)
+
+### propTreePath
+`prop -> treePathBuilderFunction`
+Creates a path builder for use in `flattenTree`, using a slashEncoder and using the specified prop function as an iteratee on each node to determine the keys.
+
+### treeKeys
+A utility tree iteratee that returns the stack of node indexes
+
+### treeValues
+A utility tree iteratee that returns the stack of node values
+
 ### tree
-`(traverse, buildIteratee) -> {walk, reduce, transform, toArray, toArrayBy, leaves, lookup}`
+`(traverse, buildIteratee) -> {walk, reduce, transform, toArray, toArrayBy, leaves, lookup, keyByWith, traverse, flatten, flatLeaves }`
 Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
+Exposes provided `traverse` function as `traverse`

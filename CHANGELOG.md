@@ -1,5 +1,8 @@
 # 1.41.0
-- Add `pullOn`, `prefixes`, `endocer`, `dotEncoder`, `slashEncoder`
+- Add `pullOn`, `prefixes`
+- Add `endocer`, `dotEncoder`, `slashEncoder`
+- Add `flattenTree`, `treePath`, `propTreePath`, `treeKeys`, `treeValues`
+- Expose `traverse` on `Tree`
 
 # 1.40.3
 - Updated eslint to version 4.16.0.
