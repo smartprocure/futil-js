@@ -1,5 +1,5 @@
 # 1.41.0
-- Add `pullOn`, `prefixes`
+- Add `pullOn`, `prefixes`, `endocer`, `dotEncoder`, `slashEncoder`
 
 # 1.40.3
 - Updated eslint to version 4.16.0.

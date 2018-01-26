@@ -165,9 +165,18 @@ A version of `_.zipObjectDeep` that supports passing a function to determine val
 ### flags
 `[a, b] -> {a:true, b:true}` Converts an array of strings into an object mapping to true. Useful for optimizing `includes`.
 
-
 ### prefixes
 `['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]` Returns a list of all prefixes. Works on strings, too.
+
+### encoder
+`string => {encode, decode}` Creates an object with encode and decode functions for encoding arrays as strings. The input string is used as input for join/split.
+
+#### dotEncoder
+`{ encode: ['a', 'b'] -> 'a.b', decode: 'a.b' -> ['a', 'b'] }` An encoder using `.` as the separator
+
+#### slashEncoder
+`{ encode: ['a', 'b'] -> 'a/b', decode: 'a/b' -> ['a', 'b'] }` An encoder using `/` as the separator
+
 
 ## Object
 

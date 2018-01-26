@@ -79,4 +79,17 @@ describe('Array Functions', () => {
       ['a', 'b', 'c']
     ])
   })
+  it('encoder', () => {
+    let encoder = F.encoder('->')
+    expect(encoder.encode(['a', 'b'])).to.deep.equal('a->b')
+    expect(encoder.decode('a->b')).to.deep.equal(['a', 'b'])
+  })
+  it('dotEncoder', () => {
+    expect(F.dotEncoder.encode(['a', 'b'])).to.deep.equal('a.b')
+    expect(F.dotEncoder.decode('a.b')).to.deep.equal(['a', 'b'])
+  })
+  it('slashEncoder', () => {
+    expect(F.slashEncoder.encode(['a', 'b'])).to.deep.equal('a/b')
+    expect(F.slashEncoder.decode('a/b')).to.deep.equal(['a', 'b'])
+  })
 })
