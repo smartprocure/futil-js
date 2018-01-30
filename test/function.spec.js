@@ -28,7 +28,7 @@ describe('Function Functions', () => {
   it('should flurry', () => {
     let add = (x, y) => x + y
     let double = x => x * 2
-    
+
     // Passing all args
     expect(F.flurry(add, double)(1, 4)).to.equal(10)
     // Passing 1 at a time

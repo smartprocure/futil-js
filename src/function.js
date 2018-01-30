@@ -3,8 +3,7 @@ import _ from 'lodash/fp'
 // (fn, a, b) -> fn(a, b)
 export let maybeCall = (fn, ...args) => _.isFunction(fn) && fn(...args)
 // (fn, a, b) -> fn(a, b)
-export let callOrReturn = (fn, ...args) =>
-  _.isFunction(fn) ? fn(...args) : fn
+export let callOrReturn = (fn, ...args) => (_.isFunction(fn) ? fn(...args) : fn)
 // (a, Monoid f) -> f[a] :: f a
 export let boundMethod = (method, object) => object[method].bind(object)
 
