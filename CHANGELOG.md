@@ -1,3 +1,6 @@
+# 1.42.0
+- Add `flurry`, a flow + curry preserving the arity of the initial function
+
 # 1.41.0
 - Add `pullOn`, `prefixes`
 - Add `encoder`, `dotEncoder`, `slashEncoder`
