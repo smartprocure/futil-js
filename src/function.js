@@ -41,6 +41,7 @@ export let debounceAsync = (n, f) => {
   }
 }
 
+// Exported for use in async.js to create `flurryAsync`, but not really intended to be public
 export let currier = f => (...fns) => _.curryN(fns[0].length, f(...fns))
 // (f1, f2, ...fn) -> f1Args1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))
 export let flurry = currier(_.flow)
