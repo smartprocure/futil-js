@@ -63,7 +63,7 @@ A `_.debounce` for async functions that ensure the returned promise is resolved 
 
 ### flurry
 `(f1, f2, ...fn) -> f1Args1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
-Flurry is combo of flow + curry, preserving the arity of the initial function
+Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 
 ## Logic
 
