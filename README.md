@@ -61,6 +61,10 @@ Implement `defer`, ported from bluebird docs and used by debounceAsync
 ### debounceAsync
 A `_.debounce` for async functions that ensure the returned promise is resolved with the result of the execution of the actual call. Using `_.debounce` with `await` or `.then` would result in the earlier calls never returning because they're not executed - the unit tests demonstate it failing with `_.debounce`.
 
+### flurry
+`(f1, f2, ...fn) -> f1Args1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
+Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
+
 ## Logic
 
 ### overNone
