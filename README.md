@@ -367,6 +367,9 @@ Language level utilities
 ### throws
 Just throws whatever it is passed.
 
+### throwsError
+Throws an error object initialized with whatever it is passed.
+
 ### tapError
 Tap error will run the provided function and then throw the first argument. It's like `_.tap` for rethrowing errors.
 

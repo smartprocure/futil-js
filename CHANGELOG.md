@@ -1,3 +1,6 @@
+# 1.43.0
+- Add `flatMapIndexed`, `throwsError`
+
 # 1.42.0
 - Add `flurry`, a flow + curry preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 

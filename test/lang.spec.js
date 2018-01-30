@@ -8,6 +8,9 @@ describe('Lang Functions', () => {
   it('throws', () => {
     expect(() => f.throws(Error('oops'))).to.throw()
   })
+  it('throwsError', () => {
+    expect(() => f.throwsError('oops')).to.throw()
+  })
   it('isNotNil', () => {
     expect(f.isNotNil(null)).to.equal(false)
     expect(f.isNotNil(undefined)).to.equal(false)

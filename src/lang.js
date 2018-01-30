@@ -4,6 +4,9 @@ import { tree } from './tree'
 export let throws = x => {
   throw x
 }
+export let throwsError = x => {
+  throw new Error(x)
+}
 export let tapError = f => (e, ...args) => {
   f(e, ...args)
   throw e
