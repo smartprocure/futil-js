@@ -49,7 +49,7 @@ describe('Async Functions', () => {
           await Promise.delay(10)
           return x + 1
         },
-        {a: 1, b: 2, c: 3}
+        { a: 1, b: 2, c: 3 }
       )
     ).to.deep.equal([2, 3, 4])
   })

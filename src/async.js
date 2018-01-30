@@ -1,6 +1,6 @@
 import _ from 'lodash/fp'
-import {currier} from './function'
-import {mapIndexed} from './conversion'
+import { currier } from './function'
+import { mapIndexed } from './conversion'
 
 export let promisedProps =
   Promise.props ||
@@ -13,4 +13,3 @@ export let flowAsync = (fn0, ...fns) => (...x) =>
   fns.reduce((v, f) => v.then(f), Promise.resolve(fn0(...x)))
 
 export let flurryAsync = currier(flowAsync)
-
