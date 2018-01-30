@@ -1,4 +1,5 @@
 # 1.43.0
+- Add Async methods: `flowAsync`, `flurryAsync`, `promisedProps`, `mapAsync`, `mapValuesAsync`
 - Add `flatMapIndexed`, `throwsError`
 
 # 1.42.0

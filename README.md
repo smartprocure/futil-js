@@ -607,3 +607,23 @@ A utility tree iteratee that returns the stack of node values
 `(traverse, buildIteratee) -> {walk, reduce, transform, toArray, toArrayBy, leaves, lookup, keyByWith, traverse, flatten, flatLeaves }`
 Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
 Exposes provided `traverse` function as `traverse`
+
+
+## Async
+
+As of futil 1.43.0, functional async methods are included.
+
+### flowAsync
+A version of `_.flow` that supports async functions, like ramda's pipeP.
+
+### flurryAsync
+The async equivalent of `flurry`, it is an async `_.flow` that curries with the arity of the initial function
+
+### promiseProps
+Just like bluebird's `Promise.props` (and will default to it if available).
+
+### mapAsync
+A `mapIndexed` that supports async iterators. Executes in parallel.
+
+### mapValuesAsync
+a `mapValues` that supports async iterators. Executs in parallel.
