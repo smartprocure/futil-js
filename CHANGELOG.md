@@ -1,5 +1,52 @@
-﻿# 1.34.1
+# 1.42.1
 Enable coveralls integration.
+
+# 1.42.0
+- Add `flurry`, a flow + curry preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
+
+# 1.41.0
+- Add `pullOn`, `prefixes`
+- Add `encoder`, `dotEncoder`, `slashEncoder`
+- Add `flattenTree`, `treePath`, `propTreePath`, `treeKeys`, `treeValues`
+- Expose `traverse` on `Tree`
+
+# 1.40.3
+- Updated eslint to version 4.16.0.
+
+# 1.40.2
+- Updating babel-eslint, eslint, chokidar and mocha.
+
+# 1.40.1
+- Add docs link
+
+# 1.40.0
+- [`cascade`, `cascadeIn`] added support for an optional defaultValue (last param) and iteratee support instead of just paths
+
+# 1.39.0
+- Add `transformTree`
+- Add `keyTreeByWith`
+
+# 1.38.0
+- Add `allMatches`. It creates regexp and returns all matched results with
+  indexes.
+
+# 1.37.0
+- Added implicit `lensProp` support to all current lens functions (`view`,
+  `views`, `set`, `sets`, `flip`, `on`, `off`)
+
+# 1.36.0
+- Add `mergeAllArrays`, `invertByArray`, `zipObjectDeepWith`, and `flags`
+
+# 1.35.0
+- Add tree `treeLookup`
+- Add deep path support to `lensProp`
+- Add `unsetOn`
+
+# 1.34.1
+- Ignore browser testing errors.
+- Add karma JSON reporter.
+- Only watch files and record videos/screenshots for the local test.
+
 # 1.34.0
 - Fixed flattenObject and diffArray to properly say the paths of
   arrays with only one object, by making them use a new function:

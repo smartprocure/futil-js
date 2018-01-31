@@ -1,5 +1,5 @@
 import _ from 'lodash/fp'
-import { dotJoinWith } from './array'
+import { dotJoinWith, zipObjectDeepWith } from './array'
 import { overNone } from './logic'
 import { isNotNil } from './lang'
 import {
@@ -94,9 +94,16 @@ export let alias = _.curry((prop, x) => _.getOr(prop, prop, x))
 export let aliasIn = _.curry((x, prop) => _.getOr(prop, prop, x))
 
 // A `_.get` that takes an array of paths and returns the value at the first path that matches
-export let cascade = _.curry((paths, obj) => findApply(getIn(obj), paths))
+export let cascade = _.curryN(2, (paths, obj, defaultValue) =>
+  _.flow(findApply(x => x && _.iteratee(x)(obj)), _.defaultTo(defaultValue))(
+    paths
+  )
+)
+
 // Flipped cascade
-export let cascadeIn = _.curry((obj, paths) => cascade(paths, obj))
+export let cascadeIn = _.curryN(2, (obj, paths, defaultValue) =>
+  cascade(paths, obj, defaultValue)
+)
 // A `_.get` that takes an array of paths and returns the first path that matched
 export let cascadeKey = _.curry((paths, obj) => _.find(getIn(obj), paths))
 // A `_.get` that takes an array of paths and returns the first path that exists
@@ -140,3 +147,15 @@ export let pickOn = (paths = [], obj = {}) =>
       }
     })
   )(obj)
+
+// Straight from the lodash docs
+export let mergeAllArrays = _.mergeAllWith((objValue, srcValue) => {
+  if (_.isArray(objValue)) {
+    return objValue.concat(srcValue)
+  }
+})
+// { a: [x, y, z], b: [x] } -> { x: [a, b], y: [a], z: [a] }
+export let invertByArray = _.flow(
+  mapIndexed((arr, key) => zipObjectDeepWith(arr, () => [key])),
+  mergeAllArrays
+)

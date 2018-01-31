@@ -182,6 +182,8 @@ describe('Object Functions', () => {
   })
   it('cascade', () => {
     expect(f.cascade(['x', 'y'], { a: 1, y: 2 })).to.deep.equal(2)
+    expect(f.cascade(['x', 'c'], { a: 1, y: 2 }, 2)).to.deep.equal(2)
+    expect(f.cascade(['x', x => x.y], { a: 1, y: 2 })).to.deep.equal(2)
     expect(f.cascade(['x', 'y'], { a: 1, x: null, y: 2 })).to.deep.equal(2)
   })
   it('cascadeIn', () => {
@@ -494,5 +496,34 @@ describe('Object Functions', () => {
         to: 20,
       },
     ])
+  })
+  it('mergeAllArrays', () => {
+    expect(
+      f.mergeAllArrays([
+        {
+          a: 1,
+          b: [2, 3],
+        },
+        {
+          a: 3,
+          b: [4],
+        },
+      ])
+    ).to.deep.equal({
+      a: 3,
+      b: [2, 3, 4],
+    })
+  })
+  it('invertByArray', () => {
+    expect(
+      f.invertByArray({
+        a: ['x', 'y', 'z'],
+        b: ['x'],
+      })
+    ).to.deep.equal({
+      x: ['a', 'b'],
+      y: ['a'],
+      z: ['a'],
+    })
   })
 })

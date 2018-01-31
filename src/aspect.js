@@ -16,7 +16,7 @@ export let aspect = ({
   init(state)
   // Trick to set function.name of anonymous function
   let x = {
-    [name]: (...args) => {
+    [name](...args) {
       let result
       let error
       return Promise.resolve()
@@ -54,7 +54,7 @@ export let aspectSync = ({
   init(state)
   // Trick to set function.name of anonymous function
   let x = {
-    [name]: (...args) => {
+    [name](...args) {
       try {
         before(args, state)
         let result = f(...args)
@@ -151,11 +151,9 @@ let deprecate = (subject, version, alternative) =>
   aspectSync({
     before: () =>
       console.warn(
-        `\`${subject}\` is deprecated${version
-          ? ` as of ${version}`
-          : ''}${alternative ? ` in favor of \`${alternative}\`` : ''} ${_.trim(
-          (Error().stack || '').split('\n')[3]
-        )}`
+        `\`${subject}\` is deprecated${version ? ` as of ${version}` : ''}${
+          alternative ? ` in favor of \`${alternative}\`` : ''
+        } ${_.trim((Error().stack || '').split('\n')[3])}`
       ),
   })
 

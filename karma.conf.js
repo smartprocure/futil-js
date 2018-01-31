@@ -8,17 +8,21 @@ module.exports = function(config) {
 
   let browsers
   let reporters
+  let jsonReporter = {
+    stdout: false,
+    outputFile: 'browser-results.json', // defaults to none
+  }
 
   switch (process.env.TEST_ENV) {
     case 'browser':
       browsers = Object.keys(customLaunchers)
-      reporters = ['dots', 'saucelabs']
+      reporters = ['dots', 'json', 'saucelabs']
       break
     // default is local
     default:
       local = true
       browsers = ['Chrome']
-      reporters = ['progress']
+      reporters = ['progress', 'json']
   }
 
   config.set({
@@ -92,6 +96,8 @@ module.exports = function(config) {
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: reporters,
+    // Write testing results to json file.
+    jsonReporter: jsonReporter,
 
     // web server port
     port: 9876,
@@ -104,15 +110,15 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: local,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     // browsers: ['Chrome'],
     sauceLabs: {
       testName: 'Futil-js browser tests',
-      recordVideo: true,
-      recordScreenshots: true,
+      recordVideo: local,
+      recordScreenshots: local,
     },
     captureTimeout: 360 * 1000,
     browserNoActivityTimeout: 600 * 1000,

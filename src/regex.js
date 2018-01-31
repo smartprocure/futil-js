@@ -19,6 +19,22 @@ export const matchAllWords = matchWords(wordsToRegexp)
 
 export const matchAnyWord = matchWords(anyWordToRegexp)
 
+export const allMatches = _.curry((regexStr, str) => {
+  let matched
+  const regex = new RegExp(regexStr, 'g')
+  const result = []
+
+  while ((matched = regex.exec(str)) !== null) {
+    result.push({
+      text: matched[0],
+      start: matched.index,
+      end: regex.lastIndex,
+    })
+  }
+
+  return result
+})
+
 export const postings = _.curry((regex, str) => {
   var match = regex.exec(str)
   let result = []

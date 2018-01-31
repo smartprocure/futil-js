@@ -51,3 +51,20 @@ export const cycle = _.curry((a, n) => a[(a.indexOf(n) + 1) % a.length])
 export const arrayToObject = _.curry((k, v, a) =>
   _.flow(_.keyBy(k), _.mapValues(v))(a)
 )
+
+// zipObject that supports functions instead of objects
+export const zipObjectDeepWith = _.curry((x, y) =>
+  _.zipObjectDeep(x, _.isFunction(y) && _.isArray(x) ? _.times(y, x.length) : y)
+)
+
+export const flags = zipObjectDeepWith(_, () => true)
+
+export const prefixes = list =>
+  _.range(1, list.length + 1).map(x => _.take(x, list))
+
+export let encoder = separator => ({
+  encode: compactJoin(separator),
+  decode: _.split(separator),
+})
+export let dotEncoder = encoder('.')
+export let slashEncoder = encoder('/')
