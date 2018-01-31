@@ -1,3 +1,6 @@
+# 1.42.1
+Enable coveralls integration.
+
 # 1.42.0
 - Add `flurry`, a flow + curry preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 
