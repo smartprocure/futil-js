@@ -1,3 +1,6 @@
+# 1.42.2
+Remove Standard JS badge in favor of [Prettier](https://prettier.io).
+
 # 1.42.1
 Enable coveralls integration.
 
