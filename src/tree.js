@@ -40,11 +40,11 @@ export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 export let leaves = (next = traverse) =>
   _.flow(treeToArray(next), _.reject(next))
 
-export let treeLookup = (next = traverse, buildIteratee = _.identity) => (
+export let treeLookup = (next = traverse, buildIteratee = _.identity) => _.curry((
   path,
   tree
 ) =>
-  _.reduce((tree, path) => _.find(buildIteratee(path), next(tree)), tree, path)
+  _.reduce((tree, path) => _.find(buildIteratee(path), next(tree)), tree, path))
 
 export let keyTreeByWith = (next = traverse) =>
   _.curry((transformer, groupIteratee, x) =>
