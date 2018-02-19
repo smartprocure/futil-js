@@ -1,4 +1,25 @@
-﻿# 1.40.2
+# 1.42.3
+Made tree lookup curried.
+
+# 1.42.2
+Remove Standard JS badge in favor of [Prettier](https://prettier.io).
+
+# 1.42.1
+Enable coveralls integration.
+
+# 1.42.0
+- Add `flurry`, a flow + curry preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
+
+# 1.41.0
+- Add `pullOn`, `prefixes`
+- Add `encoder`, `dotEncoder`, `slashEncoder`
+- Add `flattenTree`, `treePath`, `propTreePath`, `treeKeys`, `treeValues`
+- Expose `traverse` on `Tree`
+
+# 1.40.3
+- Updated eslint to version 4.16.0.
+
+# 1.40.2
 - Updating babel-eslint, eslint, chokidar and mocha.
 
 # 1.40.1

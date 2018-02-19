@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.41.0",
+  "version": "1.43.0",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -11,6 +11,7 @@
     "browser": "TEST_ENV=browser karma start karma.conf.js",
     "browser:local": "karma start karma.conf.js",
     "coverage": "nyc --require babel-core/register node_modules/.bin/mocha test",
+    "cicoveralls": "nyc report --reporter=text-lcov --require babel-core/register --require babel-polyfill mocha test | coveralls",
     "cicoverage": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill mocha test --reporter json > test-results.json",
     "lint": "eslint dangerfile.js src/*.js test/*.js",
     "lint:ci": "npm run lint -- -o lint-results.json -f json",
@@ -50,7 +51,7 @@
     "codacy-coverage": "^2.0.1",
     "coveralls": "^3.0.0",
     "duti": "latest",
-    "eslint": "4.4.0",
+    "eslint": "4.16.0",
     "eslint-config-smartprocure": "^1.0.2",
     "karma": "^2.0.0",
     "karma-chai": "^0.1.0",

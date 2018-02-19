@@ -20,6 +20,7 @@ export const mergeOn = _.merge.convert(mutable)
 export const setOn = _.set.convert(mutable)
 // Curry required until https://github.com/lodash/lodash/issues/3440 is resolved
 export let unsetOn = _.curryN(2, _.unset.convert({ immutable: false }))
+export let pullOn = _.pull.convert(mutable)
 
 // This reduce based version is easier to maintain but requires calling `F.inversions.fn` instead of `F.fn`
 const inversionList = ['get', 'pick', 'includes']
