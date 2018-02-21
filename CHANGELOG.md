@@ -1,4 +1,7 @@
-﻿# 1.43.0
+# 1.43.1
+Fixed the conversion reference for pickBy.
+
+# 1.43.0
 Added pickByIndexed, and improved our conversion file performance by a
 significant ammount.
 
