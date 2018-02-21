@@ -1,3 +1,7 @@
+﻿# 1.43.0
+Added pickByIndexed, and improved our conversion file performance by a
+significant ammount.
+
 # 1.42.3
 Made tree lookup curried.
 
