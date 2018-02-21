@@ -42,5 +42,5 @@ export const mapIndexed = noCap.map
 export const findIndexed = noCap.find
 export const eachIndexed = noCap.each
 export const reduceIndexed = noCap.reduce
-export const pickByIndexed = noCap.mapValues
+export const pickByIndexed = noCap.pickBy
 export const mapValuesIndexed = noCap.mapValues
