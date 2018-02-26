@@ -68,7 +68,7 @@
     "prettier": "^1.7.4",
     "sinon": "^4.0.1",
     "sinon-chai": "^2.14.0",
-    "webpack": "^3.0.0"
+    "webpack": "^4.0.0"
   },
   "directories": {
     "test": "test"
