@@ -1,3 +1,6 @@
+﻿# 1.43.2
+Upgraded some dependencies.
+
 # 1.43.1
 Fixed the conversion reference for pickBy.
 

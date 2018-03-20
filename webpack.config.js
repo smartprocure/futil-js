@@ -4,6 +4,7 @@ var outputFile = libraryName + '.js'
 
 module.exports = {
   devtool: 'source-map',
+  mode: 'production',
   entry: path.join(__dirname, 'src/index.js'),
   output: {
     path: path.join(__dirname, 'lib'),
@@ -12,11 +13,13 @@ module.exports = {
     libraryTarget: 'umd',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /(\.jsx|\.js)$/,
-        loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
     ],
   },
