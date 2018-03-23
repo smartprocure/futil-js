@@ -46,41 +46,26 @@ module.exports = function(config) {
     webpack: {
       // kind of a copy of your webpack config
       devtool: 'inline-source-map', // just do inline source maps instead of the default
+      mode: 'production',
       module: {
-        loaders: [
+        rules: [
           {
-            test: /(\.js|\.jsx)$/,
-            exclude: /\/node_modules\//,
-            loader: 'babel-loader',
-            query: {
-              presets: ['env'],
+            test: /(\.jsx|\.js)$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+              loader: 'babel-loader',
             },
           },
           {
             // We need to transpile chai-as-promised to ES5
             test: require.resolve('chai-as-promised'),
-            use: 'babel-loader',
+            use: {
+              loader: 'babel-loader',
+            },
           },
         ],
       },
-      node: {
-        fs: 'empty',
-        net: 'empty',
-        tls: 'empty',
-        module: 'empty',
-        child_process: 'empty',
-      },
     },
-
-    webpackMiddleware: {
-      // webpack-dev-middleware configuration
-      // i. e.
-      stats: 'errors-only',
-      noInfo: true,
-    },
-
-    // list of files to exclude
-    exclude: [],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
@@ -198,18 +183,6 @@ let customLaunchers = {
     platform: 'OS X 10.12',
     version: 'latest',
   },
-  sl_ie_9: {
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    platform: 'Windows 7',
-    version: '9',
-  },
-  sl_ie_10: {
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    platform: 'Windows 8',
-    version: '10',
-  },
   sl_ie_11: {
     base: 'SauceLabs',
     browserName: 'internet explorer',
@@ -259,13 +232,6 @@ let customLaunchers = {
     browserName: 'safari',
     version: 'latest',
   },
-  sl_iphone_84: {
-    base: 'SauceLabs',
-    browserName: 'iphone',
-    version: '8.4',
-    deviceName: 'iPhone 6 Plus',
-    deviceOrientation: 'portrait',
-  },
   sl_iphone_93: {
     base: 'SauceLabs',
     browserName: 'iphone',
@@ -285,13 +251,6 @@ let customLaunchers = {
     browserName: 'iphone',
     version: '11.0',
     deviceName: 'iPhone 8 Plus',
-    deviceOrientation: 'portrait',
-  },
-  sl_ipad_84: {
-    base: 'SauceLabs',
-    browserName: 'ipad',
-    version: '8.4',
-    deviceName: 'iPad Simulator',
     deviceOrientation: 'portrait',
   },
   sl_ipad_93: {

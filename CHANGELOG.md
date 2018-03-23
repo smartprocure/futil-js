@@ -1,4 +1,7 @@
-﻿# 1.43.2
+﻿# 1.43.3
+Fixed webpack.config.js
+
+# 1.43.2 (UNPUBLISHED because it breaks in NodeJS)
 Upgraded some dependencies.
 
 # 1.43.1
