@@ -232,13 +232,6 @@ let customLaunchers = {
     browserName: 'safari',
     version: 'latest',
   },
-  sl_iphone_84: {
-    base: 'SauceLabs',
-    browserName: 'iphone',
-    version: '8.4',
-    deviceName: 'iPhone 6 Plus',
-    deviceOrientation: 'portrait',
-  },
   sl_iphone_93: {
     base: 'SauceLabs',
     browserName: 'iphone',
@@ -258,13 +251,6 @@ let customLaunchers = {
     browserName: 'iphone',
     version: '11.0',
     deviceName: 'iPhone 8 Plus',
-    deviceOrientation: 'portrait',
-  },
-  sl_ipad_84: {
-    base: 'SauceLabs',
-    browserName: 'ipad',
-    version: '8.4',
-    deviceName: 'iPad Simulator',
     deviceOrientation: 'portrait',
   },
   sl_ipad_93: {
