@@ -46,41 +46,26 @@ module.exports = function(config) {
     webpack: {
       // kind of a copy of your webpack config
       devtool: 'inline-source-map', // just do inline source maps instead of the default
+      mode: 'production',
       module: {
-        loaders: [
+        rules: [
           {
-            test: /(\.js|\.jsx)$/,
-            exclude: /\/node_modules\//,
-            loader: 'babel-loader',
-            query: {
-              presets: ['env'],
+            test: /(\.jsx|\.js)$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+              loader: 'babel-loader',
             },
           },
           {
             // We need to transpile chai-as-promised to ES5
             test: require.resolve('chai-as-promised'),
-            use: 'babel-loader',
+            use: {
+              loader: 'babel-loader',
+            },
           },
         ],
       },
-      node: {
-        fs: 'empty',
-        net: 'empty',
-        tls: 'empty',
-        module: 'empty',
-        child_process: 'empty',
-      },
     },
-
-    webpackMiddleware: {
-      // webpack-dev-middleware configuration
-      // i. e.
-      stats: 'errors-only',
-      noInfo: true,
-    },
-
-    // list of files to exclude
-    exclude: [],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
