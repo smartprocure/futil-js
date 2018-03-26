@@ -11,7 +11,10 @@ let last = _.takeRight(1)
 
 // Arrays
 // ------
-export const compactJoin = _.curry((join, x) => _.compact(x).join(join))
+export const compactJoin = _.curry((join, x) => {
+  join = typeof join === 'string' ? join : ','
+  return _.compact(x).join(join)
+})
 export const dotJoin = compactJoin('.')
 export const dotJoinWith = fn => x => _.filter(fn, x).join('.')
 export const repeated = _.flow(

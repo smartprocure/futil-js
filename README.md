@@ -49,11 +49,12 @@ The syntax: `import f from futil-js` is not currently supported.
 `(a, Monoid f) -> f[a] :: f a` Binds a function of an object to it's object.
 
 ### converge
-http://ramdajs.com/docs/#converge
+`(f, [g1, g2, ...gn]) -> a -> f([g1(a), g2(a), ...])`
+http://ramdajs.com/docs/#converge. Note that `f` is called on the array of the return values of `[g1, g2, ...gn]` rather than applied to it.
 
 ### comply (alias: composeApply)
-`(f, g) => x => f(g(x))(x)`
-A combinator that combines compose and apply
+`(f, g) -> x -> f(g(x))(x)`
+A combinator that combines compose and apply. `f` should be a 2 place curried function. Useful for applying comparisons to pairs defined by some one place function, e.g. `var isShorterThanFather = F.comply(isTallerThan, fatherOf)`
 
 ### defer
 Implement `defer`, ported from bluebird docs and used by debounceAsync
@@ -62,22 +63,25 @@ Implement `defer`, ported from bluebird docs and used by debounceAsync
 A `_.debounce` for async functions that ensure the returned promise is resolved with the result of the execution of the actual call. Using `_.debounce` with `await` or `.then` would result in the earlier calls never returning because they're not executed - the unit tests demonstate it failing with `_.debounce`.
 
 ### flurry
-`(f1, f2, ...fn) -> f1Args1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
+`(f1, f2, ...fn) -> f1Arg1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
 Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 
 ## Logic
 
 ### overNone
-`([f, g]) -> !f(x) && !g(x)` Creates a function that checks if **none** of the predicates return truthy when invoked with the arguments it receives.
+`([f1, f2, ...fn]) -> !f1(x) && !f2(x) && ...!fn(x)` Creates a function that checks if none of the array of predicates passed in returns truthy for `x`
 
 ### ifElse
-http://ramdajs.com/docs/#ifElse + lodash shorthand and f.callOrReturn support
+`(condition, onTrue, onFalse) -> x -> (T(condition)(x) ? onTrue(x) : onFalse(x))`
+http://ramdajs.com/docs/#ifElse. The transform function T supports passing a boolean for `condition` as well as any valid argument of `_.iteratee`, e.g. `myBool = applyTest(x); F.ifElse(myBool, doSomething, doSomethingElse);`
 
 ### when
-http://ramdajs.com/docs/#when + lodash shorthand and f.callOrReturn support
+`(condition, onTrue) -> x -> (T(condition)(x) ? onTrue(x) : _.identity(x))`
+http://ramdajs.com/docs/#when. `T` extends `_.iteratee` as above.
 
 ### unless
-http://ramdajs.com/docs/#unless + lodash shorthand and f.callOrReturn support
+`(condition, onTrue) -> x -> (T(condition)(x) ? _.identity(x) : onFalse(x))`
+http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 
 ### whenTruthy
 `when` curried with `Boolean`
@@ -88,24 +92,21 @@ http://ramdajs.com/docs/#unless + lodash shorthand and f.callOrReturn support
 ## Collection
 
 ### flowMap
-`...fns:functions -> map:function` Runs a map function that runs a `flow` of the functions passed in to this method.
+`[f1, f2, ...fn] -> _.map(_.flow(fn))` Maps a flow of `f1, f2, ...fn` over a collection.
 
 ### findApply
 `f -> x -> f(find(f, x))`
-A version of `find` that also applies the predicate function to the result. Useful in gets
+A version of `find` that also applies the predicate function to the result. Useful when you have an existing function that you want to apply to a member of a collection that you can best find by applying the same function.
 
 ## Collection Algebras or composable/recursive data types
 
 ### map
-`map :: (a -> b) -> [a] -> [b]`
+`(a -> b) -> [a] -> [b]`
 Maps a function over an iterable. Works by default for Arrays and Plain Objects.
 
 ### deepMap
-`deepMap :: (a -> b) -> [a] -> [b]`
-Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed
-nested Arrays and Plain Objects. Also works for any other iterable data type as long as
-two other values are sent: a mapping function, and a type checker (See the
-unit tests for deepMap).
+`(a -> b) -> [a] -> [b]`
+Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed nested Arrays and Plain Objects. Also works for any other iterable data type as long as two other values are sent: a mapping function, and a type checker (See the unit tests for deepMap).
 
 
 ## Lodash Conversions
@@ -132,17 +133,16 @@ Any method with uncapped iteratee arguments will use the `Indexed` convention.
 ## Array
 
 ### compactJoin
-`join:string -> data:array -> result:string` Joins an array after compacting.
+`joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 +  joinString ... + stringN` Joins an array after compacting. Note that due to the underlying behavior of `_.curry` no default `join` value is supported -- you must pass in some string with which to perform the join.
 
 ### dotJoin
-`data:array -> result:string` Compacts and joins an array with '.'
+`[string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN` Compacts and joins an array with '.'
 
 ### dotJoinWith
-`filterFunction -> data:array -> result:string` Compacts an array by
-the provided function, then joins it with '.'
+`filterFunction -> [string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN` Compacts an array by the provided function, then joins it with '.'
 
 ### repeated
-`data:array -> result:array` Returns an array of elements that are repeated in the array.
+`[a] -> [a]` Returns an array of elements that are repeated in the array.
 
 ### mergeRanges
 `([[], [], []]) -> [[], []]` Takes any number of ranges and return the result of merging them all.
@@ -155,13 +155,13 @@ Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
 Example: `(1, '123', 'hi') -> 'h123i'`
 
 ### push
-`(val, array) -> array Return the array with the val pushed`
+`(val, array) -> array` Return `array` with `val` pushed.
 
 ### cycle
-`[a, b...] -> a -> b` Creates a function that always return the element next to the one received, based on an input previously received.
+`[a, b...] -> a -> b` Creates a function that takes an element of the original array as argument and returns the next element in the array (with wrapping). Note that (1) This will return the first element of the array for any argument not in the array and (2) due to the behavior of `_.curry` the created function will return a function equivalent to itself if called with no argument.
 
 ### arrayToObject
-`[k, v, a] -> result:object` Creates an object from an array by generating a key/value pair by running each element through the key and value mapper functions.
+`(k, v, [a]) -> { k(a): v(a) }` Creates an object from an array by generating a key/value pair for each element in the array using the key and value mapper functions.
 
 ### zipObjectDeepWith
 A version of `_.zipObjectDeep` that supports passing a function to determine values intead of an array, which will be invoked for each key.
@@ -170,7 +170,7 @@ A version of `_.zipObjectDeep` that supports passing a function to determine val
 `[a, b] -> {a:true, b:true}` Converts an array of strings into an object mapping to true. Useful for optimizing `includes`.
 
 ### prefixes
-`['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]` Returns a list of all prefixes. Works on strings, too.
+`['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]` Returns a list of all prefixes. Works on strings, too. Implementations must guarantee that the orginal argumet has a length property.
 
 ### encoder
 `string -> {encode: array -> string, decode: string -> array}` Creates an object with encode and decode functions for encoding arrays as strings. The input string is used as input for join/split.
@@ -229,16 +229,15 @@ Returns true if object keys are only elements from signature list. (but does not
 
 
 ### renameProperty
-`from:string -> to:string: -> target:object -> result:object`
+`sourcePropertyName -> targetPropertyName -> sourceObject -> sourceObject`
 Rename a property on an object.
 
-Example: `renameProperty('a', 'b', {a:1}) -> {b:1)`
+Example: `renameProperty('a', 'b', { a: 1 }) -> { b: 1 }`
 
 
 ### unwind
-Just like mongo's `$unwind`.
-
-Example: `{ x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }]`
+`'b' -> { a: true, b: [1, 2] } -> { a: true, b: 1 }, { a: true, b: 2}`
+Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property returns an empty array.
 
 
 ### flattenObject
@@ -266,7 +265,7 @@ Example: `mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}`.
 Flipped `alias`
 
 ### cascade
-A `_.get` that takes an array of paths (or functions to return values) and returns the value at the first path that matches. Similar to _.overSome, but returns the first result that matches instead of just truthy (and supports a default value)
+A `_.get` that takes an array of paths (or functions to return values) and returns the value at the first path that matches. Similar to `_.overSome`, but returns the first result that matches instead of just truthy (and supports a default value)
 
 ### cascadeIn
 Flipped cascade
@@ -281,13 +280,13 @@ A `_.get` that takes an array of paths and returns the first value that has an e
 A `_.get` that takes an array of paths and returns the first path that exists
 
 ### unkeyBy
-`{a:x, b:y} -> [{...x, a}, {...y, b}]` Opposite of `_.keyBy`. Creates an array from an object where the key is merged into the values with a property with the name passed in. If no key is passed in, it will use each prop's key as both the key and value.
+`newKey -> {a:x, b:y} -> [{...x, newKey: a}, {...y, newKey: b}]` Opposite of `_.keyBy`. Creates an array from an object where the key is merged into the values keyed by `newKey`. Mostly useful for the case where the existing keys of the converted object have objects as properties, e.g. `F.unkeyBy('_key')({ a: { status: true}, b: { status: false }) -> [{ status: true, _key: 'a' }, { status: false, _key: 'b' }]`. Passing a falsy value other than `undefined` for `newKay` will result in each object key being pushed into its corresponding return array member with itself as value, e.g. `F.unkeyBy('')({ a: { status: true}, b: { status: false }) -> [{ status: true, a: 'a' }, { status: false, b: 'b' }]`. Passing `undefined` will return another instance of F.unkeyBy.
 
 ### simpleDiff
 `(from, to) -> simpleDiff` Produces a simple flattened (see `flattenObject`) diff between two objects. For each (flattened) key, it produced a `from` and a `to` value. Note that this will omit any values that aren't present in the deltas object.
 
 ### simpleDiffArray
-`(from, to) -> [simpleDiffChanges]` Same as `simpleDiff`, but produces an array instead of `{field, from, to}` objects instead of `{field: {from, to}`
+`(from, to) -> [simpleDiffChanges]` Same as `simpleDiff`, but produces an array of `{ field, from, to }` objects instead of `{ field: { from, to } }`
 
 ### diff
 `(from, to) -> diff` Same as `simpleDiff`, but also takes in count deleted properties.
@@ -343,18 +342,15 @@ Maps `_.trim` through all the strings of a given object or array.
 `string -> string -> bool` Returns true if the second string matches all of the words in the first string.
 
 ### postings
-`regex -> string -> [Range:[number, number]]` Returns an array of postings (position ranges) for a regex and string to test.
+`regex -> string -> [[number, number]]` Returns an array of postings (position ranges) for a regex and string to test, e.g. `F.postings(/a/g, 'vuhfaof') -> [[4, 5]]`
 
 ### highlight
-`start:string -> end:string -> postings:[Range:[number, number]] -> input:string -> string` Highlights postings in a string wrapping in `start` and `end`.
+`start -> end -> regex -> input -> highlightedInput` Wraps the matches for `regex` found in `input` with the strings `start` and `end`.
 
-Example: `('<b>', '<b>', [[0,1]], 'hi') -> '<b>h</b>i'`
+Example: `('<b>', '</b>', /h/, 'hi') -> '<b>h</b>i'`
 
 ### allMatches
-
-`string -> string -> [{text: string, start: number, end: number}]` It creates
-regexp using the first string and returns an array of matches with indexes for
-the second string.
+`regex -> string -> [{text: string, start: number, end: number}]` Returns an array of matches with start/end data, e.g. `F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]`
 
 ## Math
 ### greaterThanOne
@@ -377,7 +373,7 @@ Negated `_.isNil`
 Returns true if the input has a `length` property > 1, such as arrays, strings, or custom objects with a lenth property
 
 ### append
-A curried, flipped `add`
+A curried, flipped `+`. The flipping matters for strings, e.g. `F.append('a')('b') -> 'ba'`
 
 ### isBlank
 `x -> bool`
@@ -400,10 +396,10 @@ Unlike some traditional functional lenses (like Ramda's), the set methods here a
 An object lens is simply an object that has a `get` and `set` function.
 An example of this is a mobx boxed observable.
 
-A function lens is a lense expressed as a single function that takes the value to set or returns the current value if nothing is passed.
+A function lens is a lens expressed as a single function that takes the value to set or returns the current value if nothing is passed.
 Examples of this in the wild are knockout observables and jquery plugin api style methods.
 
-The utilities in this library expect can accept either kind of lens, and utilities are provided to seamless convert between the two.
+The utilities in this library expect can accept either kind of lens, and utilities are provided to seamlessly convert between the two.
 
 ### Stubs
 Lens stubs are primarily a reference implementation, but are useful for testing and mocking purposes
@@ -425,30 +421,29 @@ Converts an object lens to a function lens
 
 
 ### Lens Construction
-This the first main way you'll generally interact with the lens API
+This the main way you'll generally interact with the lens API
 
 #### lensProp
-`lensProp :: string -> object -> { get: () -> T, set: T -> T }`
+`propertyName -> object -> { get: () -> object.propertyName, set: propertyValue -> object.propertyName }`
 Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path. Supports deep paths like lodash get/set.
 
 
 #### lensOf
-`{a: T, b: T} -> {a:ObjectLens, b:ObjectLens}`
 Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`.
 
 ### Lens Manipulation
 *Note*: As of version 1.37, any manipulation function that takes a lens can also drop in a key and target object for an implicit lensProp conversion (e.g. you can do `view(key, obj)` instead of just `view(lens)`)
 
 #### view
-`Lens -> T`
+`Lens -> object.propertyName`
 Gets the value of the lens, regardless of if it's a function or object lens
 
 #### views
-`Lens -> (() -> T)`
+`Lens -> (() -> object.propertyName)`
 Returns a function that gets the value of the lens, regardless of if it's a function or object lens
 
 #### set
-`T -> Lens -> T`
+`propertyValue -> Lens -> object.propertyName`
 Sets the value of the lens, regardless of if it's a function or object lens
 
 #### sets
@@ -469,7 +464,7 @@ Aspects provide a functional oriented implementation of Aspect Oriented Programm
 An aspect wraps a function and allows you run code at various points like before and after execution.
 Notably, aspects in this library allow you to have a shared state object between aspects and are very useful for automating things like status indicators, etc on functions.
 
-There is a _lot_ of prior art in the javascript world, but most of them assume a vaguely object oriented context.
+There is a _lot_ of prior art in the javascript world, but most of it assumes a vaguely object oriented context.
 The implementation in `futil-js` is done in just 20 lines of code and seems to capture all of the use cases of AOP.
 
 > Note: To do OO style AOP with this these aspects, just use lodash's `_.update` method and optionally `boundMethod` from `futil` if `this` matters
@@ -477,9 +472,9 @@ The implementation in `futil-js` is done in just 20 lines of code and seems to c
 > Caveat: While you can and should compose (or `_.flow`) aspects together, don't put non aspects in the middle of the composition. Aspects rely on a `.state` property on the wrapped function that they propagate through, but the chain will break if a non-aspect is mixed in between. Additionally, if you need external access to the state, make sure the aspects are the outer most part of the composition so the `.state` property will be available on the result of the composition.
 
 ### aspect
-`aspect: {options} -> f -> ()`
+`{options} -> f -> asectWrapped(f)`
 The aspect api takes an options object and returns a function which takes a function to wrap.
-The wrapped function will be decorated with a `state` object and should referentially transparent (e.g. it can be called in the same way as the function it's replacing).
+The wrapped function will be decorated with a `state` object and is equivalent to the original function for all arguments.
 
 Options supports the following parameters:
 
@@ -511,7 +506,7 @@ wrapped()
 This is a synchronous version of `aspect`, for situations when it's not desirable to `await` a method you're adding aspects to. The API is the same, but things like `onError` won't work if you pass an async function to the aspect.
 
 ### aspects
-There are a few basic aspects included because they seem to be universally useful.
+There are a few basic aspects included on `F.aspects` (E.g. `var loggedFunc = F.aspect(F.aspects.logs)(func)`) because they seem to be universally useful.
 All of the provided aspects take an `extend` function to allow customizing the state mutation method (e.g. in mobx, you'd use `extendObservable`).
 If null, they default to `defaultsOn` from `futil-js` - check the unit tests for example usage.
 
@@ -555,8 +550,8 @@ The default traversal function used in other tree methods if you don't supply on
 A depth first search which visits every node returned by `traverse` recursively. Both `pre-order` and `post-order` traversals are supported (and can be mixed freely). `walk` also supports exiting iteration early by returning a truthy value from either the `pre` or `post` functions. The returned value is also the return value of `walk`. The pre, post, and traversal functions are passed the current node as well as the parent stack (where parents[0] is the direct parent).
 
 ### transformTree
-`traverse -> iteratee -> tree -> newTree`
-Structure preserving pre-order depth first traversal which clones, mutates, and then returns a tree. Basically `walk` with a `_.cloneDeep` first (similar to a tree map because it preserves structure).
+`traverse -> _iteratee -> tree -> newTree`
+Structure preserving pre-order depth first traversal which clones, mutates, and then returns a tree. Basically `walk` with a `_.cloneDeep` first (similar to a tree map because it preserves structure). `_iteratee` can be any suitable argument to `_.iteratee` https://lodash.com/docs/4.17.5#iteratee
 
 ### reduceTree
 `traverse -> (accumulator, initialValue, tree) -> x`
@@ -575,12 +570,12 @@ Like `treeToArray`, but accepts a customizer to process the tree nodes before pu
 Returns an array of the tree nodes that can't be traversed into in `pre-order`.
 
 ### treeLookup
-`(traverse, buildIteratee) -> ([path], tree) -> treeNode`
-Looks up a node matching a path, which defaults to lodash `iteratee` but can be customized with buildIteratee.
+`(traverse, buildIteratee) -> ([_iteratee], tree) -> treeNode`
+Looks up a node matching a path, which defaults to lodash `iteratee` but can be customized with buildIteratee. The `_iteratee` members of the array can be any suitable arguments for `_.iteratee` https://lodash.com/docs/4.17.5#iteratee
 
 ### keyByWith
-`traverse -> transformer -> iteratee -> tree -> result`
-Similar to a keyBy (aka groupBy) for trees, but also transforms the grouped values (instead of filtering out tree nodes). The transformer takes three args, the current node, a boolean of if the node matches the current group, and what group is being evaluated for this iteratee. The transformer is called on each node for each grouping.
+`traverse -> transformer -> _iteratee -> tree -> result`
+Similar to a keyBy (aka groupBy) for trees, but also transforms the grouped values (instead of filtering out tree nodes). The transformer takes three args, the current node, a boolean of if the node matches the current group, and what group is being evaluated for this iteratee. The transformer is called on each node for each grouping. `_iteratee` is any suitable argument to `_.iteratee`, as above.
 
 ### flattenTree
 `traverse -> buildPath -> tree -> result`

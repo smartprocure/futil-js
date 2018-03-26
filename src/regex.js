@@ -38,10 +38,13 @@ export const allMatches = _.curry((regexStr, str) => {
 export const postings = _.curry((regex, str) => {
   var match = regex.exec(str)
   let result = []
-
-  while (match) {
-    result.push([match.index, regex.lastIndex])
-    match = regex.exec(str)
+  if (regex.flags.indexOf('g') < 0 && match) {
+    result.push([match.index, match.index + match[0].length]);
+  } else {
+    while (match) {
+      result.push([match.index, regex.lastIndex])
+      match = regex.exec(str)
+    }
   }
   return result
 })
