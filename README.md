@@ -280,7 +280,7 @@ A `_.get` that takes an array of paths and returns the first value that has an e
 A `_.get` that takes an array of paths and returns the first path that exists
 
 ### unkeyBy
-`newKey -> {a:x, b:y} -> [{...x, newKey: a}, {...y, newKey: b}]` Opposite of `_.keyBy`. Creates an array from an object where the key is merged into the values keyed by `newKey`. Mostly useful for the case where the existing keys of the converted object have objects as properties, e.g. `F.unkeyBy('_key')({ a: { status: true}, b: { status: false }) -> [{ status: true, _key: 'a' }, { status: false, _key: 'b' }]`. Passing a falsy value other than `undefined` for `newKay` will result in each object key being pushed into its corresponding return array member with itself as value, e.g. `F.unkeyBy('')({ a: { status: true}, b: { status: false }) -> [{ status: true, a: 'a' }, { status: false, b: 'b' }]`. Passing `undefined` will return another instance of F.unkeyBy.
+`newKey -> {a:x, b:y} -> [{...x, newKey: a}, {...y, newKey: b}]` Opposite of `_.keyBy`. Creates an array from an object where the key is merged into the values keyed by `newKey`. Example: `F.unkeyBy('_key')({ a: { status: true}, b: { status: false }) -> [{ status: true, _key: 'a' }, { status: false, _key: 'b' }]`. Passing a falsy value other than `undefined` for `newKay` will result in each object key being pushed into its corresponding return array member with itself as value, e.g. `F.unkeyBy('')({ a: { status: true}, b: { status: false }) -> [{ status: true, a: 'a' }, { status: false, b: 'b' }]`. Passing `undefined` will return another instance of F.unkeyBy.
 
 ### simpleDiff
 `(from, to) -> simpleDiff` Produces a simple flattened (see `flattenObject`) diff between two objects. For each (flattened) key, it produced a `from` and a `to` value. Note that this will omit any values that aren't present in the deltas object.
@@ -373,7 +373,7 @@ Negated `_.isNil`
 Returns true if the input has a `length` property > 1, such as arrays, strings, or custom objects with a lenth property
 
 ### append
-A curried, flipped `+`. The flipping matters for strings, e.g. `F.append('a')('b') -> 'ba'`
+A curried, flipped `_.add`. The flipping matters for strings, e.g. `F.append('a')('b') -> 'ba'`
 
 ### isBlank
 `x -> bool`
@@ -472,7 +472,7 @@ The implementation in `futil-js` is done in just 20 lines of code and seems to c
 > Caveat: While you can and should compose (or `_.flow`) aspects together, don't put non aspects in the middle of the composition. Aspects rely on a `.state` property on the wrapped function that they propagate through, but the chain will break if a non-aspect is mixed in between. Additionally, if you need external access to the state, make sure the aspects are the outer most part of the composition so the `.state` property will be available on the result of the composition.
 
 ### aspect
-`{options} -> f -> asectWrapped(f)`
+`{options} -> f -> aspectWrapped(f)`
 The aspect api takes an options object and returns a function which takes a function to wrap.
 The wrapped function will be decorated with a `state` object and is equivalent to the original function for all arguments.
 
