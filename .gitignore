@@ -44,3 +44,6 @@ package-lock.json
 
 # Browser test result file
 browser-results.json
+
+#OS X
+.DS_Store
