@@ -170,7 +170,7 @@ A version of `_.zipObjectDeep` that supports passing a function to determine val
 `[a, b] -> {a:true, b:true}` Converts an array of strings into an object mapping to true. Useful for optimizing `includes`.
 
 ### prefixes
-`['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]` Returns a list of all prefixes. Works on strings, too. Implementations must guarantee that the orginal argumet has a length property.
+`['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]` Returns a list of all prefixes. Works on strings, too. Implementations must guarantee that the orginal argument has a length property.
 
 ### encoder
 `string -> {encode: array -> string, decode: string -> array}` Creates an object with encode and decode functions for encoding arrays as strings. The input string is used as input for join/split.
