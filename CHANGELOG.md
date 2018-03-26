@@ -1,4 +1,9 @@
-﻿# 1.43.3
+﻿
+# 1.43.4
+- Fixed issue with `postings` when a regex lacking the `g` flag is passed
+- improvements to README.md
+
+# 1.43.3
 Fixed webpack.config.js
 
 # 1.43.2 (UNPUBLISHED because it breaks in NodeJS)
