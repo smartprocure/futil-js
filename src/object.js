@@ -75,6 +75,9 @@ export const matchesSignature = _.curry(
     _.isObject(value) && !_.difference(_.keys(value), signature).length
 )
 
+// `_.matches` that returns true if one or more of the conditions match instead of all
+export const matchesSome = _.flow(chunkObject, _.map(_.matches), _.overSome)
+
 // Checks if a property deep in a given item equals to a given value
 export const compareDeep = _.curry(
   (path, item, value) => _.get(path, item) === value

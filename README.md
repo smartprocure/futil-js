@@ -224,6 +224,10 @@ Checks if an object's property is equal to a value.
 Returns true if object keys are only elements from signature list. (but does not require all signature keys to be present)
 
 
+### matchesSome
+Similar to `_.matches`, except it returns true if 1 or more object properties match instead of all of them. See https://github.com/lodash/lodash/issues/3713.
+
+
 ### pickInto
 *TODO*
 
