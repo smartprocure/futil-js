@@ -1,4 +1,6 @@
-﻿
+# 1.44.0
+- Added `matchesSome`
+
 # 1.43.4
 - Fixed issue with `postings` when a regex lacking the `g` flag is passed
 - improvements to README.md
