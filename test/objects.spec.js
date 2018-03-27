@@ -160,10 +160,18 @@ describe('Object Functions', () => {
     expect(f.matchesSignature(['a', 'b'], { a: undefined })).to.equal(true)
   })
   it('matchesSome', () => {
-    expect(f.matchesSome({ a: 1, b: 2 })({ a: 1, b: 2, c: 3 })).to.deep.equal(true)
-    expect(f.matchesSome({ a: 1, b: 20 })( {a: 1, b: 2, c: 3 })).to.deep.equal(true)
-    expect(f.matchesSome({ a: 10, b: 2 })({ a: 1, b: 2, c: 3 })).to.deep.equal(true)
-    expect(f.matchesSome({ a: 10, b: 20 })({ a: 1, b: 2, c: 3 })).to.deep.equal(false)
+    expect(f.matchesSome({ a: 1, b: 2 })({ a: 1, b: 2, c: 3 })).to.deep.equal(
+      true
+    )
+    expect(f.matchesSome({ a: 1, b: 20 })({ a: 1, b: 2, c: 3 })).to.deep.equal(
+      true
+    )
+    expect(f.matchesSome({ a: 10, b: 2 })({ a: 1, b: 2, c: 3 })).to.deep.equal(
+      true
+    )
+    expect(f.matchesSome({ a: 10, b: 20 })({ a: 1, b: 2, c: 3 })).to.deep.equal(
+      false
+    )
   })
   it('compareDeep', () => {
     const o = { a: { b: { c: 1 } } }
