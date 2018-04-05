@@ -80,7 +80,7 @@ http://ramdajs.com/docs/#ifElse. The transform function T supports passing a boo
 http://ramdajs.com/docs/#when. `T` extends `_.iteratee` as above.
 
 ### unless
-`(condition, onTrue) -> x -> (T(condition)(x) ? _.identity(x) : onFalse(x))`
+`(condition, onFalse) -> x -> (T(condition)(x) ? _.identity(x) : onFalse(x))`
 http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 
 ### whenTruthy
