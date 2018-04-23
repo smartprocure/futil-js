@@ -22,6 +22,7 @@ export const setOn = mutable.set
 // Curry required until https://github.com/lodash/lodash/issues/3440 is resolved
 export const unsetOn = _.curryN(2, mutable.unset)
 export const pullOn = mutable.pull
+export const updateOn = mutable.update
 
 // Uncaps
 // ------
