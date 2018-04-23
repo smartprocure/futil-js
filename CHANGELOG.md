@@ -1,3 +1,6 @@
+# 1.45.0
+- Added `updateOn`
+
 # 1.44.0
 - Added `matchesSome`
 
