@@ -11,6 +11,8 @@ import {
   mapValuesIndexed,
 } from './conversion'
 import { findApply } from './collection'
+import { aspects } from './aspect'
+const noCap = _.convert({ cap: false })
 
 // (k, v) -> {k: v}
 export const singleObject = _.curry((key, value) => ({ [key]: value }))
@@ -83,10 +85,9 @@ export const compareDeep = _.curry(
   (path, item, value) => _.get(path, item) === value
 )
 
-// Applies a map function at a specific path
-// e.g.: mapProp(double, 'a', {a:2, b:1}) -> {a:4, b:1}
-export const mapProp = _.curry((fn, key, obj) =>
-  _.set(key, fn(_.get(key, obj)), obj)
+//Depreacted in favor of _.update version from lodash
+export const mapProp = aspects.deprecate('mapProp', '1.46.0', '_.update')(
+  noCap.update
 )
 
 // `_.get` that returns the target object if lookup fails
