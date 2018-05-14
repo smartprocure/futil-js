@@ -1,3 +1,6 @@
+# 1.46.0
+  - Deprecated `mapProps` in favor of lodash _.update
+
 # 1.45.0
 - Added `updateOn`
 

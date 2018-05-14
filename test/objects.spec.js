@@ -184,7 +184,6 @@ describe('Object Functions', () => {
     const a = f.mapProp(val => val * val, 'a', { a: 2, b: 1 })
     expect(a).to.deep.equal({ a: 4, b: 1 })
   })
-
   it('getOrReturn', () => {
     expect(f.getOrReturn('x', { a: 1 })).to.deep.equal({ a: 1 })
   })
