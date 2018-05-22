@@ -1,3 +1,6 @@
+# 1.47.0
+- Added VERSION property to the library's API
+
 # 1.46.0
   - Deprecated `mapProps` in favor of lodash _.update
 

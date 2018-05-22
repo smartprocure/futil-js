@@ -1,5 +1,8 @@
 var path = require('path')
-var libraryName = require('./package.json').name
+var webpack = require('webpack')
+var packageMetadata = require('./package.json')
+var libraryName = packageMetadata.name
+var libraryVersion = packageMetadata.version
 var outputFile = libraryName + '.js'
 
 module.exports = {
@@ -27,4 +30,7 @@ module.exports = {
   externals: {
     'lodash/fp': 'lodash/fp',
   },
+  plugins: [
+    new webpack.DefinePlugin({ __VERSION__: JSON.stringify(libraryVersion) }),
+  ],
 }
