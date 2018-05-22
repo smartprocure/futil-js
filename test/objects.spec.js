@@ -1,5 +1,5 @@
 import chai from 'chai'
-import _ from 'lodash';
+import _ from 'lodash'
 import * as f from '../src'
 
 chai.expect()
@@ -538,6 +538,26 @@ describe('Object Functions', () => {
       x: ['a', 'b'],
       y: ['a'],
       z: ['a'],
+    })
+  })
+  it('stampKey', () => {
+    expect(
+      f.stampKey('type', {
+        foo: {
+          a: 1,
+          b: 2,
+        },
+        bar: {},
+      })
+    ).to.deep.equal({
+      foo: {
+        a: 1,
+        b: 2,
+        type: 'foo',
+      },
+      bar: {
+        type: 'bar',
+      },
     })
   })
 })

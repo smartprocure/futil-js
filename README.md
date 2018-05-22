@@ -309,6 +309,8 @@ Like `_.mergeAll`, but concats arrays instead of replacing. This is basically th
 ### invertByArray
 `{ a: [x, y, z], b: [x] } -> { x: [a, b], y: [a], z: [a] }` Similar to `_.invert`, but expands arrays instead of converting them to strings before making them keys.
 
+### stampKeys
+`key -> { a: { x: 1 }, b: { y: 2 } } -> { a: { x: 1, key: 'a' }, b: { y: 2, key: 'b' } }` Return a new object, adding a new property for each value mapped by the input object `{ key: objectKey }`.
 
 ## String
 
