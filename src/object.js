@@ -163,3 +163,8 @@ export let invertByArray = _.flow(
   mapIndexed((arr, key) => zipObjectDeepWith(arr, () => [key])),
   mergeAllArrays
 )
+
+// key -> { a: { x: 1 }, b: { y: 2 } } -> { a: { x: 1, key: 'a' }, b: { y: 2, key: 'b' } }
+export const stampKey = _.curry((key, x) =>
+  mapValuesIndexed((val, k) => ({ ...val, [key]: k }), x)
+)

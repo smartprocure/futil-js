@@ -1,3 +1,6 @@
+# 1.48.0
+- Added `stampKey`
+
 # 1.47.1
 - Added Runkit examples
 
