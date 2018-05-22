@@ -81,5 +81,6 @@
   "bugs": {
     "url": "https://github.com/smartprocure/futil-js/issues"
   },
-  "homepage": "https://github.com/smartprocure/futil-js#readme"
+  "homepage": "https://github.com/smartprocure/futil-js#readme",
+  "runkitExampleFilename": "runkit.example.js"
 }
