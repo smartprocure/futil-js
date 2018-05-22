@@ -1,9 +1,9 @@
-var f = require('futil-js')
+var F = require('futil-js')
 
 var cities = ['London', 'Boston', 'Lisbon']
 
-f.dotJoinWith(c => c.startsWith('L'))(cities)
+F.dotJoinWith(c => c.startsWith('L'))(cities)
 // "London.Lisbon"
 
-f.arrayToObject(c => c.toLowerCase(), c => c.toUpperCase())(cities)
+F.arrayToObject(c => c.toLowerCase(), c => c.toUpperCase())(cities)
 // {boston: "BOSTON", lisbon: "LISBON", london: "LONDON"}

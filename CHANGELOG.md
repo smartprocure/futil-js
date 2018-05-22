@@ -1,3 +1,6 @@
+# 1.47.1
+- Added Runkit examples
+
 # 1.47.0
 - Added VERSION property to the library's API
 
