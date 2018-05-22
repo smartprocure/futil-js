@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "danger": "duti",
-    "test": "babel-node ./node_modules/mocha/bin/_mocha",
+    "test": "babel-node ./node_modules/mocha/bin/_mocha --require ./test/init.js",
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
     "browser": "TEST_ENV=browser karma start karma.conf.js",
     "browser:local": "karma start karma.conf.js",
