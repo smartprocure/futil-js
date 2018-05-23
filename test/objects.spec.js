@@ -1,5 +1,4 @@
 import chai from 'chai'
-import _ from 'lodash'
 import * as f from '../src'
 
 chai.expect()
