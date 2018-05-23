@@ -1,3 +1,6 @@
+# 1.49.0
+- Fixed the build.
+
 # 1.48.0
 - Added `stampKey`
 
