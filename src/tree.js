@@ -38,7 +38,10 @@ export let treeToArrayBy = (next = traverse) =>
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 
 export let leaves = (next = traverse) =>
-  _.flow(treeToArray(next), _.reject(next))
+  _.flow(
+    treeToArray(next),
+    _.reject(next)
+  )
 
 export let treeLookup = (next = traverse, buildIteratee = _.identity) =>
   _.curry((path, tree) =>
@@ -70,7 +73,13 @@ export let treeValues = (x, i, xs) => [x, ...xs]
 export let treePath = (build = treeKeys, encoder = dotEncoder) => (...args) =>
   (encoder.encode || encoder)(build(...args).reverse())
 export let propTreePath = prop =>
-  treePath(_.flow(treeValues, _.map(prop)), slashEncoder)
+  treePath(
+    _.flow(
+      treeValues,
+      _.map(prop)
+    ),
+    slashEncoder
+  )
 
 export let flattenTree = (next = traverse) => (buildPath = treePath()) =>
   reduceTree(next)(

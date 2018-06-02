@@ -3,11 +3,22 @@ import { push, insertAtIndex, mergeRanges } from './array'
 
 export const testRegex = _.curry((regex, str) => new RegExp(regex).test(str))
 export const makeRegex = options => text => RegExp(text, options)
-export const makeAndTest = options => _.flow(makeRegex(options), testRegex)
+export const makeAndTest = options =>
+  _.flow(
+    makeRegex(options),
+    testRegex
+  )
 
-const anyWordToRegexp = _.flow(_.words, _.join('|'))
+const anyWordToRegexp = _.flow(
+  _.words,
+  _.join('|')
+)
 
-const wordsToRegexp = _.flow(_.words, _.map(x => `(?=.*${x})`), _.join(''))
+const wordsToRegexp = _.flow(
+  _.words,
+  _.map(x => `(?=.*${x})`),
+  _.join('')
+)
 
 const matchWords = _.curry((buildRegex, x) => {
   // Not inlining so that we don't create the regexp every time

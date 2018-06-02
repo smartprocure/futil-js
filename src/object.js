@@ -78,7 +78,11 @@ export const matchesSignature = _.curry(
 )
 
 // `_.matches` that returns true if one or more of the conditions match instead of all
-export const matchesSome = _.flow(chunkObject, _.map(_.matches), _.overSome)
+export const matchesSome = _.flow(
+  chunkObject,
+  _.map(_.matches),
+  _.overSome
+)
 
 // Checks if a property deep in a given item equals to a given value
 export const compareDeep = _.curry(
@@ -99,9 +103,10 @@ export let aliasIn = _.curry((x, prop) => _.getOr(prop, prop, x))
 
 // A `_.get` that takes an array of paths and returns the value at the first path that matches
 export let cascade = _.curryN(2, (paths, obj, defaultValue) =>
-  _.flow(findApply(x => x && _.iteratee(x)(obj)), _.defaultTo(defaultValue))(
-    paths
-  )
+  _.flow(
+    findApply(x => x && _.iteratee(x)(obj)),
+    _.defaultTo(defaultValue)
+  )(paths)
 )
 
 // Flipped cascade
@@ -129,7 +134,10 @@ export let simpleDiff = (original, deltas) => {
     _.omitBy(x => x.from === x.to)
   )(deltas)
 }
-export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
+export let simpleDiffArray = _.flow(
+  simpleDiff,
+  unkeyBy('field')
+)
 
 export let diff = (original, deltas) => {
   let o = flattenObject(original)
@@ -139,7 +147,10 @@ export let diff = (original, deltas) => {
     _.omitBy(x => x.from === x.to)
   )(_.merge(o, d))
 }
-export let diffArray = _.flow(diff, unkeyBy('field'))
+export let diffArray = _.flow(
+  diff,
+  unkeyBy('field')
+)
 
 // A `_.pick` that mutates the object
 export let pickOn = (paths = [], obj = {}) =>
