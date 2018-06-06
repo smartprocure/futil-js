@@ -40,6 +40,6 @@ describe('Math Functions', () => {
 
 describe('Version Injection', () => {
   it('should export the VERSION', () => {
-    expect(f.VERSION).to.equal('1.0.0')
+    expect(f.VERSION).to.equal(global.__VERSION__)
   })
 })

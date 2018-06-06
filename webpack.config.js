@@ -31,6 +31,8 @@ module.exports = {
     'lodash/fp': 'lodash/fp',
   },
   plugins: [
-    new webpack.DefinePlugin({ __VERSION__: JSON.stringify(libraryVersion) }),
+    new webpack.DefinePlugin({
+      'global.__VERSION__': JSON.stringify(libraryVersion),
+    }),
   ],
 }

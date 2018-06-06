@@ -1,5 +1,3 @@
-/* global __VERSION__ */
-
 import _ from 'lodash/fp'
 
 export * from './conversion'
@@ -21,4 +19,4 @@ export const greaterThanOne = _.lt(1)
 
 // Version
 // ----
-export const VERSION = __VERSION__
+export const VERSION = global.__VERSION__

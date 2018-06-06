@@ -1,3 +1,6 @@
+﻿# 1.49.0
+- Fixed a webpack global variable issue.
+
 # 1.48.0
 - Added `stampKey`
 
