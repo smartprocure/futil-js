@@ -32,7 +32,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'global.__VERSION__': JSON.stringify(libraryVersion)
+      'global.__VERSION__': JSON.stringify(libraryVersion),
     }),
   ],
 }

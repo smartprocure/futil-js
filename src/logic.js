@@ -3,7 +3,10 @@ import { callOrReturn } from './function'
 import { exists } from './lang'
 
 // ([f, g]) -> !f(x) && !g(x)
-export const overNone = _.flow(_.overSome, _.negate)
+export const overNone = _.flow(
+  _.overSome,
+  _.negate
+)
 
 let boolIteratee = x => (_.isBoolean(x) ? () => x : _.iteratee(x))
 // Port from Ramda
