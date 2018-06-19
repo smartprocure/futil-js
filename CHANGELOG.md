@@ -1,4 +1,7 @@
-﻿# 1.49.0
+﻿# 1.49.1
+- Upgraded several dependencies.
+
+# 1.49.0
 - Fixed a webpack global variable issue.
 
 # 1.48.0
