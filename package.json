@@ -54,7 +54,7 @@
     "duti": "latest",
     "eslint": "4.19.1",
     "eslint-config-smartprocure": "^1.0.2",
-    "karma": "^2.0.0",
+    "karma": "^3.0.0",
     "karma-chai": "^0.1.0",
     "karma-chai-as-promised": "^0.1.2",
     "karma-chrome-launcher": "^2.2.0",
