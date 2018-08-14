@@ -1,4 +1,4 @@
-<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
+﻿<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
 
@@ -181,6 +181,12 @@ A version of `_.zipObjectDeep` that supports passing a function to determine val
 
 #### slashEncoder
 `{ encode: ['a', 'b'] -> 'a/b', decode: 'a/b' -> ['a', 'b'] }` An encoder using `/` as the separator
+
+### chunkBy
+`((a, a) -> Boolean) -> [a] -> [[a]]` Returns an array of
+arrays, where each one of the arrays has one or more elements of the
+original array, grouped by the first function received. Similar to
+Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
 
 ## Object
