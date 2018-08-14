@@ -71,3 +71,14 @@ export let encoder = separator => ({
 })
 export let dotEncoder = encoder('.')
 export let slashEncoder = encoder('/')
+
+export let chunkBy = _.curry((f, array) =>
+  _.reduce(
+    (acc, x) => f(_.last(acc), x)
+      ? [..._.initial(acc), [..._.last(acc), x]]
+      : [...acc, [x]]
+    ,
+    [[_.head(array)]],
+    _.tail(array)
+  )
+)

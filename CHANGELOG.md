@@ -1,4 +1,7 @@
-﻿# 1.49.1
+﻿# 1.50.0
+- Added `chunkBy`.
+
+# 1.49.1
 - Upgraded several dependencies.
 
 # 1.49.0
