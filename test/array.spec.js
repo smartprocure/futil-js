@@ -93,7 +93,11 @@ describe('Array Functions', () => {
     expect(F.slashEncoder.decode('a/b')).to.deep.equal(['a', 'b'])
   })
   it('chunkBy', () => {
-    expect(F.chunkBy(([a], b) => b % a === 0, [2, 2, 2, 3, 2, 2])).to.deep.equal([ [ 2, 2, 2 ], [ 3 ], [ 2, 2 ] ])
-    expect(F.chunkBy(([x], y) => x * y % 3 === 0)([1,2,3,4,5,6,7,8,9])).to.deep.equal([[1],[2,3],[4],[5,6],[7],[8,9]])
+    expect(
+      F.chunkBy(([a], b) => b % a === 0, [2, 2, 2, 3, 2, 2])
+    ).to.deep.equal([[2, 2, 2], [3], [2, 2]])
+    expect(
+      F.chunkBy(([x], y) => (x * y) % 3 === 0)([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    ).to.deep.equal([[1], [2, 3], [4], [5, 6], [7], [8, 9]])
   })
 })
