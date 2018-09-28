@@ -1,4 +1,7 @@
-﻿# 1.50.0
+﻿# 1.51.0
+- Added `_.iteratee` support to `findApply`
+
+# 1.50.0
 - Added `chunkBy`.
 
 # 1.49.1
