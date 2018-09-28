@@ -28,5 +28,9 @@ describe('Collections Functions', () => {
     }
     expect(f.findApply(f => x[f], ['b', 'c', 'a'])).to.equal(1)
     expect(f.findApply(f => x[f], ['b', 'c'])).to.equal(undefined)
+    let xs = [{ b: 2 }, { c: 3 }, { a: 1 }]
+    expect(f.findApply(f => f.a, xs)).to.equal(1)
+    expect(f.findApply('a', xs)).to.equal(1)
+    expect(f.findApply('d', xs)).to.equal(undefined)
   })
 })
