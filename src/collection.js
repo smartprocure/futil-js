@@ -2,7 +2,7 @@ import _ from 'lodash/fp'
 import { isTraversable } from './tree'
 
 export const flowMap = (...fns) => _.map(_.flow(...fns))
-export let findApply = _.curry((f, arr) => f(_.find(f, arr)))
+export let findApply = _.curry((f, arr) => _.iteratee(f)(_.find(f, arr)))
 
 // Algebras
 // --------
