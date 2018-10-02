@@ -1,5 +1,6 @@
 import chai from 'chai'
 import F from '../src/'
+import _ from 'lodash/fp'
 chai.expect()
 const expect = chai.expect
 
@@ -105,5 +106,9 @@ describe('Array Functions', () => {
     expect(
       F.chunkBy(([x], y) => (x * y) % 3 === 0)([1, 2, 3, 4, 5, 6, 7, 8, 9])
     ).to.deep.equal([[1], [2, 3], [4], [5, 6], [7], [8, 9]])
+  })
+  it('toggleElement', () => {
+    expect(F.toggleElement('b', ['a', 'b', 'c', 'd'])).to.deep.equal(['a', 'c', 'd'])
+    expect(F.toggleElement('b', ['a', 'c', 'd'])).to.deep.equal(['a', 'c', 'd', 'b'])
   })
 })

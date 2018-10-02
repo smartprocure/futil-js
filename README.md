@@ -193,6 +193,9 @@ arrays, where each one of the arrays has one or more elements of the
 original array, grouped by the first function received. Similar to
 Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
+### toggleElement
+`(any, array) -> array` Removes an element from an array if it's included in the array, or pushes it in if it doesn't. Immutable (so it's a clone of the array).
+
 
 ## Object
 

@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import { callOrReturn } from './function'
 import { insertAtIndex } from './collection'
 
 // TODO: Move to proper files and expose
@@ -85,3 +86,8 @@ export let chunkBy = _.curry((f, array) =>
   )
 )
 
+// Would export, but can't identify any other use case besides _.includes :thinking:
+let toggleElementBy = _.curry((check, val, arr) =>
+  (callOrReturn(check, val, arr) ? _.pull : push)(val, arr)
+)
+export let toggleElement = toggleElementBy(_.includes)
