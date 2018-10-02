@@ -49,5 +49,5 @@ export default {
   ...lens,
   ...tree,
   greaterThanOne,
-  VERSION
+  VERSION,
 }
