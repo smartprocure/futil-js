@@ -25,16 +25,19 @@ https://smartprocure.github.io/futil-js/
 See our [changelog](https://github.com/smartprocure/futil-js/blob/master/CHANGELOG.md)
 
 # Installing
+`npm i -S futil`
+or
 `npm i -S futil-js`
+
 
 This package requires `lodash/fp`, so make sure that's available in your app.
 
 # Usage
-`import * as F from futil-js`
+`import * as F from futil`
 or
-`import F from futil-js`
+`import F from futil`
 or
-`import {x,y,z} from futil-js`
+`import {x,y,z} from futil`
 
 # API
 
