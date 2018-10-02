@@ -160,6 +160,9 @@ Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
 ### push
 `(val, array) -> array` Return `array` with `val` pushed.
 
+### moveIndex
+`(from, to, array) -> array` Moves a value from one index to another
+
 ### cycle
 `[a, b...] -> a -> b` Creates a function that takes an element of the original array as argument and returns the next element in the array (with wrapping). Note that (1) This will return the first element of the array for any argument not in the array and (2) due to the behavior of `_.curry` the created function will return a function equivalent to itself if called with no argument.
 

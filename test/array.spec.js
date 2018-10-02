@@ -1,5 +1,5 @@
 import chai from 'chai'
-import * as F from '../src/'
+import F from '../src/'
 chai.expect()
 const expect = chai.expect
 
@@ -53,6 +53,12 @@ describe('Array Functions', () => {
     let fn = F.pushOn(arr)
     expect(fn(4)).to.deep.equal([1, 2, 3, 4])
     expect(arr).to.deep.equal([1, 2, 3, 4])
+  })
+  it('moveIndex', () => {
+    let arr = [1, 2, 3]
+    let x = F.moveIndex(1, 0, arr)
+    expect(x).to.deep.equal([2, 1, 3])
+    expect(arr).to.deep.equal([1, 2, 3])
   })
   it('zipObjectDeepWith', () => {
     expect(F.zipObjectDeepWith(['a', 'b'], () => 1)).to.deep.equal({
