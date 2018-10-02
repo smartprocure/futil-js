@@ -227,13 +227,13 @@ let customLaunchers = {
     browserName: 'safari',
     version: 'latest',
   },
-  sl_iphone_93: {
-    base: 'SauceLabs',
-    browserName: 'iphone',
-    version: '9.3',
-    deviceName: 'iPhone 6s Simulator',
-    deviceOrientation: 'portrait',
-  },
+  // sl_iphone_93: {
+  //   base: 'SauceLabs',
+  //   browserName: 'iphone',
+  //   version: '9.3',
+  //   deviceName: 'iPhone 6s Simulator',
+  //   deviceOrientation: 'portrait',
+  // },
   sl_iphone_103: {
     base: 'SauceLabs',
     browserName: 'iphone',
@@ -248,13 +248,13 @@ let customLaunchers = {
     deviceName: 'iPhone 8 Plus',
     deviceOrientation: 'portrait',
   },
-  sl_ipad_93: {
-    base: 'SauceLabs',
-    browserName: 'ipad',
-    version: '9.3',
-    deviceName: 'iPad Air Simulator',
-    deviceOrientation: 'portrait',
-  },
+  // sl_ipad_93: {
+  //   base: 'SauceLabs',
+  //   browserName: 'ipad',
+  //   version: '9.3',
+  //   deviceName: 'iPad Air Simulator',
+  //   deviceOrientation: 'portrait',
+  // },
   sl_ipad_103: {
     base: 'SauceLabs',
     browserName: 'ipad',
