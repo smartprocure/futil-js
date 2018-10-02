@@ -1,6 +1,7 @@
 import { map } from './collection'
 import _ from 'lodash/fp'
 import { when } from './logic'
+import { mapIndexed } from './conversion'
 
 export const wrap = (pre, post, content) =>
   (pre || '') + content + (post || pre || '')
@@ -35,3 +36,14 @@ export let autoLabelOption = a => ({
   label: a.label || autoLabel(a.value || a),
 })
 export let autoLabelOptions = _.map(autoLabelOption)
+
+
+export let toSentenceWith = _.curry((initial, last, join, array) =>
+  _.flow(
+    mapIndexed((x, i) => [x, i === array.length - 1 ? null : i === array.length - 2 ? last : initial]),
+    _.flatten,
+    _.compact,
+    join || _.identity,
+  )(array))
+
+export let toSentence = toSentenceWith(', ', ' and ', _.join(''))

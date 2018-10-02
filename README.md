@@ -1,4 +1,4 @@
-<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
+﻿<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
 
@@ -338,6 +338,16 @@ Maps `_.trim` through all the strings of a given object or array.
 
 ### autoLabelOptions
 `[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
+
+### toSentenceWith
+`(a, b, c, d) -> c(d)`, receives two connectors, the first one `a` for
+the initial part of the list `d`, the other connector `b` for the last pair of the
+list `d`, lastly, the results get flattened and mixed with the join
+function `c`.
+
+## toSentence
+`array => string` joins an array into a string. All the initial
+elements are joined with `, `, the last pair is joined with ` and `.
 
 
 ## Regex

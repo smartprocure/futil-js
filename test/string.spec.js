@@ -1,3 +1,4 @@
+import _ from 'lodash/fp'
 import chai from 'chai'
 import * as f from '../src'
 chai.expect()
@@ -64,5 +65,15 @@ describe('String Functions', () => {
       { value: 'justAValue', label: 'Just A Value' },
       { value: 'bothValueAndLabel', label: 'Custom Label' },
     ])
+  })
+  it('toSentenceWith', () => {
+    expect(
+      f.toSentenceWith('or', 'or perhaps', _.join(' '), ['first', 'second', 'third'])
+    ).to.equal(`first or second or perhaps third`)
+  })
+  it('toSentence', () => {
+    expect(
+      f.toSentence(['first', 'second', 'third'])
+    ).to.equal('first, second and third')
   })
 })
