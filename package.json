@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.51.0",
+  "version": "1.52.0",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -18,9 +18,13 @@
     "lint-fix": "eslint dangerfile.js src/*.js test/*.js --fix",
     "fmt": "prettier --write *.js; prettier --write '{src,test}/**/*.js'",
     "duti:fix": "npm run fmt && npm run lint-fix && npm run fmt",
-    "prepublish": "webpack"
+    "prepublish": "webpack",
+    "rename": "node renamePackage"
   },
-  "author": "Samuel Greene <sgreene@smartprocure.us>",
+  "author": {
+    "name": "Samuel Greene",
+    "email": "sgreene@smartprocure.us"
+  },
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
@@ -67,10 +71,12 @@
     "mocha-lcov-reporter": "^1.2.0",
     "nyc": "^12.0.1",
     "prettier": "^1.7.4",
+    "read-pkg": "^4.0.1",
     "sinon": "^5.0.0",
     "sinon-chai": "^3.0.0",
     "webpack": "^4.1.0",
-    "webpack-cli": "^3.0.0"
+    "webpack-cli": "^3.0.0",
+    "write-pkg": "^3.2.0"
   },
   "directories": {
     "test": "test"
@@ -83,5 +89,6 @@
     "url": "https://github.com/smartprocure/futil-js/issues"
   },
   "homepage": "https://github.com/smartprocure/futil-js#readme",
-  "runkitExampleFilename": "runkit.example.js"
+  "runkitExampleFilename": "runkit.example.js",
+  "readme": "README.md"
 }

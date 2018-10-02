@@ -1,4 +1,8 @@
-﻿# 1.51.0
+# 1.52.0
+- Add a default export with all methods to support `import F` instead of `import * as F`
+- Also publish as `futil`!
+
+# 1.51.0
 - Added `_.iteratee` support to `findApply`
 
 # 1.50.0

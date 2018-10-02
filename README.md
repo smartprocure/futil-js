@@ -1,4 +1,4 @@
-﻿<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
+<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
 
@@ -25,16 +25,19 @@ https://smartprocure.github.io/futil-js/
 See our [changelog](https://github.com/smartprocure/futil-js/blob/master/CHANGELOG.md)
 
 # Installing
+`npm i -S futil`
+or
 `npm i -S futil-js`
+
 
 This package requires `lodash/fp`, so make sure that's available in your app.
 
 # Usage
-`import * as f from futil-js`
+`import * as F from futil`
 or
-`import {x,y,z} from futil-js`
-
-The syntax: `import f from futil-js` is not currently supported.
+`import F from futil`
+or
+`import {x,y,z} from futil`
 
 # API
 

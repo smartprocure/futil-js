@@ -5,7 +5,7 @@ notify:
 jobs:
   build:
     docker:
-      - image: circleci/node:8.7
+      - image: circleci/node:10
     steps:
       - checkout
       - restore_cache:
@@ -32,16 +32,24 @@ jobs:
           timeout: 240
       - run:
           name: pre-danger
-          command: git config user.email "drodriguez@smartprocure.us" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH
+          command: git config user.email "decrapifier@govspend.com" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH
           when: always
       - run:
           name: danger
           command: npm run danger
           when: always
       - deploy:
-          name: Maybe Deploy
+          name: Maybe Deploy futil-js
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+              npm publish || true
+            fi
+      - deploy:
+          name: Maybe Deploy futil
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+              npm run rename futil
               npm publish || true
             fi
