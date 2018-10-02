@@ -13,6 +13,19 @@ export * from './lang'
 export * from './lens'
 export * from './tree'
 
+import * as conversion from './conversion'
+import * as collection from './collection'
+import * as fn from './function'
+import * as string from './string'
+import * as object from './object'
+import * as aspect from './aspect'
+import * as array from './array'
+import * as logic from './logic'
+import * as regex from './regex'
+import * as lang from './lang'
+import * as lens from './lens'
+import * as tree from './tree'
+
 // Math
 // ----
 export const greaterThanOne = _.lt(1)
@@ -20,3 +33,21 @@ export const greaterThanOne = _.lt(1)
 // Version
 // ----
 export const VERSION = global.__VERSION__
+
+// Allows `import F from 'futil-js'`
+export default {
+  ...conversion,
+  ...collection,
+  ...fn,
+  ...string,
+  ...object,
+  ...aspect,
+  ...array,
+  ...logic,
+  ...regex,
+  ...lang,
+  ...lens,
+  ...tree,
+  greaterThanOne,
+  VERSION
+}
