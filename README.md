@@ -102,6 +102,10 @@ http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 `f -> x -> f(find(f, x))`
 A version of `find` that also applies the predicate function to the result. Useful when you have an existing function that you want to apply to a member of a collection that you can best find by applying the same function.
 
+### insertAtIndex
+`(index, val, array|string) -> array|string` Inserts value into an array or string at `index`
+
+
 ## Collection Algebras or composable/recursive data types
 
 ### map
@@ -152,11 +156,6 @@ Any method with uncapped iteratee arguments will use the `Indexed` convention.
 `([[], [], []]) -> [[], []]` Takes any number of ranges and return the result of merging them all.
 
 Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
-
-### insertAtIndex
-`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
-
-Example: `(1, '123', 'hi') -> 'h123i'`
 
 ### push
 `(val, array) -> array` Return `array` with `val` pushed.
@@ -338,6 +337,11 @@ Maps `_.trim` through all the strings of a given object or array.
 
 ### autoLabelOptions
 `[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
+
+### insertAtIndex
+`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
+
+Example: `(1, '123', 'hi') -> 'h123i'`
 
 
 ## Regex
