@@ -62,7 +62,7 @@ describe('Lens Functions', () => {
     })
     it('includeLens', () => {
       let object = {
-        arr: ['a', 'b', 'c', 'd']
+        arr: ['a', 'b', 'c', 'd'],
       }
       let includesB = f.includeLens('b', 'arr', object)
       expect(f.view(includesB)).to.be.true
@@ -109,7 +109,7 @@ describe('Lens Functions', () => {
     })
     it('setsWith', () => {
       let object = {
-        a: 1
+        a: 1,
       }
       let setter = f.setsWith(x => x * 2, 'a', object)
       setter(5)

@@ -40,7 +40,7 @@ describe('Collections Functions', () => {
     expect(arr).to.deep.equal([1, 2, 3])
 
     expect(F.insertAtIndex(1, 'z', 'abc')).to.deep.equal('azbc')
-    
+
     var result = F.insertAtIndex(0, '<span>', 'pretty please')
     expect(result).to.equal('<span>pretty please')
   })

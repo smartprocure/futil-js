@@ -108,15 +108,25 @@ describe('Array Functions', () => {
     ).to.deep.equal([[1], [2, 3], [4], [5, 6], [7], [8, 9]])
   })
   it('toggleElement', () => {
-    expect(F.toggleElement('b', ['a', 'b', 'c', 'd'])).to.deep.equal(['a', 'c', 'd'])
-    expect(F.toggleElement('b', ['a', 'c', 'd'])).to.deep.equal(['a', 'c', 'd', 'b'])
+    expect(F.toggleElement('b', ['a', 'b', 'c', 'd'])).to.deep.equal([
+      'a',
+      'c',
+      'd',
+    ])
+    expect(F.toggleElement('b', ['a', 'c', 'd'])).to.deep.equal([
+      'a',
+      'c',
+      'd',
+      'b',
+    ])
   })
   it('toggleElementBy', () => {
     let list = ['a', 'b', 'c']
     let valueToToggle = 'b'
-    
-    let toggleB = shouldAdd => F.toggleElementBy(!shouldAdd, valueToToggle, list)
-    
+
+    let toggleB = shouldAdd =>
+      F.toggleElementBy(!shouldAdd, valueToToggle, list)
+
     expect(toggleB(true)).to.deep.equal(['a', 'b', 'c', 'b'])
     expect(toggleB(false)).to.deep.equal(['a', 'c'])
   })
