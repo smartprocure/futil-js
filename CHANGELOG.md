@@ -2,6 +2,7 @@
 - Add `insertAtIndex`
 - Add `moveIndex`
 - Add `toggleElement`
+- Add `toggleElementBy`
 
 # 1.52.0
 - Add a default export with all methods to support `import F` instead of `import * as F`

@@ -86,8 +86,7 @@ export let chunkBy = _.curry((f, array) =>
   )
 )
 
-// Would export, but can't identify any other use case besides _.includes :thinking:
-let toggleElementBy = _.curry((check, val, arr) =>
+export let toggleElementBy = _.curry((check, val, arr) =>
   (callOrReturn(check, val, arr) ? _.pull : push)(val, arr)
 )
 export let toggleElement = toggleElementBy(_.includes)

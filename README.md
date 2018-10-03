@@ -196,6 +196,8 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 ### toggleElement
 `(any, array) -> array` Removes an element from an array if it's included in the array, or pushes it in if it doesn't. Immutable (so it's a clone of the array).
 
+### toggleElementBy
+`bool -> value -> list -> newList` Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
 
 ## Object
 
