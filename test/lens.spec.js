@@ -90,6 +90,14 @@ describe('Lens Functions', () => {
       f.sets(5, l.a)()
       expect(object.a).to.equal(5)
     })
+    it('setsWith', () => {
+      let object = {
+        a: 1
+      }
+      let setter = f.setsWith(x => x * 2, 'a', object)
+      setter(5)
+      expect(object.a).to.equal(10)
+    })
     it('flip', () => {
       let object = {
         a: 1,

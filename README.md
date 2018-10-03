@@ -477,6 +477,9 @@ Sets the value of the lens, regardless of if it's a function or object lens
 #### sets
 Creates a function that will set a lens with the provided value
 
+#### setsWith
+Takes an iteratee and lens and creates a function that will set a lens with the result of calling the iteratee with the provided value
+
 #### flip
 Takes a lens and negates its value
 
