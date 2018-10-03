@@ -1,6 +1,7 @@
 import _ from 'lodash/fp'
 import { callOrReturn } from './function'
 import { insertAtIndex } from './collection'
+import { mapIndexed } from './conversion'
 
 // TODO: Move to proper files and expose
 let callUnless = check => failFn => fn => (x, y) =>
@@ -93,3 +94,10 @@ export let toggleElementBy = _.curry((check, val, arr) =>
   (callOrReturn(check, val, arr) ? _.pull : push)(val, arr)
 )
 export let toggleElement = toggleElementBy(_.includes)
+
+export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
+  _.flow(
+    mapIndexed((x, i) => [x, i === array.length - 1 ? null : i === array.length - 2 ? lastSeparator : separator]),
+    _.flatten,
+    _.compact,
+  )(array))

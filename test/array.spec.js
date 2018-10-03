@@ -129,4 +129,9 @@ describe('Array Functions', () => {
     expect(toggleB(true)).to.deep.equal(['a', 'b', 'c', 'b'])
     expect(toggleB(false)).to.deep.equal(['a', 'c'])
   })
+  it('toSentenceWith', () => {
+    expect(
+      F.toSentenceWith('or', 'or perhaps', ['first', 'second', 'third'])
+    ).to.deep.equal(['first', 'or', 'second', 'or perhaps', 'third'])
+  })
 })

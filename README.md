@@ -199,6 +199,11 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 ### toggleElementBy
 `bool -> value -> list -> newList` Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
 
+### toSentenceWith
+`(separator, lastSeparator, array) -> array`, receives two
+separators, `separator` for the initial part of the given array,
+`lastSeparator` connector `b` for the last pair of the array.
+
 ## Object
 
 ### singleObject
@@ -350,12 +355,6 @@ Maps `_.trim` through all the strings of a given object or array.
 `insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
 
 Example: `(1, '123', 'hi') -> 'h123i'`
-
-### toSentenceWith
-`(separator, lastSeparator, join, array) -> join()`, receives two
-separators, `separator` for the initial part of the given array,
-`lastSeparator` connector `b` for the last pair of the array. The
-results get flattened and mixed with `join` function.
 
 ## toSentence
 `array => string` joins an array into a string. All the initial
