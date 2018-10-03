@@ -1,6 +1,5 @@
 import chai from 'chai'
 import F from '../src/'
-import _ from 'lodash/fp'
 chai.expect()
 const expect = chai.expect
 
