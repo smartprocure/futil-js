@@ -455,9 +455,12 @@ This the main way you'll generally interact with the lens API
 `propertyName -> object -> { get: () -> object.propertyName, set: propertyValue -> object.propertyName }`
 Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path. Supports deep paths like lodash get/set.
 
-
 #### lensOf
 Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`.
+
+#### includeLens
+`value -> arrayLens -> includeLens`
+An include lens represents membership of a value in a set. It's view and set functions allow you to read _and_ set a boolean value for whether or not a value is in an array. If you change to true or false, it will set the underlying array lens with a new array either without the value or with it pushed at the end.
 
 ### Lens Manipulation
 *Note*: As of version 1.37, any manipulation function that takes a lens can also drop in a key and target object for an implicit lensProp conversion (e.g. you can do `view(key, obj)` instead of just `view(lens)`)

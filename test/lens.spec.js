@@ -60,6 +60,23 @@ describe('Lens Functions', () => {
       l.a.set(5)
       expect(l.a.get()).to.equal(5)
     })
+    it('includeLens', () => {
+      let object = {
+        arr: ['a', 'b', 'c', 'd']
+      }
+      let includesB = f.includeLens('b', 'arr', object)
+      expect(f.view(includesB)).to.be.true
+      f.off(includesB)()
+      expect(f.view(includesB)).to.be.false
+      expect(object.arr).to.deep.equal(['a', 'c', 'd'])
+      f.on(includesB)()
+      expect(f.view(includesB)).to.be.true
+      expect(object.arr).to.deep.equal(['a', 'c', 'd', 'b'])
+      // Subsequent calls don't result in multiple `b`s because of _.uniq
+      f.on(includesB)()
+      expect(f.view(includesB)).to.be.true
+      expect(object.arr).to.deep.equal(['a', 'c', 'd', 'b'])
+    })
   })
   describe('Manipulation', () => {
     it('view', () => {
