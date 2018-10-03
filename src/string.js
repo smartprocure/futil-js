@@ -13,23 +13,8 @@ export const concatStrings = _.flow(
 )
 export const trimStrings = map(when(_.isString, _.trim))
 
-export let autoLabel = (string = '') => {
-  // Prevent Acronyms from being lower cased
-  let acronymRegex = new RegExp('([A-Z])([A-Z])($|.)', 'g')
-  while (string.match(acronymRegex)) {
-    string = string.replace(acronymRegex, '$1 $2$3')
-  }
-  string = _.startCase(string)
-  // Remove Mid-Acronym Whitespace
-  let whitespacedAcronymRegex = new RegExp('([A-Z])[ ]([A-Z])($|[^a-z])', 'g')
-  while (string.match(whitespacedAcronymRegex)) {
-    string = string.replace(whitespacedAcronymRegex, '$1$2$3')
-  }
-  // Put a space between words and numbers
-  string = string.replace(/([a-z]|[A-Z])([0-9])/g, '$1 $2')
-
-  return string
-}
+// _.startCase does the trick, deprecate it!
+export let autoLabel = _.startCase
 export let autoLabelOption = a => ({
   value: a.value || a,
   label: a.label || autoLabel(a.value || a),
