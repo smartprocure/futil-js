@@ -340,10 +340,10 @@ Maps `_.trim` through all the strings of a given object or array.
 `[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
 ### toSentenceWith
-`(a, b, c, d) -> c(d)`, receives two connectors, the first one `a` for
-the initial part of the list `d`, the other connector `b` for the last pair of the
-list `d`, lastly, the results get flattened and mixed with the join
-function `c`.
+`(separator, lastSeparator, join, array) -> join()`, receives two
+separators, `separator` for the initial part of the given array,
+`lastSeparator` connector `b` for the last pair of the array. The
+results get flattened and mixed with `join` function.
 
 ## toSentence
 `array => string` joins an array into a string. All the initial

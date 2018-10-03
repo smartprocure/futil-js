@@ -38,9 +38,9 @@ export let autoLabelOption = a => ({
 export let autoLabelOptions = _.map(autoLabelOption)
 
 
-export let toSentenceWith = _.curry((initial, last, join, array) =>
+export let toSentenceWith = _.curry((separator, lastSeparator, join, array) =>
   _.flow(
-    mapIndexed((x, i) => [x, i === array.length - 1 ? null : i === array.length - 2 ? last : initial]),
+    mapIndexed((x, i) => [x, i === array.length - 1 ? null : i === array.length - 2 ? lastSeparator : separator]),
     _.flatten,
     _.compact,
     join || _.identity,
