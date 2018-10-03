@@ -1,5 +1,6 @@
 import _ from 'lodash/fp'
-import { push, insertAtIndex, mergeRanges } from './array'
+import { push, mergeRanges } from './array'
+import { insertAtIndex } from './collection'
 
 export const testRegex = _.curry((regex, str) => new RegExp(regex).test(str))
 export const makeRegex = options => text => RegExp(text, options)

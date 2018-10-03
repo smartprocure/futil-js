@@ -1,5 +1,13 @@
-﻿# 1.53.0
+﻿# 1.54.0
 - Added toSentenceWith and toSentence.
+
+# 1.53.0
+- Add `moveIndex`
+- Add `toggleElement`
+- Add `toggleElementBy`
+- Add `setsWith`
+- Add `includeLens`
+- Make `insertAtIndex` support arrays and strings
 
 # 1.52.0
 - Add a default export with all methods to support `import F` instead of `import * as F`

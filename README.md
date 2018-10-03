@@ -102,6 +102,10 @@ http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 `f -> x -> f(find(f, x))`
 A version of `find` that also applies the predicate function to the result. Useful when you have an existing function that you want to apply to a member of a collection that you can best find by applying the same function.
 
+### insertAtIndex
+`(index, val, array|string) -> array|string` Inserts value into an array or string at `index`
+
+
 ## Collection Algebras or composable/recursive data types
 
 ### map
@@ -153,13 +157,11 @@ Any method with uncapped iteratee arguments will use the `Indexed` convention.
 
 Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
 
-### insertAtIndex
-`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
-
-Example: `(1, '123', 'hi') -> 'h123i'`
-
 ### push
 `(val, array) -> array` Return `array` with `val` pushed.
+
+### moveIndex
+`(from, to, array) -> array` Moves a value from one index to another
 
 ### cycle
 `[a, b...] -> a -> b` Creates a function that takes an element of the original array as argument and returns the next element in the array (with wrapping). Note that (1) This will return the first element of the array for any argument not in the array and (2) due to the behavior of `_.curry` the created function will return a function equivalent to itself if called with no argument.
@@ -191,6 +193,11 @@ arrays, where each one of the arrays has one or more elements of the
 original array, grouped by the first function received. Similar to
 Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
+### toggleElement
+`(any, array) -> array` Removes an element from an array if it's included in the array, or pushes it in if it doesn't. Immutable (so it's a clone of the array).
+
+### toggleElementBy
+`bool -> value -> list -> newList` Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
 
 ## Object
 
@@ -339,6 +346,11 @@ Maps `_.trim` through all the strings of a given object or array.
 ### autoLabelOptions
 `[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
+### insertAtIndex
+`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
+
+Example: `(1, '123', 'hi') -> 'h123i'`
+
 ### toSentenceWith
 `(separator, lastSeparator, join, array) -> join()`, receives two
 separators, `separator` for the initial part of the given array,
@@ -348,7 +360,6 @@ results get flattened and mixed with `join` function.
 ## toSentence
 `array => string` joins an array into a string. All the initial
 elements are joined with `, `, the last pair is joined with ` and `.
-
 
 ## Regex
 
@@ -453,9 +464,12 @@ This the main way you'll generally interact with the lens API
 `propertyName -> object -> { get: () -> object.propertyName, set: propertyValue -> object.propertyName }`
 Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path. Supports deep paths like lodash get/set.
 
-
 #### lensOf
 Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`.
+
+#### includeLens
+`value -> arrayLens -> includeLens`
+An include lens represents membership of a value in a set. It's view and set functions allow you to read _and_ set a boolean value for whether or not a value is in an array. If you change to true or false, it will set the underlying array lens with a new array either without the value or with it pushed at the end.
 
 ### Lens Manipulation
 *Note*: As of version 1.37, any manipulation function that takes a lens can also drop in a key and target object for an implicit lensProp conversion (e.g. you can do `view(key, obj)` instead of just `view(lens)`)
@@ -474,6 +488,9 @@ Sets the value of the lens, regardless of if it's a function or object lens
 
 #### sets
 Creates a function that will set a lens with the provided value
+
+#### setsWith
+Takes an iteratee and lens and creates a function that will set a lens with the result of calling the iteratee with the provided value
 
 #### flip
 Takes a lens and negates its value

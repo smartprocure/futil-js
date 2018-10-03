@@ -15,3 +15,17 @@ export let map = _.curry((f, x) =>
 export let deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
   _map(e => (is(e) ? deepMap(fn, fn(e), _map, is) : e), obj)
 )
+
+let insertAtStringIndex = (index, val, str) =>
+  str.slice(0, index) + val + str.slice(index)
+let insertAtArrayIndex = (index, val, arr) => {
+  let result = _.clone(arr)
+  result.splice(index, 0, val)
+  return result
+}
+export let insertAtIndex = _.curry(
+  (index, val, collection) =>
+    _.isString(collection)
+      ? insertAtStringIndex(index, val, collection)
+      : insertAtArrayIndex(index, val, collection)
+)

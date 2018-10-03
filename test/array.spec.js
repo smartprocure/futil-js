@@ -1,5 +1,5 @@
 import chai from 'chai'
-import * as F from '../src/'
+import F from '../src/'
 chai.expect()
 const expect = chai.expect
 
@@ -54,6 +54,12 @@ describe('Array Functions', () => {
     expect(fn(4)).to.deep.equal([1, 2, 3, 4])
     expect(arr).to.deep.equal([1, 2, 3, 4])
   })
+  it('moveIndex', () => {
+    let arr = [1, 2, 3]
+    let x = F.moveIndex(1, 0, arr)
+    expect(x).to.deep.equal([2, 1, 3])
+    expect(arr).to.deep.equal([1, 2, 3])
+  })
   it('zipObjectDeepWith', () => {
     expect(F.zipObjectDeepWith(['a', 'b'], () => 1)).to.deep.equal({
       a: 1,
@@ -99,5 +105,28 @@ describe('Array Functions', () => {
     expect(
       F.chunkBy(([x], y) => (x * y) % 3 === 0)([1, 2, 3, 4, 5, 6, 7, 8, 9])
     ).to.deep.equal([[1], [2, 3], [4], [5, 6], [7], [8, 9]])
+  })
+  it('toggleElement', () => {
+    expect(F.toggleElement('b', ['a', 'b', 'c', 'd'])).to.deep.equal([
+      'a',
+      'c',
+      'd',
+    ])
+    expect(F.toggleElement('b', ['a', 'c', 'd'])).to.deep.equal([
+      'a',
+      'c',
+      'd',
+      'b',
+    ])
+  })
+  it('toggleElementBy', () => {
+    let list = ['a', 'b', 'c']
+    let valueToToggle = 'b'
+
+    let toggleB = shouldAdd =>
+      F.toggleElementBy(!shouldAdd, valueToToggle, list)
+
+    expect(toggleB(true)).to.deep.equal(['a', 'b', 'c', 'b'])
+    expect(toggleB(false)).to.deep.equal(['a', 'c'])
   })
 })

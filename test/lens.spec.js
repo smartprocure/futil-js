@@ -60,6 +60,23 @@ describe('Lens Functions', () => {
       l.a.set(5)
       expect(l.a.get()).to.equal(5)
     })
+    it('includeLens', () => {
+      let object = {
+        arr: ['a', 'b', 'c', 'd'],
+      }
+      let includesB = f.includeLens('b', 'arr', object)
+      expect(f.view(includesB)).to.be.true
+      f.off(includesB)()
+      expect(f.view(includesB)).to.be.false
+      expect(object.arr).to.deep.equal(['a', 'c', 'd'])
+      f.on(includesB)()
+      expect(f.view(includesB)).to.be.true
+      expect(object.arr).to.deep.equal(['a', 'c', 'd', 'b'])
+      // Subsequent calls don't result in multiple `b`s because of _.uniq
+      f.on(includesB)()
+      expect(f.view(includesB)).to.be.true
+      expect(object.arr).to.deep.equal(['a', 'c', 'd', 'b'])
+    })
   })
   describe('Manipulation', () => {
     it('view', () => {
@@ -89,6 +106,14 @@ describe('Lens Functions', () => {
       let l = f.lensOf(object)
       f.sets(5, l.a)()
       expect(object.a).to.equal(5)
+    })
+    it('setsWith', () => {
+      let object = {
+        a: 1,
+      }
+      let setter = f.setsWith(x => x * 2, 'a', object)
+      setter(5)
+      expect(object.a).to.equal(10)
     })
     it('flip', () => {
       let object = {
