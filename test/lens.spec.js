@@ -1,4 +1,5 @@
 import chai from 'chai'
+import _ from 'lodash/fp'
 import * as f from '../src'
 
 chai.expect()
@@ -191,6 +192,67 @@ describe('Lens Functions', () => {
       }
       f.off('a', object)()
       expect(object.a).to.equal(false)
+    })
+  })
+  describe('domLens', () => {
+    it('value', () => {
+      let state = {
+        a: 1,
+      }
+      let props = f.domLens.value('a', state)
+      expect(props.value).to.equal(1)
+      props.onChange({ target: { value: 5 } })
+      expect(state.a).to.equal(5)
+    })
+    it('checkboxValues', () => {
+      let state = {
+        a: ['x', 'y', 'z'],
+      }
+      // Props for if `x` is in the list
+      let props = f.domLens.checkboxValues('x', 'a', state)
+      expect(props.checked).to.equal(true)
+      // uncheck
+      props.onChange({ target: { value: false } })
+      expect(_.includes('a', state.a)).to.be.false
+    })
+    it('hover', () => {
+      let state = {
+        hovering: false,
+      }
+      let props = f.domLens.hover('hovering', state)
+      props.onMouseOver()
+      expect(state.hovering).to.be.true
+      props.onMouseOut()
+      expect(state.hovering).to.be.false
+    })
+    it('focus', () => {
+      let state = {
+        focusing: false,
+      }
+      let props = f.domLens.focus('focusing', state)
+      props.onFocus()
+      expect(state.focusing).to.be.true
+      props.onBlur()
+      expect(state.focusing).to.be.false
+    })
+    it('targetBinding', () => {
+      let state = {
+        flag: false,
+      }
+      let props = f.domLens.targetBinding('checked')('flag', state)
+      expect(props.checked).to.be.false
+      props.onChange({ target: { checked: true } })
+      expect(state.flag)
+    })
+    it('binding', () => {
+      let state = {
+        selectedItem: 'item1',
+      }
+      let weirdSelect = f.domLens.binding('selected', e => e.newSelectedValue)
+      let props = weirdSelect('selectedItem', state)
+      expect(props.selected).to.equal('item1')
+      props.onChange({ newSelectedValue: 'newItem' })
+      expect(state.selectedItem).to.equal('newItem')
     })
   })
 })

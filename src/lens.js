@@ -65,3 +65,29 @@ export let setsWith = _.curry((f, ...lens) => x =>
 export let flip = (...lens) => () => set(!view(...lens), ...lens)
 export let on = sets(true)
 export let off = sets(false)
+
+// Lens Consumption
+// Map lens to dom event handlers
+let binding = (value, getEventValue) => (...lens) => ({
+  [value]: view(...lens),
+  onChange: setsWith(getEventValue, ...lens),
+})
+// Dom events have relevent fields on the `target` property of event objects
+let targetBinding = field => binding(field, `target.${field}`)
+export let domLens = {
+  value: targetBinding('value'),
+  checkboxValues: _.flow(
+    includeLens,
+    targetBinding('checked')
+  ),
+  hover: (...lens) => ({
+    onMouseOver: on(...lens),
+    onMouseOut: off(...lens),
+  }),
+  focus: (...lens) => ({
+    onFocus: on(...lens),
+    onBlur: off(...lens),
+  }),
+  targetBinding,
+  binding,
+}

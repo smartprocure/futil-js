@@ -492,6 +492,28 @@ Returns a function that will set a lens to `true`
 #### off
 Returns a function that will set a lens to `false`
 
+### Lens Consumption - DomLens
+
+To help illustrate the potential use cases of the power of lenses, these are some functions that consume lenses in useful ways that are relevant in a DOM context including raw js, react, etc. They are pure functions, have no external dependencies, and are generally trivial - but hopefully they illustrate some interesting use cases.
+
+#### domLens.value
+`lens -> {value, onChange}` Takes a lens and returns a value/onChange pair that views/sets the lens appropriately. `onChange` sets with `e.target.value`
+
+#### domLens.checkboxValues
+`(value, lens) -> {checked, onChange}` Creates an includeLens and maps view to checked and set to `onChange` (set with `e.target.checked`)
+
+#### domLens.hover
+`lens -> { onMouseOver, onMouseOut }` Takes a lens and returns on onMouseOver which calls `on` on the lens and onMouseOut which calls `off`. Models a mapping of "hovering" to a boolean.
+
+#### domLens.focus
+`lens -> { onFocus, onBlur }` Takes a lens and returns on onFocus which calls `on` on the lens and onBlur which calls `off`. Models a mapping of "focusing" to a boolean.
+
+#### domLens.targetBinding
+`field -> lens -> {[field], onChange}` Utility for building lens consumers like `value` and `checkboxValues`
+
+#### domLens.binding
+`(field, getValue) -> lens -> {[field], onChange}` Even more generic utility than targetBinding which uses `getEventValue` to as the function for a setsWith which is mapped to `onChange`.
+
 
 ## Aspect
 Aspects provide a functional oriented implementation of Aspect Oriented Programming.
