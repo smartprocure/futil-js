@@ -1,3 +1,13 @@
+# 1.54.0
+- Add `domLens` functions: 
+  `domLens.value`
+  `domLens.checkboxValues`
+  `domLens.hover`
+  `domLens.focus`
+  `domLens.targetBinding`
+  `domLens.binding`
+
+
 # 1.53.0
 - Add `moveIndex`
 - Add `toggleElement`
