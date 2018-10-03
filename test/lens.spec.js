@@ -197,7 +197,7 @@ describe('Lens Functions', () => {
   describe('domLens', () => {
     it('value', () => {
       let state = {
-        a: 1
+        a: 1,
       }
       let props = f.domLens.value('a', state)
       expect(props.value).to.equal(1)
@@ -206,7 +206,7 @@ describe('Lens Functions', () => {
     })
     it('checkboxValues', () => {
       let state = {
-        a: ['x', 'y', 'z']
+        a: ['x', 'y', 'z'],
       }
       // Props for if `x` is in the list
       let props = f.domLens.checkboxValues('x', 'a', state)
@@ -217,7 +217,7 @@ describe('Lens Functions', () => {
     })
     it('hover', () => {
       let state = {
-        hovering: false
+        hovering: false,
       }
       let props = f.domLens.hover('hovering', state)
       props.onMouseOver()
@@ -227,7 +227,7 @@ describe('Lens Functions', () => {
     })
     it('focus', () => {
       let state = {
-        focusing: false
+        focusing: false,
       }
       let props = f.domLens.focus('focusing', state)
       props.onFocus()
@@ -237,16 +237,16 @@ describe('Lens Functions', () => {
     })
     it('targetBinding', () => {
       let state = {
-        flag: false
+        flag: false,
       }
       let props = f.domLens.targetBinding('checked')('flag', state)
-      expect(props.checked).to.be.false 
+      expect(props.checked).to.be.false
       props.onChange({ target: { checked: true } })
       expect(state.flag)
     })
     it('binding', () => {
       let state = {
-        selectedItem: 'item1'
+        selectedItem: 'item1',
       }
       let weirdSelect = f.domLens.binding('selected', e => e.newSelectedValue)
       let props = weirdSelect('selectedItem', state)
