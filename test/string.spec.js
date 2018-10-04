@@ -66,9 +66,9 @@ describe('String Functions', () => {
     ])
   })
   it('toSentenceWith', () => {
-    expect(F.toSentenceWith(' or ', ['first', 'second', 'third'])).to.equal(
-      'first, second or third'
-    )
+    expect(
+      F.toSentenceWith(' - ', ' or ', ['first', 'second', 'third'])
+    ).to.equal('first - second or third')
   })
   it('toSentence', () => {
     expect(F.toSentence(['first', 'second', 'third'])).to.equal(
