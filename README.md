@@ -70,6 +70,15 @@ A `_.debounce` for async functions that ensure the returned promise is resolved 
 `(f1, f2, ...fn) -> f1Arg1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
 Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 
+## Iterators
+
+### differentLast
+`(((acc, i, xs) -> a), (acc, i, xs) -> a) -> (acc, i, xs) -> a` used
+to generate an iterator that will answer with the result of the first
+given iterator for all of the properties of the iterated list except
+for the last one, which will be answered with the result of the second
+given iterator.
+
 ## Logic
 
 ### overNone
@@ -203,26 +212,21 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 `(f, array) -> array` For each element of the array, it breaks the
 array in two, the first half up to the element before the current
 element and the last half containing the current element and the
-subsequent ones. This two parts are sent to the function `f`. The
-result of the function is added right before the current element of
-the iteration. Produces a new array with the changes.
+subsequent ones. The function `f` is treated as an iterator, so it
+will receive the accumulator, the current index and the full array.
+The result of the function is added right before the current element
+of the iteration. Produces a new array with the changes.
 
 If the parameter `f` is not a function, it adds the given value `x` as
 a new element between each existing element of the array. Produces a
 new array with the changes.
 
-### intersperseGrammar
-`(a, b, array) -> array`, receives two
-separators, the first one `a` will be intercalated between all but the
-last two elements of the array, then `b` for the last pair of elements.
-Produces a new array with the changes.
+**Note:** Intersperse can be used with JSX components! Specially with
+the `differentLast` iterator:
 
-**Note:** All of the intersperse functions can be used with JSX
-components!
-
-Example with words: 
+Example with words:
 ```
-> F.intersperseGrammar('or', 'or perhaps', ['first', 'second', 'third'])
+> F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
 ['first', 'or', 'second', 'or perhaps', 'third']
 ```
 
@@ -235,7 +239,7 @@ return <div>
   {
     _.flow(
       _.map(x => <b>{x}</b>),
-      F.intersperseGramar(', ', ' and ')
+      F.intersperse(F.differentLast(() => ', ', () => ' and '))
     )(results)
   }
 </div>

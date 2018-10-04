@@ -99,9 +99,5 @@ export let intersperse = _.curry((f, [x0, ...xs]) =>
   reduceIndexed((acc, x, i) =>
     i === xs.length
       ? [...acc, x]
-      : [...acc, callOrReturn(f, acc, xs.slice(i)), x]
+      : [...acc, callOrReturn(f, acc, i, xs), x]
   , [x0], xs))
-
-export let intersperseGrammar = _.curry((separator, lastSeparator, array) =>
-  intersperse((a, bs) => bs.length === 1 ? lastSeparator : separator, array)
-)
