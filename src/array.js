@@ -95,17 +95,13 @@ export let toggleElementBy = _.curry((check, val, arr) =>
 )
 export let toggleElement = toggleElementBy(_.includes)
 
-export let intersperseWith = _.curry((f, [x0, ...xs]) =>
+export let intersperse = _.curry((f, [x0, ...xs]) =>
   reduceIndexed((acc, x, i) =>
     i === xs.length
       ? [...acc, x]
-      : [...acc, f(acc, xs.slice(i)), x]
+      : [...acc, callOrReturn(f, acc, xs.slice(i)), x]
   , [x0], xs))
 
-export let intersperse = _.curry((x, array) =>
-  intersperseWith(() => x, array)
-)
-
 export let intersperseGrammar = _.curry((separator, lastSeparator, array) =>
-  intersperseWith((a, bs) => bs.length === 1 ? lastSeparator : separator, array)
+  intersperse((a, bs) => bs.length === 1 ? lastSeparator : separator, array)
 )

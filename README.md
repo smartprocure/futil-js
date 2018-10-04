@@ -199,7 +199,7 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 ### toggleElementBy
 `bool -> value -> list -> newList` Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
 
-### intersperseWith
+### intersperse
 `(f, array) -> array` For each element of the array, it breaks the
 array in two, the first half up to the element before the current
 element and the last half containing the current element and the
@@ -207,10 +207,9 @@ subsequent ones. This two parts are sent to the function `f`. The
 result of the function is added right before the current element of
 the iteration. Produces a new array with the changes.
 
-### intersperse
-`(x, array) => array` Adds the given value `x` as a new element
-between each existing element of the array. Produces a new array with
-the changes.
+If the parameter `f` is not a function, it adds the given value `x` as
+a new element between each existing element of the array. Produces a
+new array with the changes.
 
 ### intersperseGrammar
 `(a, b, array) -> array`, receives two

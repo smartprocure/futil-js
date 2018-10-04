@@ -129,12 +129,10 @@ describe('Array Functions', () => {
     expect(toggleB(true)).to.deep.equal(['a', 'b', 'c', 'b'])
     expect(toggleB(false)).to.deep.equal(['a', 'c'])
   })
-  it('intersperseWith', () => {
-    expect(
-      F.intersperseWith((prev, next) => next.length === 1 ? 'and finally' : 'and', [1, 2, 3])
-    ).to.deep.equal([ 1, 'and', 2, 'and finally', 3])
-  })
   it('intersperse', () => {
+    expect(
+      F.intersperse((prev, next) => next.length === 1 ? 'and finally' : 'and', [1, 2, 3])
+    ).to.deep.equal([ 1, 'and', 2, 'and finally', 3])
     expect(
       F.intersperse('and', [1, 2, 3])
     ).to.deep.equal([ 1, 'and', 2, 'and', 3])
