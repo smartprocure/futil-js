@@ -401,7 +401,7 @@ Maps `_.trim` through all the strings of a given object or array.
 
 Example: `(1, '123', 'hi') -> 'h123i'`
 
-## toSentence
+### toSentence
 `array => string` joins an array into a string. All the initial
 elements are joined with `, `, the last pair is joined with ` and `.
 
