@@ -23,14 +23,11 @@ export let autoLabelOption = a => ({
 })
 export let autoLabelOptions = _.map(autoLabelOption)
 
-export let toSentence = _.flow(
-  intersperse(differentLast(() => ', ', () => ' and ')),
-  _.join('')
-)
-
 export let toSentenceWith = _.curry((x, array) =>
   _.flow(
     intersperse(differentLast(() => ', ', () => x)),
     _.join('')
   )(array)
 )
+
+export let toSentence = toSentenceWith(' and ')

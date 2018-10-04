@@ -65,14 +65,14 @@ describe('String Functions', () => {
       { value: 'bothValueAndLabel', label: 'Custom Label' },
     ])
   })
-  it('toSentence', () => {
-    expect(F.toSentence(['first', 'second', 'third'])).to.equal(
-      'first, second and third'
-    )
-  })
   it('toSentenceWith', () => {
     expect(F.toSentenceWith(' or ', ['first', 'second', 'third'])).to.equal(
       'first, second or third'
+    )
+  })
+  it('toSentence', () => {
+    expect(F.toSentence(['first', 'second', 'third'])).to.equal(
+      'first, second and third'
     )
   })
 })
