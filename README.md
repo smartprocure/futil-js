@@ -73,11 +73,8 @@ Flurry is combo of flow + curry, preserving the arity of the initial function. S
 ## Iterators
 
 ### differentLast
-`(((acc, i, xs) -> a), (acc, i, xs) -> a) -> (acc, i, xs) -> a` used
-to generate an iterator that will answer with the result of the first
-given iterator for all of the properties of the iterated list except
-for the last one, which will be answered with the result of the second
-given iterator.
+`handleItem -> handleLastItem -> iterator` Creates an iterator that handles the last item differently for use in any function that passes `(value, index, list)` (e.g. `mapIndexed`, `eachIndexed`, etc). Both the two handlers and the result are iterator functions that take `(value, index, list)`.
+
 
 ## Logic
 
@@ -390,13 +387,16 @@ Maps `_.trim` through all the strings of a given object or array.
 
 Example: `(1, '123', 'hi') -> 'h123i'`
 
-### toSentenceWith
-`(separator, lastSeparator, array) => string` joins an array into a string. All the initial
-elements are joined with the given `separator`, the last pair is
-joined with the given `lastSeparator`.
-
 ### toSentence
-`array => string` joins an array into a string. All the initial elements are joined with `, `, the last pair is joined with ` and `.
+`array => string` joins an array into a human readable string. See https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
+
+Example: `['a', 'b', 'c'] -> 'a, b and c'`
+
+### toSentenceWith
+`(separator, lastSeparator, array) => string` Just like `toSentence`, but with the ability to override the `separator` and `lastSeparator`
+
+Example: `(' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'`
+
 
 ## Regex
 
