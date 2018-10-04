@@ -70,4 +70,9 @@ describe('String Functions', () => {
       'first, second and third'
     )
   })
+  it('toSentenceWith', () => {
+    expect(F.toSentenceWith(' or ', ['first', 'second', 'third'])).to.equal(
+      'first, second or third'
+    )
+  })
 })

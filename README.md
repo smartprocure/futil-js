@@ -393,6 +393,11 @@ Example: `(1, '123', 'hi') -> 'h123i'`
 ### toSentence
 `array => string` joins an array into a string. All the initial elements are joined with `, `, the last pair is joined with ` and `.
 
+### toSentenceWith
+`(x, array) => string` joins an array into a string. All the initial
+elements are joined with `, `, the last pair is joined with the given
+value `x`.
+
 ## Regex
 
 ### testRegex
