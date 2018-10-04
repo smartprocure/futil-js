@@ -201,10 +201,11 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
 ### intersperseWith
 `(f, array) -> array` For each element of the array, it breaks the
-array in two (the last half containing the current element), then adds
-right before the current element of the array the result of calling
-the given function `f` with both halfs of the array. Produces a new
-array with the changes.
+array in two, the first half up to the element before the current
+element and the last half containing the current element and the
+subsequent ones. This two parts are sent to the function `f`. The
+result of the function is added right before the current element of
+the iteration. Produces a new array with the changes.
 
 ### intersperse
 `(x, array) => array` Adds the given value `x` as a new element
@@ -216,6 +217,34 @@ the changes.
 separators, the first one `a` will be intercalated between all but the
 last two elements of the array, then `b` for the last pair of elements.
 Produces a new array with the changes.
+
+**Note:** All of the intersperse functions can be used with JSX
+components!
+
+Example with words: 
+```
+> F.intersperseGrammar('or', 'or perhaps', ['first', 'second', 'third'])
+['first', 'or', 'second', 'or perhaps', 'third']
+```
+
+Example with React and JSX:
+```
+let results = [1, 2, 3]
+return <div>
+  <b>Results:</b>
+  <br/>
+  {
+    _.flow(
+      _.map(x => <b>{x}</b>),
+      F.intersperseGramar(', ', ' and ')
+    )(results)
+  }
+</div>
+```
+
+Output:
+> **Results:**  
+> **1**, **2** and **3**.
 
 ## Object
 

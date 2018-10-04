@@ -131,7 +131,7 @@ describe('Array Functions', () => {
   })
   it('intersperseWith', () => {
     expect(
-      F.intersperseWith((a, bs) => bs.length === 1 ? 'and finally' : 'and', [1, 2, 3])
+      F.intersperseWith((prev, next) => next.length === 1 ? 'and finally' : 'and', [1, 2, 3])
     ).to.deep.equal([ 1, 'and', 2, 'and finally', 3])
   })
   it('intersperse', () => {
