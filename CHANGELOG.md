@@ -1,3 +1,6 @@
+﻿# 1.55.0
+- Added intersperse, differentLast, toSentence and toSentenceWith.
+
 # 1.54.0
 - Add `domLens` functions: 
   `domLens.value`
@@ -6,7 +9,6 @@
   `domLens.focus`
   `domLens.targetBinding`
   `domLens.binding`
-
 
 # 1.53.0
 - Add `moveIndex`

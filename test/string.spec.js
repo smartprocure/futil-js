@@ -1,30 +1,30 @@
 import chai from 'chai'
-import * as f from '../src'
+import * as F from '../src'
 chai.expect()
 const expect = chai.expect
 
 describe('String Functions', () => {
   it('wrap', () => {
-    expect(f.wrap('(', ')', 'asdf')).to.equal('(asdf)')
-    expect(f.wrap(null, null, 'asdf')).to.equal('asdf')
+    expect(F.wrap('(', ')', 'asdf')).to.equal('(asdf)')
+    expect(F.wrap(null, null, 'asdf')).to.equal('asdf')
   })
   it('quote', () => {
-    expect(f.quote('asdf')).to.equal('"asdf"')
+    expect(F.quote('asdf')).to.equal('"asdf"')
   })
   it('parens', () => {
-    expect(f.parens('asdf')).to.equal('(asdf)')
+    expect(F.parens('asdf')).to.equal('(asdf)')
   })
   it('concatStrings', () => {
     expect(
-      f.concatStrings(['This ', '  is a  ', null, '', 'sentence!'])
+      F.concatStrings(['This ', '  is a  ', null, '', 'sentence!'])
     ).to.equal('This is a sentence!')
   })
   it('trimStrings', () => {
     expect(
-      f.trimStrings(['This ', '  is a  ', null, '', 'sentence!'])
+      F.trimStrings(['This ', '  is a  ', null, '', 'sentence!'])
     ).to.deep.equal(['This', 'is a', null, '', 'sentence!'])
     expect(
-      f.trimStrings({ a: 'a', b: ' b ', c: 'c ', d: ' d', e: 5 })
+      F.trimStrings({ a: 'a', b: ' b ', c: 'c ', d: ' d', e: 5 })
     ).to.deep.equal({ a: 'a', b: 'b', c: 'c', d: 'd', e: 5 })
   })
   it('autoLabel', () => {
@@ -41,20 +41,20 @@ describe('String Functions', () => {
       // Passive aggressive example of how to better auto generate PR titles from branch names...
       ['Feature/AutoLabel#126', 'Feature Auto Label 126'],
     ]
-    f.eachIndexed(
-      ([input, output]) => expect(f.autoLabel(input)).to.equal(output),
+    F.eachIndexed(
+      ([input, output]) => expect(F.autoLabel(input)).to.equal(output),
       tests
     )
   })
   it('autoLabelOption', () => {
-    expect(f.autoLabelOption('someValue')).to.deep.equal({
+    expect(F.autoLabelOption('someValue')).to.deep.equal({
       value: 'someValue',
       label: 'Some Value',
     })
   })
   it('autoLabelOptions', () => {
     expect(
-      f.autoLabelOptions([
+      F.autoLabelOptions([
         'someValue',
         { value: 'justAValue' },
         { value: 'bothValueAndLabel', label: 'Custom Label' },
@@ -64,5 +64,15 @@ describe('String Functions', () => {
       { value: 'justAValue', label: 'Just A Value' },
       { value: 'bothValueAndLabel', label: 'Custom Label' },
     ])
+  })
+  it('toSentenceWith', () => {
+    expect(
+      F.toSentenceWith(' - ', ' or ', ['first', 'second', 'third'])
+    ).to.equal('first - second or third')
+  })
+  it('toSentence', () => {
+    expect(F.toSentence(['first', 'second', 'third'])).to.equal(
+      'first, second and third'
+    )
   })
 })

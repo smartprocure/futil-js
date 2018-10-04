@@ -1,6 +1,7 @@
 import _ from 'lodash/fp'
 import { callOrReturn } from './function'
 import { insertAtIndex } from './collection'
+import { reduceIndexed } from './conversion'
 
 // TODO: Move to proper files and expose
 let callUnless = check => failFn => fn => (x, y) =>
@@ -93,3 +94,12 @@ export let toggleElementBy = _.curry((check, val, arr) =>
   (callOrReturn(check, val, arr) ? _.pull : push)(val, arr)
 )
 export let toggleElement = toggleElementBy(_.includes)
+
+export let intersperse = _.curry((f, [x0, ...xs]) =>
+  reduceIndexed(
+    (acc, x, i) =>
+      i === xs.length ? [...acc, x] : [...acc, callOrReturn(f, acc, i, xs), x],
+    [x0],
+    xs
+  )
+)

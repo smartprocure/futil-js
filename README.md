@@ -1,4 +1,4 @@
-<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
+﻿<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
 
@@ -69,6 +69,12 @@ A `_.debounce` for async functions that ensure the returned promise is resolved 
 ### flurry
 `(f1, f2, ...fn) -> f1Arg1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
 Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
+
+## Iterators
+
+### differentLast
+`handleItem -> handleLastItem -> iterator` Creates an iterator that handles the last item differently for use in any function that passes `(value, index, list)` (e.g. `mapIndexed`, `eachIndexed`, etc). Both the two handlers and the result are iterator functions that take `(value, index, list)`.
+
 
 ## Logic
 
@@ -198,6 +204,36 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
 ### toggleElementBy
 `bool -> value -> list -> newList` Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
+
+### intersperse
+`f -> array -> [array[0], f(), array[n], ....)` Puts the result of calling `f` in between each element of the array. `f` is a standard lodash iterator taking the value, index, and list. If `f` isn't a function, it will treat `f` as the value to intersperse. See https://ramdajs.com/docs/#intersperse.
+
+**Note:** Intersperse can be used with JSX components! Specially with the `differentLast` iterator:
+
+Example with words (toSentence is basically this flowed into a `_.join('')`):
+```
+> F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
+['first', 'or', 'second', 'or perhaps', 'third']
+```
+
+Example with React and JSX:
+```
+let results = [1, 2, 3]
+return <div>
+  <b>Results:</b>
+  <br/>
+  {
+    _.flow(
+      _.map(x => <b>{x}</b>),
+      F.intersperse(F.differentLast(() => ', ', () => ' and '))
+    )(results)
+  }
+</div>
+```
+
+Output:
+> **Results:**  
+> **1**, **2** and **3**.
 
 ## Object
 
@@ -350,6 +386,16 @@ Maps `_.trim` through all the strings of a given object or array.
 `insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
 
 Example: `(1, '123', 'hi') -> 'h123i'`
+
+### toSentence
+`array => string` joins an array into a human readable string. See https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
+
+Example: `['a', 'b', 'c'] -> 'a, b and c'`
+
+### toSentenceWith
+`(separator, lastSeparator, array) => string` Just like `toSentence`, but with the ability to override the `separator` and `lastSeparator`
+
+Example: `(' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'`
 
 
 ## Regex

@@ -12,6 +12,7 @@ export * from './regex'
 export * from './lang'
 export * from './lens'
 export * from './tree'
+export * from './iterators'
 
 import * as conversion from './conversion'
 import * as collection from './collection'
@@ -25,6 +26,7 @@ import * as regex from './regex'
 import * as lang from './lang'
 import * as lens from './lens'
 import * as tree from './tree'
+import * as iterators from './iterators'
 
 // Math
 // ----
@@ -48,6 +50,7 @@ export default {
   ...lang,
   ...lens,
   ...tree,
+  ...iterators,
   greaterThanOne,
   VERSION,
 }

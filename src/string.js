@@ -1,6 +1,8 @@
 import { map } from './collection'
 import _ from 'lodash/fp'
 import { when } from './logic'
+import { intersperse } from './array'
+import { differentLast } from './iterators'
 
 export const wrap = (pre, post, content) =>
   (pre || '') + content + (post || pre || '')
@@ -20,3 +22,12 @@ export let autoLabelOption = a => ({
   label: a.label || autoLabel(a.value || a),
 })
 export let autoLabelOptions = _.map(autoLabelOption)
+
+export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
+  _.flow(
+    intersperse(differentLast(() => separator, () => lastSeparator)),
+    _.join('')
+  )(array)
+)
+
+export let toSentence = toSentenceWith(', ', ' and ')
