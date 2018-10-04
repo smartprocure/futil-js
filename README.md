@@ -209,19 +209,11 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 `bool -> value -> list -> newList` Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
 
 ### intersperse
-`(f, array) -> array` The function `f` is treated as an iterator, so
-it will receive the accumulator, the current index and the full array.
-The result of the function is added right before the current element
-of the iteration. Produces a new array with the changes.
+`f -> array -> [array[0], f(), array[n], ....)` Puts the result of calling `f` in between each element of the array. `f` is a standard lodash iterator taking the value, index, and list. If `f` isn't a function, it will treat `f` as the value to intersperse. See https://ramdajs.com/docs/#intersperse.
 
-If the parameter `f` is not a function, it adds the given value `x` as
-a new element between each existing element of the array. Produces a
-new array with the changes.
+**Note:** Intersperse can be used with JSX components! Specially with the `differentLast` iterator:
 
-**Note:** Intersperse can be used with JSX components! Specially with
-the `differentLast` iterator:
-
-Example with words:
+Example with words (toSentence is basically this flowed into a `_.join('')`):
 ```
 > F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
 ['first', 'or', 'second', 'or perhaps', 'third']
@@ -399,8 +391,7 @@ Maps `_.trim` through all the strings of a given object or array.
 Example: `(1, '123', 'hi') -> 'h123i'`
 
 ### toSentence
-`array => string` joins an array into a string. All the initial
-elements are joined with `, `, the last pair is joined with ` and `.
+`array => string` joins an array into a string. All the initial elements are joined with `, `, the last pair is joined with ` and `.
 
 ## Regex
 
