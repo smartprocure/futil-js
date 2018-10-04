@@ -1,5 +1,5 @@
 # 1.55.0
-- Added intercalateWith, intercalate, intercalateGrammar and toSentence.
+- Added intersperseWith, intersperse, intersperseGrammar and toSentence.
 
 # 1.54.0
 - Add `domLens` functions: 

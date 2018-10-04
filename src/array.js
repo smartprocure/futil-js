@@ -95,17 +95,17 @@ export let toggleElementBy = _.curry((check, val, arr) =>
 )
 export let toggleElement = toggleElementBy(_.includes)
 
-export let intercalateWith = _.curry((f, [x0, ...xs]) =>
+export let intersperseWith = _.curry((f, [x0, ...xs]) =>
   reduceIndexed((acc, x, i) =>
     i === xs.length
       ? [...acc, x]
       : [...acc, f(acc, xs.slice(i)), x]
   , [x0], xs))
 
-export let intercalate = _.curry((x, array) =>
-  intercalateWith(() => x, array)
+export let intersperse = _.curry((x, array) =>
+  intersperseWith(() => x, array)
 )
 
-export let intercalateGrammar = _.curry((separator, lastSeparator, array) =>
-  intercalateWith((a, bs) => bs.length === 1 ? lastSeparator : separator, array)
+export let intersperseGrammar = _.curry((separator, lastSeparator, array) =>
+  intersperseWith((a, bs) => bs.length === 1 ? lastSeparator : separator, array)
 )
