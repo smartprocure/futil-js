@@ -66,8 +66,8 @@ describe('String Functions', () => {
     ])
   })
   it('toSentence', () => {
-    expect(
-      F.toSentence(['first', 'second', 'third'])
-    ).to.equal('first, second and third')
+    expect(F.toSentence(['first', 'second', 'third'])).to.equal(
+      'first, second and third'
+    )
   })
 })

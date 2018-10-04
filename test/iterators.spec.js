@@ -5,6 +5,12 @@ const expect = chai.expect
 
 describe('Iterator Generators', () => {
   it('differentLast', () => {
-    expect(F.mapIndexed(F.differentLast('a', 'b'), [{a:1, b:2}, {a:1, b:2}, {a:1, b:2}])).to.eql([1, 1, 2])
+    expect(
+      F.mapIndexed(F.differentLast('a', 'b'), [
+        { a: 1, b: 2 },
+        { a: 1, b: 2 },
+        { a: 1, b: 2 },
+      ])
+    ).to.eql([1, 1, 2])
   })
 })
