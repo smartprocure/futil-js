@@ -1,5 +1,14 @@
-﻿# 1.54.0
+# 1.55.0
 - Added intercalateWith, intercalate, intercalateGrammar and toSentence.
+
+# 1.54.0
+- Add `domLens` functions: 
+  `domLens.value`
+  `domLens.checkboxValues`
+  `domLens.hover`
+  `domLens.focus`
+  `domLens.targetBinding`
+  `domLens.binding`
 
 # 1.53.0
 - Add `moveIndex`
