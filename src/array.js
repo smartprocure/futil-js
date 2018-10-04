@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import { callOrReturn } from './function'
 import { insertAtIndex } from './collection'
-import { mapIndexed } from './conversion'
+import { reduceIndexed } from './conversion'
 
 // TODO: Move to proper files and expose
 let callUnless = check => failFn => fn => (x, y) =>
@@ -95,9 +95,17 @@ export let toggleElementBy = _.curry((check, val, arr) =>
 )
 export let toggleElement = toggleElementBy(_.includes)
 
-export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
-  _.flow(
-    mapIndexed((x, i) => [x, i === array.length - 1 ? null : i === array.length - 2 ? lastSeparator : separator]),
-    _.flatten,
-    _.compact,
-  )(array))
+export let intercalateWith = _.curry((f, [x0, ...xs]) =>
+  reduceIndexed((acc, x, i) =>
+    i === xs.length
+      ? [...acc, x]
+      : [...acc, f(acc, xs.slice(i)), x]
+  , [x0], xs))
+
+export let intercalate = _.curry((x, array) =>
+  intercalateWith(() => x, array)
+)
+
+export let intercalateGrammar = _.curry((separator, lastSeparator, array) =>
+  intercalateWith((a, bs) => bs.length === 1 ? lastSeparator : separator, array)
+)

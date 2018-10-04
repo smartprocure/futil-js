@@ -129,9 +129,19 @@ describe('Array Functions', () => {
     expect(toggleB(true)).to.deep.equal(['a', 'b', 'c', 'b'])
     expect(toggleB(false)).to.deep.equal(['a', 'c'])
   })
-  it('toSentenceWith', () => {
+  it('intercalateWith', () => {
     expect(
-      F.toSentenceWith('or', 'or perhaps', ['first', 'second', 'third'])
+      F.intercalateWith((a, bs) => bs.length === 1 ? 'and finally' : 'and', [1, 2, 3])
+    ).to.deep.equal([ 1, 'and', 2, 'and finally', 3])
+  })
+  it('intercalate', () => {
+    expect(
+      F.intercalate('and', [1, 2, 3])
+    ).to.deep.equal([ 1, 'and', 2, 'and', 3])
+  })
+  it('intercalateGrammar', () => {
+    expect(
+      F.intercalateGrammar('or', 'or perhaps', ['first', 'second', 'third'])
     ).to.deep.equal(['first', 'or', 'second', 'or perhaps', 'third'])
   })
 })

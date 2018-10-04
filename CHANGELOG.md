@@ -1,5 +1,5 @@
 ﻿# 1.54.0
-- Added toSentenceWith and toSentence.
+- Added intercalateWith, intercalate, intercalateGrammar and toSentence.
 
 # 1.53.0
 - Add `moveIndex`

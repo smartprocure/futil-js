@@ -199,10 +199,23 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 ### toggleElementBy
 `bool -> value -> list -> newList` Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
 
-### toSentenceWith
-`(separator, lastSeparator, array) -> array`, receives two
-separators, `separator` for the initial part of the given array,
-`lastSeparator` connector `b` for the last pair of the array.
+### intercalateWith
+`(f, array) -> array` For each element of the array, it breaks the
+array in two (the last half containing the current element), then adds
+right before the current element of the array the result of calling
+the given function `f` with both halfs of the array. Produces a new
+array with the changes.
+
+### intercalate
+`(x, array) => array` Adds the given value `x` as a new element
+between each existing element of the array. Produces a new array with
+the changes.
+
+### intercalateGrammar
+`(a, b, array) -> array`, receives two
+separators, the first one `a` will be intercalated between all but the
+last two elements of the array, then `b` for the last pair of elements.
+Produces a new array with the changes.
 
 ## Object
 
