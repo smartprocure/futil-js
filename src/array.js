@@ -1,4 +1,7 @@
 import _ from 'lodash/fp'
+import { callOrReturn } from './function'
+import { insertAtIndex } from './collection'
+import { reduceIndexed } from './conversion'
 
 // TODO: Move to proper files and expose
 let callUnless = check => failFn => fn => (x, y) =>
@@ -11,30 +14,34 @@ let last = _.takeRight(1)
 
 // Arrays
 // ------
-export const compactJoin = _.curry((join, x) => _.compact(x).join(join))
-export const dotJoin = compactJoin('.')
-export const dotJoinWith = fn => x => _.filter(fn, x).join('.')
-export const repeated = _.flow(
+export let compactJoin = _.curry((join, x) => _.compact(x).join(join))
+export let dotJoin = compactJoin('.')
+export let dotJoinWith = fn => x => _.filter(fn, x).join('.')
+export let repeated = _.flow(
   _.groupBy(e => e),
   _.filter(e => e.length > 1),
   _.flatten,
   _.uniq
 )
-export const push = _.curry((val, arr) => arr.concat([val]))
-export const pushIn = _.curry((arr, val) => arr.concat([val]))
-export const pushOn = _.curry((arr, val) => {
+export let push = _.curry((val, arr) => arr.concat([val]))
+export let pushIn = _.curry((arr, val) => arr.concat([val]))
+export let pushOn = _.curry((arr, val) => {
   arr.push(val)
   return arr
 })
-export const insertAtIndex = (index, val, str) =>
-  str.slice(0, index) + val + str.slice(index)
+
+export let moveIndex = (from, to, arr) =>
+  _.flow(
+    _.pullAt(from),
+    insertAtIndex(to, arr[from])
+  )(arr)
 
 let overlaps = (x, y) => y[0] > x[1]
 let mergeRange = (x, y) => [[x[0], _.max(x.concat(y))]]
 let actuallMergeRanges = callUnlessEmptyArray(
   (x, y) => (overlaps(x, y) ? [x, y] : mergeRange(x, y))
 )
-export const mergeRanges = _.flow(
+export let mergeRanges = _.flow(
   _.sortBy([0, 1]),
   _.reduce(
     (result, range) =>
@@ -46,9 +53,9 @@ export const mergeRanges = _.flow(
 )
 
 // [a, b...] -> a -> b
-export const cycle = _.curry((a, n) => a[(a.indexOf(n) + 1) % a.length])
+export let cycle = _.curry((a, n) => a[(a.indexOf(n) + 1) % a.length])
 
-export const arrayToObject = _.curry((k, v, a) =>
+export let arrayToObject = _.curry((k, v, a) =>
   _.flow(
     _.keyBy(k),
     _.mapValues(v)
@@ -56,13 +63,13 @@ export const arrayToObject = _.curry((k, v, a) =>
 )
 
 // zipObject that supports functions instead of objects
-export const zipObjectDeepWith = _.curry((x, y) =>
+export let zipObjectDeepWith = _.curry((x, y) =>
   _.zipObjectDeep(x, _.isFunction(y) && _.isArray(x) ? _.times(y, x.length) : y)
 )
 
-export const flags = zipObjectDeepWith(_, () => true)
+export let flags = zipObjectDeepWith(_, () => true)
 
-export const prefixes = list =>
+export let prefixes = list =>
   _.range(1, _.size(list) + 1).map(x => _.take(x, list))
 
 export let encoder = separator => ({
@@ -71,3 +78,28 @@ export let encoder = separator => ({
 })
 export let dotEncoder = encoder('.')
 export let slashEncoder = encoder('/')
+
+export let chunkBy = _.curry((f, array) =>
+  _.reduce(
+    (acc, x) =>
+      f(_.last(acc), x)
+        ? [..._.initial(acc), [..._.last(acc), x]]
+        : [...acc, [x]],
+    [[_.head(array)]],
+    _.tail(array)
+  )
+)
+
+export let toggleElementBy = _.curry((check, val, arr) =>
+  (callOrReturn(check, val, arr) ? _.pull : push)(val, arr)
+)
+export let toggleElement = toggleElementBy(_.includes)
+
+export let intersperse = _.curry((f, [x0, ...xs]) =>
+  reduceIndexed(
+    (acc, x, i) =>
+      i === xs.length ? [...acc, x] : [...acc, callOrReturn(f, acc, i, xs), x],
+    [x0],
+    xs
+  )
+)

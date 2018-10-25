@@ -1,4 +1,37 @@
-﻿# 1.49.0
+﻿# 1.55.0
+- Added intersperse, differentLast, toSentence and toSentenceWith.
+
+# 1.54.0
+- Add `domLens` functions: 
+  `domLens.value`
+  `domLens.checkboxValues`
+  `domLens.hover`
+  `domLens.focus`
+  `domLens.targetBinding`
+  `domLens.binding`
+
+# 1.53.0
+- Add `moveIndex`
+- Add `toggleElement`
+- Add `toggleElementBy`
+- Add `setsWith`
+- Add `includeLens`
+- Make `insertAtIndex` support arrays and strings
+
+# 1.52.0
+- Add a default export with all methods to support `import F` instead of `import * as F`
+- Also publish as `futil`!
+
+# 1.51.0
+- Added `_.iteratee` support to `findApply`
+
+# 1.50.0
+- Added `chunkBy`.
+
+# 1.49.1
+- Upgraded several dependencies.
+
+# 1.49.0
 - Fixed a webpack global variable issue.
 
 # 1.48.0

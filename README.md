@@ -1,4 +1,4 @@
-<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
+﻿<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
 
@@ -25,16 +25,19 @@ https://smartprocure.github.io/futil-js/
 See our [changelog](https://github.com/smartprocure/futil-js/blob/master/CHANGELOG.md)
 
 # Installing
+`npm i -S futil`
+or
 `npm i -S futil-js`
+
 
 This package requires `lodash/fp`, so make sure that's available in your app.
 
 # Usage
-`import * as f from futil-js`
+`import * as F from futil`
 or
-`import {x,y,z} from futil-js`
-
-The syntax: `import f from futil-js` is not currently supported.
+`import F from futil`
+or
+`import {x,y,z} from futil`
 
 # API
 
@@ -67,6 +70,12 @@ A `_.debounce` for async functions that ensure the returned promise is resolved 
 `(f1, f2, ...fn) -> f1Arg1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
 Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 
+## Iterators
+
+### differentLast
+`handleItem -> handleLastItem -> iterator` Creates an iterator that handles the last item differently for use in any function that passes `(value, index, list)` (e.g. `mapIndexed`, `eachIndexed`, etc). Both the two handlers and the result are iterator functions that take `(value, index, list)`.
+
+
 ## Logic
 
 ### overNone
@@ -98,6 +107,10 @@ http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 ### findApply
 `f -> x -> f(find(f, x))`
 A version of `find` that also applies the predicate function to the result. Useful when you have an existing function that you want to apply to a member of a collection that you can best find by applying the same function.
+
+### insertAtIndex
+`(index, val, array|string) -> array|string` Inserts value into an array or string at `index`
+
 
 ## Collection Algebras or composable/recursive data types
 
@@ -150,13 +163,11 @@ Any method with uncapped iteratee arguments will use the `Indexed` convention.
 
 Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
 
-### insertAtIndex
-`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
-
-Example: `(1, '123', 'hi') -> 'h123i'`
-
 ### push
 `(val, array) -> array` Return `array` with `val` pushed.
+
+### moveIndex
+`(from, to, array) -> array` Moves a value from one index to another
 
 ### cycle
 `[a, b...] -> a -> b` Creates a function that takes an element of the original array as argument and returns the next element in the array (with wrapping). Note that (1) This will return the first element of the array for any argument not in the array and (2) due to the behavior of `_.curry` the created function will return a function equivalent to itself if called with no argument.
@@ -182,6 +193,47 @@ A version of `_.zipObjectDeep` that supports passing a function to determine val
 #### slashEncoder
 `{ encode: ['a', 'b'] -> 'a/b', decode: 'a/b' -> ['a', 'b'] }` An encoder using `/` as the separator
 
+### chunkBy
+`((a, a) -> Boolean) -> [a] -> [[a]]` Returns an array of
+arrays, where each one of the arrays has one or more elements of the
+original array, grouped by the first function received. Similar to
+Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
+
+### toggleElement
+`(any, array) -> array` Removes an element from an array if it's included in the array, or pushes it in if it doesn't. Immutable (so it's a clone of the array).
+
+### toggleElementBy
+`bool -> value -> list -> newList` Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
+
+### intersperse
+`f -> array -> [array[0], f(), array[n], ....)` Puts the result of calling `f` in between each element of the array. `f` is a standard lodash iterator taking the value, index, and list. If `f` isn't a function, it will treat `f` as the value to intersperse. See https://ramdajs.com/docs/#intersperse.
+
+**Note:** Intersperse can be used with JSX components! Specially with the `differentLast` iterator:
+
+Example with words (toSentence is basically this flowed into a `_.join('')`):
+```
+> F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
+['first', 'or', 'second', 'or perhaps', 'third']
+```
+
+Example with React and JSX:
+```
+let results = [1, 2, 3]
+return <div>
+  <b>Results:</b>
+  <br/>
+  {
+    _.flow(
+      _.map(x => <b>{x}</b>),
+      F.intersperse(F.differentLast(() => ', ', () => ' and '))
+    )(results)
+  }
+</div>
+```
+
+Output:
+> **Results:**  
+> **1**, **2** and **3**.
 
 ## Object
 
@@ -330,6 +382,21 @@ Maps `_.trim` through all the strings of a given object or array.
 ### autoLabelOptions
 `[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
+### insertAtIndex
+`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
+
+Example: `(1, '123', 'hi') -> 'h123i'`
+
+### toSentence
+`array => string` joins an array into a human readable string. See https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
+
+Example: `['a', 'b', 'c'] -> 'a, b and c'`
+
+### toSentenceWith
+`(separator, lastSeparator, array) => string` Just like `toSentence`, but with the ability to override the `separator` and `lastSeparator`
+
+Example: `(' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'`
+
 
 ## Regex
 
@@ -434,9 +501,12 @@ This the main way you'll generally interact with the lens API
 `propertyName -> object -> { get: () -> object.propertyName, set: propertyValue -> object.propertyName }`
 Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path. Supports deep paths like lodash get/set.
 
-
 #### lensOf
 Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`.
+
+#### includeLens
+`value -> arrayLens -> includeLens`
+An include lens represents membership of a value in a set. It's view and set functions allow you to read _and_ set a boolean value for whether or not a value is in an array. If you change to true or false, it will set the underlying array lens with a new array either without the value or with it pushed at the end.
 
 ### Lens Manipulation
 *Note*: As of version 1.37, any manipulation function that takes a lens can also drop in a key and target object for an implicit lensProp conversion (e.g. you can do `view(key, obj)` instead of just `view(lens)`)
@@ -456,6 +526,9 @@ Sets the value of the lens, regardless of if it's a function or object lens
 #### sets
 Creates a function that will set a lens with the provided value
 
+#### setsWith
+Takes an iteratee and lens and creates a function that will set a lens with the result of calling the iteratee with the provided value
+
 #### flip
 Takes a lens and negates its value
 
@@ -464,6 +537,28 @@ Returns a function that will set a lens to `true`
 
 #### off
 Returns a function that will set a lens to `false`
+
+### Lens Consumption - DomLens
+
+To help illustrate the potential use cases of the power of lenses, these are some functions that consume lenses in useful ways that are relevant in a DOM context including raw js, react, etc. They are pure functions, have no external dependencies, and are generally trivial - but hopefully they illustrate some interesting use cases.
+
+#### domLens.value
+`lens -> {value, onChange}` Takes a lens and returns a value/onChange pair that views/sets the lens appropriately. `onChange` sets with `e.target.value`
+
+#### domLens.checkboxValues
+`(value, lens) -> {checked, onChange}` Creates an includeLens and maps view to checked and set to `onChange` (set with `e.target.checked`)
+
+#### domLens.hover
+`lens -> { onMouseOver, onMouseOut }` Takes a lens and returns on onMouseOver which calls `on` on the lens and onMouseOut which calls `off`. Models a mapping of "hovering" to a boolean.
+
+#### domLens.focus
+`lens -> { onFocus, onBlur }` Takes a lens and returns on onFocus which calls `on` on the lens and onBlur which calls `off`. Models a mapping of "focusing" to a boolean.
+
+#### domLens.targetBinding
+`field -> lens -> {[field], onChange}` Utility for building lens consumers like `value` and `checkboxValues`
+
+#### domLens.binding
+`(field, getValue) -> lens -> {[field], onChange}` Even more generic utility than targetBinding which uses `getEventValue` to as the function for a setsWith which is mapped to `onChange`.
 
 
 ## Aspect
