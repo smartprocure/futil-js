@@ -18,8 +18,8 @@ export const trimStrings = map(when(_.isString, _.trim))
 // _.startCase does the trick, deprecate it!
 export let autoLabel = _.startCase
 export let autoLabelOption = a => ({
-  value: a.value || a,
-  label: a.label || autoLabel(a.value || a),
+  value: when(_.isUndefined, a)(a.value),
+  label: a.label || autoLabel(when(_.isUndefined, a)(a.value)),
 })
 export let autoLabelOptions = _.map(autoLabelOption)
 

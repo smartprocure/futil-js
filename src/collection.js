@@ -23,9 +23,8 @@ let insertAtArrayIndex = (index, val, arr) => {
   result.splice(index, 0, val)
   return result
 }
-export let insertAtIndex = _.curry(
-  (index, val, collection) =>
-    _.isString(collection)
-      ? insertAtStringIndex(index, val, collection)
-      : insertAtArrayIndex(index, val, collection)
+export let insertAtIndex = _.curry((index, val, collection) =>
+  _.isString(collection)
+    ? insertAtStringIndex(index, val, collection)
+    : insertAtArrayIndex(index, val, collection)
 )

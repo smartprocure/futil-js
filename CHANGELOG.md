@@ -1,4 +1,7 @@
-﻿# 1.55.0
+﻿# 1.55.1
+- Fix issue with autoLabelOption not accepting correctly falsy values as valid options
+
+# 1.55.0
 - Added intersperse, differentLast, toSentence and toSentenceWith.
 
 # 1.54.0

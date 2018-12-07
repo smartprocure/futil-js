@@ -38,8 +38,8 @@ export let moveIndex = (from, to, arr) =>
 
 let overlaps = (x, y) => y[0] > x[1]
 let mergeRange = (x, y) => [[x[0], _.max(x.concat(y))]]
-let actuallMergeRanges = callUnlessEmptyArray(
-  (x, y) => (overlaps(x, y) ? [x, y] : mergeRange(x, y))
+let actuallMergeRanges = callUnlessEmptyArray((x, y) =>
+  overlaps(x, y) ? [x, y] : mergeRange(x, y)
 )
 export let mergeRanges = _.flow(
   _.sortBy([0, 1]),
