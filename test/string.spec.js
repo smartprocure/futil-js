@@ -55,11 +55,13 @@ describe('String Functions', () => {
   it('autoLabelOptions', () => {
     expect(
       F.autoLabelOptions([
+        { value: '', label: 'Empty String Value' },
         'someValue',
         { value: 'justAValue' },
         { value: 'bothValueAndLabel', label: 'Custom Label' },
       ])
     ).to.deep.equal([
+      { value: '', label: 'Empty String Value' },
       { value: 'someValue', label: 'Some Value' },
       { value: 'justAValue', label: 'Just A Value' },
       { value: 'bothValueAndLabel', label: 'Custom Label' },
