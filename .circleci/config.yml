@@ -32,7 +32,7 @@ jobs:
           timeout: 240
       - run:
           name: pre-danger
-          command: git config user.email "decrapifier@govspend.com" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH && npm install danger
+          command: git config user.email "decrapifier@govspend.com" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH
           when: always
       - run:
           name: danger
