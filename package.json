@@ -28,6 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "danger": "^8.0.0",
     "lodash": "^4.17.4"
   },
   "babel": {
