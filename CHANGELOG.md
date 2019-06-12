@@ -1,4 +1,4 @@
-﻿# 1.55.2
+﻿# 1.56.0
 - New lens helper for React users: `stateLens`
 
 # 1.55.1
