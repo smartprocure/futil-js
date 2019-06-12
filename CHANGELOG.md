@@ -1,4 +1,7 @@
-﻿# 1.55.1
+﻿# 1.55.2
+- New lens helper for React users: `stateLens`
+
+# 1.55.1
 - Fix issue with autoLabelOption not accepting correctly falsy values as valid options
 
 # 1.55.0

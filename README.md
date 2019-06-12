@@ -560,6 +560,10 @@ To help illustrate the potential use cases of the power of lenses, these are som
 #### domLens.binding
 `(field, getValue) -> lens -> {[field], onChange}` Even more generic utility than targetBinding which uses `getEventValue` to as the function for a setsWith which is mapped to `onChange`.
 
+### Lens Utils
+
+#### stateLens
+`([value, setValue]) -> lens` Given the popularity of React, we decided to include this little helper that converts a `useState` hook call to a lens. Ex: `let lens = stateLens(useState(false))`.
 
 ## Aspect
 Aspects provide a functional oriented implementation of Aspect Oriented Programming.
