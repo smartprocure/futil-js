@@ -91,3 +91,5 @@ export let domLens = {
   targetBinding,
   binding,
 }
+
+export let stateLens = ([value, set]) => ({ get: () => value, set })

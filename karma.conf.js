@@ -269,14 +269,6 @@ let customLaunchers = {
     deviceName: 'iPad Pro (9.7 inch) Simulator',
     deviceOrientation: 'portrait',
   },
-  sl_android_44: {
-    base: 'SauceLabs',
-    browserName: 'android',
-    version: '4.4',
-    deviceName: 'Android Emulator',
-    deviceType: 'phone',
-    deviceOrientation: 'portrait',
-  },
   sl_android_51: {
     base: 'SauceLabs',
     browserName: 'android',
