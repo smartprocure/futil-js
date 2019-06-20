@@ -210,12 +210,6 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
 **Note:** Intersperse can be used with JSX components! Specially with the `differentLast` iterator:
 
-### replaceElementBy
-`(fn(array_element), value, array) -> array` Replaces an element in an array with `value` based on the boolean result of a function `fn`.
-
-### replaceElement
-`(a, b, array) -> array` Replaces all elements equal to `a` in an array with `b`.
-
 Example with words (toSentence is basically this flowed into a `_.join('')`):
 ```
 > F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
@@ -240,6 +234,12 @@ return <div>
 Output:
 > **Results:**  
 > **1**, **2** and **3**.
+
+### replaceElementBy
+`(fn(array_element), value, array) -> array` Replaces an element in an array with `value` based on the boolean result of a function `fn`.
+
+### replaceElement
+`(a, b, array) -> array` Replaces all elements equal to `a` in an array with `b`.
 
 ## Object
 

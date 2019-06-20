@@ -1,4 +1,4 @@
-﻿# 1.56.1
+﻿# 1.57.0
 - Added new `object` functions:
     `omitNil`
     `omitNull`
