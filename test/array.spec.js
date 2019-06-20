@@ -146,12 +146,13 @@ describe('Array Functions', () => {
   })
   it('replaceElementBy', () => {
     expect(F.replaceElementBy(c => c > 10, 0, [1, 11, 3, 5])).to.deep.equal([
-      1, 0, 3, 5
+      1,
+      0,
+      3,
+      5,
     ])
   })
   it('replaceElement', () => {
-    expect(F.replaceElement(11, 0, [1, 11, 3, 5])).to.deep.equal([
-      1, 0, 3, 5
-    ])
+    expect(F.replaceElement(11, 0, [1, 11, 3, 5])).to.deep.equal([1, 0, 3, 5])
   })
 })
