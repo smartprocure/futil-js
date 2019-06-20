@@ -1,4 +1,15 @@
-﻿# 1.56.0
+﻿# 1.56.1
+- Added new `object` functions:
+    `omitNil`
+    `omitNull`
+    `omitBlank`
+    `omitEmpty`
+
+- Added new `array` functions:
+    `replaceElementBy`
+    `replaceElement`
+
+# 1.56.0
 - New lens helper for React users: `stateLens`
 
 # 1.55.1

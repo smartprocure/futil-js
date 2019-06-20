@@ -559,4 +559,32 @@ describe('Object Functions', () => {
       },
     })
   })
+  it('omitNil', () => {
+    expect(F.omitNil({ a: 1, b: 'c', d: null, e: undefined })).to.deep.equal({
+      a: 1,
+      b: 'c',
+    })
+  })
+  it('omitNull', () => {
+    expect(F.omitNull({ a: 1, b: 'c', d: null, e: undefined })).to.deep.equal({
+      a: 1,
+      b: 'c',
+      e: undefined,
+    })
+  })
+  it('omitBlank', () => {
+    expect(
+      F.omitBlank({ a: 1, b: 'c', d: null, e: undefined, f: [], g: {}, h: '' })
+    ).to.deep.equal({
+      a: 1,
+      b: 'c',
+    })
+  })
+  it('omitEmpty', () => {
+    expect(
+      F.omitEmpty({ a: 1, b: 'c', d: null, e: undefined, f: [], g: {}, h: '' })
+    ).to.deep.equal({
+      b: 'c',
+    })
+  })
 })

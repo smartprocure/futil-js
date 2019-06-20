@@ -210,6 +210,12 @@ Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
 **Note:** Intersperse can be used with JSX components! Specially with the `differentLast` iterator:
 
+### replaceElementBy
+`(fn(array_element), value, array) -> array` Replaces an element in an array with `value` based on the boolean result of a function `fn`.
+
+### replaceElement
+`(a, b, array) -> array` Replaces all elements equal to `a` in an array with `b`.
+
 Example with words (toSentence is basically this flowed into a `_.join('')`):
 ```
 > F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
@@ -364,6 +370,18 @@ Like `_.mergeAll`, but concats arrays instead of replacing. This is basically th
 
 ### stampKey
 `key -> { a: { x: 1 }, b: { y: 2 } } -> { a: { x: 1, key: 'a' }, b: { y: 2, key: 'b' } }` Iterates over object properties and stamps their keys on the values in the field name provided.
+
+### omitNil
+`_.omitBy` using `_.isNil` as function argument.
+
+### omitNull 
+`_.omitBy` using `_.isNull` as function argument.
+
+### omitBlank
+`_.omitBy` using `F.isBlank` as function argument.
+
+### omitEmpty
+`_.omitBy` using `_.isEmpty` as function argument.
 
 ## String
 
