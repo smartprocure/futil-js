@@ -239,7 +239,7 @@ Output:
 `(fn(array_element), value, array) -> array` Replaces an element in an array with `value` based on the boolean result of a function `fn`.
 
 ### replaceElement
-`(a, b, array) -> array` Replaces all elements equal to `a` in an array with `b`.
+`(target, value, array) -> array` Replaces all elements equal to `target` in an array with `value`.
 
 ## Object
 
