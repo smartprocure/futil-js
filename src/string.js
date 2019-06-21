@@ -58,7 +58,7 @@ export let uniqueStringHash = (hash = {}) => {
   }
   f.hash = hash
   f.clear = key => {
-    hash[key].clear()
+    hash[key] && hash[key].clear()
   }
   f.remove = key => {
     delete hash[key]
