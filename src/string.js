@@ -40,20 +40,27 @@ export let uniqueString = (cache = {}) => {
     return result
   }
   f.cache = cache
+  f.clear = () => {
+    cache = {}
+    f.cache = cache
+  }
   return f
 }
 
 export let uniqueStringHash = (hash = {}) => {
-  let f = key => {
+  let f = (key, str) => {
     if (!hash[key]) {
       let u = uniqueString({})
       u.hash = hash
       hash[key] = u
     }
-    return hash[key]
+    return str ? hash[key](str) : hash[key]
   }
   f.hash = hash
-  f.clear = (key) => {
+  f.clear = key => {
+    hash[key].clear()
+  }
+  f.remove = key => {
     delete hash[key]
   }
   return f
