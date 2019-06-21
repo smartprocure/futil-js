@@ -81,15 +81,33 @@ describe('String Functions', () => {
   it('uniqueString', () => {
     let dedupe = F.uniqueString()
     expect(dedupe.cache).to.deep.equal({})
-    expect(_.map(dedupe, _.times(() => 'foo', 5))).to.deep.equal(['foo', 'foo1', 'foo2', 'foo3', 'foo4'])
-    expect(dedupe.cache).to.deep.equal({foo: 5, foo1: 1, foo2: 1, foo3: 1, foo4: 1})
+    expect(_.map(dedupe, _.times(() => 'foo', 5))).to.deep.equal([
+      'foo',
+      'foo1',
+      'foo2',
+      'foo3',
+      'foo4',
+    ])
+    expect(dedupe.cache).to.deep.equal({
+      foo: 5,
+      foo1: 1,
+      foo2: 1,
+      foo3: 1,
+      foo4: 1,
+    })
     expect(F.uniqueString(dedupe.cache)('foo')).to.equal('foo5')
     // should cache result strings to avoid conflicts with user-specified strings that
     // would have matched a uniqueString result
-    let badFoos = [ 'foo', 'foo1', 'foo', 'foo2', 'foo', 'foo3', 'foo' ]
-    expect(_.map(F.uniqueString(), badFoos)).to.deep.equal(
-      ["foo", "foo1", "foo2", "foo21", "foo3", "foo31", "foo4"]
-    )
+    let badFoos = ['foo', 'foo1', 'foo', 'foo2', 'foo', 'foo3', 'foo']
+    expect(_.map(F.uniqueString(), badFoos)).to.deep.equal([
+      'foo',
+      'foo1',
+      'foo2',
+      'foo21',
+      'foo3',
+      'foo31',
+      'foo4',
+    ])
     let text = _.words(`
       Creates a function that invokes func with the arguments of the created function. If
       func is a property name, the created function returns the property value for a given
@@ -106,14 +124,22 @@ describe('String Functions', () => {
   it('uniquStringHash', () => {
     let uniqueFrom = F.uniqueStringHash()
     expect(uniqueFrom('foo').cache).to.deep.equal({})
-    expect(_.map(uniqueFrom('foo'), _.times(() => 'foo', 3))).to.deep.equal(['foo', 'foo1', 'foo2'])
+    expect(_.map(uniqueFrom('foo'), _.times(() => 'foo', 3))).to.deep.equal([
+      'foo',
+      'foo1',
+      'foo2',
+    ])
     // should work non-curried
     expect(uniqueFrom('foo', 'foo')).to.equal('foo3')
     expect(uniqueFrom.hash.foo.cache).to.deep.equal(uniqueFrom('foo').cache)
     expect(F.uniqueString(uniqueFrom('foo').cache)('foo2')).to.equal('foo21')
     // keys should maintain their own caches
     let bar = uniqueFrom('bar')
-    expect(_.map(bar, ['foo', 'foo', 'foo1'])).to.deep.equal(['foo', 'foo1', 'foo11'])
+    expect(_.map(bar, ['foo', 'foo', 'foo1'])).to.deep.equal([
+      'foo',
+      'foo1',
+      'foo11',
+    ])
     // hash properties passed to uniqueString functions should update
     expect(uniqueFrom('foo').hash.bar.cache).to.deep.equal(bar.cache)
     // a new uniqueStringHash should initializes a fresh hash
@@ -124,7 +150,7 @@ describe('String Functions', () => {
     uniqueFrom.clear('bar')
     expect(bar.cache).to.deep.equal({})
     bar('bar')
-    expect(uniqueFrom('bar').cache).to.deep.equal({bar: 1})
+    expect(uniqueFrom('bar').cache).to.deep.equal({ bar: 1 })
     // clearing a key should not affect other keys
     expect(uniqueFrom('foo').cache).to.deep.equal(fooCache)
     // removing should remove the hash key but not clear the uniqueString cache
