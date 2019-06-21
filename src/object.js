@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import { dotJoinWith, zipObjectDeepWith } from './array'
 import { overNone } from './logic'
-import { isNotNil } from './lang'
+import { isNotNil, isBlank } from './lang'
 import {
   reduceIndexed,
   pickIn,
@@ -179,3 +179,8 @@ export let invertByArray = _.flow(
 export const stampKey = _.curry((key, x) =>
   mapValuesIndexed((val, k) => ({ ...val, [key]: k }), x)
 )
+
+export let omitNil = x => _.omitBy(_.isNil, x)
+export let omitNull = x => _.omitBy(_.isNull, x)
+export let omitBlank = x => _.omitBy(isBlank, x)
+export let omitEmpty = x => _.omitBy(_.isEmpty, x)
