@@ -397,6 +397,25 @@ Example: `['a', 'b', 'c'] -> 'a, b and c'`
 
 Example: `(' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'`
 
+### uniqueString
+
+`(cache = {}) -> string -> string` Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to access and clear the cache, respectively.
+
+Example: `_.map(uniqueString(), ['foo', 'foo', 'foo']) -> ['foo', 'foo1', 'foo2']`
+
+### uniqueStringHash
+
+`(hash = {}) -> key -> string -> string` Returns a function that maintains a separate `uniqueString` scope for each key it receives. Exposes this mapping as `hash`, along with the functions `clear(key)`, which clears the cache for that key, and `remove(key)`, which dissociates the `uniqueString` function from that key, but leaves its cache intact (possibly useful if it has been assigned to some other variable).
+
+Example usage:
+```js
+let uniqueFrom = uniqueStringHash()
+_.map(uniqueFrom('someKey'), ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
+uniqueFrom('someKey', 'foo')  //-> 'foo3'
+uniqueFrom('anotherKey', 'foo')  //-> 'foo'
+uniqueFrom.clear('someKey')
+uniqueFrom('someKey', 'foo')  //-> 'foo'
+```
 
 ## Regex
 

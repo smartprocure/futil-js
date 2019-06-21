@@ -1,4 +1,7 @@
-﻿# 1.56.0
+﻿# 1.57.0
+- Add `uniqueString` and `uniqueStringHash`
+
+# 1.56.0
 - New lens helper for React users: `stateLens`
 
 # 1.55.1
