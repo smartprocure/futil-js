@@ -31,3 +31,30 @@ export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
 )
 
 export let toSentence = toSentenceWith(', ', ' and ')
+
+export let uniqueString = (cache = {}) => {
+  let f = x => {
+    let result = x
+    while (cache[result]) result = x + cache[x]++
+    cache[result] = (cache[result] || 0) + 1
+    return result
+  }
+  f.cache = cache
+  return f
+}
+
+export let uniqueStringHash = (hash = {}) => {
+  let f = key => {
+    if (!hash[key]) {
+      let u = uniqueString({})
+      u.hash = hash
+      hash[key] = u
+    }
+    return hash[key]
+  }
+  f.hash = hash
+  f.clear = (key) => {
+    delete hash[key]
+  }
+  return f
+}
