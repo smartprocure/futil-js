@@ -121,7 +121,7 @@ describe('String Functions', () => {
     dedupe.clear()
     expect(dedupe.cache).to.deep.equal({})
     // demonstration of default-argument behavior
-    expect(F.uniqueString(null)('test')).to.be.a('string') 
+    expect(F.uniqueString(null)('test')).to.be.a('string')
     expect(F.uniqueString(undefined)('test')).to.be.a('string')
     expect(F.uniqueString()('test')).to.be.a('function')
   })
@@ -134,7 +134,11 @@ describe('String Functions', () => {
     // Should work with appending other stuff if you really want to
     let appendHiForSomeReason = F.arrayToObject(_.identity, () => 'hi')
     expect(
-      _.map(F.uniqueStringWith(appendHiForSomeReason, ['foo']), ['foo', 'foo', 'bar'])
+      _.map(F.uniqueStringWith(appendHiForSomeReason, ['foo']), [
+        'foo',
+        'foo',
+        'bar',
+      ])
     ).to.deep.equal(['foohi', 'foohi1', 'bar'])
   })
 })
