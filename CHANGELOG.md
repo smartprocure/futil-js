@@ -1,5 +1,5 @@
 ﻿# 1.58.0
-- Add `uniqueString` and `uniqueStringHash`
+- Add `uniqueString` and `uniqueStringWith`
 
 # 1.57.0
 - Added new `object` functions:

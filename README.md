@@ -417,20 +417,32 @@ Example: `(' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'`
 
 ### uniqueString
 
-`array -> string -> string` Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to access and clear the cache, respectively.
+`array -> string -> string` Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to read and clear the cache, respectively.
 
-Example: `_.map(uniqueString([]), ['foo', 'foo', 'foo']) -> ['foo', 'foo1', 'foo2']`
+Example usage: 
+```js
+let dedupe = uniqueString()
+_.map(dedupe, ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
+dedupe.cache  //-> { foo: 3, foo1: 1, foo2: 1 }
+dedupe.clear()
+dedupe.cache  //-> {}
+dedupe('foo')  //-> 'foo'
+```
 
 ### uniqueStringWith
 
-`(cachizer, array) -> string -> string` Allows passing a function (`array -> object`) to override the way `uniqueString`'s initial array is converted into a cache object. Can be curried with a cachizer to create a custom `uniqueString` function.
+`(fn, array) -> string -> string` Allows passing a "cachizer" function (`array -> object`) to override the way `uniqueString`'s initial array is converted into a cache object. Can be curried to create a custom `uniqueString` function, eg: `let myUniqueString = uniqueStringWith(myFunc)`
+
+Like `uniqueString`, the resulting deduplication function exposes `cache` and `clear()` properties.
 
 Example usage:
 ```js
-uniqueStringWith(
-  _.countBy(_.replace(/(\d+)$/, '')),
-  ['foo', 'foo42', 'foo3000']
-)('foo')  //-> 'foo3'
+let uniqueStringStripDigits = uniqueStringWith(
+  _.countBy(_.replace(/(\d+)$/, ''))
+)
+let dedupe = uniqueStringStripDigits(['foo', 'foo42', 'foo3000'])
+dedupe('foo')  //-> 'foo3'
+uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
 ```
 
 ## Regex
