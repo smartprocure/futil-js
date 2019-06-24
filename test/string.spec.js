@@ -121,7 +121,7 @@ describe('String Functions', () => {
     dedupe.clear()
     expect(dedupe.cache).to.deep.equal({})
     // should handle calling with no arguments
-    expect(F.uniqueString(null)('test')).to.be.a('string') 
+    expect(F.uniqueString(null)('test')).to.be.a('string')
     expect(F.uniqueString(undefined)('test')).to.be.a('string')
     expect(F.uniqueString()('test')).to.be.a('string')
   })
