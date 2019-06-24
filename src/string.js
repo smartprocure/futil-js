@@ -52,4 +52,4 @@ export let uniqueStringWith = _.curry((cachizer, initialKeys) => {
   return f
 })
 
-export let uniqueString = uniqueStringWith(_.countBy(_.identity))
+export let uniqueString = (arr = []) => uniqueStringWith(_.countBy(_.identity), arr)

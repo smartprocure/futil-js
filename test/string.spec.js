@@ -120,10 +120,10 @@ describe('String Functions', () => {
     // clearing should work
     dedupe.clear()
     expect(dedupe.cache).to.deep.equal({})
-    // demonstration of default-argument behavior
-    expect(F.uniqueString(null)('test')).to.be.a('string')
+    // should handle calling with no arguments
+    expect(F.uniqueString(null)('test')).to.be.a('string') 
     expect(F.uniqueString(undefined)('test')).to.be.a('string')
-    expect(F.uniqueString()('test')).to.be.a('function')
+    expect(F.uniqueString()('test')).to.be.a('string')
   })
   it('uniqueStringWith', () => {
     let a = ['foo20', 'foo21', 'foo23', 'foo24', 'foo25']
