@@ -103,3 +103,10 @@ export let intersperse = _.curry((f, [x0, ...xs]) =>
     xs
   )
 )
+
+export let replaceElementBy = _.curry((f, b, arr) =>
+  _.map(c => (f(c) ? b : c), arr)
+)
+export let replaceElement = _.curry((a, b, arr) =>
+  replaceElementBy(_.isEqual(a), b, arr)
+)

@@ -1,5 +1,15 @@
-﻿# 1.57.0
+﻿# 1.58.0
 - Add `uniqueString` and `uniqueStringHash`
+
+# 1.57.0
+- Added new `object` functions:
+    `omitNil`
+    `omitNull`
+    `omitBlank`
+    `omitEmpty`
+- Added new `array` functions:
+    `replaceElementBy`
+    `replaceElement`
 
 # 1.56.0
 - New lens helper for React users: `stateLens`
