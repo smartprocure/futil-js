@@ -1,10 +1,12 @@
-﻿# 1.57.0
+﻿# 1.58.0
+- Add `uniqueString` and `uniqueStringWith`
+
+# 1.57.0
 - Added new `object` functions:
     `omitNil`
     `omitNull`
     `omitBlank`
     `omitEmpty`
-
 - Added new `array` functions:
     `replaceElementBy`
     `replaceElement`

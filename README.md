@@ -401,7 +401,7 @@ Maps `_.trim` through all the strings of a given object or array.
 `[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
 ### insertAtIndex
-`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
+`(index, val, string) -> string` Insert a string at a specific index.
 
 Example: `(1, '123', 'hi') -> 'h123i'`
 
@@ -415,6 +415,35 @@ Example: `['a', 'b', 'c'] -> 'a, b and c'`
 
 Example: `(' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'`
 
+### uniqueString
+
+`array -> string -> string` Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to read and clear the cache, respectively.
+
+Example usage: 
+```js
+let dedupe = uniqueString()
+_.map(dedupe, ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
+dedupe.cache  //-> { foo: 3, foo1: 1, foo2: 1 }
+dedupe.clear()
+dedupe.cache  //-> {}
+dedupe('foo')  //-> 'foo'
+```
+
+### uniqueStringWith
+
+`(fn, array) -> string -> string` Allows passing a "cachizer" function (`array -> object`) to override the way `uniqueString`'s initial array is converted into a cache object. Can be curried to create a custom `uniqueString` function, eg: `let myUniqueString = uniqueStringWith(myFunc)`
+
+Like `uniqueString`, the resulting deduplication function exposes `cache` and `clear()` properties.
+
+Example usage:
+```js
+let uniqueStringStripDigits = uniqueStringWith(
+  _.countBy(_.replace(/(\d+)$/, ''))
+)
+let dedupe = uniqueStringStripDigits(['foo', 'foo42', 'foo3000'])
+dedupe('foo')  //-> 'foo3'
+uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
+```
 
 ## Regex
 

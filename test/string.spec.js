@@ -1,4 +1,5 @@
 import chai from 'chai'
+import _ from 'lodash/fp'
 import * as F from '../src'
 chai.expect()
 const expect = chai.expect
@@ -76,5 +77,68 @@ describe('String Functions', () => {
     expect(F.toSentence(['first', 'second', 'third'])).to.equal(
       'first, second and third'
     )
+  })
+  it('uniqueString', () => {
+    let dedupe = F.uniqueString([])
+    expect(dedupe.cache).to.deep.equal({})
+    expect(_.map(dedupe, _.times(() => 'foo', 5))).to.deep.equal([
+      'foo',
+      'foo1',
+      'foo2',
+      'foo3',
+      'foo4',
+    ])
+    expect(dedupe.cache).to.deep.equal({
+      foo: 5,
+      foo1: 1,
+      foo2: 1,
+      foo3: 1,
+      foo4: 1,
+    })
+    expect(F.uniqueString(_.keys(dedupe.cache))('foo')).to.equal('foo5')
+    // should cache result strings to avoid conflicts with user-specified strings that
+    // would have matched a uniqueString result
+    let badFoos = ['foo', 'foo1', 'foo', 'foo2', 'foo', 'foo3', 'foo']
+    expect(_.map(F.uniqueString([]), badFoos)).to.deep.equal([
+      'foo',
+      'foo1',
+      'foo2',
+      'foo21',
+      'foo3',
+      'foo31',
+      'foo4',
+    ])
+    let text = _.words(`
+      Creates a function that invokes func with the arguments of the created function. If
+      func is a property name, the created function returns the property value for a given
+      element. If func is an array or object, the created function returns true for elements
+      that contain the equivalent source properties, otherwise it returns false.
+    `)
+    expect(_.size(_.uniq(text))).not.to.equal(_.size(text))
+    let uniqueText = _.map(F.uniqueString(), text)
+    expect(_.size(_.uniq(uniqueText))).to.equal(_.size(uniqueText))
+    // clearing should work
+    dedupe.clear()
+    expect(dedupe.cache).to.deep.equal({})
+    // should handle calling with no arguments
+    expect(F.uniqueString(null)('test')).to.be.a('string')
+    expect(F.uniqueString(undefined)('test')).to.be.a('string')
+    expect(F.uniqueString()('test')).to.be.a('string')
+  })
+  it('uniqueStringWith', () => {
+    let a = ['foo20', 'foo21', 'foo23', 'foo24', 'foo25']
+    let stripDigits = F.arrayToObject(_.replace(/(\d+)$/, ''), () => 1)
+    let uniqueStringStripDigits = F.uniqueStringWith(stripDigits, a)
+    expect(uniqueStringStripDigits.cache).to.deep.equal({ foo: 1 })
+    expect(uniqueStringStripDigits('foo')).to.equal('foo1')
+    // Should work with appending other stuff if you really want to
+    let appendHiForSomeReason = F.arrayToObject(_.identity, () => 'hi')
+    expect(
+      _.map(F.uniqueStringWith(appendHiForSomeReason, ['foo']), [
+        'foo',
+        'foo',
+        'bar',
+      ])
+    ).to.deep.equal(['foohi', 'foohi1', 'bar'])
   })
 })
