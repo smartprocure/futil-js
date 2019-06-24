@@ -32,36 +32,24 @@ export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
 
 export let toSentence = toSentenceWith(', ', ' and ')
 
-export let uniqueString = (cache = {}) => {
+// ((array -> object), array) -> string -> string
+export let uniqueStringWith = _.curry((cachizer, initialKeys) => {
   let f = x => {
     let result = x
-    while (cache[result]) result = x + cache[x]++
+    while (cache[result]) {
+      result = x + cache[x]
+      cache[x] += 1
+    }
     cache[result] = (cache[result] || 0) + 1
     return result
   }
+  let cache = cachizer(initialKeys)
   f.cache = cache
   f.clear = () => {
     cache = {}
     f.cache = cache
   }
   return f
-}
+})
 
-export let uniqueStringHash = (hash = {}) => {
-  let f = (key, str) => {
-    if (!hash[key]) {
-      let u = uniqueString({})
-      u.hash = hash
-      hash[key] = u
-    }
-    return str ? hash[key](str) : hash[key]
-  }
-  f.hash = hash
-  f.clear = key => {
-    hash[key] && hash[key].clear()
-  }
-  f.remove = key => {
-    delete hash[key]
-  }
-  return f
-}
+export let uniqueString = uniqueStringWith(_.countBy(_.identity))

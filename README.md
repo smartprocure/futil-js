@@ -383,7 +383,7 @@ Maps `_.trim` through all the strings of a given object or array.
 `[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
 ### insertAtIndex
-`insertAtIndex -> (index, val, string) -> string` Insert a string at a specific index.
+`(index, val, string) -> string` Insert a string at a specific index.
 
 Example: `(1, '123', 'hi') -> 'h123i'`
 
@@ -399,22 +399,20 @@ Example: `(' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'`
 
 ### uniqueString
 
-`(cache = {}) -> string -> string` Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to access and clear the cache, respectively.
+`array -> string -> string` Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to access and clear the cache, respectively.
 
-Example: `_.map(uniqueString(), ['foo', 'foo', 'foo']) -> ['foo', 'foo1', 'foo2']`
+Example: `_.map(uniqueString([]), ['foo', 'foo', 'foo']) -> ['foo', 'foo1', 'foo2']`
 
-### uniqueStringHash
+### uniqueStringWith
 
-`(hash = {}) -> key -> string -> string` Returns a function that maintains a separate `uniqueString` scope for each key it receives. Exposes this mapping as `hash`, along with the functions `clear(key)`, which clears the cache for that key, and `remove(key)`, which dissociates the `uniqueString` function from that key, but leaves its cache intact (possibly useful if it has been assigned to some other variable).
+`(cachizer, array) -> string -> string` Allows passing a function (`array -> object`) to override the way `uniqueString`'s initial array is converted into a cache object. Can be curried with a cachizer to create a custom `uniqueString` function.
 
 Example usage:
 ```js
-let uniqueFrom = uniqueStringHash()
-_.map(uniqueFrom('someKey'), ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
-uniqueFrom('someKey', 'foo')  //-> 'foo3'
-uniqueFrom('anotherKey', 'foo')  //-> 'foo'
-uniqueFrom.clear('someKey')
-uniqueFrom('someKey', 'foo')  //-> 'foo'
+uniqueStringWith(
+  _.countBy(_.replace(/(\d+)$/, '')),
+  ['foo', 'foo42', 'foo3000']
+)('foo')  //-> 'foo3'
 ```
 
 ## Regex
