@@ -39,12 +39,11 @@ export const stripEmptyObjects = _.pickBy(isNotEmptyObject)
 export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 
 export const renameProperty = _.curry((from, to, target) => {
-  let o = _.cloneDeep(target)
-  if (_.has(from, o)) {
-    o[to] = o[from]
-    delete o[from]
+  if (_.has(from, target)) {
+    target = _.set(to, _.get(from, target), target)
+    delete target[from]
   }
-  return o
+  return target
 })
 
 // { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
