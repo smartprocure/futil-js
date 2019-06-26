@@ -45,7 +45,7 @@ export const removeProperty = _.curry(
 export const renameProperty = _.curry((from, to, target) =>
   _.has(from, target)
     ? _.flow(
-        (x) => _.set(to, _.get(from, x), x),
+        x => _.set(to, _.get(from, x), x),
         removeProperty(from)
       )(target)
     : target

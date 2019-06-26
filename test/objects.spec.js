@@ -139,7 +139,7 @@ describe('Object Functions', () => {
     })
   })
   it('removeProperty', () => {
-    const o = { a: 1, b: 2}
+    const o = { a: 1, b: 2 }
     const newO = F.removeProperty('b', o)
     expect(newO).to.deep.equal({ a: 1 })
   })
