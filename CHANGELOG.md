@@ -1,7 +1,11 @@
 ﻿# 1.58.1
-- Fixed issue where `renameProperty` was not a pure function.
+- Fixed issue where `renameProperty` was not a pure function. Specifically:
+ 1. The original object was mutated.
+ 2. If the original object din't have the property to be renamed the function was
+    adding the property with a value of `undefined`.
+ If code was relying in this incorrect behavior this will be a braking change.
 
-﻿# 1.58.0
+# 1.58.0
 - Add `uniqueString` and `uniqueStringWith`
 
 # 1.57.0
