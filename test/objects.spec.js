@@ -138,16 +138,15 @@ describe('Object Functions', () => {
       },
     })
   })
-  it('removeProperty', () => {
-    const o = { a: 1, b: 2}
-    const newO = F.removeProperty('b', o)
-    expect(newO).to.deep.equal({ a: 1 })
-  })
   it('renameProperty', () => {
     const o = { a: 1 }
     const newO = F.renameProperty('a', 'b', o)
     expect(newO).not.to.deep.equal(o)
     expect(newO).to.deep.equal({ b: 1 })
+    const new1 = F.renameProperty('c', 'b', o)
+    expect(new1).to.deep.equal(o)
+    new1.a = 2
+    expect(new1).not.to.deep.equal(o)
   })
   it('matchesSignature', () => {
     expect(F.matchesSignature([], 0)).to.equal(false)
