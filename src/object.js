@@ -41,9 +41,8 @@ export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 export const renameProperty = _.curry((from, to, target) => {
   let o = _.cloneDeep(target)
   if (_.has(from, o)) {
-    let value = _.get(from, o)
+    o[to] = o[from]
     delete o[from]
-    o[to] = value
   }
   return o
 })
