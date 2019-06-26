@@ -44,7 +44,7 @@ export const renameProperty = _.curry((from, to, target) =>
         x => _.set(to, _.get(from, x), x),
         _.unset(from)
       )(target)
-    : _.cloneDeep(target)
+    : target
 )
 
 // { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
