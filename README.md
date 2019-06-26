@@ -290,10 +290,6 @@ Similar to `_.matches`, except it returns true if 1 or more object properties ma
 ### pickInto
 *TODO*
 
-### removeProperty
-`removeProperty -> targetPropertyName -> sourceObject -> sourceObject`
-Rewove a property on an object.
-
 ### renameProperty
 `sourcePropertyName -> targetPropertyName -> sourceObject -> sourceObject`
 Rename a property on an object.

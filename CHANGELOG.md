@@ -1,4 +1,7 @@
-﻿# 1.57.0
+﻿# 1.57.1
+- Fixed issue where `renameProperty` was not a pure function.
+
+# 1.57.0
 - Added new `object` functions:
     `omitNil`
     `omitNull`
