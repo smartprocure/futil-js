@@ -1,5 +1,8 @@
-﻿# 1.57.1
+﻿# 1.58.1
 - Fixed issue where `renameProperty` was not a pure function.
+
+﻿# 1.58.0
+- Add `uniqueString` and `uniqueStringWith`
 
 # 1.57.0
 - Added new `object` functions:
@@ -7,7 +10,6 @@
     `omitNull`
     `omitBlank`
     `omitEmpty`
-
 - Added new `array` functions:
     `replaceElementBy`
     `replaceElement`
