@@ -41,6 +41,7 @@ export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 export const removeProperty = _.curry(
   (prop, target) => delete target[prop] && target
 )
+
 export const renameProperty = _.curry((from, to, target) =>
   _.has(from, target)
     ? _.flow(
