@@ -1,4 +1,7 @@
-﻿# 1.58.1
+﻿# 1.59.0
+- export `anyWordToRegexp` and `wordsToRegexp`
+
+# 1.58.1
 - Fixed issue where `renameProperty` was not a pure function. Specifically:
  1. The original object was mutated.
  2. If the original object din't have the property to be renamed the function was
