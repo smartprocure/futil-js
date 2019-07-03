@@ -18,7 +18,8 @@ export const anyWordToRegexp = _.flow(
 export const wordsToRegexp = _.flow(
   _.words,
   _.map(x => `(?=.*${x}.*)`),
-  _.join('')
+  _.join(''),
+  x => `.*${x}.*`
 )
 
 const matchWords = _.curry((buildRegex, x) => {
