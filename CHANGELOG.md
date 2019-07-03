@@ -1,4 +1,7 @@
-﻿# 1.59.0
+﻿# 1.59.1
+- change all words regex to report full string as match rather than empty string
+
+# 1.59.0
 - export `anyWordToRegexp` and `wordsToRegexp`
 
 # 1.58.1
