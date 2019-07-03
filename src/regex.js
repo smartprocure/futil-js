@@ -17,7 +17,7 @@ export const anyWordToRegexp = _.flow(
 
 export const wordsToRegexp = _.flow(
   _.words,
-  _.map(x => `(?=.*${x})`),
+  _.map(x => `(?=.*${x}.*)`),
   _.join('')
 )
 
