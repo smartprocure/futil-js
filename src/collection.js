@@ -29,7 +29,9 @@ export let insertAtIndex = _.curry((index, val, collection) =>
     : insertAtArrayIndex(index, val, collection)
 )
 
-export let compactMap = _.curry((fn, collection) => _.flow(
-  _.map(fn),
-  _.compact
-)(collection))
+export let compactMap = _.curry((fn, collection) =>
+  _.flow(
+    _.map(fn),
+    _.compact
+  )(collection)
+)
