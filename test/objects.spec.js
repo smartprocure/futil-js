@@ -588,4 +588,24 @@ describe('Object Functions', () => {
       b: 'c',
     })
   })
+  it('mergeOverAll', () => {
+    let foo = x => ({ [x]: 'foo' })
+    let bar = x => ({ bar: x, [x]: 'bar' })
+    expect(F.mergeOverAll([foo, bar])('a')).to.deep.equal({
+      a: 'bar',
+      bar: 'a',
+    })
+    expect(F.mergeOverAll([bar, foo])('a')).to.deep.equal({
+      a: 'foo',
+      bar: 'a',
+    })
+    //documenting edge case behavior
+    expect(F.mergeOverAll()()).to.deep.equal({})
+    expect(F.mergeOverAll([])()).to.deep.equal(undefined)
+    expect(F.mergeOverAll([x => x, (x, y) => y])('abc', 'de')).to.deep.equal({
+      0: 'd',
+      1: 'e',
+      2: 'c',
+    })
+  })
 })
