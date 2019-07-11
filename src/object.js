@@ -185,3 +185,10 @@ export let omitNil = x => _.omitBy(_.isNil, x)
 export let omitNull = x => _.omitBy(_.isNull, x)
 export let omitBlank = x => _.omitBy(isBlank, x)
 export let omitEmpty = x => _.omitBy(_.isEmpty, x)
+
+// (f, g) -> (x, y) -> {...f(x, y), ...g(x, y)}
+export let mergeOverAll = fns =>
+  _.flow(
+    _.over(fns),
+    _.mergeAll
+  )

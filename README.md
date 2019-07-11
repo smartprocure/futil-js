@@ -382,6 +382,9 @@ Like `_.mergeAll`, but concats arrays instead of replacing. This is basically th
 ### omitEmpty
 `_.omitBy` using `_.isEmpty` as function argument.
 
+### mergeOverAll
+`([f, g]) -> (x, y) -> {...f(x, y), ...g(x, y)}` Composition of `_.over` and `_.mergeAll`. Takes an array of functions, and returns a function that applies each one to its arguments and merges the results. Note that for functions that don't return objects, `_.merge`'s behavior is followed: for strings and arrays, the indices will be converted to keys and the result will be merged, and for all other primitives, nothing will be merged. 
+
 ## String
 
 ### parens
