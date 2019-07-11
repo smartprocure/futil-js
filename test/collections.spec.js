@@ -1,5 +1,6 @@
 import chai from 'chai'
 import F from '../src/'
+import _ from 'lodash/fp'
 
 chai.expect()
 const expect = chai.expect
@@ -43,5 +44,12 @@ describe('Collections Functions', () => {
 
     var result = F.insertAtIndex(0, '<span>', 'pretty please')
     expect(result).to.equal('<span>pretty please')
+  })
+  it('compactMap', () => {
+    let names = ['adam', 'betty', 'carlos', 'doug', 'emily']
+    let exceptDoug = fn => x => x === 'doug' ? undefined : fn(x)
+    expect(F.compactMap(_.capitalize, names)).to.deep.equal(['Adam', 'Betty', 'Carlos', 'Doug', 'Emily'])
+    expect(F.compactMap(exceptDoug(_.capitalize), names)).to.deep.equal(['Adam', 'Betty', 'Carlos', 'Emily'])
+    expect(F.compactMap(x => x - 2, [0, 1, 2, 3])).to.deep.equal([-2, -1, 1])
   })
 })

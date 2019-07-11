@@ -1,4 +1,7 @@
-﻿# 1.60.0
+﻿# 1.61.0
+- Add `compactMap`
+
+# 1.60.0
 - Add `mergeOverAll`
 
 # 1.59.1
