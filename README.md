@@ -111,6 +111,10 @@ A version of `find` that also applies the predicate function to the result. Usef
 ### insertAtIndex
 `(index, val, array|string) -> array|string` Inserts value into an array or string at `index`
 
+### compactMap
+
+`(fn, collection) -> collection` Maps `fn` over the input collection and compacts the result.
+
 
 ## Collection Algebras or composable/recursive data types
 
