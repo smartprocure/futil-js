@@ -1,5 +1,6 @@
 import chai from 'chai'
 import * as F from '../src'
+import _ from 'lodash/fp'
 
 chai.expect()
 const expect = chai.expect
@@ -608,4 +609,37 @@ describe('Object Functions', () => {
       2: 'c',
     })
   })
+  it('getWith', () => {
+    let square = x => x * x
+    let getWithSquare = F.getWith(square)
+    let foo = { a: 1, b: 3, c: 5 }
+    expect(getWithSquare('c', foo)).to.equal(25)
+    expect(F.getWith(x => x + 1, 'b', foo)).to.equal(4)
+    // edge case: throws when customizer is not a function
+    expect(() => (F.getWith(undefined, 'b', foo))).to.throw(TypeError)
+  })
+  it('expandObject', () => {
+    let foo = { a: 1, b: 2, c: 'a' }
+    // should expand object
+    let toOptions = F.mapIndexed((v, k) => ({ label: k, value: v }))
+    expect(F.expandObject(obj => ({ options: toOptions(obj) }), foo)).to.deep.equal({
+      a: 1,
+      b: 2,
+      c: 'a',
+      options: [
+        { label: 'a', value: 1 },
+        { label: 'b', value: 2 },
+        { label: 'c', value: 'a' }
+      ]
+    })
+    // should override keys
+    expect(F.expandObject(_.invert, foo)).to.deep.equal({ '1': 'a', '2': 'b', a: 'c', b: 2, c: 'a' })
+  })
+  it('expandObjectBy', () => {
+    let primeFactorization = x => x === 42 ? { '2': 1, '3': 1, '7': 1 } : 'dunno'
+    let foo = { a: 1, b: 42 }
+    expect(F.expandObjectBy('b', primeFactorization, foo)).to.deep.equal({ a: 1, b: 42, '2': 1, '3': 1, '7': 1 })
+    expect(F.expandObjectBy('a', primeFactorization, foo)).to.deep.equal({ '0': 'd', '1': 'u', '2': 'n', '3': 'n', '4': 'o', a: 1, b: 42 })
+  })
 })
+
