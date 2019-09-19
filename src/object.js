@@ -190,5 +190,5 @@ export let omitEmpty = x => _.omitBy(_.isEmpty, x)
 export let mergeOverAll = fns =>
   _.flow(
     _.over(fns),
-    _.mergeAll
+    mergeAllArrays
   )

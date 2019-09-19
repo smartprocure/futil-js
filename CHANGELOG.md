@@ -1,4 +1,7 @@
-﻿# 1.61.0
+# 1.61.1
+- Use `mergeAllArrays` in `mergeOverAll`
+
+# 1.61.0
 - Add `compactMap`
 
 # 1.60.0
