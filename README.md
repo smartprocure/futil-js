@@ -389,6 +389,15 @@ Like `_.mergeAll`, but concats arrays instead of replacing. This is basically th
 ### mergeOverAll
 `([f, g]) -> (x, y) -> {...f(x, y), ...g(x, y)}` Composition of `_.over` and `_.mergeAll`. Takes an array of functions, and returns a function that applies each one to its arguments and merges the results. Note that for functions that don't return objects, `_.merge`'s behavior is followed: for strings and arrays, the indices will be converted to keys and the result will be merged, and for all other primitives, nothing will be merged. 
 
+### getWith
+`(x -> y) -> k -> {k: x} -> y` Like `_.get`, but accepts a customizer function which is called on the value to transform it before it is returned. Argument order is `(customizer, path, object)`.
+
+### expandObject
+`(transform: obj -> newObj) -> obj -> { ...obj, ...newObj }` Accepts a transform function and an object. Returns the result of applying the transform function to the object, merged onto the original object. `expandObject(f, obj)` is equivalent to `mergeOverAll([_.identity, f], obj)`.
+
+### expandObjectBy
+`key -> (transform: x -> newObj) -> (obj: { key: x }) -> { ...obj, ...newObj }` Expands an object by transforming the value at a single key into a new object, and merging the result with the original object. Similar to `expandObject`, but the argument order is `(key, transform, object)`, and the transform function is called on the value at that key instead of on the whole object.
+
 ## String
 
 ### parens
