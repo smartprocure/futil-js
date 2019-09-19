@@ -82,15 +82,15 @@ Flurry is combo of flow + curry, preserving the arity of the initial function. S
 `([f1, f2, ...fn]) -> !f1(x) && !f2(x) && ...!fn(x)` Creates a function that checks if none of the array of predicates passed in returns truthy for `x`
 
 ### ifElse
-`(condition, onTrue, onFalse) -> x -> (T(condition)(x) ? onTrue(x) : onFalse(x))`
+`(condition, onTrue, onFalse, x) -> (T(condition)(x) ? onTrue(x) : onFalse(x))`
 http://ramdajs.com/docs/#ifElse. The transform function T supports passing a boolean for `condition` as well as any valid argument of `_.iteratee`, e.g. `myBool = applyTest(x); F.ifElse(myBool, doSomething, doSomethingElse);`
 
 ### when
-`(condition, onTrue) -> x -> (T(condition)(x) ? onTrue(x) : _.identity(x))`
+`(condition, onTrue, x) -> (T(condition)(x) ? onTrue(x) : _.identity(x))`
 http://ramdajs.com/docs/#when. `T` extends `_.iteratee` as above.
 
 ### unless
-`(condition, onFalse) -> x -> (T(condition)(x) ? _.identity(x) : onFalse(x))`
+`(condition, onFalse, x) -> (T(condition)(x) ? _.identity(x) : onFalse(x))`
 http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 
 ### whenTruthy

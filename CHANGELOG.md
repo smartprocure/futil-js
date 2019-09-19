@@ -1,4 +1,7 @@
-﻿# 1.61.0
+﻿# 1.61.1
+- Better currying for `logic` methods (`ifElse`, `when`, `whenExists`, etc)
+
+# 1.61.0
 - Add `compactMap`
 
 # 1.60.0
