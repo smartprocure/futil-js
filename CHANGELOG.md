@@ -1,5 +1,6 @@
 # 1.61.1
 - Use `mergeAllArrays` in `mergeOverAll`
+- Curry `mergeOverAll`
 
 # 1.61.0
 - Add `compactMap`

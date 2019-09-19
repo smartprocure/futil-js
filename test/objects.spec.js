@@ -603,8 +603,10 @@ describe('Object Functions', () => {
     let qux = a => ({ x: a.map(x => x * x) })
     expect(F.mergeOverAll([qux, x => ({ x })])([1, 2, 3])).to.deep.equal({ x: [1, 4, 9, 1, 2, 3] })
     // documenting edge case behavior
-    expect(F.mergeOverAll()()).to.deep.equal({})
-    expect(F.mergeOverAll([])()).to.deep.equal(undefined)
+    expect(F.mergeOverAll(undefined, undefined)).to.deep.equal({})
+    expect(F.mergeOverAll([])(undefined)).to.deep.equal({})
+    expect(F.mergeOverAll([])([])).to.deep.equal({})
+    expect(F.mergeOverAll(undefined, [])).to.deep.equal({})
     expect(F.mergeOverAll([x => x, (x, y) => y])('abc', 'de')).to.deep.equal({
       0: 'd',
       1: 'e',
