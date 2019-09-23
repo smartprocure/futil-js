@@ -10,13 +10,17 @@ export const overNone = _.flow(
 
 let boolIteratee = x => (_.isBoolean(x) ? () => x : _.iteratee(x))
 // Port from Ramda
-export let ifElse = _.curry((condition, onTrue, onFalse) => x =>
+export let ifElse = _.curry((condition, onTrue, onFalse, x) =>
   boolIteratee(condition)(x)
     ? callOrReturn(onTrue, x)
     : callOrReturn(onFalse, x)
 )
-export let when = _.curry((condition, t) => ifElse(condition, t, _.identity))
-export let unless = _.curry((condition, f) => ifElse(condition, _.identity, f))
+export let when = _.curry((condition, t, x) =>
+  ifElse(condition, t, _.identity, x)
+)
+export let unless = _.curry((condition, f, x) =>
+  ifElse(condition, _.identity, f, x)
+)
 
 export let whenExists = when(exists)
 export let whenTruthy = when(Boolean)

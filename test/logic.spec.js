@@ -21,6 +21,11 @@ describe('Logic Functions', () => {
       expect(fancyShortHand({ a: 1 })).to.equal('Has a1')
       expect(fancyShortHand({ a: 2 })).to.equal('No a1')
     })
+    it('should be fully curried', () => {
+      expect(
+        f.ifElse(x => x % 2, x => `${x} is odd!`, x => `${x} is even!`, 6)
+      ).to.equal('6 is even!')
+    })
   })
   it('when', () => {
     let clamp5 = f.when(x => x > 5, () => 5)

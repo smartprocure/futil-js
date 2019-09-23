@@ -1,4 +1,7 @@
-﻿# 1.62.0
+# 1.62.1
+- Better currying for `logic` methods (`ifElse`, `when`, `whenExists`, etc)
+
+# 1.62.0
 - Add `getWith`, `expandObject`, and `expandObjectBy`
 
 # 1.61.0
