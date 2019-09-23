@@ -1,4 +1,7 @@
-﻿# 1.61.0
+﻿# 1.62.0
+- Add `getWith`, `expandObject`, and `expandObjectBy`
+
+# 1.61.0
 - Add `compactMap`
 
 # 1.60.0
