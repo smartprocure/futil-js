@@ -164,7 +164,8 @@ export let pickOn = (paths = [], obj = {}) =>
     })
   )(obj)
 
-let mergeArrays = (objValue, srcValue) => _.isArray(objValue) ? objValue.concat(srcValue) : undefined
+let mergeArrays = (objValue, srcValue) =>
+  _.isArray(objValue) ? objValue.concat(srcValue) : undefined
 
 // Straight from the lodash docs
 export let mergeAllArrays = _.mergeAllWith(mergeArrays)
