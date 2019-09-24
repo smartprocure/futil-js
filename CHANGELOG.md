@@ -1,6 +1,6 @@
 # 1.61.1
-- Use `mergeAllArrays` in `mergeOverAll`
-- Curry `mergeOverAll`
+- Add partial currying support to `mergeOverAll`
+- Add `mergeOverAllWith` and `mergeOverAllArrays`
 
 # 1.61.0
 - Add `compactMap`

@@ -164,12 +164,10 @@ export let pickOn = (paths = [], obj = {}) =>
     })
   )(obj)
 
+let mergeArrays = (objValue, srcValue) => _.isArray(objValue) ? objValue.concat(srcValue) : undefined
+
 // Straight from the lodash docs
-export let mergeAllArrays = _.mergeAllWith((objValue, srcValue) => {
-  if (_.isArray(objValue)) {
-    return objValue.concat(srcValue)
-  }
-})
+export let mergeAllArrays = _.mergeAllWith(mergeArrays)
 // { a: [x, y, z], b: [x] } -> { x: [a, b], y: [a], z: [a] }
 export let invertByArray = _.flow(
   mapIndexed((arr, key) => zipObjectDeepWith(arr, () => [key])),
@@ -186,10 +184,21 @@ export let omitNull = x => _.omitBy(_.isNull, x)
 export let omitBlank = x => _.omitBy(isBlank, x)
 export let omitEmpty = x => _.omitBy(_.isEmpty, x)
 
-// (f, g) -> (x, y) -> {...f(x, y), ...g(x, y)}
+// ([f, g]) -> (x, y) -> {...f(x, y), ...g(x, y)}
 export let mergeOverAll = _.curryN(2, (fns, ...x) =>
   _.flow(
     _.over(fns),
-    mergeAllArrays
+    _.mergeAll
   )(...x)
 )
+
+// customizer -> ([f, g]) -> (x, y) -> {...f(x, y), ...g(x, y)}
+export let mergeOverAllWith = _.curryN(3, (customizer, fns, ...x) =>
+  _.flow(
+    _.over(fns),
+    _.mergeAllWith(customizer)
+  )(...x)
+)
+
+// ([f, g]) -> (x, y) -> {...f(x, y), ...g(x, y)}
+export let mergeOverAllArrays = mergeOverAllWith(mergeArrays)

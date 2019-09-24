@@ -387,9 +387,15 @@ Like `_.mergeAll`, but concats arrays instead of replacing. This is basically th
 `_.omitBy` using `_.isEmpty` as function argument.
 
 ### mergeOverAll
-`([f, g], ...args) -> {...f(...args), ...g(...args)}` Composition of `_.over` and `F.mergeAllArrays`. Takes an array of functions and an arbitrary number of arguments, calls each function with those arguments, and merges the results. Can be called with `mergeOverAll([f, g], x, y)` or `mergeOverAll([f, g])(x, y)`.
+`([f, g], ...args) -> {...f(...args), ...g(...args)}` Composition of `_.over` and `_.mergeAll`. Takes an array of functions and an arbitrary number of arguments, calls each function with those arguments, and merges the results. Can be called with `mergeOverAll([f, g], x, y)` or `mergeOverAll([f, g])(x, y)`.
 
 Note that for functions that don't return objects, `_.merge`'s behavior is followed: for strings and arrays, the indices will be converted to keys and the result will be merged, and for all other primitives, nothing will be merged. 
+
+### mergeOverAllWith
+`(customizer, [f, g], ...args) -> {...f(...args), ...g(...args)}` A customizable `mergeOverAll` that takes a function of the form `(objValue, srcValue) -> newValue` as its first argument; see [`_.mergeWith`](https://lodash.com/docs/latest#mergeWith). Both the customizer and array of functions can be partially applied.
+
+### mergeOverAllArrays
+`([f, g], ...args) -> {...f(...args), ...g(...args)}` A customized `mergeOverAll` that applies the array-merging behavior of `mergeAllArrays`.
 
 ## String
 
