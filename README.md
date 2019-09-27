@@ -82,15 +82,15 @@ Flurry is combo of flow + curry, preserving the arity of the initial function. S
 `([f1, f2, ...fn]) -> !f1(x) && !f2(x) && ...!fn(x)` Creates a function that checks if none of the array of predicates passed in returns truthy for `x`
 
 ### ifElse
-`(condition, onTrue, onFalse) -> x -> (T(condition)(x) ? onTrue(x) : onFalse(x))`
+`(condition, onTrue, onFalse, x) -> (T(condition)(x) ? onTrue(x) : onFalse(x))`
 http://ramdajs.com/docs/#ifElse. The transform function T supports passing a boolean for `condition` as well as any valid argument of `_.iteratee`, e.g. `myBool = applyTest(x); F.ifElse(myBool, doSomething, doSomethingElse);`
 
 ### when
-`(condition, onTrue) -> x -> (T(condition)(x) ? onTrue(x) : _.identity(x))`
+`(condition, onTrue, x) -> (T(condition)(x) ? onTrue(x) : _.identity(x))`
 http://ramdajs.com/docs/#when. `T` extends `_.iteratee` as above.
 
 ### unless
-`(condition, onFalse) -> x -> (T(condition)(x) ? _.identity(x) : onFalse(x))`
+`(condition, onFalse, x) -> (T(condition)(x) ? _.identity(x) : onFalse(x))`
 http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 
 ### whenTruthy
@@ -396,6 +396,15 @@ Note that for functions that don't return objects, `_.merge`'s behavior is follo
 
 ### mergeOverAllArrays
 `([f, g], ...args) -> {...f(...args), ...g(...args)}` A customized `mergeOverAll` that applies the array-merging behavior of `mergeAllArrays`.
+
+### getWith
+`(x -> y) -> k -> {k: x} -> y` Like `_.get`, but accepts a customizer function which is called on the value to transform it before it is returned. Argument order is `(customizer, path, object)`.
+
+### expandObject
+`(transform: obj -> newObj) -> obj -> { ...obj, ...newObj }` Accepts a transform function and an object. Returns the result of applying the transform function to the object, merged onto the original object. `expandObject(f, obj)` is equivalent to `mergeOverAll([_.identity, f], obj)`.
+
+### expandObjectBy
+`key -> (transform: x -> newObj) -> (obj: { key: x }) -> { ...obj, ...newObj }` Expands an object by transforming the value at a single key into a new object, and merging the result with the original object. Similar to `expandObject`, but the argument order is `(key, transform, object)`, and the transform function is called on the value at that key instead of on the whole object.
 
 ## String
 
