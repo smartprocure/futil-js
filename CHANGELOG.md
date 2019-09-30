@@ -1,3 +1,7 @@
+﻿# 1.63.0
+- Add partial currying support to `mergeOverAll`
+- Add `mergeOverAllWith` and `mergeOverAllArrays`
+
 # 1.62.1
 - Better currying for `logic` methods (`ifElse`, `when`, `whenExists`, etc)
 

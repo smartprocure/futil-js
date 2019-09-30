@@ -528,6 +528,10 @@ describe('Object Functions', () => {
       a: 3,
       b: [2, 3, 4],
     })
+    expect(F.mergeAllArrays([{ a: [1], b: 5 }, { a: [2] }])).to.deep.equal({
+      a: [1, 2],
+      b: 5,
+    })
   })
   it('invertByArray', () => {
     expect(
@@ -600,13 +604,34 @@ describe('Object Functions', () => {
       a: 'foo',
       bar: 'a',
     })
-    //documenting edge case behavior
-    expect(F.mergeOverAll()()).to.deep.equal({})
-    expect(F.mergeOverAll([])()).to.deep.equal(undefined)
+    // should NOT merge arrays
+    let qux = a => ({ x: a.map(x => x + 3) })
+    expect(F.mergeOverAll([x => ({ x }), qux])([1, 2, 3])).to.deep.equal({
+      x: [4, 5, 6],
+    })
+    // documenting edge case behavior
+    expect(F.mergeOverAll(undefined, undefined)).to.deep.equal({})
+    expect(F.mergeOverAll(undefined)(undefined)).to.deep.equal({})
+    expect(F.mergeOverAll([])(undefined)).to.deep.equal(undefined)
     expect(F.mergeOverAll([x => x, (x, y) => y])('abc', 'de')).to.deep.equal({
       0: 'd',
       1: 'e',
       2: 'c',
+    })
+  })
+  it('mergeOverAllWith', () => {
+    let reverseArrayCustomizer = (objValue, srcValue) =>
+      srcValue.length ? srcValue.reverse() : srcValue
+    let qux = a => ({ x: a.map(x => x + 3) })
+    expect(
+      F.mergeOverAllWith(reverseArrayCustomizer, [() => ({}), qux])([1, 2, 3])
+    ).to.deep.equal({ x: [6, 5, 4] })
+  })
+  it('mergeOverAllArrays', () => {
+    // should merge arrays
+    let qux = a => ({ x: a.map(x => x + 3) })
+    expect(F.mergeOverAllArrays([x => ({ x }), qux])([1, 2, 3])).to.deep.equal({
+      x: [1, 2, 3, 4, 5, 6],
     })
   })
   it('getWith', () => {
