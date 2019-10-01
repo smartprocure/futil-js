@@ -44,3 +44,6 @@ export let debounceAsync = (n, f) => {
 let currier = f => (...fns) => _.curryN(fns[0].length, f(...fns))
 // (f1, f2, ...fn) -> f1Args1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))
 export let flurry = currier(_.flow)
+
+// recurry for use when we want to pass a curried function into a higher order function that expects arguments in uncurried form
+export let recurry = fn => (...args) => args.reduce((fn, arg) => fn(arg) , fn);
