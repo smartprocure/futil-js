@@ -1,4 +1,7 @@
-﻿# 1.63.0
+﻿# 1.63.1
+- Clarify `chunkBy` description in README
+
+# 1.63.0
 - Add partial currying support to `mergeOverAll`
 - Add `mergeOverAllWith` and `mergeOverAllArrays`
 
