@@ -52,7 +52,15 @@ export let includeLens = (value, ...lens) => ({
 })
 
 // Lens Manipulation
-let construct = (...lens) => (lens[1] ? lensProp(...lens) : lens[0])
+//let construct = (...lens) => (lens[1] ? lensProp(...lens) : lens[0])
+let lensPair = (get, set) => ({ get, set })
+let construct = (...args) =>
+  args[1]
+    ? _.every(_.isFunction, args)
+      ? lensPair(...args)
+      : lensProp(...args)
+    : when(_.isArray, stateLens)(args[0])
+
 let read = lens => (lens.get ? lens.get() : lens())
 export let view = (...lens) => read(construct(...lens))
 export let views = (...lens) => () => view(...lens)
