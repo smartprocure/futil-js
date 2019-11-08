@@ -198,10 +198,9 @@ A version of `_.zipObjectDeep` that supports passing a function to determine val
 `{ encode: ['a', 'b'] -> 'a/b', decode: 'a/b' -> ['a', 'b'] }` An encoder using `/` as the separator
 
 ### chunkBy
-`((a, a) -> Boolean) -> [a] -> [[a]]` Returns an array of
-arrays, where each one of the arrays has one or more elements of the
-original array, grouped by the first function received. Similar to
-Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
+`(([a], a) -> Boolean) -> [a] -> [[a]]` Takes a predicate function and an array, and returns an array of arrays where each element has one or more elements of the original array. Similar to Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
+
+The predicate is called with two arguments: the current group, and the current element. If it returns truthy, the element is appended to the current group; otherwise, it's used as the first element in a new group.
 
 ### toggleElement
 `(any, array) -> array` Removes an element from an array if it's included in the array, or pushes it in if it doesn't. Immutable (so it's a clone of the array).

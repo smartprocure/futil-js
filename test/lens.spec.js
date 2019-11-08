@@ -198,7 +198,9 @@ describe('Lens Functions', () => {
     it('arrayLens', () => {
       let arrayLens = val => {
         let result = [val]
-        result.push((x) => {result[0] = x})
+        result.push(x => {
+          result[0] = x
+        })
         return result
       }
       let lens = arrayLens(false)
@@ -211,10 +213,12 @@ describe('Lens Functions', () => {
     })
     it('functionPairLens', () => {
       let object = {
-        a: false
+        a: false,
       }
       let get = () => object.a
-      let set = x => { object.a = x}
+      let set = x => {
+        object.a = x
+      }
       F.on(get, set)()
       expect(object.a).to.be.true
       F.off(get, set)()

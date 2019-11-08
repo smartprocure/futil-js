@@ -82,7 +82,8 @@ let binding = (value, getEventValue) => (...lens) => ({
   onChange: setsWith(getEventValue, ...lens),
 })
 // Dom events have relevent fields on the `target` property of event objects
-let targetBinding = field => binding(field, when(_.has(`target.${field}`), _.get(`target.${field}`)))
+let targetBinding = field =>
+  binding(field, when(_.has(`target.${field}`), _.get(`target.${field}`)))
 export let domLens = {
   value: targetBinding('value'),
   checkboxValues: _.flow(
