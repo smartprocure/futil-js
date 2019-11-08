@@ -233,6 +233,15 @@ describe('Lens Functions', () => {
       props.onChange({ target: { value: 5 } })
       expect(state.a).to.equal(5)
     })
+    it('non-native value', () => {
+      let state = {
+        a: 1,
+      }
+      let props = F.domLens.value('a', state)
+      expect(props.value).to.equal(1)
+      props.onChange(5)
+      expect(state.a).to.equal(5)
+    })
     it('checkboxValues', () => {
       let state = {
         a: ['x', 'y', 'z'],
