@@ -1,4 +1,9 @@
-﻿# 1.63.1
+# 1.64.0
+- Add new native lens formats, `arrayLens` and `functionPairLens`
+- Make `domLens.value` more flexible by supporting non-native onChange events (allow `targetBinding` to fall back to the provided value if `e.target[key]` is not passed in)
+- Update a bunch of dev dependencies
+
+# 1.63.1
 - Clarify `chunkBy` description in README
 
 # 1.63.0
