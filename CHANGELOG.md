@@ -1,3 +1,6 @@
+# 1.64.1
+- Use `_.hasIn` in `targetBinding` to account for objects with `target` as an inherited property (eg, in synthetic DOM events)
+
 # 1.64.0
 - Add new native lens formats, `arrayLens` and `functionPairLens`
 - Make `domLens.value` more flexible by supporting non-native onChange events (allow `targetBinding` to fall back to the provided value if `e.target[key]` is not passed in)

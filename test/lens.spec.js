@@ -278,13 +278,20 @@ describe('Lens Functions', () => {
       expect(state.focusing).to.be.false
     })
     it('targetBinding', () => {
-      let state = {
-        flag: false,
-      }
-      let props = F.domLens.targetBinding('checked')('flag', state)
-      expect(props.checked).to.be.false
-      props.onChange({ target: { checked: true } })
-      expect(state.flag)
+      let state = { color: 'red' }
+      let props = F.domLens.targetBinding('x')('color', state)
+      expect(props.x).to.equal('red')
+      props.onChange({ target: { x: 'green' } })
+      expect(state.color).to.equal('green')
+      // should handle objects with `target` as an inherited property
+      function Event() {}
+      Event.prototype.target = {}
+      Event.prototype.target.x = 'blue'
+      props.onChange(new Event())
+      expect(state.color).to.equal('blue')
+      // should handle targetless arguments
+      props.onChange('purple')
+      expect(state.color).to.equal('purple')
     })
     it('binding', () => {
       let state = {
