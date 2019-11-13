@@ -1,3 +1,6 @@
+# 1.64.2
+- Handle `[]`, `undefined`, and `null` arguments in `chunkBy`
+
 # 1.64.1
 - Use `_.hasIn` in `targetBinding` to account for objects with `target` as an inherited property (eg, in synthetic DOM events)
 
