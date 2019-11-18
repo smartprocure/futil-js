@@ -275,7 +275,7 @@ Check if the variable is **not** an empty object (`{}`).
 Omit properties whose values are empty objects.
 
 Example: `{ a:1, b:{}, c:2 } -> {a:1, c:2}`
-(*TODO* remame to `omitEmptyObjects`)
+(*TODO* rename to `omitEmptyObjects`)
 
 
 ### compareDeep
