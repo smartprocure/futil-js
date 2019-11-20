@@ -1,3 +1,6 @@
+# 1.64.3
+- Fix typo in README
+
 # 1.64.2
 - Handle `[]`, `undefined`, and `null` arguments in `chunkBy`
 
