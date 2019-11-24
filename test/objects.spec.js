@@ -536,13 +536,15 @@ describe('Object Functions', () => {
   it('invertByArray', () => {
     expect(
       F.invertByArray({
-        a: ['x', 'y', 'z'],
-        b: ['x'],
+        a: ['v.w', 'x', '.y', 'z'],
+        b: ['v[w]', 'x'],
       })
     ).to.deep.equal({
+      'v.w': ['a'],
       x: ['a', 'b'],
-      y: ['a'],
+      '.y': ['a'],
       z: ['a'],
+      'v[w]': ['b'],
     })
   })
   it('stampKey', () => {
