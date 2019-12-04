@@ -8,11 +8,7 @@ export const wrap = (pre, post, content) =>
   (pre || '') + content + (post || pre || '')
 export const quote = _.partial(wrap, ['"', '"'])
 export const parens = _.partial(wrap, ['(', ')'])
-export const concatStrings = _.flow(
-  _.compact,
-  _.map(_.trim),
-  _.join(' ')
-)
+export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
 export const trimStrings = map(when(_.isString, _.trim))
 
 // _.startCase does the trick, deprecate it!
@@ -25,7 +21,12 @@ export let autoLabelOptions = _.map(autoLabelOption)
 
 export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
   _.flow(
-    intersperse(differentLast(() => separator, () => lastSeparator)),
+    intersperse(
+      differentLast(
+        () => separator,
+        () => lastSeparator
+      )
+    ),
     _.join('')
   )(array)
 )

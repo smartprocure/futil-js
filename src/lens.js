@@ -86,10 +86,7 @@ let targetBinding = field =>
   binding(field, when(_.hasIn(`target.${field}`), _.get(`target.${field}`)))
 export let domLens = {
   value: targetBinding('value'),
-  checkboxValues: _.flow(
-    includeLens,
-    targetBinding('checked')
-  ),
+  checkboxValues: _.flow(includeLens, targetBinding('checked')),
   hover: (...lens) => ({
     onMouseEnter: on(...lens),
     onMouseLeave: off(...lens),

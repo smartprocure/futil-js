@@ -7,13 +7,12 @@ const expect = chai.expect
 
 describe('Collections Functions', () => {
   it('flowMap', () => {
-    expect(F.flowMap(n => n + n, n => n * n)([0, 1, 2, 3, 4])).to.eql([
-      0,
-      4,
-      16,
-      36,
-      64,
-    ])
+    expect(
+      F.flowMap(
+        n => n + n,
+        n => n * n
+      )([0, 1, 2, 3, 4])
+    ).to.eql([0, 4, 16, 36, 64])
     expect(
       F.flowMap(
         s => s.toUpperCase(),
