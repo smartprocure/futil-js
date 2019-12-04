@@ -262,9 +262,9 @@ describe('Lens Functions', () => {
         hovering: false,
       }
       let props = F.domLens.hover('hovering', state)
-      props.onMouseOver()
+      props.onMouseEnter()
       expect(state.hovering).to.be.true
-      props.onMouseOut()
+      props.onMouseLeave()
       expect(state.hovering).to.be.false
     })
     it('focus', () => {

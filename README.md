@@ -612,7 +612,7 @@ let Component = () => {
 `(value, lens) -> {checked, onChange}` Creates an includeLens and maps view to checked and set to `onChange` (set with `e.target.checked` or `e` if that path isn't present)
 
 #### domLens.hover
-`lens -> { onMouseOver, onMouseOut }` Takes a lens and returns on onMouseOver which calls `on` on the lens and onMouseOut which calls `off`. Models a mapping of "hovering" to a boolean.
+`lens -> { onMouseEnter, onMouseLeave }` Takes a lens and returns on onMouseEnter which calls `on` on the lens and onMouseLeave which calls `off`. Models a mapping of "hovering" to a boolean.
 
 #### domLens.focus
 `lens -> { onFocus, onBlur }` Takes a lens and returns on onFocus which calls `on` on the lens and onBlur which calls `off`. Models a mapping of "focusing" to a boolean.

@@ -1,3 +1,6 @@
+# 1.64.4
+- Change `domLens.hover` to use `onMouseEnter`/`onMouseLeave` instead of `onMouseOver`/`onMouseOut`
+
 # 1.64.3
 - Fix typo in README
 

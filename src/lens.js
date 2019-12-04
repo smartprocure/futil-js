@@ -91,8 +91,8 @@ export let domLens = {
     targetBinding('checked')
   ),
   hover: (...lens) => ({
-    onMouseOver: on(...lens),
-    onMouseOut: off(...lens),
+    onMouseEnter: on(...lens),
+    onMouseLeave: off(...lens),
   }),
   focus: (...lens) => ({
     onFocus: on(...lens),
