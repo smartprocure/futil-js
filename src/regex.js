@@ -4,16 +4,9 @@ import { insertAtIndex } from './collection'
 
 export const testRegex = _.curry((regex, str) => new RegExp(regex).test(str))
 export const makeRegex = options => text => RegExp(text, options)
-export const makeAndTest = options =>
-  _.flow(
-    makeRegex(options),
-    testRegex
-  )
+export const makeAndTest = options => _.flow(makeRegex(options), testRegex)
 
-export const anyWordToRegexp = _.flow(
-  _.words,
-  _.join('|')
-)
+export const anyWordToRegexp = _.flow(_.words, _.join('|'))
 
 export const wordsToRegexp = _.flow(
   _.words,

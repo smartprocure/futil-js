@@ -81,13 +81,12 @@ describe('String Functions', () => {
   it('uniqueString', () => {
     let dedupe = F.uniqueString([])
     expect(dedupe.cache).to.deep.equal({})
-    expect(_.map(dedupe, _.times(() => 'foo', 5))).to.deep.equal([
-      'foo',
-      'foo1',
-      'foo2',
-      'foo3',
-      'foo4',
-    ])
+    expect(
+      _.map(
+        dedupe,
+        _.times(() => 'foo', 5)
+      )
+    ).to.deep.equal(['foo', 'foo1', 'foo2', 'foo3', 'foo4'])
     expect(dedupe.cache).to.deep.equal({
       foo: 5,
       foo1: 1,

@@ -19,11 +19,21 @@ describe('Array Functions', () => {
     expect(F.repeated(['a', 'b', 'b'])).to.eql(['b'])
   })
   it('mergeRanges', () => {
-    expect(F.mergeRanges([[0, 2], [1, 4]])).to.deep.equal([[0, 4]])
+    expect(
+      F.mergeRanges([
+        [0, 2],
+        [1, 4],
+      ])
+    ).to.deep.equal([[0, 4]])
     expect(F.mergeRanges([null, [1, 4]])).to.deep.equal([[1, 4]])
-    expect(F.mergeRanges([[0, 1], [1, 4], [2, 4], [3, 5]])).to.deep.equal([
-      [0, 5],
-    ])
+    expect(
+      F.mergeRanges([
+        [0, 1],
+        [1, 4],
+        [2, 4],
+        [3, 5],
+      ])
+    ).to.deep.equal([[0, 5]])
   })
   it('cycle', () => {
     let cycle = F.cycle([1, 2, 3])
@@ -41,7 +51,11 @@ describe('Array Functions', () => {
   })
   it('arrayToObject', () => {
     expect(
-      F.arrayToObject(x => `key${x}`, x => `val${x}`, ['a', 'b', 'c'])
+      F.arrayToObject(
+        x => `key${x}`,
+        x => `val${x}`,
+        ['a', 'b', 'c']
+      )
     ).to.deep.equal({ keya: 'vala', keyb: 'valb', keyc: 'valc' })
   })
   it('pushIn', () => {

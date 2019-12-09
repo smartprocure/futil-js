@@ -40,10 +40,7 @@ export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 
 export const renameProperty = _.curry((from, to, target) =>
   _.has(from, target)
-    ? _.flow(
-        x => _.set(to, _.get(from, x), x),
-        _.unset(from)
-      )(target)
+    ? _.flow(x => _.set(to, _.get(from, x), x), _.unset(from))(target)
     : target
 )
 
@@ -79,11 +76,7 @@ export const matchesSignature = _.curry(
 )
 
 // `_.matches` that returns true if one or more of the conditions match instead of all
-export const matchesSome = _.flow(
-  chunkObject,
-  _.map(_.matches),
-  _.overSome
-)
+export const matchesSome = _.flow(chunkObject, _.map(_.matches), _.overSome)
 
 // Checks if a property deep in a given item equals to a given value
 export const compareDeep = _.curry(
@@ -91,9 +84,11 @@ export const compareDeep = _.curry(
 )
 
 //Depreacted in favor of _.update version from lodash
-export const mapProp = aspects.deprecate('mapProp', '1.46.0', '_.update')(
-  noCap.update
-)
+export const mapProp = aspects.deprecate(
+  'mapProp',
+  '1.46.0',
+  '_.update'
+)(noCap.update)
 
 // `_.get` that returns the target object if lookup fails
 export let getOrReturn = _.curry((prop, x) => _.getOr(x, prop, x))
@@ -135,10 +130,7 @@ export let simpleDiff = (original, deltas) => {
     _.omitBy(x => x.from === x.to)
   )(deltas)
 }
-export let simpleDiffArray = _.flow(
-  simpleDiff,
-  unkeyBy('field')
-)
+export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
 
 export let diff = (original, deltas) => {
   let o = flattenObject(original)
@@ -148,10 +140,7 @@ export let diff = (original, deltas) => {
     _.omitBy(x => x.from === x.to)
   )(_.merge(o, d))
 }
-export let diffArray = _.flow(
-  diff,
-  unkeyBy('field')
-)
+export let diffArray = _.flow(diff, unkeyBy('field'))
 
 // A `_.pick` that mutates the object
 export let pickOn = (paths = [], obj = {}) =>
@@ -187,18 +176,12 @@ export let omitEmpty = x => _.omitBy(_.isEmpty, x)
 
 // ([f, g]) -> (x, y) -> {...f(x, y), ...g(x, y)}
 export let mergeOverAll = _.curryN(2, (fns, ...x) =>
-  _.flow(
-    _.over(fns),
-    _.mergeAll
-  )(...x)
+  _.flow(_.over(fns), _.mergeAll)(...x)
 )
 
 // customizer -> ([f, g]) -> (x, y) -> {...f(x, y), ...g(x, y)}
 export let mergeOverAllWith = _.curryN(3, (customizer, fns, ...x) =>
-  _.flow(
-    _.over(fns),
-    _.mergeAllWith(customizer)
-  )(...x)
+  _.flow(_.over(fns), _.mergeAllWith(customizer))(...x)
 )
 
 // ([f, g]) -> (x, y) -> {...f(x, y), ...g(x, y)}
