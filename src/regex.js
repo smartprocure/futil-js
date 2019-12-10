@@ -77,7 +77,9 @@ export const highlight = _.curry((start, end, pattern, input) =>
   highlightFromPostings(
     start,
     end,
-    _.flatten(postingsForWords(pattern, input)),
+    _.isRegExp(pattern)
+      ? postings(pattern, input)
+      : _.flatten(postingsForWords(pattern, input)),
     input
   )
 )

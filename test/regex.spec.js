@@ -111,4 +111,11 @@ describe('Posting Highlight Functions', () => {
       '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease'
     expect(f.highlight(start, end, pattern, input)).to.deep.equal(expected)
   })
+  it('should highlight from regexp', () => {
+    let input = 'pretty please nope'
+    let pattern = /\bp\w/g
+    let expected =
+      '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease nope'
+    expect(f.highlight(start, end, pattern, input)).to.deep.equal(expected)
+  })
 })
