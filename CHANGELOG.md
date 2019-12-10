@@ -1,4 +1,4 @@
-# 1.64.5
+# 1.65.0
 - Add support for regular expression arguments to `highlight`
 - Clarify `highlight` description in README
 - Add description for `postingsForWords` to README
