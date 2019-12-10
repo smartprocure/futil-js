@@ -487,6 +487,18 @@ uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
 ### postings
 `regex -> string -> [[number, number]]` Returns an array of postings (position ranges) for a regex and string to test, e.g. `F.postings(/a/g, 'vuhfaof') -> [[4, 5]]`
 
+### postingsForWords
+`words -> string -> [[[number, number]]]` Takes a string of words and a string to test, and returns an array of arrays of postings for each word.
+
+Example:
+```js
+F.postingsForWords('she lls', 'she sells sea shells')
+// [
+//   [[0, 3], [14, 17]]
+//   [[6, 9], [17, 20]]
+// ]
+```
+
 ### highlight
 `start -> end -> pattern -> input -> highlightedInput` Wraps the matches for `pattern` found in `input` with the strings `start` and `end`. The `pattern` argument can either be a string of words to match, or a regular expression.
 

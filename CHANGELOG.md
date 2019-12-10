@@ -1,6 +1,7 @@
 # 1.64.5
 - Add support for regular expression arguments to `highlight`
 - Clarify `highlight` description in README
+- Add description for `postingsForWords` to README
 
 # 1.64.4
 - Change `domLens.hover` to use `onMouseEnter`/`onMouseLeave` instead of `onMouseOver`/`onMouseOut`
