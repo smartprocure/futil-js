@@ -487,10 +487,27 @@ uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
 ### postings
 `regex -> string -> [[number, number]]` Returns an array of postings (position ranges) for a regex and string to test, e.g. `F.postings(/a/g, 'vuhfaof') -> [[4, 5]]`
 
-### highlight
-`start -> end -> regex -> input -> highlightedInput` Wraps the matches for `regex` found in `input` with the strings `start` and `end`.
+### postingsForWords
+`words -> string -> [[[number, number]]]` Takes a string of words and a string to test, and returns an array of arrays of postings for each word.
 
-Example: `('<b>', '</b>', /h/, 'hi') -> '<b>h</b>i'`
+Example:
+```js
+F.postingsForWords('she lls', 'she sells sea shells')
+// [
+//   [[0, 3], [14, 17]]
+//   [[6, 9], [17, 20]]
+// ]
+```
+
+### highlight
+`start -> end -> pattern -> input -> highlightedInput` Wraps the matches for `pattern` found in `input` with the strings `start` and `end`. The `pattern` argument can either be a string of words to match, or a regular expression.
+
+Example: 
+```js
+let braceHighlight = F.highlight('{', '}')
+braceHighlight('l o', 'hello world') //-> "he{llo} w{o}r{l}d"
+braceHighlight(/l+\w/, 'hello world') //-> "he{llo} wor{ld}"
+```
 
 ### allMatches
 `regex -> string -> [{text: string, start: number, end: number}]` Returns an array of matches with start/end data, e.g. `F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]`
