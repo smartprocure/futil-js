@@ -128,19 +128,20 @@ let TagSection = ({ tag }) => {
 
 
 let Signature = x => {
+  //uncomment this to see 
   let [showArgs, setShowArgs] = React.useState(false)
   return (
     <>
       {x.signature && (
         <pre
           className="code-tag"
-          style={{ cursor: 'pointer' }}
-          onClick={() => setShowArgs(!showArgs)}
+          //style={{ cursor: 'pointer' }}
+          //onClick={() => setShowArgs(!showArgs)}
         >
           {x.signature}
         </pre>
       )}
-      {showArgs && (
+      {/* {showArgs && (
         <>
           <Table>
             <thead>
@@ -164,7 +165,7 @@ let Signature = x => {
             </tbody>
           </Table>
         </>
-      )}
+      )} */}
     </>
   )
 }
@@ -284,7 +285,7 @@ let DocsPage = ({ search, setSearch }) => {
   }, docs)
   return (
     <>
-      <h1 style={{ margin: 10 }}>What was that method? Let's find it!</h1>
+      {/* <h1 style={{ margin: 10 }}>What was that method? Let's find it!</h1> */}
       <Box style={{ margin: 10 }}>
         <p>
           Sometimes you know a method exists but not what it's called. Use this
@@ -456,17 +457,12 @@ let DocsPage = ({ search, setSearch }) => {
 
                   {x.description}
                   {/* <TextHighlight pattern={search} text={x.description} /> */}
-                  {(tests[x.name] || x.example || source[x.name]) && (
+                  {(x.example || source[x.name]) && (
                     <Tabs TabsList={ButtonRadio} TabPanel={React.Fragment}>
                       {_.compact([
                         x.example && (
                           <Tab label="Example">
                             <CodeSnippet>{x.example}</CodeSnippet>
-                          </Tab>
-                        ),
-                        tests[x.name] && (
-                          <Tab label="Tests">
-                            <CodeSnippet>{tests[x.name] + ''}</CodeSnippet>
                           </Tab>
                         ),
                         source[x.name] && (
@@ -514,8 +510,6 @@ let App = () => {
               ['home', 'docs', 'changelog']
             )}
           />
-          Search By
-          <Button>Name&nbsp;v</Button>
           <TextInput
             style={{ marginLeft: 20 }}
             value={search}
@@ -523,7 +517,7 @@ let App = () => {
               setSearch(e.target.value)
               setPage('docs')
             }}
-            placeholder="Search..."
+            placeholder="Search by method name..."
           />
         </Flex>
       </PageHeader>
