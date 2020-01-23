@@ -1,3 +1,7 @@
+# 2.0.0 (unreleased)
+- NEW docs site!
+- Killed deprecated conversion methods (reduce, mapValues, each)
+
 # 1.64.0
 - Add new native lens formats, `arrayLens` and `functionPairLens`
 - Make `domLens.value` more flexible by supporting non-native onChange events (allow `targetBinding` to fall back to the provided value if `e.target[key]` is not passed in)
