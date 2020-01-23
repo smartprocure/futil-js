@@ -1,0 +1,44 @@
+{
+  "name": "beta",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "futil": "^1.63.0",
+    "grey-vest": "^2.4.0",
+    "lodash": "^4.17.15",
+    "mobx": "^5.14.2",
+    "mobx-react": "^6.1.4",
+    "mobx-react-utils": "^1.1.0",
+    "moment": "^2.24.0",
+    "ramda": "^0.26.1",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-input-autosize": "^2.2.2",
+    "react-markdown": "^4.2.2",
+    "react-runkit": "^0.9.0",
+    "react-scripts": "3.2.0",
+    "react-syntax-highlighter": "^11.0.2",
+    "use-event-listener": "^1.0.4"
+  },
+  "scripts": {
+    "start": "PORT=8000 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
