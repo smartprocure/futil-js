@@ -31,10 +31,7 @@ export let pushOn = _.curry((arr, val) => {
 })
 
 export let moveIndex = (from, to, arr) =>
-  _.flow(
-    _.pullAt(from),
-    insertAtIndex(to, arr[from])
-  )(arr)
+  _.flow(_.pullAt(from), insertAtIndex(to, arr[from]))(arr)
 
 let overlaps = (x, y) => y[0] > x[1]
 let mergeRange = (x, y) => [[x[0], _.max(x.concat(y))]]
@@ -56,10 +53,7 @@ export let mergeRanges = _.flow(
 export let cycle = _.curry((a, n) => a[(a.indexOf(n) + 1) % a.length])
 
 export let arrayToObject = _.curry((k, v, a) =>
-  _.flow(
-    _.keyBy(k),
-    _.mapValues(v)
-  )(a)
+  _.flow(_.keyBy(k), _.mapValues(v))(a)
 )
 
 // zipObject that supports functions instead of objects
