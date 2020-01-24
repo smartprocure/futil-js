@@ -284,10 +284,9 @@ let DocsPage = ({ search, setSearch }) => {
   }, docs)
   return (
     <>
-      <h1 style={{ margin: 10 }}>What was that method? Let's find it!</h1>
       <Box style={{ margin: 10 }}>
         <p>
-          Sometimes you know a method exists but not what it's called. Use this
+          Sometimes you know a function exists but not what it's called. Use this
           to find all the methods that match an expected input and output!
         </p>
         <Flex alignItems="center" justifyContent="center" style={{ fontSize: 18 }}>
@@ -456,16 +455,11 @@ let DocsPage = ({ search, setSearch }) => {
 
                   {x.description}
                   {/* <TextHighlight pattern={search} text={x.description} /> */}
-                  {(tests[x.name] || x.example || source[x.name]) && (
+                  {(tests[x.name] || source[x.name]) && (
                     <Tabs TabsList={ButtonRadio} TabPanel={React.Fragment}>
                       {_.compact([
-                        x.example && (
-                          <Tab label="Example">
-                            <CodeSnippet>{x.example}</CodeSnippet>
-                          </Tab>
-                        ),
                         tests[x.name] && (
-                          <Tab label="Tests">
+                          <Tab label="Example">
                             <CodeSnippet>{tests[x.name] + ''}</CodeSnippet>
                           </Tab>
                         ),
@@ -514,8 +508,6 @@ let App = () => {
               ['home', 'docs', 'changelog']
             )}
           />
-          Search By
-          <Button>Name&nbsp;v</Button>
           <TextInput
             style={{ marginLeft: 20 }}
             value={search}
@@ -523,7 +515,7 @@ let App = () => {
               setSearch(e.target.value)
               setPage('docs')
             }}
-            placeholder="Search..."
+            placeholder="Search by name..."
           />
         </Flex>
       </PageHeader>
