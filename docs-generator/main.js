@@ -1,10 +1,9 @@
+/* eslint-disable */
 import _ from 'lodash/fp'
 import F from 'futil'
 import includeAll from 'include-all'
-
 import fs from 'fs'
 import prettier from 'prettier'
-
 import source from '../src'
 
 let tests = {}
@@ -12,40 +11,85 @@ global.describe = (name, fn) => fn()
 global.it = (name, fn) => {
   tests[_.replace('should ', '', name)] = fn
   return {
-    timeout: () => {}
+    timeout: () => {},
   }
 }
+
+let cleanup = _.flow(
+  _.toString,
+  _.split('\n'),
+  // Remove the fn wrapper
+  x => x.slice(1, -1),
+  _.join('\n'),
+  // Remove the test wrappers
+  _.replace(
+    /expect\((.+?)\)(\.not)?\.to\.be\.true/g,
+    (a, b) => `${b}\n/* => true */`
+  ),
+  _.replace(
+    /expect\((.+?)\)(\.not)?\.to\.be\.false/g,
+    (a, b) => `${b}\n/* => false */`
+  ),
+  _.replace(
+    /expect\((.+?)\)\.to\.have\.callCount\(([0-9]+)\)/g,
+    (a, b, c) => `${b}\n/* => to have been called ${c} times */`
+  ),
+  _.replace(
+    /expect\((\(\) => )?(.+?)\)(\.not)?\.to\.be\.a\((.+?)\)/g,
+    (a, b, c, d, e) => `${c}\n/* => is a ${e} */`
+  ),
+  _.replace(
+    /expect\((\(\) => )?(.+?)\)(\.not)?\.to\.throw\((.*?)\)/g,
+    (a, b, c, d, e) => `${c}\n/* => throws ${e || 'exception'} */`
+  ),
+  _.replace(
+    /expect\((.+?)\)(\.not)?\.to\.be\.rejectedWith\((.*?)\)/g,
+    (a, b, c, d) => `${b}\n/* => throws ${d || 'exception'} */`
+  ),
+  _.replace(
+    /expect\((.+?)\)(\.not)?\.to(\.deep)?(\.equal|\.eql)\((.+?)\)/gs,
+    (a, b, c, d, e, f) => `${b}\n/* => ${f} */`
+  )
+)
 
 export default () => {
   let tree = includeAll({ dirname: '../test', filter: /spec\.js$/ })
-  let content = 'module.exports = ' + JSON.stringify(_.mapValues(
-    x => prettier.format(
-      _.flow(
-        _.split('\n'),
-        x => x.slice(1, -1),
-        _.join('\n')
-      )(x.toString())
-      , {
-      semi:false,
-      singleQuote: true
-    })
-    , tests), 0, 2)
-  // console.log(content)
-  console.log(source.unwind.toString())
-
-  fs.writeFile('./tests.js', content, (err) => {})
-
-  let sources = 'module.exports = ' + JSON.stringify(F.mapValuesIndexed(
-    (x, i) => {
-    try {
-      return prettier.format(`let ${i} = ${x.toString()}`, {
-      semi:false,
-      singleQuote: true
-    })
-  }
-  catch (e) {}
-}
-    , source), 0, 2)
-    fs.writeFile('./source.js', sources, (err) => {})
-
+  // Tests
+  let content =
+    'module.exports = ' +
+    JSON.stringify(
+      _.mapValues(test => {
+        let code = cleanup(test)
+        try {
+          return prettier.format(code, {
+            semi: false,
+            singleQuote: true,
+            parser: 'babel',
+          })
+        } catch (e) {
+          console.log(code)
+          console.error(e)
+        }
+      }, tests),
+      0,
+      2
+    )
+  fs.writeFile('./tests.js', content, err => {})
+  // Sources
+  let sources =
+    'module.exports = ' +
+    JSON.stringify(
+      F.mapValuesIndexed((x, i) => {
+        try {
+          return prettier.format(`let ${i} = ${x.toString()}`, {
+            semi: false,
+            singleQuote: true,
+            parser: 'babel',
+          })
+        } catch (e) {}
+      }, source),
+      0,
+      2
+    )
+  fs.writeFile('./source.js', sources, err => {})
 }

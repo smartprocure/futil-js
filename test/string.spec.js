@@ -6,14 +6,16 @@ const expect = chai.expect
 
 describe('String Functions', () => {
   it('wrap', () => {
-    expect(F.wrap('(', ')', 'asdf')).to.equal('(asdf)')
+    let wrapped = '(asdf)'
+    expect(F.wrap('(', ')', 'asdf')).to.equal(wrapped)
     expect(F.wrap(null, null, 'asdf')).to.equal('asdf')
   })
   it('quote', () => {
     expect(F.quote('asdf')).to.equal('"asdf"')
   })
   it('parens', () => {
-    expect(F.parens('asdf')).to.equal('(asdf)')
+    let wrapped = '(asdf)'
+    expect(F.parens('asdf')).to.equal(wrapped)
   })
   it('concatStrings', () => {
     expect(
@@ -29,22 +31,18 @@ describe('String Functions', () => {
     ).to.deep.equal({ a: 'a', b: 'b', c: 'c', d: 'd', e: 5 })
   })
   it('autoLabel', () => {
-    let tests = [
-      [
-        'whatDoYouThinkOfThisHTML5Stuff? IThinkItIsREALLYCool',
-        'What Do You Think Of This HTML 5 Stuff I Think It Is REALLY Cool',
-      ],
-      ['thisIsAVariable', 'This Is A Variable'],
-      [
-        'thisIs_startCaseWithACRONYMSAndNumbersLike123and4',
-        'This Is Start Case With ACRONYMS And Numbers Like 123 And 4',
-      ],
-      // Passive aggressive example of how to better auto generate PR titles from branch names...
-      ['Feature/AutoLabel#126', 'Feature Auto Label 126'],
-    ]
-    F.eachIndexed(
-      ([input, output]) => expect(F.autoLabel(input)).to.equal(output),
-      tests
+    expect(
+      F.autoLabel('whatDoYouThinkOfThisHTML5Stuff? IThinkItIsREALLYCool')
+    ).to.equal(
+      'What Do You Think Of This HTML 5 Stuff I Think It Is REALLY Cool'
+    )
+    expect(F.autoLabel('thisIsAVariable')).to.equal('This Is A Variable')
+    expect(
+      F.autoLabel('thisIs_startCaseWithACRONYMSAndNumbersLike123and4')
+    ).to.equal('This Is Start Case With ACRONYMS And Numbers Like 123 And 4')
+    // Passive aggressive example of how to better auto generate PR titles from branch names...
+    expect(F.autoLabel('Feature/AutoLabel#126')).to.equal(
+      'Feature Auto Label 126'
     )
   })
   it('autoLabelOption', () => {
@@ -113,9 +111,9 @@ describe('String Functions', () => {
       element. If func is an array or object, the created function returns true for elements
       that contain the equivalent source properties, otherwise it returns false.
     `)
-    expect(_.size(_.uniq(text))).not.to.equal(_.size(text))
+    expect(_.size(_.uniq(text))).not.to.equal(text.length)
     let uniqueText = _.map(F.uniqueString(), text)
-    expect(_.size(_.uniq(uniqueText))).to.equal(_.size(uniqueText))
+    expect(_.size(_.uniq(uniqueText))).to.equal(uniqueText.length)
     // clearing should work
     dedupe.clear()
     expect(dedupe.cache).to.deep.equal({})

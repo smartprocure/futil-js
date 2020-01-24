@@ -284,7 +284,7 @@ describe('Lens Functions', () => {
       let props = F.domLens.targetBinding('checked')('flag', state)
       expect(props.checked).to.be.false
       props.onChange({ target: { checked: true } })
-      expect(state.flag)
+      expect(state.flag).to.be.true
     })
     it('binding', () => {
       let state = {
