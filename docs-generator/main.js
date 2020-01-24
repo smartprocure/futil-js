@@ -4,14 +4,12 @@ import F from 'futil'
 import includeAll from 'include-all'
 import fs from 'fs'
 import prettier from 'prettier'
-import uglifyjs from 'uglify-js'
 import source from '../src'
 
 let tests = {}
 global.describe = (name, fn) => fn()
 global.it = (name, fn) => {
   tests[_.replace('should ', '', name)] = fn
-  // console.log('tests', tests)
   return {
     timeout: () => {},
   }
