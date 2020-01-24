@@ -13,7 +13,7 @@ describe('Converted Functions', () => {
 
   describe('Flips', () => {
     it('getIn', () => {
-      expect(f.getIn(hero, 'name')).to.eql(_.get('name', hero))
+      expect(f.getIn(hero, 'name')).to.eql(hero.name)
       const obj = { a: 1 }
       expect(f.inversions.getIn(obj)('a')).to.equal(1)
       expect(f.getIn(obj)('a')).to.equal(1)
@@ -61,9 +61,8 @@ describe('Converted Functions', () => {
 
     it('defaultsOn', () => {
       let clone = _.clone(hero)
-      expect(f.defaultsOn(clone, { consort: 'Auge' })).to.eql(
-        _.defaults({ consort: 'Auge' }, clone)
-      )
+      let defaultsResult = _.defaults({ consort: 'Auge' }, clone)
+      expect(f.defaultsOn(clone, { consort: 'Auge' })).to.eql(defaultsResult)
       expect(
         f.defaultsOn(
           {

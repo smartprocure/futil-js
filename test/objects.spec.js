@@ -141,11 +141,9 @@ describe('Object Functions', () => {
   })
   it('renameProperty', () => {
     const o = { a: 1 }
-    const newO = F.renameProperty('a', 'b', o)
-    expect(newO).not.to.deep.equal(o)
-    expect(newO).to.deep.equal({ b: 1 })
-    const new1 = F.renameProperty('c', 'b', o)
-    expect(new1).to.deep.equal({ a: 1 })
+    expect(F.renameProperty('a', 'b', o)).not.to.deep.equal(o)
+    expect(F.renameProperty('a', 'b', o)).to.deep.equal({ b: 1 })
+    expect(F.renameProperty('c', 'b', o)).to.deep.equal({ a: 1 })
   })
   it('matchesSignature', () => {
     expect(F.matchesSignature([], 0)).to.equal(false)

@@ -12,8 +12,9 @@ describe('Regexp Functions', () => {
   it('makeRegExp', () => {
     const reText = 'Some text'
     const options = 'gi'
+    const regExp = RegExp(reText, options)
 
-    expect(f.makeRegex(options)(reText)).to.deep.equal(RegExp(reText, options))
+    expect(f.makeRegex(options)(reText)).to.deep.equal(regExp)
   })
 
   it('makeAndTest', () => {
@@ -21,8 +22,9 @@ describe('Regexp Functions', () => {
     const options = 'gi'
     const text = 'Here is some text to test'
     const regex = RegExp(reText, options)
+    const result = regex.test(text)
 
-    expect(f.makeAndTest(options)(reText)(text)).to.deep.equal(regex.test(text))
+    expect(f.makeAndTest(options)(reText)(text)).to.deep.equal(result)
   })
 
   it('matchAnyWord', () => {
@@ -57,11 +59,24 @@ describe('Regexp Functions', () => {
 describe('Posting Highlight Functions', () => {
   it('should get postings', () => {
     var result = f.postings(RegExp('p', 'gi'), 'pretty please')
-    expect(result).to.deep.equal([[0, 1], [7, 8]])
+    expect(result).to.deep.equal([
+      [0, 1],
+      [7, 8],
+    ])
   })
   it('should get postings by word', () => {
     var result = f.postingsForWords('pret pr t ', 'pretty prease')
-    expect(result).to.deep.equal([[[0, 4]], [[0, 2], [7, 9]], [[3, 4], [4, 5]]])
+    expect(result).to.deep.equal([
+      [[0, 4]],
+      [
+        [0, 2],
+        [7, 9],
+      ],
+      [
+        [3, 4],
+        [4, 5],
+      ],
+    ])
   })
   var start = '<span class="highlight">'
   var end = '</span>'
@@ -80,7 +95,15 @@ describe('Posting Highlight Functions', () => {
     let expected =
       '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
     expect(
-      f.highlightFromPostings(start, end, [[7, 8], [0, 1]], input)
+      f.highlightFromPostings(
+        start,
+        end,
+        [
+          [7, 8],
+          [0, 1],
+        ],
+        input
+      )
     ).to.equal(expected)
   })
   it('should high level highlight', () => {

@@ -10,7 +10,8 @@ describe('Basic Functions', () => {
   })
   it('maybeCall should call fn with parameters', () => {
     const fn = (x, y) => x + y
-    expect(F.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6))
+    const result = fn(5, 6)
+    expect(F.maybeCall(fn, 5, 6)).to.deep.equal(result)
   })
   it("boundMethod should bind a method of an object to it's object", () => {
     let obj = {
