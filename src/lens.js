@@ -71,7 +71,7 @@ export let sets = _.curryN(2, (val, ...lens) => () => set(val, ...lens))
 export let setsWith = _.curry((f, ...lens) => x =>
   set(_.iteratee(f)(x), ...lens)
 )
-export let flip = (...lens) => () => set(!view(...lens), ...lens)
+export let flips = (...lens) => () => set(!view(...lens), ...lens)
 export let on = sets(true)
 export let off = sets(false)
 
