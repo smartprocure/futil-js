@@ -102,6 +102,7 @@ export let flatLeaves = (next = traverse) => _.reject(next)
 
 export let tree = (next = traverse, buildIteratee = _.identity) => ({
   walk: walk(next),
+  walkAsync: walkAsync(next),
   transform: transformTree(next),
   reduce: reduceTree(next),
   toArrayBy: treeToArrayBy(next),

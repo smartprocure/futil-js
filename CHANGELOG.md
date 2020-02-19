@@ -1,3 +1,7 @@
+# 1.66.0
+- Add `walkAsync`
+- Add `findIndexedAsync` (used internally and not documented, but exported for testing)
+
 # 1.65.0
 - Add support for regular expression arguments to `highlight`
 - Clarify `highlight` description in README
