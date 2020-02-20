@@ -255,13 +255,13 @@ let customLaunchers = {
   //   deviceName: 'iPad Air Simulator',
   //   deviceOrientation: 'portrait',
   // },
-  sl_ipad_103: {
-    base: 'SauceLabs',
-    browserName: 'ipad',
-    version: '10.3',
-    deviceName: 'iPad Pro (12.9 inch) Simulator',
-    deviceOrientation: 'portrait',
-  },
+  // sl_ipad_103: {
+  //   base: 'SauceLabs',
+  //   browserName: 'ipad',
+  //   version: '10.3',
+  //   deviceName: 'iPad Pro (12.9 inch) Simulator',
+  //   deviceOrientation: 'portrait',
+  // },
   sl_ipad_110: {
     base: 'SauceLabs',
     browserName: 'iphone',
@@ -269,14 +269,14 @@ let customLaunchers = {
     deviceName: 'iPad Pro (9.7 inch) Simulator',
     deviceOrientation: 'portrait',
   },
-  sl_android_51: {
-    base: 'SauceLabs',
-    browserName: 'android',
-    version: '5.1',
-    deviceName: 'Android GoogleAPI Emulator',
-    deviceType: 'phone',
-    deviceOrientation: 'portrait',
-  },
+  // sl_android_51: {
+  //   base: 'SauceLabs',
+  //   browserName: 'android',
+  //   version: '5.1',
+  //   deviceName: 'Android GoogleAPI Emulator',
+  //   deviceType: 'phone',
+  //   deviceOrientation: 'portrait',
+  // },
   sl_android_60: {
     base: 'SauceLabs',
     browserName: 'android',
