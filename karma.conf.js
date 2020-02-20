@@ -124,173 +124,76 @@ module.exports = function(config) {
 
 // Browsers to run on Sauce Labs
 // Check out https://saucelabs.com/platforms for all browser/OS combos
+// UPDATED to match angular's config https://github.com/angular/angular.js/blob/master/karma-shared.conf.js
 let customLaunchers = {
-  sl_chrome_26: {
+  'SL_Chrome': {
     base: 'SauceLabs',
     browserName: 'chrome',
-    version: '26',
+    version: 'latest'
   },
-  sl_chrome_30: {
+  'SL_Chrome-1': {
     base: 'SauceLabs',
     browserName: 'chrome',
-    platform: 'Linux',
-    version: '30',
+    version: 'latest-1'
   },
-  sl_chrome_40: {
-    base: 'SauceLabs',
-    browserName: 'chrome',
-    platform: 'Windows 8.1',
-    version: '40',
-  },
-  sl_chrome_50: {
-    base: 'SauceLabs',
-    browserName: 'chrome',
-    platform: 'Windows 10',
-    version: '50',
-  },
-  sl_chrome_latest: {
-    base: 'SauceLabs',
-    browserName: 'chrome',
-    platform: 'OS X 10.12',
-    version: 'latest',
-  },
-  sl_firefox_18: {
+  'SL_Firefox': {
     base: 'SauceLabs',
     browserName: 'firefox',
-    version: '18',
+    version: 'latest'
   },
-  sl_firefox_30: {
+  'SL_Firefox-1': {
     base: 'SauceLabs',
     browserName: 'firefox',
-    platform: 'Linux',
-    version: '30',
+    version: 'latest-1'
   },
-  sl_firefox_40: {
+  'SL_Safari-1': {
     base: 'SauceLabs',
-    browserName: 'firefox',
-    platform: 'Windows 8.1',
-    version: '40',
+    browserName: 'safari',
+    version: 'latest-1'
   },
-  sl_firefox_50: {
+  'SL_Safari': {
     base: 'SauceLabs',
-    browserName: 'firefox',
-    platform: 'Windows 10',
-    version: '50',
+    browserName: 'safari',
+    version: 'latest'
   },
-  sl_firefox_latest: {
+  'SL_IE_9': {
     base: 'SauceLabs',
-    browserName: 'firefox',
-    platform: 'OS X 10.12',
-    version: 'latest',
+    browserName: 'internet explorer',
+    platform: 'Windows 2008',
+    version: '9'
   },
-  sl_ie_11: {
+  'SL_IE_10': {
+    base: 'SauceLabs',
+    browserName: 'internet explorer',
+    platform: 'Windows 2012',
+    version: '10'
+  },
+  'SL_IE_11': {
     base: 'SauceLabs',
     browserName: 'internet explorer',
     platform: 'Windows 8.1',
-    version: '11',
+    version: '11'
   },
-  sl_edge_13: {
+  'SL_EDGE': {
     base: 'SauceLabs',
     browserName: 'microsoftedge',
     platform: 'Windows 10',
-    version: '13',
+    version: 'latest'
   },
-  sl_edge_14: {
+  'SL_EDGE-1': {
     base: 'SauceLabs',
     browserName: 'microsoftedge',
     platform: 'Windows 10',
-    version: '14',
+    version: 'latest-1'
   },
-  sl_edge_15: {
-    base: 'SauceLabs',
-    browserName: 'microsoftedge',
-    platform: 'Windows 10',
-    version: '15',
-  },
-  sl_safari_8: {
-    base: 'SauceLabs',
-    browserName: 'safari',
-    version: '8',
-  },
-  sl_safari_9: {
-    base: 'SauceLabs',
-    browserName: 'safari',
-    version: '9',
-  },
-  sl_safari_10: {
-    base: 'SauceLabs',
-    browserName: 'safari',
-    version: '10',
-  },
-  sl_safari_latest: {
-    base: 'SauceLabs',
-    browserName: 'safari',
-    version: 'latest',
-  },
-  // sl_iphone_93: {
-  //   base: 'SauceLabs',
-  //   browserName: 'iphone',
-  //   version: '9.3',
-  //   deviceName: 'iPhone 6s Simulator',
-  //   deviceOrientation: 'portrait',
-  // },
-  // sl_iphone_103: {
-  //   base: 'SauceLabs',
-  //   browserName: 'iphone',
-  //   version: '10.3',
-  //   deviceName: 'iPhone 7 Plus Simulator',
-  //   deviceOrientation: 'portrait',
-  // },
-  sl_iphone_110: {
+  'SL_iOS': {
     base: 'SauceLabs',
     browserName: 'iphone',
-    version: '11.0',
-    deviceName: 'iPhone 8 Plus',
-    deviceOrientation: 'portrait',
+    version: 'latest'
   },
-  // sl_ipad_93: {
-  //   base: 'SauceLabs',
-  //   browserName: 'ipad',
-  //   version: '9.3',
-  //   deviceName: 'iPad Air Simulator',
-  //   deviceOrientation: 'portrait',
-  // },
-  // sl_ipad_103: {
-  //   base: 'SauceLabs',
-  //   browserName: 'ipad',
-  //   version: '10.3',
-  //   deviceName: 'iPad Pro (12.9 inch) Simulator',
-  //   deviceOrientation: 'portrait',
-  // },
-  sl_ipad_110: {
+  'SL_iOS-1': {
     base: 'SauceLabs',
     browserName: 'iphone',
-    version: '11.0',
-    deviceName: 'iPad Pro (9.7 inch) Simulator',
-    deviceOrientation: 'portrait',
+    version: 'latest-1'
   },
-  // sl_android_51: {
-  //   base: 'SauceLabs',
-  //   browserName: 'android',
-  //   version: '5.1',
-  //   deviceName: 'Android GoogleAPI Emulator',
-  //   deviceType: 'phone',
-  //   deviceOrientation: 'portrait',
-  // },
-  sl_android_60: {
-    base: 'SauceLabs',
-    browserName: 'android',
-    version: '6.0',
-    deviceName: 'Android GoogleAPI Emulator',
-    deviceType: 'phone',
-    deviceOrientation: 'portrait',
-  },
-//   sl_android_71: {
-//     base: 'SauceLabs',
-//     browserName: 'android',
-//     version: '7.1',
-//     deviceName: 'Android GoogleAPI Emulator',
-//     deviceType: 'phone',
-//     deviceOrientation: 'portrait',
-//   },
-// }
+}
