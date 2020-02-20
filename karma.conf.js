@@ -156,12 +156,12 @@ let customLaunchers = {
     browserName: 'safari',
     version: 'latest'
   },
-  'SL_IE_9': {
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    platform: 'Windows 2008',
-    version: '9'
-  },
+  // 'SL_IE_9': {
+  //   base: 'SauceLabs',
+  //   browserName: 'internet explorer',
+  //   platform: 'Windows 2008',
+  //   version: '9'
+  // },
   'SL_IE_10': {
     base: 'SauceLabs',
     browserName: 'internet explorer',
