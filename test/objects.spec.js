@@ -692,28 +692,34 @@ describe('Object Functions', () => {
   it('commonKeys', () => {
     let providers = {
       mongo: {},
-      elasticsearch: {}
+      elasticsearch: {},
     }
     let schema = {
       fields: {},
       elasticsearch: {},
       mongo: {},
     }
-    
-    expect(F.commonKeys(providers, schema)).to.deep.equal(['elasticsearch', 'mongo'])
-    expect(F.commonKeys(providers)(schema)).to.deep.equal(['elasticsearch', 'mongo'])
+
+    expect(F.commonKeys(providers, schema)).to.deep.equal([
+      'elasticsearch',
+      'mongo',
+    ])
+    expect(F.commonKeys(providers)(schema)).to.deep.equal([
+      'elasticsearch',
+      'mongo',
+    ])
   })
   it('firstCommonKey', () => {
     let providers = {
       mongo: {},
-      elasticsearch: {}
+      elasticsearch: {},
     }
     let schema = {
       fields: {},
       elasticsearch: {},
       mongo: {},
     }
-    
+
     expect(F.firstCommonKey(providers, schema)).to.equal('elasticsearch')
   })
 })

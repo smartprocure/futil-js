@@ -206,4 +206,6 @@ export let expandObjectBy = _.curry((key, fn, obj) =>
 
 export let commonKeys = _.curryN(2, mapArgs(_.keys, _.intersection))
 let findKeyIndexed = _.findKey.convert({ cap: false })
-export let firstCommonKey = _.curry((x, y) => findKeyIndexed((val, key) => _.has(key, x), y))
+export let firstCommonKey = _.curry((x, y) =>
+  findKeyIndexed((val, key) => _.has(key, x), y)
+)
