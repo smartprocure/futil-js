@@ -39,7 +39,7 @@ export let walkAsync = (next = traverse) => (
   parents = [],
   parentIndexes = []
 ) => (tree, index) =>
-  pre(tree, index, parents, parentIndexes)
+  Promise.resolve(pre(tree, index, parents, parentIndexes))
     .then(
       preResult =>
         preResult ||
