@@ -36,7 +36,6 @@ export let walkAsync = (next = traverse) => (
     next(tree, index, parents, parentIndexes) || []
   )) ||
   (await post(tree, index, parents, parentIndexes))
-  
 
 export let transformTree = (next = traverse) =>
   _.curry((f, x) => {

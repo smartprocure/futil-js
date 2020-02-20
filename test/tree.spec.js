@@ -496,9 +496,9 @@ describe('Tree Functions', () => {
     let tree = {
       a: {
         b: {
-          c: [1, 2, 3]
-        }
-      }
+          c: [1, 2, 3],
+        },
+      },
     }
     let walkAsyncTest = F.walkAsync()(async node => {
       await Promise.delay(10)
