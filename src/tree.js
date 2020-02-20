@@ -46,7 +46,6 @@ export let walkAsync = (next = traverse) => (
     )
     .then(stepResult => stepResult || post(tree, index, parents, parentIndexes))
 
-
 export let transformTree = (next = traverse) =>
   _.curry((f, x) => {
     let result = _.cloneDeep(x)
