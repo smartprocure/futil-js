@@ -18,6 +18,34 @@ export let walk = (next = traverse) => (
   ) ||
   post(tree, index, parents, parentIndexes)
 
+export let findIndexedAsync = async (f, data) => {
+  for (let key in data) {
+    if (await f(data[key], key, data)) return data[key]
+  }
+}
+
+export let walkAsync = (next = traverse) => (
+  pre,
+  post = _.noop,
+  parents = [],
+  parentIndexes = []
+) => async (tree, index) =>
+  pre(tree, index, parents, parentIndexes)
+    .then(
+      preResult =>
+        preResult ||
+        findIndexedAsync(
+          walkAsync(next)(
+            pre,
+            post,
+            [tree, ...parents],
+            [index, ...parentIndexes]
+          ),
+          next(tree, index, parents, parentIndexes) || []
+        )
+    )
+    .then(stepResult => stepResult || post(tree, index, parents, parentIndexes))
+
 export let transformTree = (next = traverse) =>
   _.curry((f, x) => {
     let result = _.cloneDeep(x)
@@ -82,6 +110,7 @@ export let flatLeaves = (next = traverse) => _.reject(next)
 
 export let tree = (next = traverse, buildIteratee = _.identity) => ({
   walk: walk(next),
+  walkAsync: walkAsync(next),
   transform: transformTree(next),
   reduce: reduceTree(next),
   toArrayBy: treeToArrayBy(next),

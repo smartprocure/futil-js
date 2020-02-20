@@ -34,4 +34,11 @@ describe('Function Functions', () => {
     // Passing 1 at a time
     expect(F.flurry(add, double)(1)(4)).to.equal(10)
   })
+  it('mapArgs', () => {
+    let add = (x, y) => x + y
+    let double = x => x * 2
+    let doubledAdd = F.mapArgs(double, add)
+    // (5*2) + (7*2)
+    expect(doubledAdd(5, 7)).to.equal(24)
+  })
 })

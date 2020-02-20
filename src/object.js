@@ -12,6 +12,7 @@ import {
 } from './conversion'
 import { findApply } from './collection'
 import { aspects } from './aspect'
+import { mapArgs } from './function'
 const noCap = _.convert({ cap: false })
 
 // (k, v) -> {k: v}
@@ -201,4 +202,10 @@ export let expandObject = _.curry((transform, obj) => ({
 // k -> (a -> {b}) -> {k: a} -> {a, b}
 export let expandObjectBy = _.curry((key, fn, obj) =>
   expandObject(getWith(fn, key))(obj)
+)
+
+export let commonKeys = _.curryN(2, mapArgs(_.keys, _.intersection))
+let findKeyIndexed = _.findKey.convert({ cap: false })
+export let firstCommonKey = _.curry((x, y) =>
+  findKeyIndexed((val, key) => _.has(key, x), y)
 )

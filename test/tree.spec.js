@@ -1,6 +1,8 @@
 import chai from 'chai'
 import * as F from '../src'
 import _ from 'lodash/fp'
+import Promise from 'bluebird'
+
 chai.expect()
 const expect = chai.expect
 
@@ -479,5 +481,31 @@ describe('Tree Functions', () => {
         key: 'results',
       },
     ])
+  })
+  it('findIndexedAsync', async () => {
+    let findIndexedAsyncTest = await F.findIndexedAsync(
+      async x => {
+        await Promise.delay(10)
+        return x % 2 === 0
+      },
+      [1, 2, 3]
+    )
+    expect(findIndexedAsyncTest).to.equal(2)
+  })
+  it('walkAsync', async () => {
+    let tree = {
+      a: {
+        b: {
+          c: [1, 2, 3],
+        },
+      },
+    }
+    let walkAsyncTest = F.walkAsync()(async node => {
+      await Promise.delay(10)
+      if (_.isArray(node)) node.push(4)
+    })(tree)
+    expect(tree.a.b.c.length).to.equal(3)
+    await walkAsyncTest
+    expect(tree.a.b.c.length).to.equal(4)
   })
 })

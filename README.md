@@ -70,6 +70,10 @@ A `_.debounce` for async functions that ensure the returned promise is resolved 
 `(f1, f2, ...fn) -> f1Arg1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
 Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 
+### mapArgs
+`(mapper, fn) -> (...args) -> fn(...args.map(mapper))`
+Returns a function that applies the mapping operation to all of the arguments of a function. Very similar to _.overArgs, but runs a single mapper on all of the args args.
+
 ## Iterators
 
 ### differentLast
@@ -404,6 +408,14 @@ Note that for functions that don't return objects, `_.merge`'s behavior is follo
 
 ### expandObjectBy
 `key -> (transform: x -> newObj) -> (obj: { key: x }) -> { ...obj, ...newObj }` Expands an object by transforming the value at a single key into a new object, and merging the result with the original object. Similar to `expandObject`, but the argument order is `(key, transform, object)`, and the transform function is called on the value at that key instead of on the whole object.
+
+### commonKeys
+`(x, y) -> [keys]`
+Takes two objects and returns the keys they have in common
+
+### firstCommonKey
+`(x, y) -> key`
+Takes two objects and returns the first key in `y` that x also has
 
 ## String
 
@@ -753,6 +765,10 @@ The default traversal function used in other tree methods if you don't supply on
 ### walk
 `traverse -> (pre, post=_.noop) -> tree -> x`
 A depth first search which visits every node returned by `traverse` recursively. Both `pre-order` and `post-order` traversals are supported (and can be mixed freely). `walk` also supports exiting iteration early by returning a truthy value from either the `pre` or `post` functions. The returned value is also the return value of `walk`. The pre, post, and traversal functions are passed the current node as well as the parent stack (where parents[0] is the direct parent).
+
+### walkAsync
+`traverse -> (pre, post=_.noop) -> async tree -> x`
+A version of `walk` which supports async traversals.
 
 ### transformTree
 `traverse -> _iteratee -> tree -> newTree`

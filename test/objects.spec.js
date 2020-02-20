@@ -182,10 +182,10 @@ describe('Object Functions', () => {
     expect(F.compareDeep('a.b.c')(o, '1')).to.deep.equal(false)
     expect(F.compareDeep('a.b.c')(o)('1')).to.deep.equal(false)
   })
-  it('mapProp', () => {
-    const a = F.mapProp('a', val => val * val, { a: 2, b: 1 })
-    expect(a).to.deep.equal({ a: 4, b: 1 })
-  })
+  // it('mapProp', () => {
+  //   const a = F.mapProp('a', val => val * val, { a: 2, b: 1 })
+  //   expect(a).to.deep.equal({ a: 4, b: 1 })
+  // })
   it('getOrReturn', () => {
     expect(F.getOrReturn('x', { a: 1 })).to.deep.equal({ a: 1 })
   })
@@ -688,5 +688,38 @@ describe('Object Functions', () => {
       a: 1,
       b: 42,
     })
+  })
+  it('commonKeys', () => {
+    let providers = {
+      mongo: {},
+      elasticsearch: {},
+    }
+    let schema = {
+      fields: {},
+      elasticsearch: {},
+      mongo: {},
+    }
+
+    expect(F.commonKeys(providers, schema)).to.deep.equal([
+      'elasticsearch',
+      'mongo',
+    ])
+    expect(F.commonKeys(providers)(schema)).to.deep.equal([
+      'elasticsearch',
+      'mongo',
+    ])
+  })
+  it('firstCommonKey', () => {
+    let providers = {
+      mongo: {},
+      elasticsearch: {},
+    }
+    let schema = {
+      fields: {},
+      elasticsearch: {},
+      mongo: {},
+    }
+
+    expect(F.firstCommonKey(providers, schema)).to.equal('elasticsearch')
   })
 })
