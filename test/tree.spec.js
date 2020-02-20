@@ -486,7 +486,7 @@ describe('Tree Functions', () => {
     let findIndexedAsyncTest = await F.findIndexedAsync(
       async x => {
         await Promise.delay(10)
-        return x % 2 == 0
+        return x % 2 === 0
       },
       [1, 2, 3]
     )
