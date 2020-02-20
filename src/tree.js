@@ -1,5 +1,5 @@
 import _ from 'lodash/fp'
-import { findIndexed, reduceIndexed } from './conversion'
+import { findIndexed } from './conversion'
 import { push, dotEncoder, slashEncoder } from './array'
 
 export let isTraversable = x => _.isArray(x) || _.isPlainObject(x)
