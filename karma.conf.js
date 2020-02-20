@@ -126,74 +126,74 @@ module.exports = function(config) {
 // Check out https://saucelabs.com/platforms for all browser/OS combos
 // UPDATED to match angular's config https://github.com/angular/angular.js/blob/master/karma-shared.conf.js
 let customLaunchers = {
-  'SL_Chrome': {
+  SL_Chrome: {
     base: 'SauceLabs',
     browserName: 'chrome',
-    version: 'latest'
+    version: 'latest',
   },
   'SL_Chrome-1': {
     base: 'SauceLabs',
     browserName: 'chrome',
-    version: 'latest-1'
+    version: 'latest-1',
   },
-  'SL_Firefox': {
+  SL_Firefox: {
     base: 'SauceLabs',
     browserName: 'firefox',
-    version: 'latest'
+    version: 'latest',
   },
   'SL_Firefox-1': {
     base: 'SauceLabs',
     browserName: 'firefox',
-    version: 'latest-1'
+    version: 'latest-1',
   },
   'SL_Safari-1': {
     base: 'SauceLabs',
     browserName: 'safari',
-    version: 'latest-1'
+    version: 'latest-1',
   },
-  'SL_Safari': {
+  SL_Safari: {
     base: 'SauceLabs',
     browserName: 'safari',
-    version: 'latest'
+    version: 'latest',
   },
-  'SL_IE_9': {
+  SL_IE_9: {
     base: 'SauceLabs',
     browserName: 'internet explorer',
     platform: 'Windows 2008',
-    version: '9'
+    version: '9',
   },
-  'SL_IE_10': {
+  SL_IE_10: {
     base: 'SauceLabs',
     browserName: 'internet explorer',
     platform: 'Windows 2012',
-    version: '10'
+    version: '10',
   },
-  'SL_IE_11': {
+  SL_IE_11: {
     base: 'SauceLabs',
     browserName: 'internet explorer',
     platform: 'Windows 8.1',
-    version: '11'
+    version: '11',
   },
-  'SL_EDGE': {
+  SL_EDGE: {
     base: 'SauceLabs',
     browserName: 'microsoftedge',
     platform: 'Windows 10',
-    version: 'latest'
+    version: 'latest',
   },
   'SL_EDGE-1': {
     base: 'SauceLabs',
     browserName: 'microsoftedge',
     platform: 'Windows 10',
-    version: 'latest-1'
+    version: 'latest-1',
   },
-  'SL_iOS': {
+  SL_iOS: {
     base: 'SauceLabs',
     browserName: 'iphone',
-    version: 'latest'
+    version: 'latest',
   },
   'SL_iOS-1': {
     base: 'SauceLabs',
     browserName: 'iphone',
-    version: 'latest-1'
+    version: 'latest-1',
   },
 }
