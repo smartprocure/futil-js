@@ -30,12 +30,22 @@ export let walkAsync = (next = traverse) => (
   parents = [],
   parentIndexes = []
 ) => async (tree, index) =>
-  (await pre(tree, index, parents, parentIndexes)) ||
-  (await findIndexedAsync(
-    walkAsync(next)(pre, post, [tree, ...parents], [index, ...parentIndexes]),
-    next(tree, index, parents, parentIndexes) || []
-  )) ||
-  post(tree, index, parents, parentIndexes) //await not needed because its the final return value
+  pre(tree, index, parents, parentIndexes)
+    .then(
+      preResult =>
+        preResult ||
+        findIndexedAsync(
+          walkAsync(next)(
+            pre,
+            post,
+            [tree, ...parents],
+            [index, ...parentIndexes]
+          ),
+          next(tree, index, parents, parentIndexes) || []
+        )
+    )
+    .then(stepResult => stepResult || post(tree, index, parents, parentIndexes))
+
 
 export let transformTree = (next = traverse) =>
   _.curry((f, x) => {
