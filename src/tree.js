@@ -18,7 +18,6 @@ export let walk = (next = traverse) => (
   ) ||
   post(tree, index, parents, parentIndexes)
 
-
 // async/await is so much cleaner but causes regeneratorRuntime shenanigans
 // export let findIndexedAsync = async (f, data) => {
 //   for (let key in data) {
@@ -29,8 +28,8 @@ export let walk = (next = traverse) => (
 export let findIndexedAsync = (f, data, remaining = _.toPairs(data)) => {
   if (!remaining.length) return
   let [[key, val], ...rest] = remaining
-  return Promise.resolve(f(val, key, data)).then(
-    result => result ? val : rest.length ? findIndexedAsync(f, data, rest) : undefined
+  return Promise.resolve(f(val, key, data)).then(result =>
+    result ? val : rest.length ? findIndexedAsync(f, data, rest) : undefined
   )
 }
 
