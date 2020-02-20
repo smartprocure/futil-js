@@ -409,6 +409,14 @@ Note that for functions that don't return objects, `_.merge`'s behavior is follo
 ### expandObjectBy
 `key -> (transform: x -> newObj) -> (obj: { key: x }) -> { ...obj, ...newObj }` Expands an object by transforming the value at a single key into a new object, and merging the result with the original object. Similar to `expandObject`, but the argument order is `(key, transform, object)`, and the transform function is called on the value at that key instead of on the whole object.
 
+### commonKeys
+`(x, y) -> [keys]`
+Takes two objects and returns the keys they have in common
+
+### firstCommonKey
+`(x, y) -> key`
+Takes two objects and returns the first key in `y` that x also has
+
 ## String
 
 ### parens
