@@ -70,6 +70,10 @@ A `_.debounce` for async functions that ensure the returned promise is resolved 
 `(f1, f2, ...fn) -> f1Arg1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
 Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 
+### mapArgs
+`(mapper, fn) -> (...args) -> fn(...args.map(mapper))`
+Returns a function that applies the mapping operation to all of the arguments of a function. Very similar to _.overArgs, but runs a single mapper on all of the args args.
+
 ## Iterators
 
 ### differentLast
