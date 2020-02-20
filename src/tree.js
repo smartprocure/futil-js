@@ -1,5 +1,5 @@
 import _ from 'lodash/fp'
-import { findIndexed } from './conversion'
+import { findIndexed, reduceIndexed } from './conversion'
 import { push, dotEncoder, slashEncoder } from './array'
 
 export let isTraversable = x => _.isArray(x) || _.isPlainObject(x)
@@ -18,10 +18,20 @@ export let walk = (next = traverse) => (
   ) ||
   post(tree, index, parents, parentIndexes)
 
-export let findIndexedAsync = async (f, data) => {
-  for (let key in data) {
-    if (await f(data[key], key, data)) return data[key]
-  }
+
+// async/await is so much cleaner but causes regeneratorRuntime shenanigans
+// export let findIndexedAsync = async (f, data) => {
+//   for (let key in data) {
+//     if (await f(data[key], key, data)) return data[key]
+//   }
+// }
+// The general idea here is to keep popping off key/value pairs until we hit something that matches
+export let findIndexedAsync = (f, data, remaining = _.toPairs(data)) => {
+  if (!remaining.length) return
+  let [[key, val], ...rest] = remaining
+  return Promise.resolve(f(val, key, data)).then(
+    result => result ? val : rest.length ? findIndexedAsync(f, data, rest) : undefined
+  )
 }
 
 export let walkAsync = (next = traverse) => (
@@ -29,7 +39,7 @@ export let walkAsync = (next = traverse) => (
   post = _.noop,
   parents = [],
   parentIndexes = []
-) => async (tree, index) =>
+) => (tree, index) =>
   pre(tree, index, parents, parentIndexes)
     .then(
       preResult =>

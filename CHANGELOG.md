@@ -1,3 +1,6 @@
+# 1.66.1
+- Kill promises in `findIndexedAsync` to fix regeneratorRuntime shenanigans
+
 # 1.66.0
 - Add `walkAsync`
 - Add `findIndexedAsync` (used internally and not documented, but exported for testing)
