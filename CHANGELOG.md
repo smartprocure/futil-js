@@ -1,3 +1,6 @@
+# 1.66.2
+- Allow `walkAsync` to handle non-async traversals
+
 # 1.66.1
 - Kill promises in `findIndexedAsync` to fix regeneratorRuntime shenanigans
 

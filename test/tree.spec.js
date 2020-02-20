@@ -508,4 +508,19 @@ describe('Tree Functions', () => {
     await walkAsyncTest
     expect(tree.a.b.c.length).to.equal(4)
   })
+  it('walkAsync with sync', async () => {
+    let tree = {
+      a: {
+        b: {
+          c: [1, 2, 3],
+        },
+      },
+    }
+    let walkAsyncTest = F.walkAsync()(node => {
+      if (_.isArray(node)) node.push(4)
+    })(tree)
+    expect(tree.a.b.c.length).to.equal(3)
+    await walkAsyncTest
+    expect(tree.a.b.c.length).to.equal(4)
+  })
 })
