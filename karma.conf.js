@@ -162,7 +162,7 @@ let customLaunchers = {
   //   platform: 'Windows 2008',
   //   version: '9'
   // },
-  'SL_IE_10': {
+  SL_IE_10: {
     base: 'SauceLabs',
     browserName: 'internet explorer',
     platform: 'Windows 2012',
