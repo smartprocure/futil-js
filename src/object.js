@@ -128,7 +128,7 @@ export let simpleDiff = (original, deltas) => {
   return _.flow(
     flattenObject,
     mapValuesIndexed((to, field) => ({ from: o[field], to })),
-    _.omitBy(x => x.from === x.to)
+    _.omitBy(x => _.isEqual(x.from, x.to))
   )(deltas)
 }
 export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
@@ -138,7 +138,7 @@ export let diff = (original, deltas) => {
   let d = flattenObject(deltas)
   return _.flow(
     mapValuesIndexed((_, field) => ({ from: o[field], to: d[field] })),
-    _.omitBy(x => x.from === x.to)
+    _.omitBy(x => _.isEqual(x.from, x.to))
   )(_.merge(o, d))
 }
 export let diffArray = _.flow(diff, unkeyBy('field'))

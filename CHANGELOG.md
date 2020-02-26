@@ -1,3 +1,6 @@
+# 1.66.3
+- Use deep comparison on F.{simple,}diff
+
 # 1.66.2
 - Allow `walkAsync` to handle non-async traversals
 
