@@ -17,27 +17,6 @@ describe('Iterator Generators', () => {
 
 describe('Iterator Generators', () => {
   it('differentIndex', () => {
-    const test_obj = {
-      a: {
-        id: 1,
-        name: "Sugar",
-        bem: 12,
-        OneandTwo: 1
-      },
-      b: {
-        id: 2,
-        name: "Ice",
-        bem: 132,
-        OneandTwo: 2,
-        ThreeandTwo: 2
-      },
-      c: {
-        id: 3,
-        name: "Tea",
-        bem: 124,
-        ThreeandTwo: 3
-      }
-    };
     const nCase = x => x
     const iCase = x => x*2
     const x = [0,1,2,3,4,5]
