@@ -19,6 +19,16 @@ const noCap = _.convert({ cap: false })
 export const singleObject = _.curry((key, value) => ({ [key]: value }))
 export const singleObjectR = _.flip(singleObject)
 
+// {a:{name:'foo'},b:{name:'bar'}} => [fn('foo'), fn('bar')]
+export const extract = (key, from, run) => {
+  const f_obj = flattenObject(from);
+  return _.compact(
+    _.keys(f_obj).map(k =>
+      k.split(".").includes(key) ? run(f_obj[k]) : null
+    )
+  );
+};
+
 // Formerly objToObjArr
 // ({a, b}) -> [{a}, {b}]
 export const chunkObject = value =>
