@@ -16,6 +16,23 @@ describe('Object Functions', () => {
       b: 'a',
     })
   })
+  it('extract', () => {
+    const test_obj = {
+      a: {
+        name: "Sugar",
+      },
+      b: {
+        name: "Ice",
+      },
+      c: {
+        name: "Tea",
+      }
+    };
+    expect(F.extract('name',test_obj, x=>x.toUpperCase())).to.deep.equal(['SUGAR','ICE','TEA'])
+    expect(F.extract('name',test_obj, x=>x.toUpperCase())).to.not.deep.equal(['Sugar','Ice','Tea'])
+    expect(F.extract('name',test_obj, x=>x.toUpperCase())).to.not.deep.equal(['sugar','ice','tea'])
+
+  })
   it('chunkObject', () => {
     expect(F.chunkObject([1])).to.deep.equal([1])
     expect(
