@@ -1,4 +1,4 @@
-﻿<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
+<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
 
@@ -79,6 +79,8 @@ Returns a function that applies the mapping operation to all of the arguments of
 ### differentLast
 `handleItem -> handleLastItem -> iterator` Creates an iterator that handles the last item differently for use in any function that passes `(value, index, list)` (e.g. `mapIndexed`, `eachIndexed`, etc). Both the two handlers and the result are iterator functions that take `(value, index, list)`.
 
+### differentIndex
+`handleItem -> handleIndexItem -> iterator` Creates an iterator that handles the last item differently for use in any function that passes `(value, index)`. Both the two handlers and the result are iterator functions that take `(value, index)`.
 
 ## Logic
 
@@ -256,6 +258,9 @@ Output:
 
 ### singleObjectE
 `(v, k) -> {k: v}` Flipped version of `singleObject`.
+
+### extract
+`{a:{name:'foo'},b:{name:'bar'}} => [fn('foo'), fn('bar')]` Run a function on all the instances of a particular key and get an array of results
 
 
 ### chunkObject
