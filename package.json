@@ -30,7 +30,7 @@
     "babel-polyfill": "^6.23.0"
   },
   "peerDependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.x"
   },
   "babel": {
     "presets": [
