@@ -306,7 +306,7 @@ Example: `renameProperty('a', 'b', { a: 1 }) -> { b: 1 }`
 
 ### unwind
 `k -> { k: [a, b] } -> [{ k: a }, { k: b }]`
-Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property or a property that can't be unwound returns an array containing the input object.
+Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property or a property whose value is not an array returns an empty array.
 
 ```js
 F.unwind('b', [{ a: true, b: [1, 2] }])

@@ -48,14 +48,10 @@ export const renameProperty = _.curry((from, to, target) =>
 // { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
 export const unwind = _.curry((prop, x) =>
   ifElse(
-    _.has(prop),
-    _.flow(
-      _.get(prop),
-      _.castArray,
-      _.map(y => _.set(prop, y, x))
-    ),
-    _.castArray,
-    x
+    _.isArray,
+    _.map(y => _.set(prop, y, x)),
+    _.stubArray,
+    _.get(prop, x)
   )
 )
 // this one's _actually_ just like mongo's `$unwind`
