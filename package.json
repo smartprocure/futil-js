@@ -6,13 +6,13 @@
   "scripts": {
     "build": "webpack",
     "danger": "duti",
-    "test": "mocha --require @babel/register --require @babel/polyfill --require ./test/init.js",
+    "test": "mocha --require @babel/register --require ./test/init.js",
     "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
     "browser": "TEST_ENV=browser karma start karma.conf.js",
     "browser:local": "karma start karma.conf.js",
-    "coverage": "nyc --require @babel/register --require @babel/polyfill --require ./test/init.js mocha test",
-    "cicoveralls": "nyc report --reporter=text-lcov --require @babel/register --require @babel/polyfill --require ./test/init.js mocha test | coveralls",
-    "cicoverage": "nyc --reporter=lcov --require @babel/register --require @babel/polyfill --require ./test/init.js mocha test --reporter json > test-results.json",
+    "coverage": "nyc --require @babel/register --require ./test/init.js mocha test",
+    "cicoveralls": "nyc report --reporter=text-lcov --require @babel/register --require ./test/init.js mocha test | coveralls",
+    "cicoverage": "nyc --reporter=lcov --require @babel/register --require ./test/init.js mocha test --reporter json > test-results.json",
     "lint": "eslint dangerfile.js src/*.js test/*.js",
     "lint:ci": "npm run lint -- -o lint-results.json -f json",
     "lint-fix": "eslint dangerfile.js src/*.js test/*.js --fix",
@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@babel/polyfill": "^7.8.3",
+    "core-js": "^2.6.11",
     "lodash": "^4.17.4"
   },
   "prettier": {
