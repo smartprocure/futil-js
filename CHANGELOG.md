@@ -1,3 +1,6 @@
+# 1.67.0
+- Add `objectLens`
+
 # 1.66.3
 - Use deep comparison on F.{simple,}diff
 
