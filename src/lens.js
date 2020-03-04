@@ -61,7 +61,7 @@ export let includeLens = (value, ...lens) => ({
 
 export let optionLens = (value, ...lens) => ({
   get: () => _.equals(value, view(...lens)),
-  set: x => set(x ? value : null, ...lens)
+  set: x => set(x ? value : null, ...lens),
 })
 
 // Lens Manipulation
