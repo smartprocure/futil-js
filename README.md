@@ -629,7 +629,7 @@ An include lens represents membership of a value in a set. It takes a value and 
 
 #### optionLens
 `value -> arrayLens -> optionLens`
-Like `includeLens`, `optionLens` takes a value and lens and returns a new lens. The view and set functions allow you to read and write a boolean value for whether the value passed to the `optionLens` is currently selected (meaning whether it matches the value stored in the underlying lens). Changing the `optionLens` to true "selects" its value (sets the value of the underlying lens to it). 
+Like `includeLens`, `optionLens` takes a value and lens and returns a new lens. The view and set functions allow you to read and write a boolean value for whether the value passed to the `optionLens` is currently selected (meaning whether it matches the value stored in the underlying lens). Setting the `optionLens` to true "selects" its value (sets the value of the underlying lens to it); setting it to false sets the underlying value to `null`.
 
 #### domLens.value
 `lens -> {value, onChange}` Takes a lens and returns a value/onChange pair that views/sets the lens appropriately. `onChange` sets with `e.target.value` (or `e` if that path isn't present).
