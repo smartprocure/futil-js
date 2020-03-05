@@ -305,8 +305,26 @@ Example: `renameProperty('a', 'b', { a: 1 }) -> { b: 1 }`
 
 
 ### unwind
-`'b' -> { a: true, b: [1, 2] } -> { a: true, b: 1 }, { a: true, b: 2}`
-Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property returns an empty array.
+`k -> { k: [a, b] } -> [{ k: a }, { k: b }]`
+Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property or a property whose value is not an array returns an empty array.
+
+```js
+F.unwind('b', [{ a: true, b: [1, 2] }])
+//=> [{ a: true, b: 1 }, { a: true, b: 2 }]
+```
+
+### unwindArray
+`k -> [{ k: [a, b] }] -> [{ k: a }, { k: b }]`
+Unwinds an array of objects instead of a single object, as you might expect if you're used to mongo's `$unwind`. Alias for `(key, data) => _.flatMap(F.unwind(key), data)`
+```js
+F.unwindArray('b', [{ a: true, b: [1, 2] }, { a: false, b: [3, 4] }])
+//=> [
+//=>  { a: true, b: 1 },
+//=>  { a: true, b: 2 },
+//=>  { a: false, b: 3 },
+//=>  { a: false, b: 4 },
+//=> ]
+```
 
 
 ### flattenObject
@@ -630,7 +648,7 @@ An include lens represents membership of a value in a set. It takes a value and 
 #### domLens.value
 `lens -> {value, onChange}` Takes a lens and returns a value/onChange pair that views/sets the lens appropriately. `onChange` sets with `e.target.value` (or `e` if that path isn't present).
 Example:
-```
+```jsx
 let Component = () => {
   let state = React.useState('')
   return <input {...F.domLens.value(state)}>
