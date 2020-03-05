@@ -645,6 +645,10 @@ Returns a function that will set a lens to `false`
 `value -> arrayLens -> includeLens`
 An include lens represents membership of a value in a set. It takes a value and lens and returns a new lens - kind of like a "writeable computed" from MobX or Knockout. The view and set functions allow you to read and write a boolean value for whether or not a value is in an array. If you change to true or false, it will set the underlying array lens with a new array either without the value or with it pushed at the end.
 
+#### optionLens
+`value -> arrayLens -> optionLens`
+Like `includeLens`, `optionLens` takes a value and lens and returns a new lens. The view and set functions allow you to read and write a boolean value for whether the value passed to the `optionLens` is currently selected (meaning whether it matches the value stored in the underlying lens). Setting the `optionLens` to true "selects" its value (sets the value of the underlying lens to it); setting it to false sets the underlying value to `null`.
+
 #### domLens.value
 `lens -> {value, onChange}` Takes a lens and returns a value/onChange pair that views/sets the lens appropriately. `onChange` sets with `e.target.value` (or `e` if that path isn't present).
 Example:
@@ -675,6 +679,9 @@ Takes a value and returns a function lens for that value. Mostly used for testin
 
 ### objectLens
 Takes a value and returns a object lens for that value. Mostly used for testing and mocking purposes.
+
+### arrayLens
+Takes a value and returns an array lens for that value. Mostly used for testing and mocking purposes.
 
 ### stateLens
 `([value, setValue]) -> lens` Given the popularity of React, we decided to include this little helper that converts a `useState` hook call to a lens. Ex: `let lens = stateLens(useState(false))`. You generally won't use this directly since you can pass the `[value, setter]` pair directly to lens functions

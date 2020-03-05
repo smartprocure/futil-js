@@ -14,6 +14,13 @@ export let objectLens = val => ({
     val = x
   },
 })
+export let arrayLens = val => {
+  let result = [val]
+  result.push(x => {
+    result[0] = x
+  })
+  return result
+}
 
 // Lens Conversion
 export let fnToObj = fn => ({
@@ -50,6 +57,11 @@ export let includeLens = (value, ...lens) => ({
   get: () => _.includes(value, view(...lens)),
   // Uniq is to ensure multiple calls to set(true) don't push multiple times since this is about membership of a set
   set: x => set(_.uniq(toggleElementBy(!x, value, view(...lens))), ...lens),
+})
+
+export let optionLens = (value, ...lens) => ({
+  get: () => _.equals(value, view(...lens)),
+  set: x => set(x ? value : null, ...lens),
 })
 
 // Lens Manipulation

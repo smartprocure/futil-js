@@ -19,6 +19,12 @@ describe('Lens Functions', () => {
       l.set(5)
       expect(l.get()).to.equal(5)
     })
+    it('arrayLens', () => {
+      let l = F.arrayLens(1)
+      expect(l[0]).to.equal(1)
+      l[1](5)
+      expect(l[0]).to.equal(5)
+    })
   })
   describe('Conversion', () => {
     it('fnToObj', () => {
@@ -77,6 +83,21 @@ describe('Lens Functions', () => {
       F.on(includesB)()
       expect(F.view(includesB)).to.be.true
       expect(object.arr).to.deep.equal(['a', 'c', 'd', 'b'])
+    })
+    it('optionLens', () => {
+      let object = { selected: 'a' }
+      let optionA = F.optionLens('a', 'selected', object)
+      let optionB = F.optionLens('b', 'selected', object)
+      expect(F.view(optionA)).to.be.true
+      expect(F.view(optionB)).to.be.false
+      F.on(optionB)()
+      expect(F.view(optionA)).to.be.false
+      expect(F.view(optionB)).to.be.true
+      expect(object.selected).to.equal('b')
+      F.off(optionB)()
+      expect(F.view(optionA)).to.be.false
+      expect(F.view(optionB)).to.be.false
+      expect(object.selected).to.deep.equal(null)
     })
   })
   describe('Manipulation', () => {
@@ -196,14 +217,7 @@ describe('Lens Functions', () => {
   })
   describe('additional implicit lens formats', () => {
     it('arrayLens', () => {
-      let arrayLens = val => {
-        let result = [val]
-        result.push(x => {
-          result[0] = x
-        })
-        return result
-      }
-      let lens = arrayLens(false)
+      let lens = F.arrayLens(false)
       F.on(lens)()
       expect(lens[0]).to.be.true
       F.off(lens)()
