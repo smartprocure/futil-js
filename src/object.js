@@ -1,6 +1,6 @@
 import _ from 'lodash/fp'
 import { dotJoinWith, zipObjectDeepWith } from './array'
-import { overNone } from './logic'
+import { overNone, ifElse } from './logic'
 import { isNotNil, isBlank } from './lang'
 import {
   reduceIndexed,
@@ -47,8 +47,15 @@ export const renameProperty = _.curry((from, to, target) =>
 
 // { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
 export const unwind = _.curry((prop, x) =>
-  _.map(y => _.set(prop, y, x), _.get(prop, x))
+  ifElse(
+    _.isArray,
+    _.map(y => _.set(prop, y, x)),
+    _.stubArray,
+    _.get(prop, x)
+  )
 )
+// this one's _actually_ just like mongo's `$unwind`
+export const unwindArray = _.curry((prop, xs) => _.flatMap(unwind(prop))(xs))
 
 export const isFlatObject = overNone([_.isPlainObject, _.isArray])
 

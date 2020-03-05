@@ -1,5 +1,10 @@
-# 1.67.0
+# 1.68.0
 - Add `objectLens`
+- Add `arrayLens`
+
+# 1.67.0
+- Improvements to `unwind`: use `_.castArray` to avoid unwinding strings and other array-likes
+- Add `unwindArray`
 
 # 1.66.3
 - Use deep comparison on F.{simple,}diff

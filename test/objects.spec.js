@@ -82,20 +82,65 @@ describe('Object Functions', () => {
     })
   })
   it('unwind', () => {
+    expect(F.unwind('x', { x: ['a', 'b'], y: 1 })).to.deep.equal([
+      { x: 'a', y: 1 },
+      { x: 'b', y: 1 },
+    ])
+    // should unwind undefined values
+    expect(F.unwind('x', { x: ['a', undefined, 'b'], y: 1 })).to.deep.equal([
+      { x: 'a', y: 1 },
+      { x: undefined, y: 1 },
+      { x: 'b', y: 1 },
+    ])
+    // should return an empty array for keys that are not present on the object
+    expect(F.unwind('z', { x: 'foo', y: 1 })).to.deep.equal([])
+    // should also return an empty array for keys whose values can't be unwound
+    expect(F.unwind('y', { x: 'foo', y: 1 })).to.deep.equal([])
+    expect(F.unwind('y', { x: 'foo', y: undefined })).to.deep.equal([])
+    expect(F.unwind('y', { x: 'foo', y: [] })).to.deep.equal([])
+    // should not unwind strings
+    expect(F.unwind('x', { x: 'foo', y: 1 })).to.deep.equal([])
+    // duplicate objects are fine (we don't run _.uniq on the array to unwind)
+    expect(F.unwind('x', { x: [7, 7, 7], y: 1 })).to.deep.equal([
+      { x: 7, y: 1 },
+      { x: 7, y: 1 },
+      { x: 7, y: 1 },
+    ])
+  })
+  it('unwindArray', () => {
     expect(
-      F.unwind('x', {
-        x: ['a', 'b'],
-        y: 1,
-      })
+      F.unwindArray('x', [
+        { x: ['a', 'b'], y: 1 },
+        { x: ['a', 'c'], y: 2 },
+        // since `unwind` returns an empty array for non-unwindable values,
+        // this should _not_ be present on the result of `unwindArray`
+        { x: 'd', y: 3 },
+      ])
     ).to.deep.equal([
-      {
-        x: 'a',
-        y: 1,
-      },
-      {
-        x: 'b',
-        y: 1,
-      },
+      { x: 'a', y: 1 },
+      { x: 'b', y: 1 },
+      { x: 'a', y: 2 },
+      { x: 'c', y: 2 },
+      // { x: 'd', y: 3 },
+    ])
+    // should not unwind strings
+    expect(
+      F.unwindArray('x', [
+        { x: 'foo', y: 1 },
+        { x: 'bar', y: 2 },
+      ])
+    ).to.deep.equal([])
+    expect(
+      F.unwindArray('x', [
+        { x: [7, 7, 7], y: 1 },
+        { x: [1, 1], y: 2 },
+      ])
+    ).to.deep.equal([
+      { x: 7, y: 1 },
+      { x: 7, y: 1 },
+      { x: 7, y: 1 },
+      { x: 1, y: 2 },
+      { x: 1, y: 2 },
     ])
   })
   it('flattenObject', () => {
