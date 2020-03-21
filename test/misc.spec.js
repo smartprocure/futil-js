@@ -26,7 +26,7 @@ describe('Basic Functions', () => {
   })
   it('comply', () => {
     // (5 * 2) +  5
-    expect(F.comply(F.append, x => x * 2)(5)).to.equal(15)
+    expect(F.comply(F.append, (x) => x * 2)(5)).to.equal(15)
   })
 })
 

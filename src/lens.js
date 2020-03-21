@@ -4,11 +4,11 @@ import { toggleElementBy } from './array'
 import { when } from './logic'
 
 // Stubs
-export let functionLens = val => (...x) => {
+export let functionLens = (val) => (...x) => {
   if (!x.length) return val
   val = x[0]
 }
-export let objectLens = val => ({
+export let objectLens = (val) => ({
   get: () => val,
   set(x) {
     val = x
@@ -16,11 +16,11 @@ export let objectLens = val => ({
 })
 
 // Lens Conversion
-export let fnToObj = fn => ({
+export let fnToObj = (fn) => ({
   get: fn,
   set: fn,
 })
-export let objToFn = lens => (...values) =>
+export let objToFn = (lens) => (...values) =>
   values.length ? lens.set(values[0]) : lens.get()
 
 // Lens Construction
@@ -36,7 +36,7 @@ export let lensProp = (field, source) => ({
 // in some edge cases like trying to lens state coming from an inject function
 // in the mobx library. It would inadvertently cause the inject to re-run.
 // Using reduce here alleviates that issue.
-export let lensOf = object =>
+export let lensOf = (object) =>
   _.reduce(
     (res, key) => {
       res[key] = lensProp(key, object)
@@ -49,7 +49,7 @@ export let lensOf = object =>
 export let includeLens = (value, ...lens) => ({
   get: () => _.includes(value, view(...lens)),
   // Uniq is to ensure multiple calls to set(true) don't push multiple times since this is about membership of a set
-  set: x => set(_.uniq(toggleElementBy(!x, value, view(...lens))), ...lens),
+  set: (x) => set(_.uniq(toggleElementBy(!x, value, view(...lens))), ...lens),
 })
 
 // Lens Manipulation
@@ -62,13 +62,13 @@ let construct = (...args) =>
       : lensProp(...args)
     : when(_.isArray, stateLens)(args[0])
 
-let read = lens => (lens.get ? lens.get() : lens())
+let read = (lens) => (lens.get ? lens.get() : lens())
 export let view = (...lens) => read(construct(...lens))
 export let views = (...lens) => () => view(...lens)
 let write = (val, lens) => (lens.set ? lens.set(val) : lens(val))
 export let set = _.curryN(2, (val, ...lens) => write(val, construct(...lens)))
 export let sets = _.curryN(2, (val, ...lens) => () => set(val, ...lens))
-export let setsWith = _.curry((f, ...lens) => x =>
+export let setsWith = _.curry((f, ...lens) => (x) =>
   set(_.iteratee(f)(x), ...lens)
 )
 export let flip = (...lens) => () => set(!view(...lens), ...lens)
@@ -82,7 +82,7 @@ let binding = (value, getEventValue) => (...lens) => ({
   onChange: setsWith(getEventValue, ...lens),
 })
 // Dom events have relevent fields on the `target` property of event objects
-let targetBinding = field =>
+let targetBinding = (field) =>
   binding(field, when(_.hasIn(`target.${field}`), _.get(`target.${field}`)))
 export let domLens = {
   value: targetBinding('value'),

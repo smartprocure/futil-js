@@ -21,7 +21,7 @@ export const singleObjectR = _.flip(singleObject)
 
 // Formerly objToObjArr
 // ({a, b}) -> [{a}, {b}]
-export const chunkObject = value =>
+export const chunkObject = (value) =>
   _.isArray(value) ? value : _.map(_.spread(singleObject), _.toPairs(value))
 
 // Remove properties with falsey values: ({ a: 1, b: null, c: false}) -> {a:1}
@@ -41,7 +41,7 @@ export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 
 export const renameProperty = _.curry((from, to, target) =>
   _.has(from, target)
-    ? _.flow(x => _.set(to, _.get(from, x), x), _.unset(from))(target)
+    ? _.flow((x) => _.set(to, _.get(from, x), x), _.unset(from))(target)
     : target
 )
 
@@ -49,7 +49,7 @@ export const renameProperty = _.curry((from, to, target) =>
 export const unwind = _.curry((prop, x) =>
   ifElse(
     _.isArray,
-    _.map(y => _.set(prop, y, x)),
+    _.map((y) => _.set(prop, y, x)),
     _.stubArray,
     _.get(prop, x)
   )
@@ -75,7 +75,7 @@ export const flattenObject = (input, paths) =>
   )
 
 // { 'a.b.c' : 1 } => { a: { b: { c: 1 } } }
-export const unflattenObject = x => _.zipObjectDeep(_.keys(x), _.values(x))
+export const unflattenObject = (x) => _.zipObjectDeep(_.keys(x), _.values(x))
 
 // Returns true if object keys are only elements from signature list (but does not require all signature keys to be present)
 export const matchesSignature = _.curry(
@@ -108,7 +108,7 @@ export let aliasIn = _.curry((x, prop) => _.getOr(prop, prop, x))
 // A `_.get` that takes an array of paths and returns the value at the first path that matches
 export let cascade = _.curryN(2, (paths, obj, defaultValue) =>
   _.flow(
-    findApply(x => x && _.iteratee(x)(obj)),
+    findApply((x) => x && _.iteratee(x)(obj)),
     _.defaultTo(defaultValue)
   )(paths)
 )
@@ -135,7 +135,7 @@ export let simpleDiff = (original, deltas) => {
   return _.flow(
     flattenObject,
     mapValuesIndexed((to, field) => ({ from: o[field], to })),
-    _.omitBy(x => _.isEqual(x.from, x.to))
+    _.omitBy((x) => _.isEqual(x.from, x.to))
   )(deltas)
 }
 export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
@@ -145,7 +145,7 @@ export let diff = (original, deltas) => {
   let d = flattenObject(deltas)
   return _.flow(
     mapValuesIndexed((_, field) => ({ from: o[field], to: d[field] })),
-    _.omitBy(x => _.isEqual(x.from, x.to))
+    _.omitBy((x) => _.isEqual(x.from, x.to))
   )(_.merge(o, d))
 }
 export let diffArray = _.flow(diff, unkeyBy('field'))
@@ -154,7 +154,7 @@ export let diffArray = _.flow(diff, unkeyBy('field'))
 export let pickOn = (paths = [], obj = {}) =>
   _.flow(
     _.keys,
-    _.map(key => {
+    _.map((key) => {
       if (!_.includes(key, paths)) {
         delete obj[key]
       }
@@ -177,10 +177,10 @@ export const stampKey = _.curry((key, x) =>
   mapValuesIndexed((val, k) => ({ ...val, [key]: k }), x)
 )
 
-export let omitNil = x => _.omitBy(_.isNil, x)
-export let omitNull = x => _.omitBy(_.isNull, x)
-export let omitBlank = x => _.omitBy(isBlank, x)
-export let omitEmpty = x => _.omitBy(_.isEmpty, x)
+export let omitNil = (x) => _.omitBy(_.isNil, x)
+export let omitNull = (x) => _.omitBy(_.isNull, x)
+export let omitBlank = (x) => _.omitBy(isBlank, x)
+export let omitEmpty = (x) => _.omitBy(_.isEmpty, x)
 
 // ([f, g]) -> (x, y) -> {...f(x, y), ...g(x, y)}
 export let mergeOverAll = _.curryN(2, (fns, ...x) =>

@@ -11,7 +11,7 @@ export let aspect = ({
   always = _.noop,
   onError = throws,
   // ?: interceptParams, interceptResult, wrap
-}) => f => {
+}) => (f) => {
   let { state = {} } = f
   init(state)
   // Trick to set function.name of anonymous function
@@ -22,12 +22,12 @@ export let aspect = ({
       return Promise.resolve()
         .then(() => before(args, state))
         .then(() => f(...args))
-        .then(r => {
+        .then((r) => {
           result = r
         })
         .then(() => after(result, state, args))
-        .catch(e => onError(e, state, args))
-        .catch(e => {
+        .catch((e) => onError(e, state, args))
+        .catch((e) => {
           error = e
         })
         .then(() => always(state, args))
@@ -49,7 +49,7 @@ export let aspectSync = ({
   always = _.noop,
   onError = throws,
   // ?: interceptParams, interceptResult, wrap
-}) => f => {
+}) => (f) => {
   let { state = {} } = f
   init(state)
   // Trick to set function.name of anonymous function

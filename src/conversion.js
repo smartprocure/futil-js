@@ -11,7 +11,7 @@ export const getIn = noRearg.get
 export const hasIn = noRearg.has
 export const pickIn = noRearg.pick
 export const includesIn = noRearg.includes
-export const inversions = _.mapKeys(k => `${k}In`, noRearg)
+export const inversions = _.mapKeys((k) => `${k}In`, noRearg)
 
 // Mutables
 // ----------

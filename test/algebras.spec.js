@@ -6,11 +6,11 @@ const expect = chai.expect
 
 describe('Algebras', () => {
   it('map arrays', () => {
-    expect(f.map(x => x * x, [1, 2, 3])).to.deep.equal([1, 4, 9])
+    expect(f.map((x) => x * x, [1, 2, 3])).to.deep.equal([1, 4, 9])
   })
 
   it('map plain objects', () => {
-    expect(f.map(x => x * x, { a: 1, b: 2, c: 3 })).to.deep.equal({
+    expect(f.map((x) => x * x, { a: 1, b: 2, c: 3 })).to.deep.equal({
       a: 1,
       b: 4,
       c: 9,
@@ -22,7 +22,7 @@ describe('Algebras', () => {
 
     const arrBackup = _.cloneDeep(arr)
 
-    const arrMutated = f.deepMap(e => e.concat(101), arr)
+    const arrMutated = f.deepMap((e) => e.concat(101), arr)
 
     // Checking immutability
     expect(arr).to.eql(arrBackup)
@@ -52,8 +52,8 @@ describe('Algebras', () => {
     const objBackup = _.cloneDeep(obj)
 
     const path = 'match.matched'
-    const setMatched = e => e.match && _.set(path, true, e)
-    const objMutated = f.deepMap(e => setMatched(e) || e)(obj)
+    const setMatched = (e) => e.match && _.set(path, true, e)
+    const objMutated = f.deepMap((e) => setMatched(e) || e)(obj)
 
     // Checking immutability
     expect(obj).to.eql(objBackup)
@@ -103,9 +103,9 @@ describe('Algebras', () => {
     const objBackup = _.cloneDeep(obj)
 
     const path = 'match.matched'
-    const setMatched = e => e.match && _.set(path, true, e)
-    const push101 = e => _.isArray(e) && e.concat(101)
-    const objMutated = f.deepMap(e => push101(e) || setMatched(e) || e)(obj)
+    const setMatched = (e) => e.match && _.set(path, true, e)
+    const push101 = (e) => _.isArray(e) && e.concat(101)
+    const objMutated = f.deepMap((e) => push101(e) || setMatched(e) || e)(obj)
 
     // Checking immutability
     expect(obj).to.eql(objBackup)

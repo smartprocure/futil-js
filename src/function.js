@@ -11,7 +11,7 @@ export let boundMethod = (method, object) => object[method].bind(object)
 export let converge = (converger, branches) => (...args) =>
   converger(_.over(branches)(...args))
 
-export let composeApply = (f, g) => x => f(g(x))(x)
+export let composeApply = (f, g) => (x) => f(g(x))(x)
 export let comply = composeApply
 
 // Prettier version of `defer` the one from bluebird docs
@@ -41,7 +41,7 @@ export let debounceAsync = (n, f) => {
   }
 }
 
-let currier = f => (...fns) => _.curryN(fns[0].length, f(...fns))
+let currier = (f) => (...fns) => _.curryN(fns[0].length, f(...fns))
 // (f1, f2, ...fn) -> f1Args1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))
 export let flurry = currier(_.flow)
 

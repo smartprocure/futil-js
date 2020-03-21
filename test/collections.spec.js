@@ -9,16 +9,16 @@ describe('Collections Functions', () => {
   it('flowMap', () => {
     expect(
       F.flowMap(
-        n => n + n,
-        n => n * n
+        (n) => n + n,
+        (n) => n * n
       )([0, 1, 2, 3, 4])
     ).to.eql([0, 4, 16, 36, 64])
     expect(
       F.flowMap(
-        s => s.toUpperCase(),
-        s => s.split(''),
-        s => s.reverse(),
-        s => s.join('')
+        (s) => s.toUpperCase(),
+        (s) => s.split(''),
+        (s) => s.reverse(),
+        (s) => s.join('')
       )(['Smart', 'Procure'])
     ).to.eql(['TRAMS', 'ERUCORP'])
   })
@@ -26,10 +26,10 @@ describe('Collections Functions', () => {
     let x = {
       a: 1,
     }
-    expect(F.findApply(f => x[f], ['b', 'c', 'a'])).to.equal(1)
-    expect(F.findApply(f => x[f], ['b', 'c'])).to.equal(undefined)
+    expect(F.findApply((f) => x[f], ['b', 'c', 'a'])).to.equal(1)
+    expect(F.findApply((f) => x[f], ['b', 'c'])).to.equal(undefined)
     let xs = [{ b: 2 }, { c: 3 }, { a: 1 }]
-    expect(F.findApply(f => f.a, xs)).to.equal(1)
+    expect(F.findApply((f) => f.a, xs)).to.equal(1)
     expect(F.findApply('a', xs)).to.equal(1)
     expect(F.findApply('d', xs)).to.equal(undefined)
   })
@@ -46,7 +46,7 @@ describe('Collections Functions', () => {
   })
   it('compactMap', () => {
     let names = ['adam', 'betty', 'carlos', 'doug', 'emily']
-    let exceptDoug = fn => x => (x === 'doug' ? undefined : fn(x))
+    let exceptDoug = (fn) => (x) => (x === 'doug' ? undefined : fn(x))
     expect(F.compactMap(_.capitalize, names)).to.deep.equal([
       'Adam',
       'Betty',
@@ -60,6 +60,6 @@ describe('Collections Functions', () => {
       'Carlos',
       'Emily',
     ])
-    expect(F.compactMap(x => x - 2, [0, 1, 2, 3])).to.deep.equal([-2, -1, 1])
+    expect(F.compactMap((x) => x - 2, [0, 1, 2, 3])).to.deep.equal([-2, -1, 1])
   })
 })

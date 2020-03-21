@@ -13,7 +13,7 @@ export const trimStrings = map(when(_.isString, _.trim))
 
 // _.startCase does the trick, deprecate it!
 export let autoLabel = _.startCase
-export let autoLabelOption = a => ({
+export let autoLabelOption = (a) => ({
   value: when(_.isUndefined, a)(a.value),
   label: a.label || autoLabel(when(_.isUndefined, a)(a.value)),
 })
@@ -35,7 +35,7 @@ export let toSentence = toSentenceWith(', ', ' and ')
 
 // ((array -> object), array) -> string -> string
 export let uniqueStringWith = _.curry((cachizer, initialKeys) => {
-  let f = x => {
+  let f = (x) => {
     let result = x
     while (cache[result]) {
       result = x + cache[x]

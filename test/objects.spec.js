@@ -195,7 +195,7 @@ describe('Object Functions', () => {
   it('matchesSignature', () => {
     expect(F.matchesSignature([], 0)).to.equal(false)
     expect(F.matchesSignature([], '')).to.equal(false)
-    expect(F.matchesSignature([], x => x)).to.equal(true)
+    expect(F.matchesSignature([], (x) => x)).to.equal(true)
     expect(F.matchesSignature([], [])).to.equal(true)
     expect(F.matchesSignature([], { a: 1 })).to.equal(false)
     expect(F.matchesSignature(['a'], { a: 1 })).to.equal(true)
@@ -243,7 +243,7 @@ describe('Object Functions', () => {
   it('cascade', () => {
     expect(F.cascade(['x', 'y'], { a: 1, y: 2 })).to.deep.equal(2)
     expect(F.cascade(['x', 'c'], { a: 1, y: 2 }, 2)).to.deep.equal(2)
-    expect(F.cascade(['x', x => x.y], { a: 1, y: 2 })).to.deep.equal(2)
+    expect(F.cascade(['x', (x) => x.y], { a: 1, y: 2 })).to.deep.equal(2)
     expect(F.cascade(['x', 'y'], { a: 1, x: null, y: 2 })).to.deep.equal(2)
   })
   it('cascadeIn', () => {
@@ -639,8 +639,8 @@ describe('Object Functions', () => {
     })
   })
   it('mergeOverAll', () => {
-    let foo = x => ({ [x]: 'foo' })
-    let bar = x => ({ bar: x, [x]: 'bar' })
+    let foo = (x) => ({ [x]: 'foo' })
+    let bar = (x) => ({ bar: x, [x]: 'bar' })
     expect(F.mergeOverAll([foo, bar])('a')).to.deep.equal({
       a: 'bar',
       bar: 'a',
@@ -650,15 +650,15 @@ describe('Object Functions', () => {
       bar: 'a',
     })
     // should NOT merge arrays
-    let qux = a => ({ x: a.map(x => x + 3) })
-    expect(F.mergeOverAll([x => ({ x }), qux])([1, 2, 3])).to.deep.equal({
+    let qux = (a) => ({ x: a.map((x) => x + 3) })
+    expect(F.mergeOverAll([(x) => ({ x }), qux])([1, 2, 3])).to.deep.equal({
       x: [4, 5, 6],
     })
     // documenting edge case behavior
     expect(F.mergeOverAll(undefined, undefined)).to.deep.equal({})
     expect(F.mergeOverAll(undefined)(undefined)).to.deep.equal({})
     expect(F.mergeOverAll([])(undefined)).to.deep.equal(undefined)
-    expect(F.mergeOverAll([x => x, (x, y) => y])('abc', 'de')).to.deep.equal({
+    expect(F.mergeOverAll([(x) => x, (x, y) => y])('abc', 'de')).to.deep.equal({
       0: 'd',
       1: 'e',
       2: 'c',
@@ -667,24 +667,26 @@ describe('Object Functions', () => {
   it('mergeOverAllWith', () => {
     let reverseArrayCustomizer = (objValue, srcValue) =>
       srcValue.length ? srcValue.reverse() : srcValue
-    let qux = a => ({ x: a.map(x => x + 3) })
+    let qux = (a) => ({ x: a.map((x) => x + 3) })
     expect(
       F.mergeOverAllWith(reverseArrayCustomizer, [() => ({}), qux])([1, 2, 3])
     ).to.deep.equal({ x: [6, 5, 4] })
   })
   it('mergeOverAllArrays', () => {
     // should merge arrays
-    let qux = a => ({ x: a.map(x => x + 3) })
-    expect(F.mergeOverAllArrays([x => ({ x }), qux])([1, 2, 3])).to.deep.equal({
+    let qux = (a) => ({ x: a.map((x) => x + 3) })
+    expect(
+      F.mergeOverAllArrays([(x) => ({ x }), qux])([1, 2, 3])
+    ).to.deep.equal({
       x: [1, 2, 3, 4, 5, 6],
     })
   })
   it('getWith', () => {
-    let square = x => x * x
+    let square = (x) => x * x
     let getWithSquare = F.getWith(square)
     let foo = { a: 1, b: 3, c: 5 }
     expect(getWithSquare('c', foo)).to.equal(25)
-    expect(F.getWith(x => x + 1, 'b', foo)).to.equal(4)
+    expect(F.getWith((x) => x + 1, 'b', foo)).to.equal(4)
     // edge case: throws when customizer is not a function
     expect(() => F.getWith(undefined, 'b', foo)).to.throw(TypeError)
   })
@@ -693,7 +695,7 @@ describe('Object Functions', () => {
     // should expand object
     let toOptions = F.mapIndexed((v, k) => ({ label: k, value: v }))
     expect(
-      F.expandObject(obj => ({ options: toOptions(obj) }), foo)
+      F.expandObject((obj) => ({ options: toOptions(obj) }), foo)
     ).to.deep.equal({
       a: 1,
       b: 2,
@@ -714,7 +716,7 @@ describe('Object Functions', () => {
     })
   })
   it('expandObjectBy', () => {
-    let primeFactorization = x =>
+    let primeFactorization = (x) =>
       x === 42 ? { '2': 1, '3': 1, '7': 1 } : 'dunno'
     let foo = { a: 1, b: 42 }
     expect(F.expandObjectBy('b', primeFactorization, foo)).to.deep.equal({

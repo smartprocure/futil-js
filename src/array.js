@@ -4,10 +4,10 @@ import { insertAtIndex } from './collection'
 import { reduceIndexed } from './conversion'
 
 // TODO: Move to proper files and expose
-let callUnless = check => failFn => fn => (x, y) =>
+let callUnless = (check) => (failFn) => (fn) => (x, y) =>
   check(x) ? failFn(y) : check(y) ? failFn(x) : fn(x, y)
 let callUnlessEmpty = callUnless(_.isEmpty)
-let wrapArray = x => [x]
+let wrapArray = (x) => [x]
 let callUnlessEmptyArray = callUnlessEmpty(wrapArray)
 let dropRight = _.dropRight(1)
 let last = _.takeRight(1)
@@ -16,10 +16,10 @@ let last = _.takeRight(1)
 // ------
 export let compactJoin = _.curry((join, x) => _.compact(x).join(join))
 export let dotJoin = compactJoin('.')
-export let dotJoinWith = fn => x => _.filter(fn, x).join('.')
+export let dotJoinWith = (fn) => (x) => _.filter(fn, x).join('.')
 export let repeated = _.flow(
-  _.groupBy(e => e),
-  _.filter(e => e.length > 1),
+  _.groupBy((e) => e),
+  _.filter((e) => e.length > 1),
   _.flatten,
   _.uniq
 )
@@ -63,10 +63,10 @@ export let zipObjectDeepWith = _.curry((x, y) =>
 
 export let flags = zipObjectDeepWith(_, () => true)
 
-export let prefixes = list =>
-  _.range(1, list.length + 1).map(x => _.take(x, list))
+export let prefixes = (list) =>
+  _.range(1, list.length + 1).map((x) => _.take(x, list))
 
-export let encoder = separator => ({
+export let encoder = (separator) => ({
   encode: compactJoin(separator),
   decode: _.split(separator),
 })
@@ -101,7 +101,7 @@ export let intersperse = _.curry((f, [x0, ...xs]) =>
 )
 
 export let replaceElementBy = _.curry((f, b, arr) =>
-  _.map(c => (f(c) ? b : c), arr)
+  _.map((c) => (f(c) ? b : c), arr)
 )
 export let replaceElement = _.curry((a, b, arr) =>
   replaceElementBy(_.isEqual(a), b, arr)

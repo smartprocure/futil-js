@@ -8,9 +8,9 @@ describe('Logic Functions', () => {
   describe('ifElse', () => {
     it('should handle functions', () => {
       let clamp5 = f.ifElse(
-        x => x > 5,
+        (x) => x > 5,
         () => 5,
-        x => x
+        (x) => x
       )
       expect(clamp5(3)).to.equal(3)
       expect(clamp5(5)).to.equal(5)
@@ -19,8 +19,8 @@ describe('Logic Functions', () => {
     it('should handle passing boolean conditions', () => {
       let fn = f.ifElse(
         true,
-        x => `success ${x}`,
-        x => `fail ${x}`
+        (x) => `success ${x}`,
+        (x) => `fail ${x}`
       )
       expect(fn(1)).to.equal('success 1')
     })
@@ -32,9 +32,9 @@ describe('Logic Functions', () => {
     it('should be fully curried', () => {
       expect(
         f.ifElse(
-          x => x % 2,
-          x => `${x} is odd!`,
-          x => `${x} is even!`,
+          (x) => x % 2,
+          (x) => `${x} is odd!`,
+          (x) => `${x} is even!`,
           6
         )
       ).to.equal('6 is even!')
@@ -42,7 +42,7 @@ describe('Logic Functions', () => {
   })
   it('when', () => {
     let clamp5 = f.when(
-      x => x > 5,
+      (x) => x > 5,
       () => 5
     )
     expect(clamp5(3)).to.equal(3)
@@ -51,7 +51,7 @@ describe('Logic Functions', () => {
   })
   it('unless', () => {
     let clamp5 = f.unless(
-      x => x < 5,
+      (x) => x < 5,
       () => 5
     )
     expect(clamp5(3)).to.equal(3)
