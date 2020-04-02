@@ -1,3 +1,6 @@
+# 1.67.1
+- Fix edge case: `F.leaves()([])` and `F.leaves()({})` now return an empty array
+
 # 1.67.0
 - Improvements to `unwind`: use `_.castArray` to avoid unwinding strings and other array-likes
 - Add `unwindArray`

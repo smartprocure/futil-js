@@ -1,5 +1,5 @@
 import _ from 'lodash/fp'
-import { tree } from './tree'
+import { tree, isTraversable } from './tree'
 
 export let throws = x => {
   throw x
@@ -22,4 +22,4 @@ export let isBlank = _.overSome([
 ])
 export let isNotBlank = _.negate(isBlank)
 export let isBlankDeep = combinator => x =>
-  combinator(isBlank, tree().leaves(x))
+  isTraversable(x) ? combinator(isBlank, tree().leaves(x)) : isBlank(x)

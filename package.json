@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.67.0",
+  "version": "1.67.1",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {

@@ -71,11 +71,23 @@ export let reduceTree = (next = traverse) =>
   })
 
 export let treeToArrayBy = (next = traverse) =>
-  _.curry((fn, tree) => reduceTree(next)((r, x) => push(fn(x), r), [], tree))
+  _.curry((fn, tree) =>
+    reduceTree(next)(
+      (r, x, key) => {
+        let result = fn(x, key)
+        return _.isUndefined(result) ? r : push(result, r)
+      },
+      [],
+      tree
+    )
+  )
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 
 export let leaves = (next = traverse) =>
-  _.flow(treeToArray(next), _.reject(next))
+  _.flow(
+    treeToArrayBy(next)((x, k) => (_.isUndefined(k) ? k : x)),
+    _.reject(next)
+  )
 
 export let treeLookup = (next = traverse, buildIteratee = _.identity) =>
   _.curry((path, tree) =>

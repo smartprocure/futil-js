@@ -115,6 +115,8 @@ describe('Tree Functions', () => {
     ).to.deep.equal([x, x.a * 2, x.b, x.b.c * 2])
   })
   it('leaves', () => {
+    expect(F.leaves()([])).to.deep.equal([])
+    expect(F.leaves()({})).to.deep.equal([])
     let x = {
       a: 1,
       b: {
