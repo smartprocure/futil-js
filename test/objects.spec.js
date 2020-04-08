@@ -143,6 +143,36 @@ describe('Object Functions', () => {
       { x: 1, y: 2 },
     ])
   })
+  it('flattenObjectBy', () => {
+    // Flatten objects but leave arrays untouched
+    let flatten = F.flattenObjectBy(x =>
+      F.ifElse(_.isArray, _.map(flatten), undefined)(x)
+    )
+    expect(
+      flatten({
+        a: {
+          b: {
+            c: 1,
+          },
+        },
+      })
+    ).to.deep.equal({
+      'a.b.c': 1,
+    })
+    expect(
+      flatten([
+        {
+          a: {
+            b: [
+              {
+                c: 1,
+              },
+            ],
+          },
+        },
+      ])
+    ).to.deep.equal([{ 'a.b': [{ c: 1 }] }])
+  })
   it('flattenObject', () => {
     expect(
       F.flattenObject({

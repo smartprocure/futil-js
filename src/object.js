@@ -1,6 +1,7 @@
 import _ from 'lodash/fp'
 import { dotJoinWith, zipObjectDeepWith } from './array'
-import { overNone, ifElse } from './logic'
+import { ifElse, unless } from './logic'
+import { isTraversable } from './tree'
 import { isNotNil, isBlank } from './lang'
 import {
   reduceIndexed,
@@ -57,22 +58,24 @@ export const unwind = _.curry((prop, x) =>
 // this one's _actually_ just like mongo's `$unwind`
 export const unwindArray = _.curry((prop, xs) => _.flatMap(unwind(prop))(xs))
 
-export const isFlatObject = overNone([_.isPlainObject, _.isArray])
+export const flattenObjectBy = _.curryN(2, (fn, value, rootPath) => {
+  let flat = fn(value, rootPath)
+  if (!_.isUndefined(flat)) return flat
+  if (!isTraversable(value)) return value
+  return reduceIndexed(
+    (result, x, k) =>
+      _.flow(
+        unless(_.isPlainObject, singleObject(k)),
+        _.mapKeys(k => dotJoinWith(isNotNil)([rootPath, k])),
+        _.merge(result)
+      )(flattenObjectBy(fn, x, k)),
+    {},
+    value
+  )
+})
 
 // { a: { b: { c: 1 } } } => { 'a.b.c' : 1 }
-export const flattenObject = (input, paths) =>
-  reduceIndexed(
-    (output, value, key) =>
-      _.merge(
-        output,
-        (isFlatObject(value) ? singleObjectR : flattenObject)(
-          value,
-          dotJoinWith(isNotNil)([paths, key])
-        )
-      ),
-    {},
-    input
-  )
+export const flattenObject = flattenObjectBy(_.noop)
 
 // { 'a.b.c' : 1 } => { a: { b: { c: 1 } } }
 export const unflattenObject = x => _.zipObjectDeep(_.keys(x), _.values(x))

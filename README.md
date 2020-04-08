@@ -337,6 +337,17 @@ Unlatten an object with the paths for keys.
 
 Example: `{ 'a.b.c' : 1 } => { a: { b: { c: 1 } } }`.
 
+### flattenObjectBy
+Like `flattenObject` except that it accepts a function with signature `(value, currentPath) -> [flattenedValue | undefined]` that will be used to flatten values. If `undefined` is returned from the function, flattenning is handled by `flattenObjectBy` instead.
+
+Example. Flatten objects but not arrays:
+
+````
+let flatten = flattenObjectBy(x => ifElse(_.isArray, _.map(flatten), undefined, x))
+
+flatten({ a: { b: [ { c: { d: 1 } } ] } }) => { 'a.b': [{ 'c.d': 1 }] }`.
+```
+
 ### mapProp
 _Deprecated in favor of lodash `update`_ Applies a map function at a specific path
 
