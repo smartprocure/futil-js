@@ -680,8 +680,9 @@ Takes a value and returns a object lens for that value. Mostly used for testing 
 `([value, setValue]) -> lens` Given the popularity of React, we decided to include this little helper that converts a `useState` hook call to a lens. Ex: `let lens = stateLens(useState(false))`. You generally won't use this directly since you can pass the `[value, setter]` pair directly to lens functions
 
 ### lensProp
-`propertyName -> object -> { get: () -> object.propertyName, set: propertyValue -> object.propertyName }`
-Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path. Supports deep paths like lodash get/set.
+`propertyName -> object -> [defaultValue] -> { get: () -> object.propertyName, set: propertyValue -> object.propertyName }`
+Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path. If `defaultValue` is passed, `.get` and `set` will use it if `value` is `undefined`.
+Supports deep paths like lodash get/set.
 You typically won't use this directly since it is supported implicitly.
 
 ### lensOf

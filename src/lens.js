@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import { setOn } from './conversion'
 import { toggleElementBy } from './array'
-import { when } from './logic'
+import { when, whenUndefined } from './logic'
 
 // Stubs
 export let functionLens = val => (...x) => {
@@ -24,10 +24,10 @@ export let objToFn = lens => (...values) =>
   values.length ? lens.set(values[0]) : lens.get()
 
 // Lens Construction
-export let lensProp = (field, source) => ({
-  get: () => _.get(field, source), //source[field],
+export let lensProp = (field, source, def) => ({
+  get: () => whenUndefined(def, _.get(field, source)), //source[field],
   set(value) {
-    setOn(field, value, source)
+    setOn(field, whenUndefined(def, value), source)
     // source[field] = value
   },
 })

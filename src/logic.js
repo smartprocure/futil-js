@@ -21,3 +21,4 @@ export let unless = _.curry((condition, f, x) =>
 
 export let whenExists = when(exists)
 export let whenTruthy = when(Boolean)
+export let whenUndefined = when(_.isUndefined)
