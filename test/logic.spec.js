@@ -1,6 +1,6 @@
 import chai from 'chai'
 import * as f from '../src'
-
+import _ from 'lodash/fp'
 chai.expect()
 const expect = chai.expect
 
@@ -45,9 +45,15 @@ describe('Logic Functions', () => {
       x => x > 5,
       () => 5
     )
+    let config = { oneBased: false }
+    let config2 = {  }
     expect(clamp5(3)).to.equal(3)
     expect(clamp5(5)).to.equal(5)
     expect(clamp5(13)).to.equal(5)
+    let convertIndex = f.when(config.oneBased, _.add(1))
+    let convertIndex2 = f.when(config2.oneBased, _.add(1))
+    expect(_.map(convertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
+    expect(_.map(convertIndex2, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
   })
   it('unless', () => {
     let clamp5 = f.unless(

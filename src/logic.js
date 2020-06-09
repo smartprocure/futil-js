@@ -8,7 +8,7 @@ export const overNone = _.flow(_.overSome, _.negate)
 let boolIteratee = x => (_.isBoolean(x) ? () => x : _.iteratee(x))
 // Port from Ramda
 export let ifElse = _.curry((condition, onTrue, onFalse, x) =>
-  boolIteratee(condition)(x)
+  boolIteratee(_.isUndefined(condition)?false:condition)(x)
     ? callOrReturn(onTrue, x)
     : callOrReturn(onFalse, x)
 )
