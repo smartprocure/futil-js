@@ -1,3 +1,6 @@
+# 1.67.1
+- change fixed issue, Logic functions behave unpredictably with `undefined` as predicate
+- add two test cases to logic.spec for when. 
 # 1.67.0
 - Improvements to `unwind`: use `_.castArray` to avoid unwinding strings and other array-likes
 - Add `unwindArray`
