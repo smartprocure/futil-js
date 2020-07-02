@@ -1,8 +1,9 @@
 import _ from 'lodash/fp'
+import { isArray } from './internal'
 import { findIndexed } from './conversion'
 import { push, dotEncoder, slashEncoder } from './array'
 
-export let isTraversable = x => _.isArray(x) || _.isPlainObject(x)
+export let isTraversable = x => isArray(x) || _.isPlainObject(x)
 export let traverse = x => isTraversable(x) && !_.isEmpty(x) && x
 
 export let walk = (next = traverse) => (

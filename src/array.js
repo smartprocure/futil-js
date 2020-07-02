@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import { isArray } from './internal'
 import { callOrReturn } from './function'
 import { insertAtIndex } from './collection'
 import { reduceIndexed } from './conversion'
@@ -58,7 +59,7 @@ export let arrayToObject = _.curry((k, v, a) =>
 
 // zipObject that supports functions instead of objects
 export let zipObjectDeepWith = _.curry((x, y) =>
-  _.zipObjectDeep(x, _.isFunction(y) && _.isArray(x) ? _.times(y, x.length) : y)
+  _.zipObjectDeep(x, _.isFunction(y) && isArray(x) ? _.times(y, x.length) : y)
 )
 
 export let flags = zipObjectDeepWith(_, () => true)

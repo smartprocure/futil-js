@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import { isArray } from './internal'
 import { isTraversable } from './tree'
 
 export const flowMap = (...fns) => _.map(_.flow(...fns))
@@ -8,7 +9,7 @@ export let findApply = _.curry((f, arr) => _.iteratee(f)(_.find(f, arr)))
 // --------
 // A generic map that works for plain objects and arrays
 export let map = _.curry((f, x) =>
-  (_.isArray(x) ? _.map : _.mapValues).convert({ cap: false })(f, x)
+  (isArray(x) ? _.map : _.mapValues).convert({ cap: false })(f, x)
 )
 // Map for any recursive algebraic data structure
 // defaults in multidimensional arrays and recursive plain objects

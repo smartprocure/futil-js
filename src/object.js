@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import { isArray } from './internal'
 import { dotJoinWith, zipObjectDeepWith } from './array'
 import { overNone, ifElse } from './logic'
 import { isNotNil, isBlank } from './lang'
@@ -22,7 +23,7 @@ export const singleObjectR = _.flip(singleObject)
 // Formerly objToObjArr
 // ({a, b}) -> [{a}, {b}]
 export const chunkObject = value =>
-  _.isArray(value) ? value : _.map(_.spread(singleObject), _.toPairs(value))
+  isArray(value) ? value : _.map(_.spread(singleObject), _.toPairs(value))
 
 // Remove properties with falsey values: ({ a: 1, b: null, c: false}) -> {a:1}
 export const compactObject = _.pickBy(_.identity)
@@ -48,7 +49,7 @@ export const renameProperty = _.curry((from, to, target) =>
 // { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
 export const unwind = _.curry((prop, x) =>
   ifElse(
-    _.isArray,
+    isArray,
     _.map(y => _.set(prop, y, x)),
     _.stubArray,
     _.get(prop, x)
@@ -57,7 +58,7 @@ export const unwind = _.curry((prop, x) =>
 // this one's _actually_ just like mongo's `$unwind`
 export const unwindArray = _.curry((prop, xs) => _.flatMap(unwind(prop))(xs))
 
-export const isFlatObject = overNone([_.isPlainObject, _.isArray])
+export const isFlatObject = overNone([_.isPlainObject, isArray])
 
 // { a: { b: { c: 1 } } } => { 'a.b.c' : 1 }
 export const flattenObject = (input, paths) =>
@@ -162,7 +163,7 @@ export let pickOn = (paths = [], obj = {}) =>
   )(obj)
 
 let mergeArrays = (objValue, srcValue) =>
-  _.isArray(objValue) ? objValue.concat(srcValue) : undefined
+  isArray(objValue) ? objValue.concat(srcValue) : undefined
 
 // Straight from the lodash docs
 export let mergeAllArrays = _.mergeAllWith(mergeArrays)

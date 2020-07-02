@@ -1,4 +1,5 @@
 import _ from 'lodash/fp'
+import { isArray } from './internal'
 import { setOn } from './conversion'
 import { toggleElementBy } from './array'
 import { when } from './logic'
@@ -60,7 +61,7 @@ let construct = (...args) =>
     ? _.every(_.isFunction, args)
       ? lensPair(...args)
       : lensProp(...args)
-    : when(_.isArray, stateLens)(args[0])
+    : when(isArray, stateLens)(args[0])
 
 let read = lens => (lens.get ? lens.get() : lens())
 export let view = (...lens) => read(construct(...lens))
