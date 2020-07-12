@@ -42,5 +42,3 @@ describe('Function Functions', () => {
     expect(doubledAdd(5, 7)).to.equal(24)
   })
 })
-
-
