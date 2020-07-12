@@ -1,7 +1,6 @@
 import chai from 'chai'
 import * as f from '../src'
 import _ from 'lodash/fp'
-import * as F from '../src'
 chai.expect()
 const expect = chai.expect
 
@@ -71,7 +70,7 @@ describe('Lang Functions', () => {
     ).to.equal(true)
   })
 
-  describe.only('typeOf', function() {
+  describe('typeOf', function() {
 
     it('should show Null if given the null value ', () => {
       expect (f.typeOf(null)).to.equal('Null')
@@ -108,6 +107,11 @@ describe('Lang Functions', () => {
     it('should show String if given a String object ', () => {
       expect (f.typeOf(new String('this is futil-js'))).to.equal('String')
     })
+
+    it('should show String if given a String object ', () => {
+      expect (f.typeOf(()=>{})).to.equal('Function')
+    })
+
 
   });
 })

@@ -577,6 +577,9 @@ Opposite of `isBlank`
 `f -> x -> bool`
 Recurses through an object's leaf properties and passes an array of booleans to the combinator, such as `_.some`, `_.every`, and `F.none`
 
+### typeOf
+`f -> x -> string`
+provide string description of the (native) type of a value, returning such answers as 'Object', 'Array', 'String','Number','RegExp','Function', 'Null' and 'Undefined'.
 
 ## Lens
 A lens is a getter and setter pair. You use them to write code that needs to read _and_ write a value (like a method to flip a boolean switch, or a React component that reads and writes some state) without worrying about the implementation. 
