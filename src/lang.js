@@ -24,7 +24,7 @@ export let isNotBlank = _.negate(isBlank)
 export let isBlankDeep = combinator => x =>
   combinator(isBlank, tree().leaves(x))
 
-export let typeOf = _.curry(
+export let typeOf =
   val => {
     if (val === null) {
       return 'null'
@@ -45,7 +45,3 @@ export let typeOf = _.curry(
     }
     return _valType
   }
-
-  // _.isNull(val)
-  //   ? 'Null' : (val).constructor === Array?'Array':(val).constructor === String ?'String': (val).constructor === Number?'Number':typeof val
-)
