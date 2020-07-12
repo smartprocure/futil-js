@@ -29,18 +29,18 @@ export let typeOf = val => {
     return 'null'
   }
   let _valType = typeof val
-  if (_valType === 'object') {
-    return val.constructor === String
-      ? 'string'
-      : val.constructor === Number
-      ? 'number'
-      : val.constructor === Array
-      ? 'array'
-      : val.constructor === Date
-      ? 'date'
-      : val.constructor === RegExp
-      ? 'regExp'
-      : 'object'
-  }
+  // if (_valType === 'object') {
+  //   return val.constructor === String
+  //     ? 'string'
+  //     : val.constructor === Number
+  //     ? 'number'
+  //     : val.constructor === Array
+  //     ? 'array'
+  //     : val.constructor === Date
+  //     ? 'date'
+  //     : val.constructor === RegExp
+  //     ? 'regExp'
+  //     : 'object'
+  // }
   return _valType
 }
