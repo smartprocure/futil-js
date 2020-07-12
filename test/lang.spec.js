@@ -69,4 +69,55 @@ describe('Lang Functions', () => {
       })
     ).to.equal(true)
   })
+    it('should show null if given the null value ', () => {
+      expect(f.typeOf(null)).to.equal('null')
+    })
+
+    it('should show undefined if given the undefined value ', () => {
+      expect(f.typeOf(undefined)).to.equal('undefined')
+    })
+
+    it('should show array if given an array value', () => {
+      expect(f.typeOf([1, 2, 3])).to.equal('array')
+    })
+
+    it('should show object if given an object ', () => {
+      expect(f.typeOf({ name: 'futil-js' })).to.equal('object')
+    })
+
+    it('should show RegExp if given a RegExp value', () => {
+      expect(f.typeOf(/[A-z]/)).to.equal('regExp')
+    })
+
+    it('should show number if given a numeric value ', () => {
+      expect(f.typeOf(8)).to.equal('number')
+    })
+
+    it('should show number if given a numeric value ', () => {
+      expect(f.typeOf(Infinity)).to.equal('number')
+    })
+
+    it('should show number if given The NaN value ', () => {
+      expect(f.typeOf(NaN)).to.equal('number')
+    })
+    it('should show number if given a new Number object ', () => {
+      expect(f.typeOf(new Number(1))).to.equal('number')
+    })
+
+    it('should show date if given a new Number object ', () => {
+      expect(f.typeOf(new Date(98, 1))).to.equal('date')
+    })
+
+    it('should show String if given a String value ', () => {
+      expect(f.typeOf('futil-js')).to.equal('string')
+    })
+
+    it('should show String if given a String object ', () => {
+      expect(f.typeOf(new String('this is futil-js'))).to.equal('string')
+    })
+
+    it('should show Function if given a Function', () => {
+      expect(f.typeOf(() => {})).to.equal('function')
+    })
+
 })

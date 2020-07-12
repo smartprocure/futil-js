@@ -23,3 +23,24 @@ export let isBlank = _.overSome([
 export let isNotBlank = _.negate(isBlank)
 export let isBlankDeep = combinator => x =>
   combinator(isBlank, tree().leaves(x))
+
+export let typeOf = val => {
+  if (val === null) {
+    return 'null'
+  }
+  let _valType = typeof val
+  if (_valType === 'object') {
+    return val.constructor === String
+      ? 'string'
+      : val.constructor === Number
+      ? 'number'
+      : val.constructor === Array
+      ? 'array'
+      : val.constructor === Date
+      ? 'date'
+      : val.constructor === RegExp
+      ? 'regExp'
+      : 'object'
+  }
+  return _valType
+}
