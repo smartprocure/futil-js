@@ -70,6 +70,7 @@ describe('Lang Functions', () => {
     ).to.equal(true)
   })
 
+<<<<<<< HEAD
   describe.only('typeOf', function() {
 
     it.only('should show null if given the null value ', () => {
@@ -121,8 +122,47 @@ describe('Lang Functions', () => {
 
     it.only('should show Function if given a Function', () => {
       expect (f.typeOf(()=>{})).to.equal('function')
+=======
+  describe('typeOf', function() {
+    it('should show Null if given the null value ', () => {
+      expect(f.typeOf(null)).to.equal('Null')
     })
 
+    it('should show Undefined if given the undefined value ', () => {
+      expect(f.typeOf(undefined)).to.equal('Undefined')
+    })
 
-  });
+    it('should show Array if given an array value', () => {
+      expect(f.typeOf([1, 2, 3])).to.equal('Array')
+    })
+
+    it('should show Object if given an object ', () => {
+      expect(f.typeOf({ name: 'futil-js' })).to.equal('Object')
+    })
+
+    it('should show RegExp if given a RegExp value', () => {
+      expect(f.typeOf(/[A-z]/)).to.equal('RegExp')
+    })
+
+    it('should show Number if given a numeric value ', () => {
+      expect(f.typeOf(8)).to.equal('Number')
+    })
+
+    it('should show Number if given The NaN value ', () => {
+      expect(f.typeOf(NaN)).to.equal('Number')
+    })
+
+    it('should show String if given a String value ', () => {
+      expect(f.typeOf('futil-js')).to.equal('String')
+    })
+
+    it('should show String if given a String object ', () => {
+      expect(f.typeOf(new String('this is futil-js'))).to.equal('String')
+    })
+
+    it('should show Function if given a Function', () => {
+      expect(f.typeOf(() => {})).to.equal('Function')
+>>>>>>> b3bed82fa0e85c0f25253a84205dc14167bd163f
+    })
+  })
 })
