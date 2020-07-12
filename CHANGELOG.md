@@ -1,3 +1,7 @@
+
+#1.67.1
+- add 'TypeOf' function to return string description of the (native) type of a value
+
 # 1.67.0
 - Improvements to `unwind`: use `_.castArray` to avoid unwinding strings and other array-likes
 - Add `unwindArray`
