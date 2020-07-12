@@ -24,7 +24,10 @@ export let isNotBlank = _.negate(isBlank)
 export let isBlankDeep = combinator => x =>
   combinator(isBlank, tree().leaves(x))
 
-export let typeOf = _.curry ((val) =>  _.isNull(val) ? 'Null' : _.isUndefined(val) ? 'Undefined' : Object.prototype.toString.call(val).slice(8, -1));
-
-
-
+export let typeOf = _.curry(val =>
+  _.isNull(val)
+    ? 'Null'
+    : _.isUndefined(val)
+    ? 'Undefined'
+    : Object.prototype.toString.call(val).slice(8, -1)
+)
