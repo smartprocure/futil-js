@@ -578,7 +578,7 @@ Opposite of `isBlank`
 Recurses through an object's leaf properties and passes an array of booleans to the combinator, such as `_.some`, `_.every`, and `F.none`
 
 ### typeOf
-`f -> x -> string`
+`x -> string`
 provide string description of the (native) type of a value, returning such answers as 'Object', 'Array', 'String','Number','RegExp','Function', 'Null' and 'Undefined'.
 
 ## Lens
