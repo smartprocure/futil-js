@@ -108,7 +108,7 @@ describe('Lang Functions', () => {
       expect (f.typeOf(new String('this is futil-js'))).to.equal('String')
     })
 
-    it('should show String if given a String object ', () => {
+    it('should show Function if given a Function', () => {
       expect (f.typeOf(()=>{})).to.equal('Function')
     })
 
