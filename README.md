@@ -579,7 +579,7 @@ Recurses through an object's leaf properties and passes an array of booleans to 
 
 ### typeOf
 `x -> string`
-provide string description of the (native) type of a value, returning such answers as 'Object', 'Array', 'String','Number','RegExp','Function', 'Null' and 'Undefined'.
+enhancement of Native JavaScript function 'typeof'. In addition to the Native JavaScript function 'typeof', this function can distinguish Array, Data, Regexp, new string object and new number object,returning such string as 'array','date','regExp',Null' , 'string' or  'number'.
 
 ## Lens
 A lens is a getter and setter pair. You use them to write code that needs to read _and_ write a value (like a method to flip a boolean switch, or a React component that reads and writes some state) without worrying about the implementation. 
