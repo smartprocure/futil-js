@@ -29,7 +29,7 @@
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "lodash": "^4.17.4",
-    "buffer":"^4.9.2"
+    "buffer": "^4.9.2"
   },
   "babel": {
     "presets": [
