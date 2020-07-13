@@ -48,7 +48,7 @@ describe('Lang Functions', () => {
     expect(f.isBlank([])).to.equal(true)
     expect(f.isBlank({})).to.equal(true)
   })
-  it('should isBlankDeep', () => {
+  it('should isBlankDeep1', () => {
     expect(f.isBlankDeep(_.every)(1)).to.equal(false)
     expect(f.isBlankDeep(_.every)(false)).to.equal(false)
     expect(f.isBlankDeep(_.every)('')).to.equal(true)
