@@ -30,6 +30,7 @@
     "babel-polyfill": "^6.23.0",
     "buffer": "^4.9.2",
     "lodash": "^4.17.4"
+
   },
   "babel": {
     "presets": [
