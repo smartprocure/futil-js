@@ -1,14 +1,12 @@
 // TODO:
-// add remaining tests
 // add arguments
 // gatsby?
 
 import F from 'futil'
 import _ from 'lodash/fp'
 import * as R from 'ramda'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import AutosizeInput from 'react-input-autosize'
 import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import {
   Flex,
@@ -22,41 +20,20 @@ import {
   Tabs,
   Tab,
   ButtonRadio,
-  Icon,
-  Button
 } from 'grey-vest'
 import Runkit from 'react-runkit'
-import ReactMarkdown from 'react-markdown'
-import useEventListener from 'use-event-listener'
 import { exploreAPI, tolerantEval, tolerantArrayEval } from './exploreAPI'
 import tests from './tests'
 import source from './source'
 import tagDocs from './tagDocs'
-import docs from './docscomplete'
-import Home from './Home'
-// import docs from './docsfull'
-// import docs from './docs'
+import docs from './docs'
 
-let toSentence = F.intersperse(F.differentLast(() => ', ', () => ' and '))
-
-let fetchText = async url => await (await fetch(url)).text()
-let useAsync = fn => {
-  let [data, setData] = useState('')
-  useEffect(
-    () => {
-      fn().then(setData)
-    },
-    [fn]
+let toSentence = F.intersperse(
+  F.differentLast(
+    () => ', ',
+    () => ' and '
   )
-  return data
-}
-
-let changelogUrl =
-  'https://raw.githubusercontent.com/smartprocure/futil-js/master/CHANGELOG.md'
-let Changelog = () => {
-  let data = useAsync(() => fetchText(changelogUrl))
-  return <ReactMarkdown source={data} />
-}
+)
 
 let Tag = ({ children, ...props }) => {
   let [modal, setModal] = React.useState(false)
@@ -94,39 +71,6 @@ let Tag = ({ children, ...props }) => {
   )
 }
 
-let TagSection = ({ tag }) => {
-  let [show, setShow] = React.useState(false)
-  let docs = tagDocs[tag]
-
-  return (
-    <>
-      <div style={{ margin: 20 }}>
-        <Flex
-          alignItems="center"
-          onClick={() => setShow(!show)}
-          style={{ ...(docs && { cursor: 'pointer' }) }}
-        >
-          <h1 style={{ margin: 0 }}>{tag} Methods</h1>
-          {docs && (
-            <i
-              className="material-icons"
-              style={{
-                fontSize: 18,
-                paddingLeft: 5,
-                ...(docs && { color: '#77f' }),
-              }}
-            >
-              help_outline
-            </i>
-          )}
-        </Flex>
-        {show && docs}
-      </div>
-    </>
-  )
-}
-
-
 let Signature = x => {
   let [showArgs, setShowArgs] = React.useState(false)
   return (
@@ -134,7 +78,7 @@ let Signature = x => {
       {x.signature && (
         <pre
           className="code-tag"
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', whiteSpace: 'pre-wrap' }}
           onClick={() => setShowArgs(!showArgs)}
         >
           {x.signature}
@@ -197,346 +141,289 @@ let CodeSnippet = ({ children, noRepl }) => {
   )
 }
 
-let PageHeader = ({ style, ...props }) => (
-  <div
-    style={{
-      width: '100%',
-      borderBottom: '1px solid #d8d8d8',
-      margin: '0 10px 10px',
-      ...style,
-    }}
+let scrollToMethod = name => {
+  let element = document.getElementById(`${name}-box`)
+  element && element.scrollIntoViewIfNeeded()
+}
+
+// Sometimes you know a function exists but not what it's called. Use this to
+// find all the methods that match an expected input and output!
+let SearchByIO = () => {
+  let [input, setInput] = React.useState('')
+  let [output, setOutput] = React.useState('')
+  let processedInput = tolerantArrayEval(input)
+  let processedOutput = tolerantEval(output)
+  let exploreMatches = exploreAPI(F, processedInput, processedOutput)
+  let exploreLodash = exploreAPI(_, processedInput, processedOutput)
+  let exploreRamda = exploreAPI(R, processedInput, processedOutput)
+  let filteredDocs = _.filter(x => _.includes(x.name, exploreMatches), docs)
+  return (
+    <>
+      <div>
+        <TextInput
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          placeholder="Input (e.g. {a:1})"
+        />
+        <TextInput
+          value={output}
+          onChange={e => setOutput(e.target.value)}
+          placeholder="Output (e.g. {a:1})"
+        />
+      </div>
+      {exploreMatches.length ? (
+        <div>
+          {_.flow(
+            _.map(x => (
+              <a
+                href={`#${x}`}
+                onClick={() => {
+                  scrollToMethod(x)
+                }}
+              >{`F.${x}`}</a>
+            )),
+            toSentence
+          )(exploreMatches)}
+        </div>
+      ) : null}
+      {exploreLodash.length ? (
+        <div>
+          {_.flow(
+            _.map(x => (
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://lodash.com/docs/4.17.15#${x}`}
+              >{`_.${x}`}</a>
+            )),
+            toSentence
+          )(exploreLodash)}
+        </div>
+      ) : null}
+      {exploreRamda.length ? (
+        <div>
+          {_.flow(
+            _.map(x => (
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://ramdajs.com/docs/#${x}`}
+              >{`R.${x}`}</a>
+            )),
+            toSentence
+          )(exploreRamda)}
+        </div>
+      ) : null}
+    </>
+  )
+}
+
+let ListItem = ({ as: Component = 'li', style, ...props }) => (
+  <Component
+    className="list-item"
+    style={{ padding: 8, borderBottom: border, ...style }}
     {...props}
   />
 )
 
-let HeaderRadio = ({ value, options }) => (
-  <div style={{ width: '100%', marginLeft: 24 }}>
-    {F.mapIndexed(
-      (x, i, list) => (
-        <h1
-          key={x.value}
-          style={{
-            display: 'inline-block',
-            margin: '24px 0',
-            // Divider Line
-            ...(i !== list.length - 1 && {
-              borderRight: 'solid 1px #d8d8d8',
-              paddingRight: 24,
-              marginRight: 24,
-            }),
-          }}
-        >
-          <span
-            onClick={x.onClick}
-            style={{
-              // This will show a pointer even when the href is empty
-              cursor: 'pointer',
-              color:
-                x.value === value ? 'rgb(39, 44, 65)' : 'rgba(39, 44, 65, 0.3)',
-            }}
-          >
-            {x.label}
-          </span>
-        </h1>
+let Tags = ({ tags }) => (
+  <div>
+    {_.map(
+      t => (
+        <Tag key={t}>{t}</Tag>
       ),
-      options
+      tags
     )}
   </div>
 )
-HeaderRadio.displayName = 'HeaderRadio'
 
-let tagIndexes = _.flow(
-  _.flatMap('tags'),
-  _.uniq,
-  _.map(x => ({
-    tag: x,
-    name: _.find(doc => _.includes(x, doc.tags), docs).name,
-  })),
-  _.groupBy('name'),
-  _.mapValues(_.map('tag'))
-)(docs)
-
-let scrollToMethod = name => {
-  let element = document.getElementById(`${name}-box`)
-  element && element.scrollIntoView()
-}
-let scrollToHash = () => {
-  scrollToMethod(window.location.hash.replace('#', ''))
-}
-
-let DocsPage = ({ search, setSearch }) => {
-  let [input, setInput] = React.useState('')
-  let [output, setOutput] = React.useState('')
-  let [matchesOnly, setMatchesOnly] = React.useState(false)
-
-  useEventListener('hashchange', scrollToHash)
-
-  let processedInput = tolerantArrayEval(input)
-  let processedOutput = tolerantEval(output)
-  let regex = new RegExp(search)
-  let exploreMatches = exploreAPI(F, processedInput, processedOutput)
-  let exploreLodash = exploreAPI(_, processedInput, processedOutput)
-  let exploreRamda = exploreAPI(R, processedInput, processedOutput)
-
-  let filteredDocs = _.filter(x => {
-    if (input) return _.includes(x.name, exploreMatches)
-    return regex.test(x.name) || (matchesOnly && regex.test(x.description))
-  }, docs)
+let SearchByName = () => {
+  let [search, setSearch] = React.useState('')
   return (
     <>
-      <Box style={{ margin: 10 }}>
-        <p>
-          Sometimes you know a function exists but not what it's called. Use this
-          to find all the methods that match an expected input and output!
-        </p>
-        <Flex alignItems="center" justifyContent="center" style={{ fontSize: 18 }}>
-          <AutosizeInput
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            placeholder="Input (e.g. {a:1})"
-            style={{fontSize: 18}}
-          />
-          <Icon icon="arrow_right_alt" style={{fontSize:36}} />
-          <AutosizeInput
-            value={output}
-            onChange={e => setOutput(e.target.value)}
-            placeholder="Output (e.g. {a:1})"
-          />
-        </Flex>
-        {exploreMatches.length ? (
-          <div>
-            {_.flow(
-              _.map(x => (
-                <a
-                  href={`#${x}`}
-                  onClick={() => {
-                    // setSearch(x)
-                    scrollToMethod(x)
-                  }}
-                >{`F.${x}`}</a>
-              )),
-              toSentence
-            )(exploreMatches)}
-          </div>
-        ) : null}
-        {exploreLodash.length ? (
-          <div>
-            {_.flow(
-              _.map(x => (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://lodash.com/docs/4.17.15#${x}`}
-                >{`_.${x}`}</a>
-              )),
-              toSentence
-            )(exploreLodash)}
-          </div>
-        ) : null}
-        {exploreRamda.length ? (
-          <div>
-            {_.flow(
-              _.map(x => (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://ramdajs.com/docs/#${x}`}
-                >{`R.${x}`}</a>
-              )),
-              toSentence
-            )(exploreRamda)}
-          </div>
-        ) : null}
+      <TextInput
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{ marginBottom: 16 }}
+      />
+      <Box style={{ overflow: 'scroll', padding: 0 }}>
+        {_.map(
+          ({ name, tags }) => (
+            <ListItem
+              as="a"
+              href={`#${name}`}
+              key={name}
+              style={{
+                fontFamily: 'monospace',
+                display: !_.includes(search, _.toLower(name)) ? 'none' : 'flex',
+              }}
+            >
+              <Flex
+                alignItems="center"
+                justifyContent="space-between"
+                style={{ width: '100%' }}
+              >
+                <div>
+                  <TextHighlight pattern={search} text={name} />
+                </div>
+                <Tags tags={tags} />
+              </Flex>
+            </ListItem>
+          ),
+          docs
+        )}
       </Box>
-      <div
+    </>
+  )
+}
+
+let SearchSideBar = ({ style }) => (
+  <Flex column style={style}>
+    <Tabs
+      TabsList={props => (
+        <div style={{ marginBottom: 16 }}>
+          <TabsList tabStyle={{ marginRight: 16 }} {...props} />
+        </div>
+      )}
+      TabPanel={React.Fragment}
+    >
+      <Tab label="Search By Name">
+        <SearchByName />
+      </Tab>
+      <Tab label="Search By Input/Output">
+        <SearchByIO />
+      </Tab>
+    </Tabs>
+  </Flex>
+)
+
+let Functions = props => (
+  <div {...props}>
+    {_.map(
+      x => (
+        <Box style={{ marginBottom: 16 }} id={x.name}>
+          <Flex alignItems="center" justifyContent="space-between">
+            <div style={{ fontSize: 18, fontFamily: 'monospace' }}>
+              {x.name}
+            </div>
+            <Tags tags={x.tags} />
+          </Flex>
+          <Signature {...x} />
+          {x.description}
+          {(tests[x.name] || source[x.name]) && (
+            <Tabs TabsList={ButtonRadio} TabPanel={React.Fragment}>
+              {_.compact([
+                tests[x.name] && (
+                  <Tab label="Example">
+                    <CodeSnippet>{tests[x.name] + ''}</CodeSnippet>
+                  </Tab>
+                ),
+                source[x.name] && (
+                  <Tab label="Source">
+                    <CodeSnippet noRepl>{source[x.name]}</CodeSnippet>
+                  </Tab>
+                ),
+              ])}
+            </Tabs>
+          )}
+        </Box>
+      ),
+      docs
+    )}
+  </div>
+)
+
+let primary = '#0076de'
+let secondary = 'grey'
+let border = '1px solid lightgrey'
+
+let TabsList = ({ value, onChange, options, tabStyle }) =>
+  _.map(
+    option => (
+      <span
+        key={option.value}
+        onClick={() => onChange(option.value, value)}
         style={{
-          display: 'grid',
-          marginBottom: 50,
-          gridTemplateColumns: '325px minmax(0, 1fr)', // 325 is arbitrary
+          cursor: 'pointer',
+          color: value === option.value ? primary : secondary,
+          borderBottom:
+            value === option.value ? `2px solid ${primary}` : 'none',
+          fontWeight: 'bold',
+          ...tabStyle,
         }}
       >
-        <div>
-          <h1
+        {option.label}
+      </span>
+    ),
+    options
+  )
+
+let App = () => (
+  <>
+    <Fonts />
+    <Style />
+    <Flex column style={{ width: '100vw', height: '100vh' }}>
+      <Tabs
+        defaultValue={1}
+        TabsList={props => (
+          <Flex
+            alignItems="center"
             style={{
-              margin: 20,
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              zIndex: 2,
+              boxShadow: '0 0 2rem lightgrey',
+              borderBottom: border,
+              backgroundColor: 'white',
+              fontSize: 18,
+              textTransform: 'uppercase',
             }}
           >
-            <span>All {filteredDocs.length}</span>
-            <input
-              style={{ width: 'auto' }}
-              type="checkbox"
-              value={matchesOnly}
-              onChange={() => setMatchesOnly(!matchesOnly)}
+            <img
+              src="https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png"
+              alt="futil"
+              style={{ float: 'left', height: 30, padding: '0px 16px' }}
             />
-          </h1>
-          <Box
-            style={{
-              margin: 10,
-              position: 'sticky',
-              top: 0,
-              overflow: 'scroll',
-              height: '100vh',
-            }}
-          >
-            {_.map(
-              x => (
-                <Flex
-                  style={{
-                    borderBottom: 'solid 1px #ccc',
-                    padding: 10,
-                  }}
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <a
-                    href={`#${x.name}`}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => {
-                      scrollToMethod(x.name)
-                    }}
-                  >
-                    <TextHighlight pattern={search} text={x.name} />
-                  </a>
-                  <div>
-                    {_.map(
-                      t => (
-                        <Tag>{t}</Tag>
-                      ),
-                      x.tags
-                    )}
-                  </div>
-                </Flex>
-              ),
-              filteredDocs
-            )}
+            <TabsList tabStyle={{ padding: '8px 16px' }} {...props} />
+          </Flex>
+        )}
+        TabPanel={props => (
+          <Flex
+            justifyContent="center"
+            style={{ flex: 1, overflowY: 'auto', padding: 16 }}
+            {...props}
+          />
+        )}
+      >
+        <Tab label="Home">
+          <Box style={{ width: '100%', maxWidth: 1200, height: 'fit-content' }}>
+            <zero-md
+              key="home"
+              src="https://raw.githubusercontent.com/smartprocure/futil-js/master/README.md"
+            />
           </Box>
-        </div>
-        <div>
-          {_.map(
-            x => (
-              <>
-                {_.map(
-                  tag => (
-                    <TagSection tag={tag} />
-                  ),
-                  tagIndexes[x.name]
-                )}
-                <Box style={{ margin: 10 }} id={`${x.name}-box`}>
-                  <Flex alignItems="center" justifyContent="space-between">
-                    <div
-                      style={{
-                        fontSize: 18,
-                        lineHeight: 1.3,
-                        letterSpacing: 3,
-                        fontFamily: `'Fira Code', monospace`,
-                      }}
-                    >
-                      {x.name}{' '}
-                      {x.added && (
-                        <small style={{ fontSize: 10, color: '#777' }}>
-                          {x.added}
-                        </small>
-                      )}
-                    </div>
-                    <div>
-                      {_.map(
-                        t => (
-                          <Tag>{t}</Tag>
-                        ),
-                        x.tags
-                      )}
-                    </div>
-                  </Flex>
-
-                  <Signature {...x} />
-
-                  {x.description}
-                  {/* <TextHighlight pattern={search} text={x.description} /> */}
-                  {(tests[x.name] || source[x.name]) && (
-                    <Tabs TabsList={ButtonRadio} TabPanel={React.Fragment}>
-                      {_.compact([
-                        tests[x.name] && (
-                          <Tab label="Example">
-                            <CodeSnippet>{tests[x.name] + ''}</CodeSnippet>
-                          </Tab>
-                        ),
-                        source[x.name] && (
-                          <Tab label="Source">
-                            <CodeSnippet noRepl>{source[x.name]}</CodeSnippet>
-                          </Tab>
-                        ),
-                      ])}
-                    </Tabs>
-                  )}
-                </Box>
-              </>
-            ),
-            matchesOnly ? filteredDocs : docs
-          )}
-        </div>
-      </div>
-    </>
-  )
-}
-
-let App = () => {
-  let [search, setSearch] = React.useState('')
-  let [page, setPage] = React.useState('docs')
-
-  return (
-    <>
-      <Fonts />
-      <Style />
-      <PageHeader>
-        <Flex justifyContent="space-between" alignItems="center">
-          <img
-            src="https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png"
-            height={50}
-            alt="futil"
-          />
-          <HeaderRadio
-            value={page}
-            options={_.map(
-              x => ({
-                value: x,
-                label: _.startCase(x),
-                onClick: () => setPage(x),
-              }),
-              ['home', 'docs', 'changelog']
-            )}
-          />
-          <TextInput
-            style={{ marginLeft: 20 }}
-            value={search}
-            onChange={e => {
-              setSearch(e.target.value)
-              setPage('docs')
+        </Tab>
+        <Tab label="Docs">
+          <SearchSideBar style={{ width: 400, marginRight: 16 }} />
+          <Functions
+            style={{
+              flex: 1,
+              overflow: 'scroll',
+              borderRadius: 4,
+              borderBottom: border,
+              borderTop: border,
             }}
-            placeholder="Search by name..."
           />
-        </Flex>
-      </PageHeader>
-      {page === 'home' && (
-        <Box style={{ margin: '10px auto', maxWidth: 1199 }}>
-          <Home />
-        </Box>
-      )}
-      {page === 'changelog' && (
-        <Box style={{ margin: '10px auto', maxWidth: 1199 }}>
-          <h1>
-            <a href="https://github.com/smartprocure/futil-js/blob/master/CHANGELOG.md">
-              Version History/Changelog
-            </a>
-          </h1>
-          <Changelog />
-        </Box>
-      )}
-      {page === 'docs' && <DocsPage {...{ search, setSearch }} />}
-    </>
-  )
-}
+        </Tab>
+        <Tab label="Changelog">
+          <Box style={{ width: '100%', maxWidth: 1200, height: 'fit-content' }}>
+            <zero-md
+              key="changelog"
+              src="https://raw.githubusercontent.com/smartprocure/futil-js/master/CHANGELOG.md"
+            />
+          </Box>
+        </Tab>
+      </Tabs>
+    </Flex>
+  </>
+)
 
 export default App

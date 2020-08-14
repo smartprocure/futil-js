@@ -717,13 +717,6 @@ return <div>
     tags: ['string'],
   },
   {
-    name: 'insertAtIndex',
-    signature: `(index, val, string) -> string`,
-    description: 'Insert a string at a specific index.',
-    example: `(1, '123', 'hi') -> 'h123i'`,
-    tags: ['string'],
-  },
-  {
     name: 'toSentence',
     signature: `array => string`,
     description:

@@ -1,6 +1,5 @@
-# 2.0.0 (unreleased)
+# 1.68.0
 - NEW docs site!
-- Killed deprecated conversion methods (reduce, mapValues, each)
 
 # 1.67.0
 - Improvements to `unwind`: use `_.castArray` to avoid unwinding strings and other array-likes

@@ -5,7 +5,7 @@ import _ from 'lodash/fp'
 export let ignoreError = _.curryN(2, (f, ...args) => {
   try {
     return f(...args)
-  } catch (e) {}
+  } catch (e) { }
 })
 
 // Needed because eval({a:1}) returns 1
