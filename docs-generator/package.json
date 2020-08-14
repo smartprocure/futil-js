@@ -12,7 +12,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "node index.js && cp tests.js source.js ../docs/beta/src"
+    "build": "node index.js"
   },
   "author": "",
   "license": "ISC"

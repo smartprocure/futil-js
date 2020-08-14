@@ -1,28 +1,33 @@
 import _ from 'lodash/fp'
 import { aspects } from './aspect'
 
-const noRearg = _.convert({ rearg: false })
-const mutable = _.convert({ immutable: false })
+let noRearg = _.convert({ rearg: false })
+let mutable = _.convert({ immutable: false })
 const noCap = _.convert({ cap: false })
+
+// PROPOSAL: Kill everything else and just do the below, since `cap` can use `_`
+// placeholder and mutable + indexed seem to not overlap
+// export let _ = _.convert({ immutable: false, cap: false })
 
 // Flips
 // ----------
-export const getIn = noRearg.get
-export const hasIn = noRearg.has
-export const pickIn = noRearg.pick
-export const includesIn = noRearg.includes
-export const inversions = _.mapKeys(k => `${k}In`, noRearg)
+// DEPRECATE IN FAVOR OF `_` placeholder
+export let getIn = noRearg.get
+export let hasIn = noRearg.has
+export let pickIn = noRearg.pick
+export let includesIn = noRearg.includes
+export let inversions = _.mapKeys(k => `${k}In`, noRearg)
 
 // Mutables
 // ----------
-export const extendOn = mutable.extend
-export const defaultsOn = mutable.defaults
-export const mergeOn = mutable.merge
-export const setOn = mutable.set
+export let extendOn = mutable.extend
+export let defaultsOn = mutable.defaults
+export let mergeOn = mutable.merge
+export let setOn = mutable.set
 // Curry required until https://github.com/lodash/lodash/issues/3440 is resolved
-export const unsetOn = _.curryN(2, mutable.unset)
-export const pullOn = mutable.pull
-export const updateOn = mutable.update
+export let unsetOn = _.curryN(2, mutable.unset)
+export let pullOn = mutable.pull
+export let updateOn = mutable.update
 
 // Uncaps
 // ------

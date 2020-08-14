@@ -61,10 +61,10 @@ We've included a few example "bindings" on F.domLens. These take a lens and retu
       <p>
         There are a few basic aspects included on `F.aspects` (E.g. `var
         loggedFunc = F.aspect(F.aspects.logs)(func)`) because they seem to be
-        universally useful. All of the provided aspects take an `extend` function
-        to allow customizing the state mutation method (e.g. in mobx, you'd use
-        `extendObservable`). If null, they default to `defaultsOn` from `futil-js`
-        - check the unit tests for example usage.
+        universally useful. All of the provided aspects take an `extend`
+        function to allow customizing the state mutation method (e.g. in mobx,
+        you'd use `extendObservable`). If null, they default to `defaultsOn`
+        from `futil-js` - check the unit tests for example usage.
       </p>
     </>
   ),
@@ -84,7 +84,49 @@ We've included a few example "bindings" on F.domLens. These take a lens and retu
         don't create infinite loops.
       </p>
     </>
-  )
+  ),
+  conversion: (
+    <>
+      <p>These are conversions of lodash fp methods.</p>
+      <p>
+        <b>In's (Rearg False)</b>
+      </p>
+      <p>
+        getIn, hasIn, includesIn, pickIn
+        <br />
+        lodash/fp is great, but sometimes the curry order isn't exactly what you
+        want. These methods provide alternative orderings that are sometimes
+        more convenient. The idea of `In` methods is to name them by convention,
+        so when ever you need a method that actually takes the collection first
+        (e.g. a `get` where the data is static but the field is dynamic), you
+        can just add `In` to the end (such as `getIn` which takes the object
+        first)
+      </p>
+      <p>
+        <b>On's (Immutable False)</b>
+      </p>
+      <p>
+        `extendOn`, `defaultsOn`, `mergeOn`, `setOn`, `unsetOn`, `pullOn`
+        <br />
+        lodash/fp likes to keep things pure, but sometimes JS can get pretty
+        dirty. These methods are alternatives for working with data that--for
+        whatever the use case is--needs to be mutable Any methods that interact
+        with mutable data will use the `On` convention (as it is some action
+        occuring `On` some data)
+      </p>
+      <p>
+        <b>Indexed (Cap False)</b>
+      </p>
+      <p>
+        `mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`
+        <br />
+        lodash/fp caps iteratees to one argument by default, but sometimes you
+        need the index. These methods are uncapped versions of lodash's methods.
+        Any method with uncapped iteratee arguments will use the `Indexed`
+        convention.
+      </p>
+    </>
+  ),
 }
 
 export default tagDocs
