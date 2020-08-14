@@ -2,6 +2,42 @@
 - NEW docs site!
 - Killed deprecated conversion methods (reduce, mapValues, each)
 
+# 1.67.0
+- Improvements to `unwind`: use `_.castArray` to avoid unwinding strings and other array-likes
+- Add `unwindArray`
+
+# 1.66.3
+- Use deep comparison on F.{simple,}diff
+
+# 1.66.2
+- Allow `walkAsync` to handle non-async traversals
+
+# 1.66.1
+- Kill promises in `findIndexedAsync` to fix regeneratorRuntime shenanigans
+
+# 1.66.0
+- Add `walkAsync`
+- Add `findIndexedAsync` (used internally and not documented, but exported for testing)
+- Add `mapArgs`
+- Add `commonKeys` and `firstCommonKey`
+
+# 1.65.0
+- Add support for regular expression arguments to `highlight`
+- Clarify `highlight` description in README
+- Add description for `postingsForWords` to README
+
+# 1.64.4
+- Change `domLens.hover` to use `onMouseEnter`/`onMouseLeave` instead of `onMouseOver`/`onMouseOut`
+
+# 1.64.3
+- Fix typo in README
+
+# 1.64.2
+- Handle `[]`, `undefined`, and `null` arguments in `chunkBy`
+
+# 1.64.1
+- Use `_.hasIn` in `targetBinding` to account for objects with `target` as an inherited property (eg, in synthetic DOM events)
+
 # 1.64.0
 - Add new native lens formats, `arrayLens` and `functionPairLens`
 - Make `domLens.value` more flexible by supporting non-native onChange events (allow `targetBinding` to fall back to the provided value if `e.target[key]` is not passed in)

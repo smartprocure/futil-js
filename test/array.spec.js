@@ -119,6 +119,13 @@ describe('Array Functions', () => {
     expect(
       F.chunkBy(([x], y) => (x * y) % 3 === 0)([1, 2, 3, 4, 5, 6, 7, 8, 9])
     ).to.deep.equal([[1], [2, 3], [4], [5, 6], [7], [8, 9]])
+    // edge cases
+    expect(F.chunkBy(() => true, [])).to.deep.equal([])
+    expect(F.chunkBy(() => true, undefined)).to.deep.equal([])
+    expect(F.chunkBy(() => true, [])).to.deep.equal([])
+    expect(F.chunkBy(() => false, [])).to.deep.equal([])
+    expect(F.chunkBy(() => false, undefined)).to.deep.equal([])
+    expect(F.chunkBy(() => false, [])).to.deep.equal([])
   })
   it('toggleElement', () => {
     expect(F.toggleElement('b', ['a', 'b', 'c', 'd'])).to.deep.equal([

@@ -1,6 +1,6 @@
 import _ from 'lodash/fp'
 import { dotJoinWith, zipObjectDeepWith } from './array'
-import { overNone } from './logic'
+import { overNone, ifElse } from './logic'
 import { isNotNil, isBlank } from './lang'
 import {
   reduceIndexed,
@@ -12,6 +12,7 @@ import {
 } from './conversion'
 import { findApply } from './collection'
 import { aspects } from './aspect'
+import { mapArgs } from './function'
 const noCap = _.convert({ cap: false })
 
 // (k, v) -> {k: v}
@@ -46,8 +47,15 @@ export const renameProperty = _.curry((from, to, target) =>
 
 // { x:['a','b'], y:1 } -> [{ x:'a', y:1 }, { x:'b', y:1 }] just like mongo's `$unwind`
 export const unwind = _.curry((prop, x) =>
-  _.map(y => _.set(prop, y, x), _.get(prop, x))
+  ifElse(
+    _.isArray,
+    _.map(y => _.set(prop, y, x)),
+    _.stubArray,
+    _.get(prop, x)
+  )
 )
+// this one's _actually_ just like mongo's `$unwind`
+export const unwindArray = _.curry((prop, xs) => _.flatMap(unwind(prop))(xs))
 
 export const isFlatObject = overNone([_.isPlainObject, _.isArray])
 
@@ -127,7 +135,7 @@ export let simpleDiff = (original, deltas) => {
   return _.flow(
     flattenObject,
     mapValuesIndexed((to, field) => ({ from: o[field], to })),
-    _.omitBy(x => x.from === x.to)
+    _.omitBy(x => _.isEqual(x.from, x.to))
   )(deltas)
 }
 export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
@@ -137,7 +145,7 @@ export let diff = (original, deltas) => {
   let d = flattenObject(deltas)
   return _.flow(
     mapValuesIndexed((_, field) => ({ from: o[field], to: d[field] })),
-    _.omitBy(x => x.from === x.to)
+    _.omitBy(x => _.isEqual(x.from, x.to))
   )(_.merge(o, d))
 }
 export let diffArray = _.flow(diff, unkeyBy('field'))
@@ -201,4 +209,10 @@ export let expandObject = _.curry((transform, obj) => ({
 // k -> (a -> {b}) -> {k: a} -> {a, b}
 export let expandObjectBy = _.curry((key, fn, obj) =>
   expandObject(getWith(fn, key))(obj)
+)
+
+export let commonKeys = _.curryN(2, mapArgs(_.keys, _.intersection))
+let findKeyIndexed = _.findKey.convert({ cap: false })
+export let firstCommonKey = _.curry((x, y) =>
+  findKeyIndexed((val, key) => _.has(key, x), y)
 )

@@ -44,3 +44,6 @@ export let debounceAsync = (n, f) => {
 let currier = f => (...fns) => _.curryN(fns[0].length, f(...fns))
 // (f1, f2, ...fn) -> f1Args1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))
 export let flurry = currier(_.flow)
+
+// like _.overArgs, but on all args
+export let mapArgs = _.curry((mapper, fn) => (...x) => fn(...x.map(mapper)))

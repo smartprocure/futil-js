@@ -70,6 +70,10 @@ A `_.debounce` for async functions that ensure the returned promise is resolved 
 `(f1, f2, ...fn) -> f1Arg1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
 Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 
+### mapArgs
+`(mapper, fn) -> (...args) -> fn(...args.map(mapper))`
+Returns a function that applies the mapping operation to all of the arguments of a function. Very similar to _.overArgs, but runs a single mapper on all of the args args.
+
 ## Iterators
 
 ### differentLast
@@ -275,7 +279,7 @@ Check if the variable is **not** an empty object (`{}`).
 Omit properties whose values are empty objects.
 
 Example: `{ a:1, b:{}, c:2 } -> {a:1, c:2}`
-(*TODO* remame to `omitEmptyObjects`)
+(*TODO* rename to `omitEmptyObjects`)
 
 
 ### compareDeep
@@ -301,8 +305,26 @@ Example: `renameProperty('a', 'b', { a: 1 }) -> { b: 1 }`
 
 
 ### unwind
-`'b' -> { a: true, b: [1, 2] } -> { a: true, b: 1 }, { a: true, b: 2}`
-Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property returns an empty array.
+`k -> { k: [a, b] } -> [{ k: a }, { k: b }]`
+Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property or a property whose value is not an array returns an empty array.
+
+```js
+F.unwind('b', [{ a: true, b: [1, 2] }])
+//=> [{ a: true, b: 1 }, { a: true, b: 2 }]
+```
+
+### unwindArray
+`k -> [{ k: [a, b] }] -> [{ k: a }, { k: b }]`
+Unwinds an array of objects instead of a single object, as you might expect if you're used to mongo's `$unwind`. Alias for `(key, data) => _.flatMap(F.unwind(key), data)`
+```js
+F.unwindArray('b', [{ a: true, b: [1, 2] }, { a: false, b: [3, 4] }])
+//=> [
+//=>  { a: true, b: 1 },
+//=>  { a: true, b: 2 },
+//=>  { a: false, b: 3 },
+//=>  { a: false, b: 4 },
+//=> ]
+```
 
 
 ### flattenObject
@@ -405,6 +427,14 @@ Note that for functions that don't return objects, `_.merge`'s behavior is follo
 ### expandObjectBy
 `key -> (transform: x -> newObj) -> (obj: { key: x }) -> { ...obj, ...newObj }` Expands an object by transforming the value at a single key into a new object, and merging the result with the original object. Similar to `expandObject`, but the argument order is `(key, transform, object)`, and the transform function is called on the value at that key instead of on the whole object.
 
+### commonKeys
+`(x, y) -> [keys]`
+Takes two objects and returns the keys they have in common
+
+### firstCommonKey
+`(x, y) -> key`
+Takes two objects and returns the first key in `y` that x also has
+
 ## String
 
 ### parens
@@ -487,10 +517,27 @@ uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
 ### postings
 `regex -> string -> [[number, number]]` Returns an array of postings (position ranges) for a regex and string to test, e.g. `F.postings(/a/g, 'vuhfaof') -> [[4, 5]]`
 
-### highlight
-`start -> end -> regex -> input -> highlightedInput` Wraps the matches for `regex` found in `input` with the strings `start` and `end`.
+### postingsForWords
+`words -> string -> [[[number, number]]]` Takes a string of words and a string to test, and returns an array of arrays of postings for each word.
 
-Example: `('<b>', '</b>', /h/, 'hi') -> '<b>h</b>i'`
+Example:
+```js
+F.postingsForWords('she lls', 'she sells sea shells')
+// [
+//   [[0, 3], [14, 17]]
+//   [[6, 9], [17, 20]]
+// ]
+```
+
+### highlight
+`start -> end -> pattern -> input -> highlightedInput` Wraps the matches for `pattern` found in `input` with the strings `start` and `end`. The `pattern` argument can either be a string of words to match, or a regular expression.
+
+Example: 
+```js
+let braceHighlight = F.highlight('{', '}')
+braceHighlight('l o', 'hello world') //-> "he{llo} w{o}r{l}d"
+braceHighlight(/l+\w/, 'hello world') //-> "he{llo} wor{ld}"
+```
 
 ### allMatches
 `regex -> string -> [{text: string, start: number, end: number}]` Returns an array of matches with start/end data, e.g. `F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]`
@@ -601,7 +648,7 @@ An include lens represents membership of a value in a set. It takes a value and 
 #### domLens.value
 `lens -> {value, onChange}` Takes a lens and returns a value/onChange pair that views/sets the lens appropriately. `onChange` sets with `e.target.value` (or `e` if that path isn't present).
 Example:
-```
+```jsx
 let Component = () => {
   let state = React.useState('')
   return <input {...F.domLens.value(state)}>
@@ -612,7 +659,7 @@ let Component = () => {
 `(value, lens) -> {checked, onChange}` Creates an includeLens and maps view to checked and set to `onChange` (set with `e.target.checked` or `e` if that path isn't present)
 
 #### domLens.hover
-`lens -> { onMouseOver, onMouseOut }` Takes a lens and returns on onMouseOver which calls `on` on the lens and onMouseOut which calls `off`. Models a mapping of "hovering" to a boolean.
+`lens -> { onMouseEnter, onMouseLeave }` Takes a lens and returns on onMouseEnter which calls `on` on the lens and onMouseLeave which calls `off`. Models a mapping of "hovering" to a boolean.
 
 #### domLens.focus
 `lens -> { onFocus, onBlur }` Takes a lens and returns on onFocus which calls `on` on the lens and onBlur which calls `off`. Models a mapping of "focusing" to a boolean.
@@ -736,6 +783,10 @@ The default traversal function used in other tree methods if you don't supply on
 ### walk
 `traverse -> (pre, post=_.noop) -> tree -> x`
 A depth first search which visits every node returned by `traverse` recursively. Both `pre-order` and `post-order` traversals are supported (and can be mixed freely). `walk` also supports exiting iteration early by returning a truthy value from either the `pre` or `post` functions. The returned value is also the return value of `walk`. The pre, post, and traversal functions are passed the current node as well as the parent stack (where parents[0] is the direct parent).
+
+### walkAsync
+`traverse -> (pre, post=_.noop) -> async tree -> x`
+A version of `walk` which supports async traversals.
 
 ### transformTree
 `traverse -> _iteratee -> tree -> newTree`
