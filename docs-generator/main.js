@@ -20,7 +20,7 @@ let cleanup = _.flow(
   _.toString,
   _.split('\n'),
   // Remove the fn wrapper
-  x => x.slice(1, -1),
+  (x) => x.slice(1, -1),
   _.join('\n')
   // Remove the test wrappers
   // _.replace(
@@ -59,7 +59,7 @@ export default () => {
   let content =
     'module.exports = ' +
     JSON.stringify(
-      _.mapValues(test => {
+      _.mapValues((test) => {
         let code = cleanup(test)
         try {
           return prettier.format(code, {
