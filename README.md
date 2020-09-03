@@ -567,7 +567,7 @@ A curried, flipped `_.add`. The flipping matters for strings, e.g. `F.append('a'
 
 ### isBlank
 `x -> bool`
-Designed to determine if something has a meaningful value, like a ux version of truthiness. It's true for everything except null, undefined, '', [], and {}. Another way of describing it is that it's the same as falsiness except 0 and false are truthy and {} is falsey. Useful for implementing "required" validation rules.
+Designed to determine if something has a meaningful value, like a ux version of truthiness. It's false for everything except null, undefined, '', [], and {}. Another way of describing it is that it's the same as falsiness except 0 and false are truthy and {} is falsey. Useful for implementing "required" validation rules.
 
 ### isNotBlank
 `x -> bool`
