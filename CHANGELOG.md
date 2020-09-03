@@ -1,3 +1,6 @@
+# 1.67.1
+- Fix `isBlank` docs
+
 # 1.67.0
 - Improvements to `unwind`: use `_.castArray` to avoid unwinding strings and other array-likes
 - Add `unwindArray`
