@@ -46,8 +46,8 @@ describe('Logic Functions', () => {
       () => 5
     )
     let falseAttribute = { oneBased: false }
-    let undefinedAttribute = {  }
-    let nullAttribute = { oneBased:null }
+    let undefinedAttribute = {}
+    let nullAttribute = { oneBased: null }
     expect(clamp5(3)).to.equal(3)
     expect(clamp5(5)).to.equal(5)
     expect(clamp5(13)).to.equal(5)
@@ -55,7 +55,12 @@ describe('Logic Functions', () => {
     let undefinedConvertIndex = f.when(undefinedAttribute.oneBased, _.add(1))
     let nullConvertIndex = f.when(nullAttribute.oneBased, _.add(1))
     expect(_.map(convertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
-    expect(_.map(undefinedConvertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
+    expect(_.map(undefinedConvertIndex, [0, 1, 2, 3])).to.deep.equal([
+      0,
+      1,
+      2,
+      3,
+    ])
     expect(_.map(nullConvertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
   })
   it('unless', () => {
