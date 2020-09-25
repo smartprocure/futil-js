@@ -46,7 +46,7 @@ describe('Logic Functions', () => {
       () => 5
     )
     let config = { oneBased: false }
-    let config2 = {  }
+    let config2 = {}
     expect(clamp5(3)).to.equal(3)
     expect(clamp5(5)).to.equal(5)
     expect(clamp5(13)).to.equal(5)
