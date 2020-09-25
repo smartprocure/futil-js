@@ -45,15 +45,18 @@ describe('Logic Functions', () => {
       x => x > 5,
       () => 5
     )
-    let config = { oneBased: false }
-    let config2 = {  }
+    let falseAttribute = { oneBased: false }
+    let undefinedAttribute = {  }
+    let nullAttribute = {  }
     expect(clamp5(3)).to.equal(3)
     expect(clamp5(5)).to.equal(5)
     expect(clamp5(13)).to.equal(5)
-    let convertIndex = f.when(config.oneBased, _.add(1))
-    let convertIndex2 = f.when(config2.oneBased, _.add(1))
+    let convertIndex = f.when(falseAttribute.oneBased, _.add(1))
+    let undefinedConvertIndex = f.when(undefinedAttribute.oneBased, _.add(1))
+    let nullConvertIndex = f.when(nullAttribute.oneBased, _.add(1))
     expect(_.map(convertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
-    expect(_.map(convertIndex2, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
+    expect(_.map(undefinedConvertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
+    expect(_.map(nullConvertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
   })
   it('unless', () => {
     let clamp5 = f.unless(
