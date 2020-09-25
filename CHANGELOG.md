@@ -1,3 +1,8 @@
+# 1.67.2
+- change fixed issue, Logic functions behave unpredictably with `undefined` as predicate
+- add test cases to logic.spec for when. 
+- drop IE 10 support
+
 # 1.67.1
 - Fix `isBlank` docs
 
