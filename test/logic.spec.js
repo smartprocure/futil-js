@@ -47,7 +47,7 @@ describe('Logic Functions', () => {
     )
     let falseAttribute = { oneBased: false }
     let undefinedAttribute = {  }
-    let nullAttribute = {  }
+    let nullAttribute = { oneBased:null }
     expect(clamp5(3)).to.equal(3)
     expect(clamp5(5)).to.equal(5)
     expect(clamp5(13)).to.equal(5)
