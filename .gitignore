@@ -36,14 +36,14 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-# Build Output
-lib
-
 # Package lock files
 package-lock.json
 
 # Browser test result file
 browser-results.json
 
-#OS X
+# OS X
 .DS_Store
+
+# Build output
+__*

@@ -1,11 +1,8 @@
 version: 2
-notify:
-  webhooks:
-    - url: https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:15
     steps:
       - checkout
       - restore_cache:
@@ -20,16 +17,6 @@ jobs:
       - run:
           name: lint
           command: npm run lint:ci
-      - run:
-          name: test
-          command: npm run cicoverage
-      - run:
-          name: coveralls
-          command: npm run cicoveralls
-      - run:
-          name: browser
-          command: if [ "${CIRCLE_BRANCH}" != "master" ]; then npm run browser || true; fi;
-          timeout: 240
       - run:
           name: pre-danger
           command: git config user.email "decrapifier@govspend.com" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH
@@ -50,6 +37,6 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-              npm run rename futil
+              node run rename futil
               npm publish || true
             fi

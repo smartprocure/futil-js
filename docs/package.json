@@ -1,0 +1,43 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "prepare": "npm run build",
+    "gen": "mkdir -p __gen && node tojs.js ../lib/README.md > __gen/README.js && node tojs ../lib/CHANGELOG.md > __gen/CHANGELOG.js && npx typedoc --json __gen/docs.json --tsconfig ../lib/tsconfig.json --includeDeclarations ../lib/src"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^1.0.0-rc.7",
+    "focus-visible": "^5.2.0",
+    "framer-motion": "^2.9.4",
+    "lodash": "^4.17.20",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-icons": "^3.11.0"
+  },
+  "devDependencies": {
+    "@snowpack/plugin-run-script": "^2.1.7",
+    "markdown-to-jsx": "^7.0.1",
+    "snowpack": "^2.15.1",
+    "typedoc": "^0.19.2"
+  },
+  "snowpack": {
+    "mount": {
+      "public": "/",
+      "src": "/src",
+      "__gen": "/__gen"
+    },
+    "buildOptions": {
+      "out": "__dist",
+      "clean": true
+    },
+    "plugins": [
+      [
+        "@snowpack/plugin-run-script",
+        {
+          "cmd": "npm run gen"
+        }
+      ]
+    ]
+  }
+}

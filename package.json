@@ -1,95 +1,35 @@
 {
-  "name": "futil-js",
-  "version": "1.67.0",
-  "description": "F(unctional) util(ities). Resistance is futile.",
-  "main": "lib/futil-js.js",
+  "workspaces": [
+    "lib",
+    "docs"
+  ],
   "scripts": {
-    "build": "webpack",
-    "danger": "duti",
-    "test": "babel-node ./node_modules/mocha/bin/_mocha --require ./test/init.js",
-    "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
-    "browser": "TEST_ENV=browser karma start karma.conf.js",
-    "browser:local": "karma start karma.conf.js",
-    "coverage": "nyc --require babel-core/register --require babel-polyfill --require ./test/init.js mocha test",
-    "cicoveralls": "nyc report --reporter=text-lcov --require babel-core/register --require babel-polyfill --require ./test/init.js mocha test | coveralls",
-    "cicoverage": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill --require ./test/init.js mocha test --reporter json > test-results.json",
-    "lint": "eslint dangerfile.js src/*.js test/*.js",
+    "lint": "eslint 'lib/src/*.js' 'docs/src/*.{js,jsx}'",
     "lint:ci": "npm run lint -- -o lint-results.json -f json",
-    "lint-fix": "eslint dangerfile.js src/*.js test/*.js --fix",
-    "fmt": "prettier --write *.js; prettier --write '{src,test}/**/*.js'",
-    "duti:fix": "npm run fmt && npm run lint-fix && npm run fmt",
-    "prepublish": "webpack",
-    "rename": "node renamePackage"
+    "lint:fix": "npm run lint --fix",
+    "format": "prettier --write 'lib/src/*.js' 'docs/src/*.{js,jsx}'",
+    "danger": "duti",
+    "duti:fix": "npm run format && npm run lint:fix && npm run format"
   },
-  "author": {
-    "name": "Samuel Greene",
-    "email": "sgreene@smartprocure.us"
+  "devDependencies": {
+    "danger": "^6.1.13",
+    "duti": "latest",
+    "eslint": "^7.12.1",
+    "prettier": "^2.1.2"
   },
-  "license": "MIT",
-  "dependencies": {
-    "babel-polyfill": "^6.23.0",
-    "lodash": "^4.17.4"
-  },
-  "babel": {
-    "presets": [
-      "env"
-    ]
+  "eslintConfig": {
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2020,
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    }
   },
   "prettier": {
     "singleQuote": true,
     "semi": false,
-    "trailingComma": "es5"
-  },
-  "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.22.2",
-    "babel-core": "^6.22.1",
-    "babel-eslint": "^8.0.0",
-    "babel-loader": "^7.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "bluebird": "^3.5.0",
-    "chai": "^4.1.0",
-    "chai-as-promised": "^7.1.1",
-    "chokidar": "^3.3.0",
-    "chokidar-cli": "^2.1.0",
-    "codacy-coverage": "^3.0.0",
-    "coveralls": "^3.0.0",
-    "danger": "^6.1.13",
-    "duti": "latest",
-    "eslint": "4.19.1",
-    "eslint-config-smartprocure": "^1.0.2",
-    "karma": "^2.0.0",
-    "karma-chai": "^0.1.0",
-    "karma-chai-as-promised": "^0.1.2",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-json-reporter": "^1.2.1",
-    "karma-mocha": "^1.3.0",
-    "karma-sauce-launcher": "^1.2.0",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^3.0.0",
-    "mocha": "^6.2.2",
-    "mocha-lcov-reporter": "^1.2.0",
-    "nyc": "^12.0.1",
-    "prettier": "^1.7.4",
-    "read-pkg": "^5.2.0",
-    "sinon": "^7.5.0",
-    "sinon-chai": "^3.0.0",
-    "webpack": "^4.1.0",
-    "webpack-cli": "^3.0.0",
-    "write-pkg": "^4.0.0"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/smartprocure/futil-js.git"
-  },
-  "bugs": {
-    "url": "https://github.com/smartprocure/futil-js/issues"
-  },
-  "homepage": "https://github.com/smartprocure/futil-js#readme",
-  "runkitExampleFilename": "runkit.example.js",
-  "readme": "README.md"
+    "trailingComma": "es5",
+    "arrowParens": "avoid"
+  }
 }
