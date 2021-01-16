@@ -33,11 +33,11 @@ or
 This package requires `lodash/fp`, so make sure that's available in your app.
 
 # Usage
-`import * as F from futil`
+`import * as F from 'futil'`
 or
-`import F from futil`
+`import F from 'futil'`
 or
-`import {x,y,z} from futil`
+`import {x,y,z} from 'futil'`
 
 # API
 
