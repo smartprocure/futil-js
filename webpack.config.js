@@ -3,7 +3,7 @@ var webpack = require('webpack')
 var packageMetadata = require('./package.json')
 var libraryName = packageMetadata.name
 var libraryVersion = packageMetadata.version
-var outputFile = libraryName + '.js'
+var outputFile = `${libraryName}.js`
 
 module.exports = {
   devtool: 'source-map',
@@ -16,10 +16,13 @@ module.exports = {
     libraryTarget: 'umd',
     globalObject: 'this',
   },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
   module: {
     rules: [
       {
-        test: /(\.jsx|\.js)$/,
+        test: /(\.jsx|\.js|\.ts)$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
