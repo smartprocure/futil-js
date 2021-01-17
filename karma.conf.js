@@ -35,8 +35,6 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      // Load the babel polyfill
-      'node_modules/babel-polyfill/dist/polyfill.js',
       // We need to use singl entry file to avoid circular import error between
       // `aspect.js` and `conversion.js`
       'src/index.js',
@@ -80,9 +78,9 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: reporters,
+    reporters,
     // Write testing results to json file.
-    jsonReporter: jsonReporter,
+    jsonReporter,
 
     // web server port
     port: 9876,
@@ -109,7 +107,7 @@ module.exports = function(config) {
     browserNoActivityTimeout: 600 * 1000,
     browserDisconnectTimeout: 60 * 1000,
     browserDisconnectTolerance: 3,
-    browsers: browsers,
+    browsers,
     customLaunchers: !local && customLaunchers,
 
     // Continuous Integration mode
