@@ -181,7 +181,10 @@ describe('Tree Functions', () => {
         },
       ],
     }
-    let tree = F.tree(x => x.items, a => ({ a }))
+    let tree = F.tree(
+      x => x.items,
+      a => ({ a })
+    )
     expect(tree.lookup(['2', '4'], x)).to.deep.equal(x.items[0].items[1])
   })
   it('transform', () => {
@@ -380,10 +383,7 @@ describe('Tree Functions', () => {
       },
     }
     let Tree = F.tree(x => x.properties)
-    let result = _.flow(
-      Tree.flatten(),
-      _.omitBy(Tree.traverse)
-    )({ properties })
+    let result = _.flow(Tree.flatten(), _.omitBy(Tree.traverse))({ properties })
     expect(result).to.deep.equal({
       Field1: {
         type: 'text',
