@@ -70,6 +70,24 @@ export let reduceTree = (next = traverse) =>
     return result
   })
 
+let writeProperty = (node, index, [parent]) => { 
+  parent[index] = node
+}
+export let mapTree = (next = traverse, writeNode = writeProperty) => 
+  _.curry(
+    (mapper, tree) =>
+      transformTree(next)((node, index, parents, parentIndexes) => {
+        if (parents.length)
+          writeNode(mapper(node), index, parents, parentIndexes)
+      })(mapper(tree)) // run mapper on root, and skip root in traversal
+  )
+export let mapTreeLeaves = (next = traverse, writeNode = writeProperty) => 
+  _.curry((mapper, tree) =>
+    // this unless wrapping can be done in user land, this is pure convenience
+    // mapTree(next, writeNode)(F.unless(next, mapper), tree)
+    mapTree(next, writeNode)(node => next(node) ? node : mapper(node), tree) 
+  )
+
 export let treeToArrayBy = (next = traverse) =>
   _.curry((fn, tree) => reduceTree(next)((r, x) => push(fn(x), r), [], tree))
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
@@ -80,7 +98,7 @@ export let leaves = (next = traverse) =>
 export let treeLookup = (next = traverse, buildIteratee = _.identity) =>
   _.curry((path, tree) =>
     _.reduce(
-      (tree, path) => _.find(buildIteratee(path), next(tree)),
+      (tree, path) => findIndexed(buildIteratee(path), next(tree)),
       tree,
       path
     )
@@ -117,7 +135,7 @@ export let flattenTree = (next = traverse) => (buildPath = treePath()) =>
 
 export let flatLeaves = (next = traverse) => _.reject(next)
 
-export let tree = (next = traverse, buildIteratee = _.identity) => ({
+export let tree = (next = traverse, buildIteratee = _.identity, writeNode = writeProperty) => ({
   walk: walk(next),
   walkAsync: walkAsync(next),
   transform: transformTree(next),
@@ -130,4 +148,5 @@ export let tree = (next = traverse, buildIteratee = _.identity) => ({
   traverse: next,
   flatten: flattenTree(next),
   flatLeaves: flatLeaves(next),
+  mapLeaves: mapTreeLeaves(next, writeNode)
 })

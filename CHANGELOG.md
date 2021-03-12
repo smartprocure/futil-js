@@ -1,3 +1,6 @@
+# 1.68.0
+- Add `mapTree`, `mapTreeLeaves`
+
 # 1.67.3
 - Fixed `import` syntax in docs
 
