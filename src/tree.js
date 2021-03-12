@@ -148,5 +148,6 @@ export let tree = (next = traverse, buildIteratee = _.identity, writeNode = writ
   traverse: next,
   flatten: flattenTree(next),
   flatLeaves: flatLeaves(next),
+  map: mapTree(next, writeNode),
   mapLeaves: mapTreeLeaves(next, writeNode)
 })
