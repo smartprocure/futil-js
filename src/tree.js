@@ -76,9 +76,9 @@ let writeProperty = (node, index, [parent]) => {
 export let mapTree = (next = traverse, writeNode = writeProperty) =>
   _.curry(
     (mapper, tree) =>
-      transformTree(next)((node, index, parents, parentIndexes) => {
+      transformTree(next)((node, i, parents, ...args) => {
         if (parents.length)
-          writeNode(mapper(node), index, parents, parentIndexes)
+          writeNode(mapper(node, i, parents, ...args), i, parents, ...args)
       })(mapper(tree)) // run mapper on root, and skip root in traversal
   )
 export let mapTreeLeaves = (next = traverse, writeNode = writeProperty) =>
@@ -89,7 +89,7 @@ export let mapTreeLeaves = (next = traverse, writeNode = writeProperty) =>
   )
 
 export let treeToArrayBy = (next = traverse) =>
-  _.curry((fn, tree) => reduceTree(next)((r, x) => push(fn(x), r), [], tree))
+  _.curry((fn, tree) => reduceTree(next)((r, ...args) => push(fn(...args), r), [], tree))
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 
 export let leaves = (next = traverse) =>
