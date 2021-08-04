@@ -539,10 +539,11 @@ describe('Tree Functions', () => {
       ],
     }
     let getChildren = x => x.children
-    let writeChild = (node, index, [parent]) => {
-      parent.children[index] = node
-    }
-    let mapLeaves = F.mapTreeLeaves(getChildren, writeChild)
+    // default writeChild works now!
+    // let writeChild = (node, index, [parent]) => {
+    //   parent.children[index] = node
+    // }
+    let mapLeaves = F.mapTreeLeaves(getChildren)//, writeChild)
     let result = mapLeaves(node => ({ ...node, value: 'test' }), tree)
     expect(result).to.deep.equal({
       key: 'root',

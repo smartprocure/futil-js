@@ -70,10 +70,10 @@ export let reduceTree = (next = traverse) =>
     return result
   })
 
-let writeProperty = (node, index, [parent]) => {
-  parent[index] = node
+let writeProperty = (next = traverse) => (node, index, [parent]) => {
+  next(parent)[index] = node
 }
-export let mapTree = (next = traverse, writeNode = writeProperty) =>
+export let mapTree = (next = traverse, writeNode = writeProperty(next)) =>
   _.curry(
     (mapper, tree) =>
       transformTree(next)((node, i, parents, ...args) => {
@@ -81,7 +81,7 @@ export let mapTree = (next = traverse, writeNode = writeProperty) =>
           writeNode(mapper(node, i, parents, ...args), i, parents, ...args)
       })(mapper(tree)) // run mapper on root, and skip root in traversal
   )
-export let mapTreeLeaves = (next = traverse, writeNode = writeProperty) =>
+export let mapTreeLeaves = (next = traverse, writeNode = writeProperty(next)) =>
   _.curry((mapper, tree) =>
     // this unless wrapping can be done in user land, this is pure convenience
     // mapTree(next, writeNode)(F.unless(next, mapper), tree)
