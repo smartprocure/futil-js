@@ -138,7 +138,7 @@ export let flatLeaves = (next = traverse) => _.reject(next)
 export let tree = (
   next = traverse,
   buildIteratee = _.identity,
-  writeNode = writeProperty
+  writeNode = writeProperty(next)
 ) => ({
   walk: walk(next),
   walkAsync: walkAsync(next),
