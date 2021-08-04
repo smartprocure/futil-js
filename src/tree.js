@@ -89,7 +89,9 @@ export let mapTreeLeaves = (next = traverse, writeNode = writeProperty(next)) =>
   )
 
 export let treeToArrayBy = (next = traverse) =>
-  _.curry((fn, tree) => reduceTree(next)((r, ...args) => push(fn(...args), r), [], tree))
+  _.curry((fn, tree) =>
+    reduceTree(next)((r, ...args) => push(fn(...args), r), [], tree)
+  )
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 
 export let leaves = (next = traverse) =>
