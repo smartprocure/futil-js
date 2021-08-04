@@ -27,10 +27,18 @@ import * as lang from './lang'
 import * as lens from './lens'
 import * as tree from './tree'
 import * as iterators from './iterators'
+export * from './iterators'
 
 // Math
 // ----
 export const greaterThanOne = _.lt(1)
+
+// Promise
+// ----
+export const isPromise = obj =>
+  !!obj &&
+  (typeof obj === 'object' || typeof obj === 'function') &&
+  typeof obj.then === 'function'
 
 // Version
 // ----
@@ -52,5 +60,6 @@ export default {
   ...tree,
   ...iterators,
   greaterThanOne,
+  isPromise,
   VERSION,
 }
