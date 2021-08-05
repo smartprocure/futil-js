@@ -95,7 +95,13 @@ export let treeToArrayBy = (next = traverse) =>
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 
 export let leavesBy = (next = traverse) =>
-  _.curry((fn, tree) => reduceTree(next)((r, node, ...args) => next(node) ? r : push(fn(node, ...args), r), [], tree))
+  _.curry((fn, tree) =>
+    reduceTree(next)(
+      (r, node, ...args) => (next(node) ? r : push(fn(node, ...args), r)),
+      [],
+      tree
+    )
+  )
 export let leaves = (next = traverse) => leavesBy(next)(x => x)
 
 export let treeLookup = (next = traverse, buildIteratee = _.identity) =>
