@@ -94,6 +94,8 @@ export let treeToArrayBy = (next = traverse) =>
   )
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 
+// This could reuse treeToArrayBy and just reject traversable elements after, but this is more efficient
+// We can potentially unify these with tree transducers
 export let leavesBy = (next = traverse) =>
   _.curry((fn, tree) =>
     reduceTree(next)(
