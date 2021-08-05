@@ -32,6 +32,13 @@ import * as iterators from './iterators'
 // ----
 export const greaterThanOne = _.lt(1)
 
+// Promise
+// ----
+export const isPromise = obj =>
+  !!obj &&
+  (typeof obj === 'object' || typeof obj === 'function') &&
+  typeof obj.then === 'function'
+
 // Version
 // ----
 export const VERSION = global.__VERSION__
@@ -52,5 +59,6 @@ export default {
   ...tree,
   ...iterators,
   greaterThanOne,
+  isPromise,
   VERSION,
 }
