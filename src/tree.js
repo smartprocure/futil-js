@@ -94,8 +94,9 @@ export let treeToArrayBy = (next = traverse) =>
   )
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 
-export let leaves = (next = traverse) =>
-  _.flow(treeToArray(next), _.reject(next))
+export let leavesBy = (next = traverse) =>
+  _.curry((fn, tree) => reduceTree(next)((r, node, ...args) => next(node) ? r : push(fn(node, ...args), r), [], tree))
+export let leaves = (next = traverse) => leavesBy(next)(x => x)
 
 export let treeLookup = (next = traverse, buildIteratee = _.identity) =>
   _.curry((path, tree) =>
@@ -149,6 +150,7 @@ export let tree = (
   toArrayBy: treeToArrayBy(next),
   toArray: treeToArray(next),
   leaves: leaves(next),
+  leavesBy: leavesBy(next),
   lookup: treeLookup(next, buildIteratee),
   keyByWith: keyTreeByWith(next),
   traverse: next,
