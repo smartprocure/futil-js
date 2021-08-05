@@ -543,7 +543,7 @@ describe('Tree Functions', () => {
     // let writeChild = (node, index, [parent]) => {
     //   parent.children[index] = node
     // }
-    let mapLeaves = F.mapTreeLeaves(getChildren)//, writeChild)
+    let mapLeaves = F.mapTreeLeaves(getChildren) //, writeChild)
     let result = mapLeaves(node => ({ ...node, value: 'test' }), tree)
     expect(result).to.deep.equal({
       key: 'root',
@@ -560,7 +560,7 @@ describe('Tree Functions', () => {
     })
   })
   it('mapTreeLeaves JSON schema', () => {
-    let tree =  {
+    let tree = {
       type: 'object',
       additionalProperties: false,
       required: ['email', 'subscriptionType'],
