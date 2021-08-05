@@ -523,4 +523,104 @@ describe('Tree Functions', () => {
     await walkAsyncTest
     expect(tree.a.b.c.length).to.equal(4)
   })
+  it('mapTreeLeaves', () => {
+    let tree = { a: { b: { c: [1, 2, 3] } } }
+    let double = x => x * 2
+    let result = F.mapTreeLeaves()(double, tree)
+    expect(tree).to.deep.equal({ a: { b: { c: [1, 2, 3] } } })
+    expect(result).to.deep.equal({ a: { b: { c: [2, 4, 6] } } })
+  })
+  it('mapTreeLeaves contexture tree', () => {
+    let tree = {
+      key: 'root',
+      children: [
+        { key: 'criteria', children: [{ key: 'filter' }, { key: 'f2' }] },
+        { key: 'analysis', children: [{ key: 'results' }] },
+      ],
+    }
+    let getChildren = x => x.children
+    // default writeChild works now!
+    // let writeChild = (node, index, [parent]) => {
+    //   parent.children[index] = node
+    // }
+    let mapLeaves = F.mapTreeLeaves(getChildren) //, writeChild)
+    let result = mapLeaves(node => ({ ...node, value: 'test' }), tree)
+    expect(result).to.deep.equal({
+      key: 'root',
+      children: [
+        {
+          key: 'criteria',
+          children: [
+            { key: 'filter', value: 'test' },
+            { key: 'f2', value: 'test' },
+          ],
+        },
+        { key: 'analysis', children: [{ key: 'results', value: 'test' }] },
+      ],
+    })
+  })
+  it('mapTree on JSON schema', () => {
+    let tree = {
+      type: 'object',
+      additionalProperties: false,
+      required: ['email', 'subscriptionType'],
+      properties: {
+        _id: { type: 'objectId' },
+        email: { type: 'string' },
+        password: { type: 'string' },
+        name: { type: 'string' },
+        organization: { type: 'objectId' },
+        permissions: { type: 'array', items: { type: 'string' } },
+        subscriptionType: { type: 'string', enum: ['basic', 'premium'] },
+        createdAt: { type: 'date' },
+        updatedAt: { type: 'date' },
+        metrics: {
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            sessionsCount: { type: 'number' },
+            totalSessionLength: { type: 'number' },
+            firstSession: { type: 'date' },
+            lastSession: { type: 'date' },
+          },
+        },
+      },
+    }
+
+    let getChildren = x => x.properties
+    let { map } = F.tree(getChildren)
+
+    let jsonSchemaToMongoSchema = _.flow(
+      F.renameProperty('type', 'bsonType'),
+      F.renameProperty('items.type', 'items.bsonType')
+    )
+    let result = map(jsonSchemaToMongoSchema, tree)
+
+    expect(result).to.deep.equal({
+      bsonType: 'object',
+      additionalProperties: false,
+      required: ['email', 'subscriptionType'],
+      properties: {
+        _id: { bsonType: 'objectId' },
+        email: { bsonType: 'string' },
+        password: { bsonType: 'string' },
+        name: { bsonType: 'string' },
+        organization: { bsonType: 'objectId' },
+        permissions: { bsonType: 'array', items: { bsonType: 'string' } },
+        subscriptionType: { bsonType: 'string', enum: ['basic', 'premium'] },
+        createdAt: { bsonType: 'date' },
+        updatedAt: { bsonType: 'date' },
+        metrics: {
+          bsonType: 'object',
+          additionalProperties: false,
+          properties: {
+            sessionsCount: { bsonType: 'number' },
+            totalSessionLength: { bsonType: 'number' },
+            firstSession: { bsonType: 'date' },
+            lastSession: { bsonType: 'date' },
+          },
+        },
+      },
+    })
+  })
 })

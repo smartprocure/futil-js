@@ -70,17 +70,46 @@ export let reduceTree = (next = traverse) =>
     return result
   })
 
+let writeProperty = (next = traverse) => (node, index, [parent]) => {
+  next(parent)[index] = node
+}
+export let mapTree = (next = traverse, writeNode = writeProperty(next)) =>
+  _.curry(
+    (mapper, tree) =>
+      transformTree(next)((node, i, parents, ...args) => {
+        if (parents.length)
+          writeNode(mapper(node, i, parents, ...args), i, parents, ...args)
+      })(mapper(tree)) // run mapper on root, and skip root in traversal
+  )
+export let mapTreeLeaves = (next = traverse, writeNode = writeProperty(next)) =>
+  _.curry((mapper, tree) =>
+    // this unless wrapping can be done in user land, this is pure convenience
+    // mapTree(next, writeNode)(F.unless(next, mapper), tree)
+    mapTree(next, writeNode)(node => (next(node) ? node : mapper(node)), tree)
+  )
+
 export let treeToArrayBy = (next = traverse) =>
-  _.curry((fn, tree) => reduceTree(next)((r, x) => push(fn(x), r), [], tree))
+  _.curry((fn, tree) =>
+    reduceTree(next)((r, ...args) => push(fn(...args), r), [], tree)
+  )
 export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
 
-export let leaves = (next = traverse) =>
-  _.flow(treeToArray(next), _.reject(next))
+// This could reuse treeToArrayBy and just reject traversable elements after, but this is more efficient
+// We can potentially unify these with tree transducers
+export let leavesBy = (next = traverse) =>
+  _.curry((fn, tree) =>
+    reduceTree(next)(
+      (r, node, ...args) => (next(node) ? r : push(fn(node, ...args), r)),
+      [],
+      tree
+    )
+  )
+export let leaves = (next = traverse) => leavesBy(next)(x => x)
 
 export let treeLookup = (next = traverse, buildIteratee = _.identity) =>
   _.curry((path, tree) =>
     _.reduce(
-      (tree, path) => _.find(buildIteratee(path), next(tree)),
+      (tree, path) => findIndexed(buildIteratee(path), next(tree)),
       tree,
       path
     )
@@ -117,7 +146,11 @@ export let flattenTree = (next = traverse) => (buildPath = treePath()) =>
 
 export let flatLeaves = (next = traverse) => _.reject(next)
 
-export let tree = (next = traverse, buildIteratee = _.identity) => ({
+export let tree = (
+  next = traverse,
+  buildIteratee = _.identity,
+  writeNode = writeProperty(next)
+) => ({
   walk: walk(next),
   walkAsync: walkAsync(next),
   transform: transformTree(next),
@@ -125,9 +158,12 @@ export let tree = (next = traverse, buildIteratee = _.identity) => ({
   toArrayBy: treeToArrayBy(next),
   toArray: treeToArray(next),
   leaves: leaves(next),
+  leavesBy: leavesBy(next),
   lookup: treeLookup(next, buildIteratee),
   keyByWith: keyTreeByWith(next),
   traverse: next,
   flatten: flattenTree(next),
   flatLeaves: flatLeaves(next),
+  map: mapTree(next, writeNode),
+  mapLeaves: mapTreeLeaves(next, writeNode),
 })

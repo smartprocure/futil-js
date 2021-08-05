@@ -1,3 +1,8 @@
+# 1.68.0
+- Add `mapTree`, `mapTreeLeaves`, `leavesBy`
+- Improve `leaves` performance (by not adding branches at all instead of rejecting them later)
+- Passes all props to `treeToArrayBy` iteratees - previously only `node` was passed
+
 # 1.67.3
 - Fixed `import` syntax in docs
 
