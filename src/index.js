@@ -27,7 +27,6 @@ import * as lang from './lang'
 import * as lens from './lens'
 import * as tree from './tree'
 import * as iterators from './iterators'
-export * from './iterators'
 
 // Math
 // ----
