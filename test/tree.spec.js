@@ -559,7 +559,7 @@ describe('Tree Functions', () => {
       ],
     })
   })
-  it('mapTreeLeaves JSON schema', () => {
+  it('mapTree on JSON schema', () => {
     let tree = {
       type: 'object',
       additionalProperties: false,
