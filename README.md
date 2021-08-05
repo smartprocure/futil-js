@@ -802,11 +802,23 @@ Flattens the tree nodes into an array, simply recording the node values in pre-o
 
 ### treeToArrayBy
 `traverse -> f -> tree -> [f(treeNode), f(treeNode), ...]`
-Like `treeToArray`, but accepts a customizer to process the tree nodes before putting them in an array. It's `_.map` for trees - but it's not called treeMap because it does not preserve the structure as you might expect `map` to do.
+Like `treeToArray`, but accepts a customizer to process the tree nodes before putting them in an array. The customizer is passed the standard `node, index, parents, parentIndexes` args and is expected to return a transformed node. It's `_.map` for trees - but it's not called treeMap because it does not preserve the structure as you might expect `map` to do. See `mapTree` for that behavior.
 
 ### leaves
 `traverse -> tree -> [treeNodes]`
 Returns an array of the tree nodes that can't be traversed into in `pre-order`.
+
+### leavesBy
+`traverse -> f -> tree -> [f(treeNode), f(treeNode), ...]`
+Like `leaves`, but accepts a customizer to process the leaves before putting them in an array.
+
+### treeMap
+`(traverse, writeNode) -> f -> tree -> newTree`
+Structure preserving tree map! `writeNode` informs how to write a single node, but the default will generally work for most cases. The iteratee is passed the standard `node, index, parents, parentIndexes` args and is expected to return a transformed node.
+
+### treeMapLeaves
+`(traverse, writeNode) -> f -> tree -> newTree`
+Like `mapTree`, but only operates on lead nodes. It is a convenience method for `mapTree(next, writeNode)(F.unless(next, mapper), tree)`
 
 ### treeLookup
 `(traverse, buildIteratee) -> ([_iteratee], tree) -> treeNode`
@@ -835,6 +847,6 @@ A utility tree iteratee that returns the stack of node indexes
 A utility tree iteratee that returns the stack of node values
 
 ### tree
-`(traverse, buildIteratee) -> {walk, reduce, transform, toArray, toArrayBy, leaves, lookup, keyByWith, traverse, flatten, flatLeaves }`
+`(traverse, buildIteratee, writeNode) -> {walk, reduce, transform, toArray, toArrayBy, leaves, leavesBy, map, mapLeaves, lookup, keyByWith, traverse, flatten, flatLeaves }`
 Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
 Exposes provided `traverse` function as `traverse`
