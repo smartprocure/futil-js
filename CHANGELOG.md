@@ -1,3 +1,6 @@
+# 1.69.0
+- Add `isPromise` utility
+
 # 1.68.0
 - Add `mapTree`, `mapTreeLeaves`, `leavesBy`
 - Improve `leaves` performance (by not adding branches at all instead of rejecting them later)
