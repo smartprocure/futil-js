@@ -838,3 +838,6 @@ A utility tree iteratee that returns the stack of node values
 `(traverse, buildIteratee) -> {walk, reduce, transform, toArray, toArrayBy, leaves, lookup, keyByWith, traverse, flatten, flatLeaves }`
 Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
 Exposes provided `traverse` function as `traverse`
+
+### isPromise
+A utility that checks if the argument passed in is of type promise
