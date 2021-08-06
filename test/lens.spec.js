@@ -116,12 +116,12 @@ describe('Lens Functions', () => {
       setter(5)
       expect(object.a).to.equal(10)
     })
-    it('flip', () => {
+    it('flips', () => {
       let object = {
         a: 1,
       }
       let l = F.lensOf(object)
-      F.flip(l.a)()
+      F.flips(l.a)()
       expect(object.a).to.equal(false)
     })
     it('on', () => {
@@ -172,11 +172,11 @@ describe('Lens Functions', () => {
       F.sets(5, 'a', x)()
       expect(x.a).to.equal(5)
     })
-    it('flip', () => {
+    it('flips', () => {
       let object = {
         a: 1,
       }
-      F.flip('a', object)()
+      F.flips('a', object)()
       expect(object.a).to.equal(false)
     })
     it('on', () => {
@@ -208,7 +208,7 @@ describe('Lens Functions', () => {
       expect(lens[0]).to.be.true
       F.off(lens)()
       expect(lens[0]).to.be.false
-      F.flip(lens)()
+      F.flips(lens)()
       expect(lens[0]).to.be.true
     })
     it('functionPairLens', () => {
@@ -223,7 +223,7 @@ describe('Lens Functions', () => {
       expect(object.a).to.be.true
       F.off(get, set)()
       expect(object.a).to.be.false
-      F.flip(get, set)()
+      F.flips(get, set)()
       expect(object.a).to.be.true
     })
   })

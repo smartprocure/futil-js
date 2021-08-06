@@ -588,27 +588,27 @@ A lens can be any of these formats:
 `({ get, set })`
 An object with a `get` function and `set` function.
 Found in: MobX "boxed observables"
-Example Usage: `F.flip({ get, set })`
+Example Usage: `F.flips({ get, set })`
 
 `([value, setter])`
 An array of the `value` and a `setter` function to change it.
 Found in: React's useState hook
-Example Usage: `F.flip([value, setter])`
+Example Usage: `F.flips([value, setter])`
 
 `(lookup, object)`
 A lookup path and object pair e.g. ('key', object). The lookup path is anything you can pass to `_.get` (so nested paths with `.` or as an array are supported)
 Found in: MobX observable objects, native JS objects
-Example Usage: `F.flip(lookup, object)`
+Example Usage: `F.flips(lookup, object)`
 
 `(x => {})`
 A function which returns the value when called with no arguments and sets it when called with one.
 Found in: Knockout observables, jQuery plugin APIs
-Example Usage: `F.flip(x => {})`
+Example Usage: `F.flips(x => {})`
 
 `(getter, setter)`
 A getter and setter pair.
 Found in: Anywhere you have a getter and setter function
-Example Usage: `F.flip(getter, setter)`
+Example Usage: `F.flips(getter, setter)`
 
 > Note: Setter methods are generally mutable (unlike Ramda's lenses, for example).
 
@@ -632,7 +632,7 @@ Creates a function that will set a lens with the provided value
 #### setsWith
 Takes an iteratee and lens and creates a function that will set a lens with the result of calling the iteratee with the provided value
 
-#### flip
+#### flips
 Takes a lens and negates its value
 
 #### on
