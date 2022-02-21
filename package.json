@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.69.0",
+  "version": "1.69.1",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -41,8 +41,7 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.22.2",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.0.0",
     "babel-loader": "^7.0.0",

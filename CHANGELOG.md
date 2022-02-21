@@ -1,3 +1,6 @@
+# 1.69.1
+- More performant version of `compactMap`.
+
 # 1.69.0
 - Add `isPromise` utility
 
