@@ -31,13 +31,15 @@ export let insertAtIndex = _.curry((index, val, collection) =>
 
 export let compactMap = _.curry((iteratee, collection) => {
   let fn = _.iteratee(iteratee)
-  return _.reduce((acc, x) => {
-    let v = fn(x)
-    if (v) {
-      acc.push(v)
-    }
-    return acc
-  },
-  [],
-  collection)
+  return _.reduce(
+    (acc, x) => {
+      let v = fn(x)
+      if (v) {
+        acc.push(v)
+      }
+      return acc
+    },
+    [],
+    collection
+  )
 })
