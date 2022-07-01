@@ -33,6 +33,17 @@ describe('Collections Functions', () => {
     expect(F.findApply('a', xs)).to.equal(1)
     expect(F.findApply('d', xs)).to.equal(undefined)
   })
+  it('map', () => {
+    expect(F.map(x => x * 2)([1, 2, 3])).to.eql([2, 4, 6])
+    expect(F.map(x => x * 2)({ one: 2, two: 4, three: 6 })).to.eql({
+      one: 4,
+      two: 8,
+      three: 12,
+    })
+  })
+  it.skip('deepMap', () => {
+    //pending
+  })
   it('insertAtIndex', () => {
     let arr = [1, 2, 3]
     let x = F.insertAtIndex(1, 5, arr)

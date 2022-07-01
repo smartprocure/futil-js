@@ -7,7 +7,43 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('Function Functions', () => {
-  it('should debounceAsync', async () => {
+  it('maybeCall', () => {
+    expect(F.maybeCall(() => 5)).to.deep.equal(5)
+    expect(F.maybeCall(null)).to.deep.equal(false)
+    const fn = (x, y) => x + y
+    expect(F.maybeCall(fn, 5, 6)).to.deep.equal(11)
+  })
+  it('maybeCall should call fn with parameters', () => {
+    const fn = (x, y) => x + y
+    expect(F.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6))
+  })
+  // boundMethod should bind a method of an object to it's object
+  it('boundMethod', () => {
+    let obj = {
+      name: 'Wade Watts',
+      greet() {
+        return `Welcome, ${this.name}`
+      },
+    }
+    expect(obj.greet.call({ name: 'John Henry' })).to.equal(
+      'Welcome, John Henry'
+    )
+    expect(F.boundMethod('greet', obj)()).to.equal('Welcome, Wade Watts')
+  })
+  it('converge', () => {
+    // pending
+  })
+  it('composeApply', () => {
+    // pending
+  })
+  it('comply', () => {
+    // (5 * 2) +  5
+    expect(F.comply(F.append, x => x * 2)(5)).to.equal(15)
+  })
+  it('defer', () => {
+    // pending
+  })
+  it('debounceAsync', async () => {
     let inner = sinon.spy(x => x + 10)
     let fn = F.debounceAsync(10, inner)
     let result = await Promise.all([fn(1), fn(2), fn(3)])
@@ -25,7 +61,7 @@ describe('Function Functions', () => {
     let secondResult = await Promise.all([fn(11), fn(12), fn(13)])
     expect(secondResult).to.deep.equal([undefined, undefined, undefined])
   })
-  it('should flurry', () => {
+  it('flurry', () => {
     let add = (x, y) => x + y
     let double = x => x * 2
 

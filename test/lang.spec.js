@@ -8,14 +8,23 @@ describe('Lang Functions', () => {
   it('throws', () => {
     expect(() => f.throws(Error('oops'))).to.throw()
   })
+  it('tapError', () => {
+    // pending
+  })
   it('isNotNil', () => {
     expect(f.isNotNil(null)).to.equal(false)
     expect(f.isNotNil(undefined)).to.equal(false)
     expect(f.isNotNil(0)).to.equal(true)
     expect(f.isNotNil('')).to.equal(true)
     expect(f.isNotNil([])).to.equal(true)
+    expect(f.isNotNil).to.equal(f.exists)
   })
   it('exists', () => {
+    expect(f.exists(null)).to.equal(false)
+    expect(f.exists(undefined)).to.equal(false)
+    expect(f.exists(0)).to.equal(true)
+    expect(f.exists('')).to.equal(true)
+    expect(f.exists([])).to.equal(true)
     expect(f.exists).to.equal(f.isNotNil)
   })
   it('isMultiple', () => {
@@ -48,7 +57,25 @@ describe('Lang Functions', () => {
     expect(f.isBlank([])).to.equal(true)
     expect(f.isBlank({})).to.equal(true)
   })
-  it('should isBlankDeep', () => {
+  it('isNotBlank', () => {
+    expect(f.isNotBlank(1)).to.equal(true)
+    expect(f.isNotBlank('asdf')).to.equal(true)
+    expect(f.isNotBlank({ a: 1 })).to.equal(true)
+    expect(f.isNotBlank([3, 4])).to.equal(true)
+    expect(f.isNotBlank(new Date())).to.equal(true)
+    expect(
+      f.isNotBlank({
+        a: 1,
+        b: 'as',
+      })
+    ).to.equal(true)
+    expect(f.isNotBlank(null)).to.equal(false)
+    expect(f.isNotBlank(undefined)).to.equal(false)
+    expect(f.isNotBlank('')).to.equal(false)
+    expect(f.isNotBlank([])).to.equal(false)
+    expect(f.isNotBlank({})).to.equal(false)
+  })
+  it('isBlankDeep', () => {
     expect(f.isBlankDeep(_.every)(1)).to.equal(false)
     expect(f.isBlankDeep(_.every)(false)).to.equal(false)
     expect(f.isBlankDeep(_.every)('')).to.equal(true)

@@ -18,6 +18,27 @@ describe('Array Functions', () => {
     expect(F.repeated([1, 1, 2, 3, 3, 4])).to.eql([1, 3])
     expect(F.repeated(['a', 'b', 'b'])).to.eql(['b'])
   })
+  it('push', () => {
+    let arr = [1, 2, 3]
+    expect(F.push(4)(arr)).to.deep.equal([1, 2, 3, 4])
+    expect(arr).to.deep.equal([1, 2, 3])
+  })
+  it('pushIn', () => {
+    let arr = [1, 2, 3]
+    expect(F.pushIn(arr)(4)).to.deep.equal([1, 2, 3, 4])
+    expect(arr).to.deep.equal([1, 2, 3])
+  })
+  it('pushOn', () => {
+    let arr = [1, 2, 3]
+    expect(F.pushOn(arr)(4)).to.deep.equal([1, 2, 3, 4])
+    expect(arr).to.deep.equal([1, 2, 3, 4])
+  })
+  it('moveIndex', () => {
+    let arr = [1, 2, 3]
+    let x = F.moveIndex(1, 0, arr)
+    expect(x).to.deep.equal([2, 1, 3])
+    expect(arr).to.deep.equal([1, 2, 3])
+  })
   it('mergeRanges', () => {
     expect(
       F.mergeRanges([
@@ -57,22 +78,6 @@ describe('Array Functions', () => {
         ['a', 'b', 'c']
       )
     ).to.deep.equal({ keya: 'vala', keyb: 'valb', keyc: 'valc' })
-  })
-  it('pushIn', () => {
-    let fn = F.pushIn([1, 2, 3])
-    expect(fn(4)).to.deep.equal([1, 2, 3, 4])
-  })
-  it('pushOn', () => {
-    let arr = [1, 2, 3]
-    let fn = F.pushOn(arr)
-    expect(fn(4)).to.deep.equal([1, 2, 3, 4])
-    expect(arr).to.deep.equal([1, 2, 3, 4])
-  })
-  it('moveIndex', () => {
-    let arr = [1, 2, 3]
-    let x = F.moveIndex(1, 0, arr)
-    expect(x).to.deep.equal([2, 1, 3])
-    expect(arr).to.deep.equal([1, 2, 3])
   })
   it('zipObjectDeepWith', () => {
     expect(F.zipObjectDeepWith(['a', 'b'], () => 1)).to.deep.equal({
