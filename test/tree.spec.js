@@ -22,21 +22,24 @@ describe('Tree Functions', () => {
     }
     expect(F.traverse(x)).to.deep.equal(x)
   })
-  describe('walk', () => {
+
+  it('walk', () => {
     let x = {
       a: 1,
       b: {
         c: 2,
       },
     }
-    let values = []
-    it('pre-order traversal', () => {
+    // pre-order traversal
+    {
+      let values = []
       F.walk()(tree => {
         values.push(tree)
       })(x)
       expect(values).to.deep.equal([x, x.a, x.b, x.b.c])
-    })
-    it('post-order traversal', () => {
+    }
+    // post-order traversal
+    {
       let values = []
       F.walk()(
         () => {},
@@ -45,8 +48,9 @@ describe('Tree Functions', () => {
         }
       )(x)
       expect(values).to.deep.equal([x.a, x.b.c, x.b, x])
-    })
-    it('halting', () => {
+    }
+    // halting
+    {
       let values = []
       let r = F.walk()(tree => {
         values.push(tree)
@@ -54,8 +58,9 @@ describe('Tree Functions', () => {
       })(x)
       expect(values).to.deep.equal([x, x.a])
       expect(r).to.equal(x.a)
-    })
-    it('halting with tree return', () => {
+    }
+    // halting with tree return
+    {
       let values = []
       let r = F.walk()(
         () => {},
@@ -66,8 +71,9 @@ describe('Tree Functions', () => {
       )(x)
       expect(values).to.deep.equal([x.a, x.b.c, x.b, x])
       expect(r).to.equal(x)
-    })
-    it('should retain parent stack and indices', () => {
+    }
+    // should retain parent stack and indices
+    {
       let values = []
       F.walk()((x, i, parents) => {
         values.push([x, parents, i])
@@ -78,116 +84,15 @@ describe('Tree Functions', () => {
         [x.b, [x], 'b'],
         [x.b.c, [x.b, x], 'c'],
       ])
-    })
-  })
-  it('reduceTree', () => {
-    let x = {
-      a: 1,
-      b: {
-        c: 2,
-      },
     }
-    expect(F.reduceTree()((r, i) => F.push(i, r), [], x)).to.deep.equal([
-      x,
-      x.a,
-      x.b,
-      x.b.c,
-    ])
   })
-  it('treeToArray', () => {
-    let x = {
-      a: 1,
-      b: {
-        c: 2,
-      },
-    }
-    expect(F.treeToArray()(x)).to.deep.equal([x, x.a, x.b, x.b.c])
+  it('findIndexedAsync', () => {
+    // pending
   })
-  it('treeToArrayBy', () => {
-    let x = {
-      a: 1,
-      b: {
-        c: 2,
-      },
-    }
-    expect(
-      F.treeToArrayBy()(i => (_.isNumber(i) ? i * 2 : i), x)
-    ).to.deep.equal([x, x.a * 2, x.b, x.b.c * 2])
+  it('walkAsync', () => {
+    // pending
   })
-  it('leaves', () => {
-    let x = {
-      a: 1,
-      b: {
-        c: 2,
-      },
-    }
-    expect(F.leaves()(x)).to.deep.equal([1, 2])
-  })
-  it('tree', () => {
-    let x = {
-      a: 1,
-      b: {
-        c: 2,
-      },
-    }
-    let tree = F.tree()
-    expect(tree.toArray(x)).to.deep.equal([x, x.a, x.b, x.b.c])
-  })
-  it('lookup', () => {
-    let x = {
-      a: 1,
-      items: [
-        {
-          a: 2,
-          items: [
-            {
-              a: 3,
-            },
-            {
-              a: 4,
-              b: 4,
-            },
-          ],
-        },
-        {
-          a: 5,
-        },
-      ],
-    }
-    let tree = F.tree(x => x.items)
-
-    expect(tree.lookup([{ a: 2 }, { a: 4 }], x)).to.deep.equal(
-      x.items[0].items[1]
-    )
-  })
-  it('lookup with path', () => {
-    let x = {
-      a: '1',
-      items: [
-        {
-          a: '2',
-          items: [
-            {
-              a: '3',
-            },
-            {
-              a: '4',
-              b: 4,
-            },
-          ],
-        },
-        {
-          a: '5',
-        },
-      ],
-    }
-    let tree = F.tree(
-      x => x.items,
-      a => ({ a })
-    )
-    expect(tree.lookup(['2', '4'], x)).to.deep.equal(x.items[0].items[1])
-  })
-  it('transform', () => {
+  it('transformTree', () => {
     let x = {
       a: '1',
       items: [
@@ -256,6 +161,146 @@ describe('Tree Functions', () => {
         },
       ],
     })
+  })
+  it('reduceTree', () => {
+    let x = {
+      a: 1,
+      b: {
+        c: 2,
+      },
+    }
+    expect(F.reduceTree()((r, i) => F.push(i, r), [], x)).to.deep.equal([
+      x,
+      x.a,
+      x.b,
+      x.b.c,
+    ])
+  })
+  it('mapTree', () => {
+    // pending
+  })
+  it('mapTreeLeaves', () => {
+    // pending
+  })
+  it('treeToArrayBy', () => {
+    let x = {
+      a: 1,
+      b: {
+        c: 2,
+      },
+    }
+    expect(
+      F.treeToArrayBy()(i => (_.isNumber(i) ? i * 2 : i), x)
+    ).to.deep.equal([x, x.a * 2, x.b, x.b.c * 2])
+  })
+  it('treeToArray', () => {
+    let x = {
+      a: 1,
+      b: {
+        c: 2,
+      },
+    }
+    expect(F.treeToArray()(x)).to.deep.equal([x, x.a, x.b, x.b.c])
+  })
+  it('leavesBy', () => {
+    // pending
+  })
+  it('leaves', () => {
+    let x = {
+      a: 1,
+      b: {
+        c: 2,
+      },
+    }
+    expect(F.leaves()(x)).to.deep.equal([1, 2])
+  })
+  it('treeLookup', () => {
+    // pending
+  })
+  it('keyTreeByWith', () => {
+    // pending
+  })
+  it('treeKeys', () => {
+    // pending
+  })
+  it('treeValues', () => {
+    // pending
+  })
+  it('treePath', () => {
+    // pending
+  })
+  it('propTreePath', () => {
+    // pending
+  })
+  it('flattenTree', () => {
+    // pending
+  })
+  it('flatLeaves', () => {
+    // pending
+  })
+  it('tree', () => {
+    let x = {
+      a: 1,
+      b: {
+        c: 2,
+      },
+    }
+    let tree = F.tree()
+    expect(tree.toArray(x)).to.deep.equal([x, x.a, x.b, x.b.c])
+  })
+  it('lookup', () => {
+    let x = {
+      a: 1,
+      items: [
+        {
+          a: 2,
+          items: [
+            {
+              a: 3,
+            },
+            {
+              a: 4,
+              b: 4,
+            },
+          ],
+        },
+        {
+          a: 5,
+        },
+      ],
+    }
+    let tree = F.tree(x => x.items)
+
+    expect(tree.lookup([{ a: 2 }, { a: 4 }], x)).to.deep.equal(
+      x.items[0].items[1]
+    )
+  })
+  it('lookup with path', () => {
+    let x = {
+      a: '1',
+      items: [
+        {
+          a: '2',
+          items: [
+            {
+              a: '3',
+            },
+            {
+              a: '4',
+              b: 4,
+            },
+          ],
+        },
+        {
+          a: '5',
+        },
+      ],
+    }
+    let tree = F.tree(
+      x => x.items,
+      a => ({ a })
+    )
+    expect(tree.lookup(['2', '4'], x)).to.deep.equal(x.items[0].items[1])
   })
   it('keyByWith', () => {
     let x = {

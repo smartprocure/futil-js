@@ -40,17 +40,18 @@ describe('Array Functions', () => {
     expect(arr).to.deep.equal([1, 2, 3])
   })
   it('mergeRanges', () => {
+    // arrays need to be sorted in ascending order
     expect(
       F.mergeRanges([
-        [0, 2],
-        [1, 4],
+        [0, 1, 3],
+        [1, 4, 5],
       ])
-    ).to.deep.equal([[0, 4]])
-    expect(F.mergeRanges([null, [1, 4]])).to.deep.equal([[1, 4]])
+    ).to.deep.equal([[0, 5]])
+    expect(F.mergeRanges([null, [1, 3, 4]])).to.deep.equal([[1, 3, 4]])
     expect(
       F.mergeRanges([
         [0, 1],
-        [1, 4],
+        [1, 3, 4],
         [2, 4],
         [3, 5],
       ])
@@ -159,9 +160,9 @@ describe('Array Functions', () => {
     expect(
       F.intersperse(
         (acc, i, xs) => (i === xs.length - 1 ? 'and finally' : 'and'),
-        [1, 2, 3]
+        [1, 2, 3, 4]
       )
-    ).to.deep.equal([1, 'and', 2, 'and finally', 3])
+    ).to.deep.equal([1, 'and', 2, 'and', 3, 'and finally', 4])
     expect(F.intersperse('and', [1, 2, 3])).to.deep.equal([
       1,
       'and',

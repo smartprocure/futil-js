@@ -78,6 +78,22 @@ describe('String Functions', () => {
       'first, second and third'
     )
   })
+  it('uniqueStringWith', () => {
+    let a = ['foo20', 'foo21', 'foo23', 'foo24', 'foo25']
+    let stripDigits = F.arrayToObject(_.replace(/(\d+)$/, ''), () => 1)
+    let uniqueStringStripDigits = F.uniqueStringWith(stripDigits, a)
+    expect(uniqueStringStripDigits.cache).to.deep.equal({ foo: 1 })
+    expect(uniqueStringStripDigits('foo')).to.equal('foo1')
+    // Should work with appending other stuff if you really want to
+    let appendHiForSomeReason = F.arrayToObject(_.identity, () => 'hi')
+    expect(
+      _.map(F.uniqueStringWith(appendHiForSomeReason, ['foo']), [
+        'foo',
+        'foo',
+        'bar',
+      ])
+    ).to.deep.equal(['foohi', 'foohi1', 'bar'])
+  })
   it('uniqueString', () => {
     let dedupe = F.uniqueString([])
     expect(dedupe.cache).to.deep.equal({})
@@ -123,21 +139,5 @@ describe('String Functions', () => {
     expect(F.uniqueString(null)('test')).to.be.a('string')
     expect(F.uniqueString(undefined)('test')).to.be.a('string')
     expect(F.uniqueString()('test')).to.be.a('string')
-  })
-  it('uniqueStringWith', () => {
-    let a = ['foo20', 'foo21', 'foo23', 'foo24', 'foo25']
-    let stripDigits = F.arrayToObject(_.replace(/(\d+)$/, ''), () => 1)
-    let uniqueStringStripDigits = F.uniqueStringWith(stripDigits, a)
-    expect(uniqueStringStripDigits.cache).to.deep.equal({ foo: 1 })
-    expect(uniqueStringStripDigits('foo')).to.equal('foo1')
-    // Should work with appending other stuff if you really want to
-    let appendHiForSomeReason = F.arrayToObject(_.identity, () => 'hi')
-    expect(
-      _.map(F.uniqueStringWith(appendHiForSomeReason, ['foo']), [
-        'foo',
-        'foo',
-        'bar',
-      ])
-    ).to.deep.equal(['foohi', 'foohi1', 'bar'])
   })
 })

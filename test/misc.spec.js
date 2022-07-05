@@ -3,6 +3,8 @@ import F from '../src'
 chai.expect()
 const expect = chai.expect
 
+// These set of functions are located in the src/index.js file
+
 describe('Math Functions', () => {
   it('greaterThanOne', () => {
     for (let i = -10; i < 10; i++) {
@@ -22,7 +24,7 @@ describe('Promise Functions', () => {
 })
 
 describe('Version Injection', () => {
-  it('should export the VERSION', () => {
+  it('VERSION', () => {
     expect(F.VERSION).to.equal(global.__VERSION__)
   })
 })

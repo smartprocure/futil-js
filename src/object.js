@@ -91,7 +91,7 @@ export const compareDeep = _.curry(
   (path, item, value) => _.get(path, item) === value
 )
 
-//Depreacted in favor of _.update version from lodash
+//Deprecated in favor of _.update version from lodash
 export const mapProp = aspects.deprecate(
   'mapProp',
   '1.46.0',
