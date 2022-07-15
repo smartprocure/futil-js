@@ -79,9 +79,8 @@ describe('Converted Functions', () => {
       expectEql(hero, 'Heracles')
       expectEql(hero, 'Zeus')
     })
-    it('inversions', () => {
+    it.only('inversions', () => {
       // pending
-    })
   })
 
   describe('Mutables', () => {
