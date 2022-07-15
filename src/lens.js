@@ -81,7 +81,7 @@ let binding = (value, getEventValue) => (...lens) => ({
   [value]: view(...lens),
   onChange: setsWith(getEventValue, ...lens),
 })
-// Dom events have relevent fields on the `target` property of event objects
+// Dom events have relevant fields on the `target` property of event objects
 let targetBinding = field =>
   binding(field, when(_.hasIn(`target.${field}`), _.get(`target.${field}`)))
 export let domLens = {

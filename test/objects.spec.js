@@ -230,6 +230,7 @@ describe('Object Functions', () => {
     expect(F.compareDeep('a.b.c')(o, '1')).to.deep.equal(false)
     expect(F.compareDeep('a.b.c')(o)('1')).to.deep.equal(false)
   })
+  // deprecated
   // it('mapProp', () => {
   //   const a = F.mapProp('a', val => val * val, { a: 2, b: 1 })
   //   expect(a).to.deep.equal({ a: 4, b: 1 })

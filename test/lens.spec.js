@@ -173,7 +173,7 @@ describe('Lens Functions', () => {
     })
   })
   describe('domLens', () => {
-    it('value', () => {
+    it('domLens.value', () => {
       let state = {
         a: 1,
       }
@@ -181,17 +181,16 @@ describe('Lens Functions', () => {
       expect(props.value).to.equal(1)
       props.onChange({ target: { value: 5 } })
       expect(state.a).to.equal(5)
-    })
-    it('non-native value', () => {
-      let state = {
+      // non-native value
+      let state2 = {
         a: 1,
       }
-      let props = F.domLens.value('a', state)
-      expect(props.value).to.equal(1)
-      props.onChange(5)
-      expect(state.a).to.equal(5)
+      let props2 = F.domLens.value('a', state2)
+      expect(props2.value).to.equal(1)
+      props2.onChange(5)
+      expect(state2.a).to.equal(5)
     })
-    it('checkboxValues', () => {
+    it('domLens.checkboxValues', () => {
       let state = {
         a: ['x', 'y', 'z'],
       }
@@ -202,7 +201,7 @@ describe('Lens Functions', () => {
       props.onChange({ target: { value: false } })
       expect(_.includes('a', state.a)).to.be.false
     })
-    it('hover', () => {
+    it('domLens.hover', () => {
       let state = {
         hovering: false,
       }
@@ -212,7 +211,7 @@ describe('Lens Functions', () => {
       props.onMouseLeave()
       expect(state.hovering).to.be.false
     })
-    it('focus', () => {
+    it('domLens.focus', () => {
       let state = {
         focusing: false,
       }
@@ -222,7 +221,7 @@ describe('Lens Functions', () => {
       props.onBlur()
       expect(state.focusing).to.be.false
     })
-    it('targetBinding', () => {
+    it('domLens.targetBinding', () => {
       let state = { color: 'red' }
       let props = F.domLens.targetBinding('x')('color', state)
       expect(props.x).to.equal('red')
@@ -238,7 +237,7 @@ describe('Lens Functions', () => {
       props.onChange('purple')
       expect(state.color).to.equal('purple')
     })
-    it('binding', () => {
+    it('domLens.binding', () => {
       let state = {
         selectedItem: 'item1',
       }
@@ -248,6 +247,9 @@ describe('Lens Functions', () => {
       props.onChange({ newSelectedValue: 'newItem' })
       expect(state.selectedItem).to.equal('newItem')
     })
+  })
+  it('stateLens', () => {
+    // pending
   })
   describe('additional implicit lens formats', () => {
     it('arrayLens', () => {
