@@ -52,9 +52,7 @@ describe('Lens Functions', () => {
       ld.set(5)
       expect(ld.get()).to.equal(5)
     })
-    it('lensOf', () => {
-      // pending
-    })
+    it('lensOf -pending', () => {})
     it('includeLens', () => {
       let object = {
         arr: ['a', 'b', 'c', 'd'],
@@ -248,9 +246,7 @@ describe('Lens Functions', () => {
       expect(state.selectedItem).to.equal('newItem')
     })
   })
-  it('stateLens', () => {
-    // pending
-  })
+  it('stateLens -pending', () => {})
   describe('additional implicit lens formats', () => {
     it('arrayLens', () => {
       let arrayLens = val => {

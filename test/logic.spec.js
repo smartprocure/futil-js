@@ -5,9 +5,7 @@ chai.expect()
 const expect = chai.expect
 
 describe('Logic Functions', () => {
-  it('overNone', () => {
-    // pending
-  })
+  it('overNone -pending', () => {})
   it('ifElse', () => {
     // should handle functions
     let clamp5 = f.ifElse(

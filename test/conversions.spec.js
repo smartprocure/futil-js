@@ -79,8 +79,7 @@ describe('Converted Functions', () => {
       expectEql(hero, 'Heracles')
       expectEql(hero, 'Zeus')
     })
-    it.only('inversions', () => {
-      // pending
+    it('inversions -pending', () => {})
   })
 
   describe('Mutables', () => {
@@ -142,20 +141,10 @@ describe('Converted Functions', () => {
         _.defaults({ consort: 'Auge' }, clone)
       )
     })
-    it('mergeOn', () => {
-      // pending
-    })
-    it('setOn', () => {
-      // pending
-    })
-    it('unsetOn', () => {
-      // pending
-    })
-    it('pullOn', () => {
-      // pending
-    })
-    it('updateOn', () => {
-      // pending
-    })
+    it('mergeOn -pending', () => {})
+    it('setOn -pending', () => {})
+    it('unsetOn -pending', () => {})
+    it('pullOn -pending', () => {})
+    it('updateOn -pending', () => {})
   })
 })

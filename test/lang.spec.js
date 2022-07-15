@@ -8,9 +8,7 @@ describe('Lang Functions', () => {
   it('throws', () => {
     expect(() => f.throws(Error('oops'))).to.throw()
   })
-  it('tapError', () => {
-    // pending
-  })
+  it('tapError -pending', () => {})
   it('isNotNil', () => {
     expect(f.isNotNil(null)).to.equal(false)
     expect(f.isNotNil(undefined)).to.equal(false)

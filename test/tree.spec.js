@@ -86,12 +86,8 @@ describe('Tree Functions', () => {
       ])
     }
   })
-  it('findIndexedAsync', () => {
-    // pending
-  })
-  it('walkAsync', () => {
-    // pending
-  })
+  it('findIndexedAsync -pending', () => {})
+  it('walkAsync -pending', () => {})
   it('transformTree', () => {
     let x = {
       a: '1',
@@ -176,12 +172,8 @@ describe('Tree Functions', () => {
       x.b.c,
     ])
   })
-  it('mapTree', () => {
-    // pending
-  })
-  it('mapTreeLeaves', () => {
-    // pending
-  })
+  it('mapTree -pending', () => {})
+  it('mapTreeLeaves -pending', () => {})
   it('treeToArrayBy', () => {
     let x = {
       a: 1,
@@ -202,9 +194,7 @@ describe('Tree Functions', () => {
     }
     expect(F.treeToArray()(x)).to.deep.equal([x, x.a, x.b, x.b.c])
   })
-  it('leavesBy', () => {
-    // pending
-  })
+  it('leavesBy pending', () => {})
   it('leaves', () => {
     let x = {
       a: 1,
@@ -214,30 +204,14 @@ describe('Tree Functions', () => {
     }
     expect(F.leaves()(x)).to.deep.equal([1, 2])
   })
-  it('treeLookup', () => {
-    // pending
-  })
-  it('keyTreeByWith', () => {
-    // pending
-  })
-  it('treeKeys', () => {
-    // pending
-  })
-  it('treeValues', () => {
-    // pending
-  })
-  it('treePath', () => {
-    // pending
-  })
-  it('propTreePath', () => {
-    // pending
-  })
-  it('flattenTree', () => {
-    // pending
-  })
-  it('flatLeaves', () => {
-    // pending
-  })
+  it('treeLookup -pending', () => {})
+  it('keyTreeByWith -pending', () => {})
+  it('treeKeys -pending', () => {})
+  it('treeValues -pending', () => {})
+  it('treePath -pending', () => {})
+  it('propTreePath -pending', () => {})
+  it('flattenTree -pending', () => {})
+  it('flatLeaves -pending', () => {})
   it('tree', () => {
     let x = {
       a: 1,

@@ -25,17 +25,11 @@ describe('Regexp Functions', () => {
     expect(f.makeAndTest(options)(reText)(text)).to.deep.equal(regex.test(text))
   })
 
-  it('anyWordToRegexp', () => {
-    // pending
-  })
+  it('anyWordToRegexp -pending', () => {})
 
-  it('wordsToRegexp', () => {
-    // pending
-  })
+  it('wordsToRegexp -pending', () => {})
 
-  it('matchWords', () => {
-    // pending
-  })
+  it('matchWords -pending', () => {})
 
   it('matchAllWords', () => {
     const reText = 'Some text'

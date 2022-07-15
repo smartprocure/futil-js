@@ -151,9 +151,7 @@ describe('Object Functions', () => {
       { x: 1, y: 2 },
     ])
   })
-  it('isFlatObject', () => {
-    // pending
-  })
+  it('isFlatObject -pending', () => {})
   it('flattenObject', () => {
     expect(
       F.flattenObject({
@@ -559,12 +557,8 @@ describe('Object Functions', () => {
       },
     ])
   })
-  it('pickOn', () => {
-    // pending
-  })
-  it('mergeArrays', () => {
-    // pending
-  })
+  it('pickOn -pending', () => {})
+  it('mergeArrays -pending', () => {})
   it('mergeAllArrays', () => {
     expect(
       F.mergeAllArrays([

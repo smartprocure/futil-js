@@ -15,9 +15,7 @@ describe('Function Functions', () => {
     // maybeCall should call fn with parameters
     expect(F.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6))
   })
-  it('callOrReturn', () => {
-    // pending
-  })
+  it('callOrReturn -pending', () => {})
   it('boundMethod', () => {
     // boundMethod should bind a method of an object to it's object
     let obj = {
@@ -31,19 +29,13 @@ describe('Function Functions', () => {
     )
     expect(F.boundMethod('greet', obj)()).to.equal('Welcome, Wade Watts')
   })
-  it('converge', () => {
-    // pending
-  })
-  it('composeApply', () => {
-    // pending
-  })
+  it('converge -pending', () => {})
+  it('composeApply -pending', () => {})
   it('comply', () => {
     // (5 * 2) +  5
     expect(F.comply(F.append, x => x * 2)(5)).to.equal(15)
   })
-  it('defer', () => {
-    // pending
-  })
+  it('defer -pending', () => {})
   it('debounceAsync', async () => {
     let inner = sinon.spy(x => x + 10)
     let fn = F.debounceAsync(10, inner)
