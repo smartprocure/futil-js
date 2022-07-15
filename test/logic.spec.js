@@ -5,7 +5,12 @@ chai.expect()
 const expect = chai.expect
 
 describe('Logic Functions', () => {
-  it('overNone -pending', () => {})
+  it.only('overNone', () => {
+    expect(f.overNone([Boolean, isFinite])(1)).to.deep.equal(false)
+    expect(f.overNone([Boolean, isFinite])(true)).to.deep.equal(false)
+    expect(f.overNone([Boolean, isFinite])(NaN)).to.deep.equal(true)
+    expect(f.overNone([Boolean, isFinite])(undefined)).to.deep.equal(true)
+  })
   it('ifElse', () => {
     // should handle functions
     let clamp5 = f.ifElse(
