@@ -1,3 +1,6 @@
+# 1.70.0
+- Changed f. to F. in all tests for consistency
+
 # 1.69.0
 - Add `isPromise` utility
 
