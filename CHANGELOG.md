@@ -1,3 +1,6 @@
+# 1.69.3
+- Organized and added to conversions tests
+
 # 1.69.0
 - Add `isPromise` utility
 
