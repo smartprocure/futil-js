@@ -1,3 +1,6 @@
+# 1.69.3
+- Moves tests from algebra file to collections file to mirror functions file system
+
 # 1.69.2
 - Adds and revised the array tests
 
