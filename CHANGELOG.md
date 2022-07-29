@@ -1,3 +1,5 @@
+# 1.69.1
+- Moves tests from algebra file to collections file to mirror functions file system
 # 1.69.0
 - Add `isPromise` utility
 
