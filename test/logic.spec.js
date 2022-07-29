@@ -1,5 +1,5 @@
 import chai from 'chai'
-import * as f from '../src'
+import * as F from '../src'
 import _ from 'lodash/fp'
 chai.expect()
 const expect = chai.expect
@@ -7,7 +7,7 @@ const expect = chai.expect
 describe('Logic Functions', () => {
   describe('ifElse', () => {
     it('should handle functions', () => {
-      let clamp5 = f.ifElse(
+      let clamp5 = F.ifElse(
         x => x > 5,
         () => 5,
         x => x
@@ -17,7 +17,7 @@ describe('Logic Functions', () => {
       expect(clamp5(13)).to.equal(5)
     })
     it('should handle passing boolean conditions', () => {
-      let fn = f.ifElse(
+      let fn = F.ifElse(
         true,
         x => `success ${x}`,
         x => `fail ${x}`
@@ -25,13 +25,13 @@ describe('Logic Functions', () => {
       expect(fn(1)).to.equal('success 1')
     })
     it('should handle fancy shorthand', () => {
-      let fancyShortHand = f.ifElse({ a: 1 }, 'Has a1', () => 'No a1')
+      let fancyShortHand = F.ifElse({ a: 1 }, 'Has a1', () => 'No a1')
       expect(fancyShortHand({ a: 1 })).to.equal('Has a1')
       expect(fancyShortHand({ a: 2 })).to.equal('No a1')
     })
     it('should be fully curried', () => {
       expect(
-        f.ifElse(
+        F.ifElse(
           x => x % 2,
           x => `${x} is odd!`,
           x => `${x} is even!`,
@@ -41,7 +41,7 @@ describe('Logic Functions', () => {
     })
   })
   it('when', () => {
-    let clamp5 = f.when(
+    let clamp5 = F.when(
       x => x > 5,
       () => 5
     )
@@ -51,9 +51,9 @@ describe('Logic Functions', () => {
     expect(clamp5(3)).to.equal(3)
     expect(clamp5(5)).to.equal(5)
     expect(clamp5(13)).to.equal(5)
-    let convertIndex = f.when(falseAttribute.oneBased, _.add(1))
-    let undefinedConvertIndex = f.when(undefinedAttribute.oneBased, _.add(1))
-    let nullConvertIndex = f.when(nullAttribute.oneBased, _.add(1))
+    let convertIndex = F.when(falseAttribute.oneBased, _.add(1))
+    let undefinedConvertIndex = F.when(undefinedAttribute.oneBased, _.add(1))
+    let nullConvertIndex = F.when(nullAttribute.oneBased, _.add(1))
     expect(_.map(convertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
     expect(_.map(undefinedConvertIndex, [0, 1, 2, 3])).to.deep.equal([
       0,
@@ -64,7 +64,7 @@ describe('Logic Functions', () => {
     expect(_.map(nullConvertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
   })
   it('unless', () => {
-    let clamp5 = f.unless(
+    let clamp5 = F.unless(
       x => x < 5,
       () => 5
     )
@@ -73,13 +73,13 @@ describe('Logic Functions', () => {
     expect(clamp5(13)).to.equal(5)
   })
   it('whenExists', () => {
-    let fn = f.whenExists(5)
+    let fn = F.whenExists(5)
     expect(fn(3)).to.equal(5)
     expect(fn(null)).to.equal(null)
     expect(fn(false)).to.equal(5)
   })
   it('whenTruthy', () => {
-    let fn = f.whenTruthy(5)
+    let fn = F.whenTruthy(5)
     expect(fn(3)).to.equal(5)
     expect(fn(null)).to.equal(null)
     expect(fn(false)).to.equal(false)
