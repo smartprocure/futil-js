@@ -1,3 +1,5 @@
+# 1.69.2
+- Adds and revised the array tests
 # 1.69.0
 - Add `isPromise` utility
 
