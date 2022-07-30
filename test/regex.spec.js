@@ -1,19 +1,19 @@
 import chai from 'chai'
-import * as f from '../src/regex'
+import * as F from '../src/regex'
 chai.expect()
 const expect = chai.expect
 
 describe('Regexp Functions', () => {
   it('testRegex', () => {
-    expect(f.testRegex(/smart/i)('SmartProcure')).to.equal(true)
-    expect(f.testRegex(/smart/)('SmartProcure')).to.equal(false)
+    expect(F.testRegex(/smart/i)('SmartProcure')).to.equal(true)
+    expect(F.testRegex(/smart/)('SmartProcure')).to.equal(false)
   })
 
   it('makeRegExp', () => {
     const reText = 'Some text'
     const options = 'gi'
 
-    expect(f.makeRegex(options)(reText)).to.deep.equal(RegExp(reText, options))
+    expect(F.makeRegex(options)(reText)).to.deep.equal(RegExp(reText, options))
   })
 
   it('makeAndTest', () => {
@@ -22,13 +22,13 @@ describe('Regexp Functions', () => {
     const text = 'Here is some text to test'
     const regex = RegExp(reText, options)
 
-    expect(f.makeAndTest(options)(reText)(text)).to.deep.equal(regex.test(text))
+    expect(F.makeAndTest(options)(reText)(text)).to.deep.equal(regex.test(text))
   })
 
   it('matchAnyWord', () => {
     const reText = 'Some text'
     const text = 'Here is some text to test'
-    const match = f.matchAnyWord(reText)
+    const match = F.matchAnyWord(reText)
 
     expect(match(text)).to.equal(true)
   })
@@ -36,7 +36,7 @@ describe('Regexp Functions', () => {
   it('matchAllWords', () => {
     const reText = 'Some text'
     const text = 'Here is some to test'
-    const match = f.matchAllWords(reText)
+    const match = F.matchAllWords(reText)
 
     expect(match(text)).to.equal(false)
   })
@@ -44,7 +44,7 @@ describe('Regexp Functions', () => {
   it('should return all matched results', () => {
     const re = '(\\d+)'
     const text = `1 22 333 a bb ccc 4444`
-    const matches = f.allMatches(re, text)
+    const matches = F.allMatches(re, text)
     expect(matches).to.deep.equal([
       { text: '1', start: 0, end: 1 },
       { text: '22', start: 2, end: 4 },
@@ -56,14 +56,14 @@ describe('Regexp Functions', () => {
 
 describe('Posting Highlight Functions', () => {
   it('should get postings', () => {
-    var result = f.postings(RegExp('p', 'gi'), 'pretty please')
+    var result = F.postings(RegExp('p', 'gi'), 'pretty please')
     expect(result).to.deep.equal([
       [0, 1],
       [7, 8],
     ])
   })
   it('should get postings by word', () => {
-    var result = f.postingsForWords('pret pr t ', 'pretty prease')
+    var result = F.postingsForWords('pret pr t ', 'pretty prease')
     expect(result).to.deep.equal([
       [[0, 4]],
       [
@@ -81,10 +81,10 @@ describe('Posting Highlight Functions', () => {
 
   it('should highlight', () => {
     let input = 'pretty please'
-    let postings = f.postings(RegExp('p', 'gi'), input)
+    let postings = F.postings(RegExp('p', 'gi'), input)
     let expected =
       '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
-    expect(f.highlightFromPostings(start, end, postings, input)).to.equal(
+    expect(F.highlightFromPostings(start, end, postings, input)).to.equal(
       expected
     )
   })
@@ -93,7 +93,7 @@ describe('Posting Highlight Functions', () => {
     let expected =
       '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
     expect(
-      f.highlightFromPostings(
+      F.highlightFromPostings(
         start,
         end,
         [
@@ -109,13 +109,13 @@ describe('Posting Highlight Functions', () => {
     let pattern = 'pr pl'
     let expected =
       '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease'
-    expect(f.highlight(start, end, pattern, input)).to.deep.equal(expected)
+    expect(F.highlight(start, end, pattern, input)).to.deep.equal(expected)
   })
   it('should highlight from regexp', () => {
     let input = 'pretty please nope'
     let pattern = /\bp\w/g
     let expected =
       '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease nope'
-    expect(f.highlight(start, end, pattern, input)).to.deep.equal(expected)
+    expect(F.highlight(start, end, pattern, input)).to.deep.equal(expected)
   })
 })
