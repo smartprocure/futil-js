@@ -1,3 +1,5 @@
+# 1.69.4
+- Organized and added to conversions tests
 # 1.69.3
 - Moves tests from algebra file to collections file to mirror functions file system
 
