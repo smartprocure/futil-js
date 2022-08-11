@@ -3,11 +3,9 @@
 ---
 
 [![CircleCI](https://circleci.com/gh/smartprocure/futil-js.svg?style=svg)](https://circleci.com/gh/smartprocure/futil-js)
-[![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/futil-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/futil-js.svg)](https://badge.fury.io/js/futil-js)
 ![dependencies](https://david-dm.org/smartprocure/futil-js.svg)
 [![Code Climate](https://codeclimate.com/github/smartprocure/futil-js/badges/gpa.svg)](https://codeclimate.com/github/smartprocure/futil-js)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1302fe4c3f0447be9d5dbd00f9baa12f)](https://www.codacy.com/app/daedalus28/futil-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=smartprocure/futil-js&amp;utm_campaign=Badge_Grade)
 [![Coverage Status](https://coveralls.io/repos/github/smartprocure/futil-js/badge.svg?branch=master)](https://coveralls.io/github/smartprocure/futil-js?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Try futil-js on RunKit](https://badge.runkitcdn.com/futil-js.svg)](https://npm.runkit.com/futil-js)
@@ -44,13 +42,16 @@ or
 ## Function
 
 ### maybeCall
-`(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `false`.
+`(fn, a, b) -> fn(a, b)`
+If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `false`.
 
 ### callOrReturn
-`(fn, a, b) -> fn(a, b)` If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `fn`.
+`(fn, a, b) -> fn(a, b)`
+If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `fn`.
 
 ### boundMethod
-`(a, Monoid f) -> f[a] :: f a` Binds a function of an object to it's object.
+`(a, Monoid f) -> f[a] :: f a`
+Binds a function of an object to it's object.
 
 ### converge
 `(f, [g1, g2, ...gn]) -> a -> f([g1(a), g2(a), ...])`
@@ -74,16 +75,19 @@ Flurry is combo of flow + curry, preserving the arity of the initial function. S
 `(mapper, fn) -> (...args) -> fn(...args.map(mapper))`
 Returns a function that applies the mapping operation to all of the arguments of a function. Very similar to _.overArgs, but runs a single mapper on all of the args args.
 
+
 ## Iterators
 
 ### differentLast
-`handleItem -> handleLastItem -> iterator` Creates an iterator that handles the last item differently for use in any function that passes `(value, index, list)` (e.g. `mapIndexed`, `eachIndexed`, etc). Both the two handlers and the result are iterator functions that take `(value, index, list)`.
+`handleItem -> handleLastItem -> iterator`
+Creates an iterator that handles the last item differently for use in any function that passes `(value, index, list)` (e.g. `mapIndexed`, `eachIndexed`, etc). Both the two handlers and the result are iterator functions that take `(value, index, list)`.
 
 
 ## Logic
 
 ### overNone
-`([f1, f2, ...fn]) -> !f1(x) && !f2(x) && ...!fn(x)` Creates a function that checks if none of the array of predicates passed in returns truthy for `x`
+`([f1, f2, ...fn]) -> !f1(x) && !f2(x) && ...!fn(x)`
+Creates a function that checks if none of the array of predicates passed in returns truthy for `x`
 
 ### ifElse
 `(condition, onTrue, onFalse, x) -> (T(condition)(x) ? onTrue(x) : onFalse(x))`
@@ -103,24 +107,24 @@ http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 ### whenExists
 `when` curried with `exists`
 
+
 ## Collection
 
 ### flowMap
-`[f1, f2, ...fn] -> _.map(_.flow(fn))` Maps a flow of `f1, f2, ...fn` over a collection.
+`[f1, f2, ...fn] -> _.map(_.flow(fn))`
+Maps a flow of `f1, f2, ...fn` over a collection.
 
 ### findApply
 `f -> x -> f(find(f, x))`
 A version of `find` that also applies the predicate function to the result. Useful when you have an existing function that you want to apply to a member of a collection that you can best find by applying the same function.
 
 ### insertAtIndex
-`(index, val, array|string) -> array|string` Inserts value into an array or string at `index`
+`(index, val, array|string) -> array|string`
+Inserts value into an array or string at `index`
 
 ### compactMap
-
-`(fn, collection) -> collection` Maps `fn` over the input collection and compacts the result.
-
-
-## Collection Algebras or composable/recursive data types
+`(fn, collection) -> collection`
+Maps `fn` over the input collection and compacts the result.
 
 ### map
 `(a -> b) -> [a] -> [b]`
@@ -155,76 +159,94 @@ Any method with uncapped iteratee arguments will use the `Indexed` convention.
 ## Array
 
 ### compactJoin
-`joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 +  joinString ... + stringN` Joins an array after compacting. Note that due to the underlying behavior of `_.curry` no default `join` value is supported -- you must pass in some string with which to perform the join.
+`joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 +  joinString ... + stringN`
+Joins an array after compacting. Note that due to the underlying behavior of `_.curry` no default `join` value is supported -- you must pass in some string with which to perform the join.
 
 ### dotJoin
-`[string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN` Compacts and joins an array with '.'
+`[string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN`
+Compacts and joins an array with `.`
 
 ### dotJoinWith
-`filterFunction -> [string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN` Compacts an array by the provided function, then joins it with '.'
+`filterFunction -> [string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN`
+Compacts an array by the provided function, then joins it with `.`
 
 ### repeated
-`[a] -> [a]` Returns an array of elements that are repeated in the array.
+`[a] -> [a]`
+Returns an array of elements that are repeated in the array.
 
 ### mergeRanges
-`([[], [], []]) -> [[], []]` Takes any number of ranges and return the result of merging them all.
+`([[], [], []]) -> [[], []]`
+Takes any number of ranges and return the result of merging them all.
 
-Example: `[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]`
+Example:
+```jsx
+[[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]
+```
 
 ### push
-`(val, array) -> array` Return `array` with `val` pushed.
+`(val, array) -> array`
+Return `array` with `val` pushed.
 
 ### moveIndex
-`(from, to, array) -> array` Moves a value from one index to another
+`(from, to, array) -> array`
+Moves a value from one index to another
 
 ### cycle
-`[a, b...] -> a -> b` Creates a function that takes an element of the original array as argument and returns the next element in the array (with wrapping). Note that (1) This will return the first element of the array for any argument not in the array and (2) due to the behavior of `_.curry` the created function will return a function equivalent to itself if called with no argument.
+`[a, b...] -> a -> b`
+Creates a function that takes an element of the original array as argument and returns the next element in the array (with wrapping). Note that (1) This will return the first element of the array for any argument not in the array and (2) due to the behavior of `_.curry` the created function will return a function equivalent to itself if called with no argument.
 
 ### arrayToObject
-`(k, v, [a]) -> { k(a): v(a) }` Creates an object from an array by generating a key/value pair for each element in the array using the key and value mapper functions.
+`(k, v, [a]) -> { k(a): v(a) }`
+Creates an object from an array by generating a key/value pair for each element in the array using the key and value mapper functions.
 
 ### zipObjectDeepWith
 A version of `_.zipObjectDeep` that supports passing a function to determine values intead of an array, which will be invoked for each key.
 
 ### flags
-`[a, b] -> {a:true, b:true}` Converts an array of strings into an object mapping to true. Useful for optimizing `includes`.
+`[a, b] -> {a:true, b:true}`
+Converts an array of strings into an object mapping to true. Useful for optimizing `includes`.
 
 ### prefixes
-`['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]` Returns a list of all prefixes. Works on strings, too. Implementations must guarantee that the orginal argument has a length property.
+`['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]`
+Returns a list of all prefixes. Works on strings, too. Implementations must guarantee that the orginal argument has a length property.
 
 ### encoder
-`string -> {encode: array -> string, decode: string -> array}` Creates an object with encode and decode functions for encoding arrays as strings. The input string is used as input for join/split.
+`string -> {encode: array -> string, decode: string -> array}`
+Creates an object with encode and decode functions for encoding arrays as strings. The input string is used as input for join/split.
 
-#### dotEncoder
-`{ encode: ['a', 'b'] -> 'a.b', decode: 'a.b' -> ['a', 'b'] }` An encoder using `.` as the separator
+### dotEncoder
+`{ encode: ['a', 'b'] -> 'a.b', decode: 'a.b' -> ['a', 'b'] }`
+An encoder using `.` as the separator
 
-#### slashEncoder
-`{ encode: ['a', 'b'] -> 'a/b', decode: 'a/b' -> ['a', 'b'] }` An encoder using `/` as the separator
+### slashEncoder
+`{ encode: ['a', 'b'] -> 'a/b', decode: 'a/b' -> ['a', 'b'] }`
+An encoder using `/` as the separator
 
 ### chunkBy
-`(([a], a) -> Boolean) -> [a] -> [[a]]` Takes a predicate function and an array, and returns an array of arrays where each element has one or more elements of the original array. Similar to Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
+`(([a], a) -> Boolean) -> [a] -> [[a]]`
+Takes a predicate function and an array, and returns an array of arrays where each element has one or more elements of the original array. Similar to Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
 The predicate is called with two arguments: the current group, and the current element. If it returns truthy, the element is appended to the current group; otherwise, it's used as the first element in a new group.
 
 ### toggleElement
-`(any, array) -> array` Removes an element from an array if it's included in the array, or pushes it in if it doesn't. Immutable (so it's a clone of the array).
+`(any, array) -> array`
+Removes an element from an array if it's included in the array, or pushes it in if it doesn't. Immutable (so it's a clone of the array).
 
 ### toggleElementBy
-`bool -> value -> list -> newList` Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
+`bool -> value -> list -> newList`
+Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
 
 ### intersperse
-`f -> array -> [array[0], f(), array[n], ....)` Puts the result of calling `f` in between each element of the array. `f` is a standard lodash iterator taking the value, index, and list. If `f` isn't a function, it will treat `f` as the value to intersperse. See https://ramdajs.com/docs/#intersperse.
+`f -> array -> [array[0], f(), array[n], ....)`
+Puts the result of calling `f` in between each element of the array. `f` is a standard lodash iterator taking the value, index, and list. If `f` is not a function, it will treat `f` as the value to intersperse. See https://ramdajs.com/docs/#intersperse.
 
-**Note:** Intersperse can be used with JSX components! Specially with the `differentLast` iterator:
+Example:
+```jsx
+// Example with words (toSentence is basically this flowed into a `_.join('')`):
+F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
+// ['first', 'or', 'second', 'or perhaps', 'third']
 
-Example with words (toSentence is basically this flowed into a `_.join('')`):
-```
-> F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
-['first', 'or', 'second', 'or perhaps', 'third']
-```
-
-Example with React and JSX:
-```
+// Example with React and JSX:
 let results = [1, 2, 3]
 return <div>
   <b>Results:</b>
@@ -236,63 +258,66 @@ return <div>
     )(results)
   }
 </div>
+// Output:
+// **Results:**  
+// **1**, **2** and **3**.
 ```
-
-Output:
-> **Results:**  
-> **1**, **2** and **3**.
+**Note:** This works great with the `differentLast` iterator. Also, `intersperse` can be used with JSX components!
 
 ### replaceElementBy
-`(fn(array_element), value, array) -> array` Replaces an element in an array with `value` based on the boolean result of a function `fn`.
+`(fn(array_element), value, array) -> array`
+Replaces an element in an array with `value` based on the boolean result of a function `fn`.
 
 ### replaceElement
-`(target, value, array) -> array` Replaces all elements equal to `target` in an array with `value`.
+`(target, value, array) -> array`
+Replaces all elements equal to `target` in an array with `value`.
+
 
 ## Object
 
 ### singleObject
-`(k, v) -> {k: v}` Creates an object with a key and value.
-
+`(k, v) -> {k: v}`
+Creates an object with a key and value.
 
 ### singleObjectE
-`(v, k) -> {k: v}` Flipped version of `singleObject`.
-
+`(v, k) -> {k: v}`
+Flipped version of `singleObject`.
 
 ### chunkObject
-`({a, b}) -> [{a}, {b}]` Breaks an object into an array of objects with one key each.
-
+`({a, b}) -> [{a}, {b}]`
+Breaks an object into an array of objects with one key each.
 
 ### compactObject
 Remove properties with falsey values.
 
-Example: `({ a: 1, b: null, c: false }) -> {a:1}`
+Example:
+```jsx
+({ a: 1, b: null, c: false }) -> {a:1}
+```
 
-### isEmptyObject:
+### isEmptyObject
 Check if the variable is an empty object (`{}`).
 
-
-### isNotEmptyObject:
+### isNotEmptyObject
 Check if the variable is **not** an empty object (`{}`).
-
 
 ### stripEmptyObjects
 Omit properties whose values are empty objects.
 
-Example: `{ a:1, b:{}, c:2 } -> {a:1, c:2}`
-(*TODO* rename to `omitEmptyObjects`)
-
+Example:
+```jsx
+{ a:1, b:{}, c:2 } -> {a:1, c:2}
+```
+**Note:** (*TODO* rename to `omitEmptyObjects`)
 
 ### compareDeep
 Checks if an object's property is equal to a value.
 
-
 ### matchesSignature
 Returns true if object keys are only elements from signature list. (but does not require all signature keys to be present)
 
-
 ### matchesSome
 Similar to `_.matches`, except it returns true if 1 or more object properties match instead of all of them. See https://github.com/lodash/lodash/issues/3713.
-
 
 ### pickInto
 *TODO*
@@ -301,14 +326,17 @@ Similar to `_.matches`, except it returns true if 1 or more object properties ma
 `sourcePropertyName -> targetPropertyName -> sourceObject -> sourceObject`
 Rename a property on an object.
 
-Example: `renameProperty('a', 'b', { a: 1 }) -> { b: 1 }`
-
+Example:
+```jsx
+renameProperty('a', 'b', { a: 1 }) -> { b: 1 }
+```
 
 ### unwind
 `k -> { k: [a, b] } -> [{ k: a }, { k: b }]`
 Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property or a property whose value is not an array returns an empty array.
 
-```js
+Example:
+```jsx
 F.unwind('b', [{ a: true, b: [1, 2] }])
 //=> [{ a: true, b: 1 }, { a: true, b: 2 }]
 ```
@@ -316,7 +344,9 @@ F.unwind('b', [{ a: true, b: [1, 2] }])
 ### unwindArray
 `k -> [{ k: [a, b] }] -> [{ k: a }, { k: b }]`
 Unwinds an array of objects instead of a single object, as you might expect if you're used to mongo's `$unwind`. Alias for `(key, data) => _.flatMap(F.unwind(key), data)`
-```js
+
+Example:
+```jsx
 F.unwindArray('b', [{ a: true, b: [1, 2] }, { a: false, b: [3, 4] }])
 //=> [
 //=>  { a: true, b: 1 },
@@ -326,21 +356,29 @@ F.unwindArray('b', [{ a: true, b: [1, 2] }, { a: false, b: [3, 4] }])
 //=> ]
 ```
 
-
 ### flattenObject
 Flatten an object with the paths for keys.
 
-Example: `{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }`.
+Example:
+```jsx
+{ a: { b: { c: 1 } } } => { 'a.b.c' : 1 }
+```
 
 ### unflattenObject
 Unlatten an object with the paths for keys.
 
-Example: `{ 'a.b.c' : 1 } => { a: { b: { c: 1 } } }`.
+Example:
+```jsx
+{ 'a.b.c' : 1 } => { a: { b: { c: 1 } } }
+```
 
 ### mapProp
 _Deprecated in favor of lodash `update`_ Applies a map function at a specific path
 
-Example: `mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}`.
+Example:
+```jsx
+mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}
+```
 
 ### getOrReturn
 `_.get` that returns the target object if lookup fails
@@ -367,20 +405,31 @@ A `_.get` that takes an array of paths and returns the first value that has an e
 A `_.get` that takes an array of paths and returns the first path that exists
 
 ### unkeyBy
-`newKey -> {a:x, b:y} -> [{...x, newKey: a}, {...y, newKey: b}]` Opposite of `_.keyBy`. Creates an array from an object where the key is merged into the values keyed by `newKey`. Example: `F.unkeyBy('_key')({ a: { status: true}, b: { status: false }) -> [{ status: true, _key: 'a' }, { status: false, _key: 'b' }]`. Passing a falsy value other than `undefined` for `newKay` will result in each object key being pushed into its corresponding return array member with itself as value, e.g. `F.unkeyBy('')({ a: { status: true}, b: { status: false }) -> [{ status: true, a: 'a' }, { status: false, b: 'b' }]`. Passing `undefined` will return another instance of F.unkeyBy.
+`newKey -> {a:x, b:y} -> [{...x, newKey: a}, {...y, newKey: b}]`
+Opposite of `_.keyBy`. Creates an array from an object where the key is merged into the values keyed by `newKey`.
+
+Example:
+```jsx
+F.unkeyBy('_key')({ a: { status: true}, b: { status: false }) -> [{ status: true, _key: 'a' }, { status: false, _key: 'b' }]
+```
+**Note:** Passing a falsy value other than `undefined` for `newKay` will result in each object key being pushed into its corresponding return array member with itself as value, e.g. `F.unkeyBy('')({ a: { status: true}, b: { status: false }) -> [{ status: true, a: 'a' }, { status: false, b: 'b' }]`. Passing `undefined` will return another instance of F.unkeyBy.
 
 ### simpleDiff
-`(from, to) -> simpleDiff` Produces a simple flattened (see `flattenObject`) diff between two objects. For each (flattened) key, it produced a `from` and a `to` value. Note that this will omit any values that aren't present in the deltas object.
+`(from, to) -> simpleDiff`
+Produces a simple flattened (see `flattenObject`) diff between two objects. For each (flattened) key, it produced a `from` and a `to` value. Note that this will omit any values that are not present in the deltas object.
 
 ### simpleDiffArray
-`(from, to) -> [simpleDiffChanges]` Same as `simpleDiff`, but produces an array of `{ field, from, to }` objects instead of `{ field: { from, to } }`
+`(from, to) -> [simpleDiffChanges]`
+Same as `simpleDiff`, but produces an array of `{ field, from, to }` objects instead of `{ field: { from, to } }`
 
 ### diff
-`(from, to) -> diff` Same as `simpleDiff`, but also takes in count deleted properties.
+`(from, to) -> diff`
+Same as `simpleDiff`, but also takes in count deleted properties.
 **Note:** We're considering not maintaining this in the long term, so you might probably have more success with any existing library for this purpose.
 
 ### diffArray
-`(from, to) -> [diffChanges]` Same as `simpleDiffArray`, but also takes in count deleted properties.
+`(from, to) -> [diffChanges]`
+Same as `simpleDiffArray`, but also takes in count deleted properties.
 **Note:** We're considering not maintaining this in the long term, so you might probably have more success with any existing library for this purpose.
 
 ### pickOn
@@ -390,10 +439,12 @@ A `_.pick` that mutates the object
 Like `_.mergeAll`, but concats arrays instead of replacing. This is basically the example from the lodash `mergeAllWith` docs.
 
 ### invertByArray
-`{ a: [x, y, z], b: [x] } -> { x: [a, b], y: [a], z: [a] }` Similar to `_.invert`, but expands arrays instead of converting them to strings before making them keys.
+`{ a: [x, y, z], b: [x] } -> { x: [a, b], y: [a], z: [a] }`
+Similar to `_.invert`, but expands arrays instead of converting them to strings before making them keys.
 
 ### stampKey
-`key -> { a: { x: 1 }, b: { y: 2 } } -> { a: { x: 1, key: 'a' }, b: { y: 2, key: 'b' } }` Iterates over object properties and stamps their keys on the values in the field name provided.
+`key -> { a: { x: 1 }, b: { y: 2 } } -> { a: { x: 1, key: 'a' }, b: { y: 2, key: 'b' } }`
+Iterates over object properties and stamps their keys on the values in the field name provided.
 
 ### omitNil
 `_.omitBy` using `_.isNil` as function argument.
@@ -408,24 +459,29 @@ Like `_.mergeAll`, but concats arrays instead of replacing. This is basically th
 `_.omitBy` using `_.isEmpty` as function argument.
 
 ### mergeOverAll
-`([f, g], ...args) -> {...f(...args), ...g(...args)}` Composition of `_.over` and `_.mergeAll`. Takes an array of functions and an arbitrary number of arguments, calls each function with those arguments, and merges the results. Can be called with `mergeOverAll([f, g], x, y)` or `mergeOverAll([f, g])(x, y)`.
-
-Note that for functions that don't return objects, `_.merge`'s behavior is followed: for strings and arrays, the indices will be converted to keys and the result will be merged, and for all other primitives, nothing will be merged. 
+`([f, g], ...args) -> {...f(...args), ...g(...args)}`
+Composition of `_.over` and `_.mergeAll`. Takes an array of functions and an arbitrary number of arguments, calls each function with those arguments, and merges the results. Can be called with `mergeOverAll([f, g], x, y)` or `mergeOverAll([f, g])(x, y)`.
+**Note:** For functions that do not return objects, `_.merge`'s behavior is followed: for strings and arrays, the indices will be converted to keys and the result will be merged, and for all other primitives, nothing will be merged. 
 
 ### mergeOverAllWith
-`(customizer, [f, g], ...args) -> {...f(...args), ...g(...args)}` A customizable `mergeOverAll` that takes a function of the form `(objValue, srcValue) -> newValue` as its first argument; see [`_.mergeWith`](https://lodash.com/docs/latest#mergeWith). Both the customizer and array of functions can be partially applied.
+`(customizer, [f, g], ...args) -> {...f(...args), ...g(...args)}`
+A customizable `mergeOverAll` that takes a function of the form `(objValue, srcValue) -> newValue` as its first argument; see [`_.mergeWith`](https://lodash.com/docs/latest#mergeWith). Both the customizer and array of functions can be partially applied.
 
 ### mergeOverAllArrays
-`([f, g], ...args) -> {...f(...args), ...g(...args)}` A customized `mergeOverAll` that applies the array-merging behavior of `mergeAllArrays`.
+`([f, g], ...args) -> {...f(...args), ...g(...args)}`
+A customized `mergeOverAll` that applies the array-merging behavior of `mergeAllArrays`.
 
 ### getWith
-`(x -> y) -> k -> {k: x} -> y` Like `_.get`, but accepts a customizer function which is called on the value to transform it before it is returned. Argument order is `(customizer, path, object)`.
+`(x -> y) -> k -> {k: x} -> y`
+Like `_.get`, but accepts a customizer function which is called on the value to transform it before it is returned. Argument order is `(customizer, path, object)`.
 
 ### expandObject
-`(transform: obj -> newObj) -> obj -> { ...obj, ...newObj }` Accepts a transform function and an object. Returns the result of applying the transform function to the object, merged onto the original object. `expandObject(f, obj)` is equivalent to `mergeOverAll([_.identity, f], obj)`.
+`(transform: obj -> newObj) -> obj -> { ...obj, ...newObj }`
+Accepts a transform function and an object. Returns the result of applying the transform function to the object, merged onto the original object. `expandObject(f, obj)` is equivalent to `mergeOverAll([_.identity, f], obj)`.
 
 ### expandObjectBy
-`key -> (transform: x -> newObj) -> (obj: { key: x }) -> { ...obj, ...newObj }` Expands an object by transforming the value at a single key into a new object, and merging the result with the original object. Similar to `expandObject`, but the argument order is `(key, transform, object)`, and the transform function is called on the value at that key instead of on the whole object.
+`key -> (transform: x -> newObj) -> (obj: { key: x }) -> { ...obj, ...newObj }`
+Expands an object by transforming the value at a single key into a new object, and merging the result with the original object. Similar to `expandObject`, but the argument order is `(key, transform, object)`, and the transform function is called on the value at that key instead of on the whole object.
 
 ### commonKeys
 `(x, y) -> [keys]`
@@ -435,44 +491,61 @@ Takes two objects and returns the keys they have in common
 `(x, y) -> key`
 Takes two objects and returns the first key in `y` that x also has
 
+
 ## String
 
 ### parens
-`'asdf' -> '(asdf)'` Wraps a string in parenthesis.
+`'asdf' -> '(asdf)'`
+Wraps a string in parenthesis.
 
 ### trimStrings
 Maps `_.trim` through all the strings of a given object or array.
 
 ### autoLabel
-`string -> string` Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support.
+`string -> string`
+Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support.
 
 ### autoLabelOption
-`string -> {value:string, label:string}` Creates a `{value, label}` which applies `autoLabel` the string parameter on puts it on the label property, with the original on the value property. You can also pass in an object with value or with both value and label.
+`string -> {value:string, label:string}`
+Creates a `{value, label}` which applies `autoLabel` the string parameter on puts it on the label property, with the original on the value property. You can also pass in an object with value or with both value and label.
 
 ### autoLabelOptions
-`[string] -> [{value:string, label:string}]` Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
+`[string] -> [{value:string, label:string}]`
+Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
 
 ### insertAtIndex
-`(index, val, string) -> string` Insert a string at a specific index.
+`(index, val, string) -> string`
+Insert a string at a specific index.
 
-Example: `(1, '123', 'hi') -> 'h123i'`
+Example:
+```jsx
+(1, '123', 'hi') -> 'h123i'
+```
 
 ### toSentence
-`array => string` joins an array into a human readable string. See https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
+`array => string`
+Joins an array into a human readable string. See https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
 
-Example: `['a', 'b', 'c'] -> 'a, b and c'`
+Example:
+```jsx
+['a', 'b', 'c'] -> 'a, b and c'
+```
 
 ### toSentenceWith
-`(separator, lastSeparator, array) => string` Just like `toSentence`, but with the ability to override the `separator` and `lastSeparator`
+`(separator, lastSeparator, array) => string`
+Just like `toSentence`, but with the ability to override the `separator` and `lastSeparator`
 
-Example: `(' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'`
+Example:
+```jsx
+(' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'
+```
 
 ### uniqueString
+`array -> string -> string`
+Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to read and clear the cache, respectively.
 
-`array -> string -> string` Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to read and clear the cache, respectively.
-
-Example usage: 
-```js
+Example: 
+```jsx
 let dedupe = uniqueString()
 _.map(dedupe, ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
 dedupe.cache  //-> { foo: 3, foo1: 1, foo2: 1 }
@@ -482,13 +555,13 @@ dedupe('foo')  //-> 'foo'
 ```
 
 ### uniqueStringWith
-
-`(fn, array) -> string -> string` Allows passing a "cachizer" function (`array -> object`) to override the way `uniqueString`'s initial array is converted into a cache object. Can be curried to create a custom `uniqueString` function, eg: `let myUniqueString = uniqueStringWith(myFunc)`
+`(fn, array) -> string -> string`
+Allows passing a "cachizer" function (`array -> object`) to override the way `uniqueString`'s initial array is converted into a cache object. Can be curried to create a custom `uniqueString` function, eg: `let myUniqueString = uniqueStringWith(myFunc)`
 
 Like `uniqueString`, the resulting deduplication function exposes `cache` and `clear()` properties.
 
-Example usage:
-```js
+Example:
+```jsx
 let uniqueStringStripDigits = uniqueStringWith(
   _.countBy(_.replace(/(\d+)$/, ''))
 )
@@ -497,31 +570,39 @@ dedupe('foo')  //-> 'foo3'
 uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
 ```
 
+
 ## Regex
 
 ### testRegex
-`regex -> string -> bool` Just like ramda test, creates a function to test a regex on a string.
+`regex -> string -> bool`
+Just like ramda test, creates a function to test a regex on a string.
 
 ### makeRegex
-`options:string -> string -> regex` A curried implementation of `RegExp` construction.
+`options:string -> string -> regex`
+A curried implementation of `RegExp` construction.
 
 ### makeAndTest
-`options:string -> string -> (string -> bool)` Makes and tests a RegExp with makeRegex and testRegex.
+`options:string -> string -> (string -> bool)`
+Makes and tests a RegExp with makeRegex and testRegex.
 
 ### matchAnyWord
-`string -> string -> bool` Returns true if the second string matches any of the words in the first string.
+`string -> string -> bool`
+Returns true if the second string matches any of the words in the first string.
 
 ### matchAllWords
-`string -> string -> bool` Returns true if the second string matches all of the words in the first string.
+`string -> string -> bool`
+Returns true if the second string matches all of the words in the first string.
 
 ### postings
-`regex -> string -> [[number, number]]` Returns an array of postings (position ranges) for a regex and string to test, e.g. `F.postings(/a/g, 'vuhfaof') -> [[4, 5]]`
+`regex -> string -> [[number, number]]`
+Returns an array of postings (position ranges) for a regex and string to test, e.g. `F.postings(/a/g, 'vuhfaof') -> [[4, 5]]`
 
 ### postingsForWords
-`words -> string -> [[[number, number]]]` Takes a string of words and a string to test, and returns an array of arrays of postings for each word.
+`words -> string -> [[[number, number]]]`
+Takes a string of words and a string to test, and returns an array of arrays of postings for each word.
 
 Example:
-```js
+```jsx
 F.postingsForWords('she lls', 'she sells sea shells')
 // [
 //   [[0, 3], [14, 17]]
@@ -530,21 +611,31 @@ F.postingsForWords('she lls', 'she sells sea shells')
 ```
 
 ### highlight
-`start -> end -> pattern -> input -> highlightedInput` Wraps the matches for `pattern` found in `input` with the strings `start` and `end`. The `pattern` argument can either be a string of words to match, or a regular expression.
+`start -> end -> pattern -> input -> highlightedInput`
+Wraps the matches for `pattern` found in `input` with the strings `start` and `end`. The `pattern` argument can either be a string of words to match, or a regular expression.
 
 Example: 
-```js
+```jsx
 let braceHighlight = F.highlight('{', '}')
 braceHighlight('l o', 'hello world') //-> "he{llo} w{o}r{l}d"
 braceHighlight(/l+\w/, 'hello world') //-> "he{llo} wor{ld}"
 ```
 
 ### allMatches
-`regex -> string -> [{text: string, start: number, end: number}]` Returns an array of matches with start/end data, e.g. `F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]`
+`regex -> string -> [{text: string, start: number, end: number}]`
+Returns an array of matches with start/end data
+
+Example: 
+```jsx
+F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]
+```
+
 
 ## Math
+
 ### greaterThanOne
-`number -> bool` Returns true if number is greater than one.
+`number -> bool`
+Returns true if number is greater than one.
 
 
 ## Lang
@@ -576,6 +667,10 @@ Opposite of `isBlank`
 ### isBlankDeep
 `f -> x -> bool`
 Recurses through an object's leaf properties and passes an array of booleans to the combinator, such as `_.some`, `_.every`, and `F.none`
+
+### isPromise
+`x -> bool`
+A utility that checks if the argument passed in is of type promise
 
 
 ## Lens
@@ -613,40 +708,44 @@ Example Usage: `F.flip(getter, setter)`
 > Note: Setter methods are generally mutable (unlike Ramda's lenses, for example).
 
 We've included a few example "bindings" on `F.domLens`. These take a lens and return an object that's useful in a DOM context (like React or raw JS). In React terms, they're methods that generate the props you'd use to do two way binding to a lens.
+![lens meme](http://giphygifs.s3.amazonaws.com/media/1jnyRP4DorCh2/giphy.gif)
 
-#### view
+
+### view
 `Lens -> object.propertyName`
 Gets the value of the lens, regardless of its format
 
-#### views
+### views
 `Lens -> (() -> object.propertyName)`
 Returns a function that gets the value of the lens, regardless of its format
 
-#### set
+### set
 `propertyValue -> Lens -> object.propertyName`
 Sets the value of the lens, regardless of its format
 
-#### sets
+### sets
 Creates a function that will set a lens with the provided value
 
-#### setsWith
+### setsWith
 Takes an iteratee and lens and creates a function that will set a lens with the result of calling the iteratee with the provided value
 
-#### flip
+### flip
 Takes a lens and negates its value
 
-#### on
+### on
 Returns a function that will set a lens to `true`
 
-#### off
+### off
 Returns a function that will set a lens to `false`
 
-#### includeLens
+### includeLens
 `value -> arrayLens -> includeLens`
 An include lens represents membership of a value in a set. It takes a value and lens and returns a new lens - kind of like a "writeable computed" from MobX or Knockout. The view and set functions allow you to read and write a boolean value for whether or not a value is in an array. If you change to true or false, it will set the underlying array lens with a new array either without the value or with it pushed at the end.
 
-#### domLens.value
-`lens -> {value, onChange}` Takes a lens and returns a value/onChange pair that views/sets the lens appropriately. `onChange` sets with `e.target.value` (or `e` if that path isn't present).
+### domLens.value
+`lens -> {value, onChange}`
+Takes a lens and returns a value/onChange pair that views/sets the lens appropriately. `onChange` sets with `e.target.value` (or `e` if that path isn't present).
+
 Example:
 ```jsx
 let Component = () => {
@@ -655,20 +754,25 @@ let Component = () => {
 }
 ```
 
-#### domLens.checkboxValues
-`(value, lens) -> {checked, onChange}` Creates an includeLens and maps view to checked and set to `onChange` (set with `e.target.checked` or `e` if that path isn't present)
+### domLens.checkboxValues
+`(value, lens) -> {checked, onChange}`
+Creates an includeLens and maps view to checked and set to `onChange` (set with `e.target.checked` or `e` if that path isn't present)
 
-#### domLens.hover
-`lens -> { onMouseEnter, onMouseLeave }` Takes a lens and returns on onMouseEnter which calls `on` on the lens and onMouseLeave which calls `off`. Models a mapping of "hovering" to a boolean.
+### domLens.hover
+`lens -> { onMouseEnter, onMouseLeave }`
+Takes a lens and returns on onMouseEnter which calls `on` on the lens and onMouseLeave which calls `off`. Models a mapping of "hovering" to a boolean.
 
-#### domLens.focus
-`lens -> { onFocus, onBlur }` Takes a lens and returns on onFocus which calls `on` on the lens and onBlur which calls `off`. Models a mapping of "focusing" to a boolean.
+### domLens.focus
+`lens -> { onFocus, onBlur }`
+Takes a lens and returns on onFocus which calls `on` on the lens and onBlur which calls `off`. Models a mapping of "focusing" to a boolean.
 
-#### domLens.targetBinding
-`field -> lens -> {[field], onChange}` Utility for building lens consumers like `value` and `checkboxValues`
+### domLens.targetBinding
+`field -> lens -> {[field], onChange}`
+Utility for building lens consumers like `value` and `checkboxValues`
 
-#### domLens.binding
-`(field, getValue) -> lens -> {[field], onChange}` Even more generic utility than targetBinding which uses `getEventValue` to as the function for a setsWith which is mapped to `onChange`.
+### domLens.binding
+`(field, getValue) -> lens -> {[field], onChange}`
+Even more generic utility than targetBinding which uses `getEventValue` to as the function for a setsWith which is mapped to `onChange`.
 
 ### functionLens
 Takes a value and returns a function lens for that value. Mostly used for testing and mocking purposes.
@@ -677,7 +781,8 @@ Takes a value and returns a function lens for that value. Mostly used for testin
 Takes a value and returns a object lens for that value. Mostly used for testing and mocking purposes.
 
 ### stateLens
-`([value, setValue]) -> lens` Given the popularity of React, we decided to include this little helper that converts a `useState` hook call to a lens. Ex: `let lens = stateLens(useState(false))`. You generally won't use this directly since you can pass the `[value, setter]` pair directly to lens functions
+`([value, setValue]) -> lens`
+Given the popularity of React, we decided to include this little helper that converts a `useState` hook call to a lens. Ex: `let lens = stateLens(useState(false))`. You generally won't use this directly since you can pass the `[value, setter]` pair directly to lens functions
 
 ### lensProp
 `propertyName -> object -> { get: () -> object.propertyName, set: propertyValue -> object.propertyName }`
@@ -685,7 +790,7 @@ Creates an object lens for a given property on an object. `.get` returns the val
 You typically won't use this directly since it is supported implicitly.
 
 ### lensOf
-Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`. Typically you'd just use the implicit `(key, object)` format instead.
+Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`. Typically you would use the implicit `(key, object)` format instead.
 
 ### fnToObj
 Converts a function lens an object lens. Mostly used for testing and mocking purposes.
@@ -702,9 +807,13 @@ Notably, aspects in this library allow you to have a shared state object between
 There is a _lot_ of prior art in the javascript world, but most of it assumes a vaguely object oriented context.
 The implementation in `futil-js` is done in just 20 lines of code and seems to capture all of the use cases of AOP.
 
-> Note: To do OO style AOP with this these aspects, just use lodash's `_.update` method and optionally `boundMethod` from `futil` if `this` matters
+**Note**: To do OO style AOP with this these aspects, just use lodash's `_.update` method and optionally `boundMethod` from `futil` if `this` matters
 
-> Caveat: While you can and should compose (or `_.flow`) aspects together, don't put non aspects in the middle of the composition. Aspects rely on a `.state` property on the wrapped function that they propagate through, but the chain will break if a non-aspect is mixed in between. Additionally, if you need external access to the state, make sure the aspects are the outer most part of the composition so the `.state` property will be available on the result of the composition.
+**Caveat**: While you can and should compose (or `_.flow`) aspects together, don't put non aspects in the middle of the composition. Aspects rely on a `.state` property on the wrapped function that they propagate through, but the chain will break if a non-aspect is mixed in between. Additionally, if you need external access to the state, make sure the aspects are the outer most part of the composition so the `.state` property will be available on the result of the composition.
+
+There are a few basic aspects included on `F.aspects` (E.g. `var loggedFunc = F.aspect(F.aspects.logs)(func)`) because they seem to be universally useful.
+All of the provided aspects take an `extend` function to allow customizing the state mutation method (e.g. in mobx, you'd use `extendObservable`).
+If null, they default to `defaultsOn` from `futil-js` - check the unit tests for example usage.
 
 ### aspect
 `{options} -> f -> aspectWrapped(f)`
@@ -721,8 +830,8 @@ Options supports the following parameters:
 | `onError: (error, state, params) -> ()` | Runs if the wrapped function throws an error. If you don't throw inside this, it will swallow any errors that happen. |
 | `always: (state, params) -> ()` | Runs after the wrapped function whether it throws an error or not, similar to a `Promise.catch` |
 
-Example Usage:
-```js
+Example:
+```jsx
 let exampleAspect = aspect({
   before: () => console.log('pre run'),
   after: () => console.log('post run')
@@ -734,50 +843,47 @@ wrapped()
 // pre run
 // run
 // post run
-
 ```
 
 ### aspectSync
 This is a synchronous version of `aspect`, for situations when it's not desirable to `await` a method you're adding aspects to. The API is the same, but things like `onError` won't work if you pass an async function to the aspect.
 
-### aspects
-There are a few basic aspects included on `F.aspects` (E.g. `var loggedFunc = F.aspect(F.aspects.logs)(func)`) because they seem to be universally useful.
-All of the provided aspects take an `extend` function to allow customizing the state mutation method (e.g. in mobx, you'd use `extendObservable`).
-If null, they default to `defaultsOn` from `futil-js` - check the unit tests for example usage.
-
-#### logs
+### aspects.logs
 Logs adds a `logs` array to the function state and just pushes in results on each run
 
-#### error
+### aspects.error
 Captures any exceptions thrown and set it on an `error` error it puts on state
 
-#### errors
+### aspects.errors
 Captures any exceptions thrown and pushes them sequentially into an `errors` array it puts on state
 
-#### status
+### aspects.status
 Adds a `status` property that is set to `processing` before the wrapped function runs and `succeeded` when it's done or `failed` if it threw an exception. Also adds shortcuts on state for `processing`, `succeeded`, and `failed`, which are booleans which are based on the value of `status`. Also adds a `setStatus` method which is used internally to update these properties.
 
-#### clearStatus
+### aspects.clearStatus
 Sets `status` to null after provided timeout (default is 500ms) elapses. If a null timeout is passed, it will never set status to null.
 
-#### concurrency
+### aspects.concurrency
 Prevents a function from running if it's state has `processing` set to true at the time of invocation
 
-#### command
+### aspects.command
 Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `extend` and `timeout` as optional parameters to construct the aspect
 
-#### deprecate
+### aspects.deprecate
 Utility for marking functions as deprecated - it's just a `before` with a console.warn. Takes the name of thing being deprecated, optionally deprecation version, and optionally an alternative and returns a higher order function which you can wrap deprecated methods in. This is what's used internally to mark deprecations. Includes a partial stack trace as part of the deprecation warning.
 
-## Trees
+
+## Tree
 All tree functions take a traversal function so that you can customize how to traverse arbitrary nested structures.
 
 *Note*: Be careful about cyclic structures that can result in infinite loops, such as objects with references to itself. There are cases where you'd intentionally want to visit the same node multiple times, such as traversing a directed acyclic graph (which would work just fine and eventually terminate, but would visit a node once for each parent it has connected to it) - but it's up to the user to be sure you don't create infinite loops.
 
 ### isTraversable
+`node -> bool`
 A default check if something can be traversed - currently it is arrays and plain objects.
 
 ### traverse
+`node -> [...childNodes]`
 The default traversal function used in other tree methods if you don't supply one. It returns false if it's not traversable or empty, and returns the object if it is.
 
 ### walk
@@ -841,15 +947,14 @@ Creates a path builder for use in `flattenTree`. By default, the builder will lo
 Creates a path builder for use in `flattenTree`, using a slashEncoder and using the specified prop function as an iteratee on each node to determine the keys.
 
 ### treeKeys
+`(x, i, xs, is) => [i, ...is]`
 A utility tree iteratee that returns the stack of node indexes
 
 ### treeValues
+`(x, i, xs) => [x, ...xs]`
 A utility tree iteratee that returns the stack of node values
 
 ### tree
 `(traverse, buildIteratee, writeNode) -> {walk, reduce, transform, toArray, toArrayBy, leaves, leavesBy, map, mapLeaves, lookup, keyByWith, traverse, flatten, flatLeaves }`
 Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
 Exposes provided `traverse` function as `traverse`
-
-### isPromise
-A utility that checks if the argument passed in is of type promise
