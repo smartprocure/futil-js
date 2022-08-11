@@ -1,4 +1,4 @@
-﻿<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
+<a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
 
@@ -135,26 +135,80 @@ Maps a function over an iterable. Works by default for Arrays and Plain Objects.
 Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed nested Arrays and Plain Objects. Also works for any other iterable data type as long as two other values are sent: a mapping function, and a type checker (See the unit tests for deepMap).
 
 
-## Lodash Conversions
-These are conversions of lodash fp methods.
-
-### `In`s (Rearg False)
-`getIn`, `hasIn`, `includesIn`, `pickIn`
+## Convert(_In)
 lodash/fp is great, but sometimes the curry order isn't exactly what you want.
+
 These methods provide alternative orderings that are sometimes more convenient.
+
 The idea of `In` methods is to name them by convention, so when ever you need a method that actually takes the collection first (e.g. a `get` where the data is static but the field is dynamic), you can just add `In` to the end (such as `getIn` which takes the object first)
 
-### `On`s (Immutable False)
-`extendOn`, `defaultsOn`, `mergeOn`, `setOn`, `unsetOn`, `pullOn`
+### getIn
+Just like `_.get`, but with `{rearg: false}` so the argument order is unchanged from non fp lodash.
+
+### hasIn
+Just like `_.has`, but with `{rearg: false}` so the argument order is unchanged from non fp lodash.
+
+### pickIn
+Just like `_.pick`, but with `{rearg: false}` so the argument order is unchanged from non fp lodash.
+
+### includesIn
+Just like `_.includes`, but with `{rearg: false}` so the argument order is unchanged from non fp lodash.
+
+
+## Convert(_On)
 lodash/fp likes to keep things pure, but sometimes JS can get pretty dirty.
+
 These methods are alternatives for working with data that--for whatever the use case is--needs to be mutable
+
 Any methods that interact with mutable data will use the `On` convention (as it is some action occuring `On` some data)
 
-### `Indexed` (Cap False)
-`mapIndexed`, `eachIndexed`, `reduceIndexed`, `mapValuesIndexed`
+### extendOn
+Just like `_.extend`, but with `{mutable: true}` so it mutates.
+
+### defaultsOn
+Just like `_.defaults`, but with `{mutable: true}` so it mutates.
+
+### mergeOn
+Just like `_.merge`, but with `{mutable: true}` so it mutates.
+
+### setOn
+Just like `_.set`, but with `{mutable: true}` so it mutates.
+
+### unsetOn
+Just like `_.unset`, but with `{mutable: true}` so it mutates.
+
+### pullOn
+Just like `_.pull`, but with `{mutable: true}` so it mutates.
+
+### updateOn
+Just like `_.update`, but with `{mutable: true}` so it mutates.
+
+
+## Convert(_Indexed)
 lodash/fp caps iteratees to one argument by default, but sometimes you need the index.
+
 These methods are uncapped versions of lodash's methods.
+
 Any method with uncapped iteratee arguments will use the `Indexed` convention.
+
+### mapIndexed
+Just like `_.map`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
+
+### findIndexed
+Just like `_.find`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
+
+### eachIndexed
+Just like `_.each`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
+
+### reduceIndexed
+Just like `_.reduce`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
+
+### pickByIndexed
+Just like `_.pickBy`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
+
+### mapValuesIndexed
+Just like `_.mapValues`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
+
 
 ## Array
 
@@ -461,7 +515,7 @@ Iterates over object properties and stamps their keys on the values in the field
 ### mergeOverAll
 `([f, g], ...args) -> {...f(...args), ...g(...args)}`
 Composition of `_.over` and `_.mergeAll`. Takes an array of functions and an arbitrary number of arguments, calls each function with those arguments, and merges the results. Can be called with `mergeOverAll([f, g], x, y)` or `mergeOverAll([f, g])(x, y)`.
-**Note:** For functions that do not return objects, `_.merge`'s behavior is followed: for strings and arrays, the indices will be converted to keys and the result will be merged, and for all other primitives, nothing will be merged. 
+**Note:** For functions that do not return objects, `_.merge`'s behavior is followed: for strings and arrays, the indices will be converted to keys and the result will be merged, and for all other primitives, nothing will be merged.
 
 ### mergeOverAllWith
 `(customizer, [f, g], ...args) -> {...f(...args), ...g(...args)}`
@@ -503,7 +557,7 @@ Maps `_.trim` through all the strings of a given object or array.
 
 ### autoLabel
 `string -> string`
-Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support.
+Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support. 
 
 ### autoLabelOption
 `string -> {value:string, label:string}`
@@ -544,7 +598,7 @@ Example:
 `array -> string -> string`
 Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to read and clear the cache, respectively.
 
-Example: 
+Example:
 ```jsx
 let dedupe = uniqueString()
 _.map(dedupe, ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
@@ -614,7 +668,7 @@ F.postingsForWords('she lls', 'she sells sea shells')
 `start -> end -> pattern -> input -> highlightedInput`
 Wraps the matches for `pattern` found in `input` with the strings `start` and `end`. The `pattern` argument can either be a string of words to match, or a regular expression.
 
-Example: 
+Example:
 ```jsx
 let braceHighlight = F.highlight('{', '}')
 braceHighlight('l o', 'hello world') //-> "he{llo} w{o}r{l}d"
@@ -625,7 +679,7 @@ braceHighlight(/l+\w/, 'hello world') //-> "he{llo} wor{ld}"
 `regex -> string -> [{text: string, start: number, end: number}]`
 Returns an array of matches with start/end data
 
-Example: 
+Example:
 ```jsx
 F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]
 ```
@@ -674,7 +728,7 @@ A utility that checks if the argument passed in is of type promise
 
 
 ## Lens
-A lens is a getter and setter pair. You use them to write code that needs to read _and_ write a value (like a method to flip a boolean switch, or a React component that reads and writes some state) without worrying about the implementation. 
+A lens is a getter and setter pair. You use them to write code that needs to read _and_ write a value (like a method to flip a boolean switch, or a React component that reads and writes some state) without worrying about the implementation.
 
 Functions that operate on lenses can handle a few different "shorthand" structures. This is similar to lodash's `_.iteratee` (which allows their methods to treat strings, objects, or functions as shorthand predicates)
 
@@ -818,7 +872,7 @@ If null, they default to `defaultsOn` from `futil-js` - check the unit tests for
 ### aspect
 `{options} -> f -> aspectWrapped(f)`
 The aspect api takes an options object and returns a function which takes a function to wrap.
-The wrapped function will be decorated with a `state` object and is equivalent to the original function for all arguments.
+    The wrapped function will be decorated with a `state` object and is equivalent to the original function for all arguments.
 
 Options supports the following parameters:
 
