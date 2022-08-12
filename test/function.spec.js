@@ -15,7 +15,15 @@ describe('Function Functions', () => {
     // maybeCall should call fn with parameters
     expect(F.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6))
   })
-  it('callOrReturn -pending', () => {})
+  it('callOrReturn', () => {
+    expect(F.callOrReturn(() => 5)).to.deep.equal(5)
+    expect(F.callOrReturn(5)).to.deep.equal(5)
+    expect(F.callOrReturn(null)).to.deep.equal(null)
+    const fn = (x, y) => x + y
+    expect(F.callOrReturn(fn, 5, 6)).to.deep.equal(11)
+    // callOrReturn should call fn with parameters
+    expect(F.callOrReturn(fn, 5, 6)).to.deep.equal(fn(5, 6))
+  })
   it('boundMethod', () => {
     // boundMethod should bind a method of an object to it's object
     let obj = {
@@ -30,9 +38,13 @@ describe('Function Functions', () => {
     expect(F.boundMethod('greet', obj)()).to.equal('Welcome, Wade Watts')
   })
   it('converge -pending', () => {})
-  it('composeApply -pending', () => {})
+  it('composeApply', () => {
+    let fn1 = lastResult => x => lastResult / x
+    let fn2 = x => x + 5
+    expect(F.composeApply(fn1, fn2)(5)).to.deep.equal(2)
+  })
   it('comply', () => {
-    // (5 * 2) +  5
+    // F.append(x => x * 2)(5) => (5 * 2) + 5
     expect(F.comply(F.append, x => x * 2)(5)).to.equal(15)
   })
   it('defer -pending', () => {})
@@ -59,7 +71,6 @@ describe('Function Functions', () => {
   it('flurry', () => {
     let add = (x, y) => x + y
     let double = x => x * 2
-
     // Passing all args
     expect(F.flurry(add, double)(1, 4)).to.equal(10)
     // Passing 1 at a time
