@@ -8,15 +8,28 @@ describe('Lang Functions', () => {
   it('throws', () => {
     expect(() => F.throws(Error('oops'))).to.throw()
   })
+  it('tapError', () => {
+    let errorFn = (e, preCode, postCode) => console.log(`${e} with code ${preCode}${postCode}`)
+    let errorOfMine = new Error('myError')
+    // It will print: 'Error: myError with code 2045'
+    // Then it will throw errorOfMine
+    expect(() => F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw('myError')
+    expect(() => F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw(errorOfMine)
+  })
   it('isNotNil', () => {
     expect(F.isNotNil(null)).to.equal(false)
     expect(F.isNotNil(undefined)).to.equal(false)
     expect(F.isNotNil(0)).to.equal(true)
     expect(F.isNotNil('')).to.equal(true)
     expect(F.isNotNil([])).to.equal(true)
+    expect(F.isNotNil).to.equal(F.exists)
   })
   it('exists', () => {
-    expect(F.exists).to.equal(F.isNotNil)
+    expect(F.exists(null)).to.equal(false)
+    expect(F.exists(undefined)).to.equal(false)
+    expect(F.exists(0)).to.equal(true)
+    expect(F.exists('')).to.equal(true)
+    expect(F.exists([])).to.equal(true)
   })
   it('isMultiple', () => {
     expect(F.isMultiple([''])).to.equal(false)
@@ -48,7 +61,25 @@ describe('Lang Functions', () => {
     expect(F.isBlank([])).to.equal(true)
     expect(F.isBlank({})).to.equal(true)
   })
-  it('should isBlankDeep', () => {
+  it('isNotBlank', () => {
+    expect(F.isNotBlank(1)).to.equal(true)
+    expect(F.isNotBlank('asdf')).to.equal(true)
+    expect(F.isNotBlank({ a: 1 })).to.equal(true)
+    expect(F.isNotBlank([3, 4])).to.equal(true)
+    expect(F.isNotBlank(new Date())).to.equal(true)
+    expect(
+      F.isNotBlank({
+        a: 1,
+        b: 'as',
+      })
+    ).to.equal(true)
+    expect(F.isNotBlank(null)).to.equal(false)
+    expect(F.isNotBlank(undefined)).to.equal(false)
+    expect(F.isNotBlank('')).to.equal(false)
+    expect(F.isNotBlank([])).to.equal(false)
+    expect(F.isNotBlank({})).to.equal(false)
+  })
+  it('isBlankDeep', () => {
     expect(F.isBlankDeep(_.every)(1)).to.equal(false)
     expect(F.isBlankDeep(_.every)(false)).to.equal(false)
     expect(F.isBlankDeep(_.every)('')).to.equal(true)
