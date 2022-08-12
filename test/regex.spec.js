@@ -24,14 +24,11 @@ describe('Regexp Functions', () => {
 
     expect(F.makeAndTest(options)(reText)(text)).to.deep.equal(regex.test(text))
   })
+  it('anyWordToRegexp -pending', () => {})
 
-  it('matchAnyWord', () => {
-    const reText = 'Some text'
-    const text = 'Here is some text to test'
-    const match = F.matchAnyWord(reText)
+  it('wordsToRegexp -pending', () => {})
 
-    expect(match(text)).to.equal(true)
-  })
+  it('matchWords -pending', () => {})
 
   it('matchAllWords', () => {
     const reText = 'Some text'
@@ -41,7 +38,15 @@ describe('Regexp Functions', () => {
     expect(match(text)).to.equal(false)
   })
 
-  it('should return all matched results', () => {
+  it('matchAnyWord', () => {
+    const reText = 'Some text'
+    const text = 'Here is some text to test'
+    const match = F.matchAnyWord(reText)
+
+    expect(match(text)).to.equal(true)
+  })
+
+  it('allMatches', () => {
     const re = '(\\d+)'
     const text = `1 22 333 a bb ccc 4444`
     const matches = F.allMatches(re, text)
@@ -55,14 +60,14 @@ describe('Regexp Functions', () => {
 })
 
 describe('Posting Highlight Functions', () => {
-  it('should get postings', () => {
+  it('postings', () => {
     var result = F.postings(RegExp('p', 'gi'), 'pretty please')
     expect(result).to.deep.equal([
       [0, 1],
       [7, 8],
     ])
   })
-  it('should get postings by word', () => {
+  it('postingsForWords', () => {
     var result = F.postingsForWords('pret pr t ', 'pretty prease')
     expect(result).to.deep.equal([
       [[0, 4]],
@@ -76,46 +81,55 @@ describe('Posting Highlight Functions', () => {
       ],
     ])
   })
-  var start = '<span class="highlight">'
-  var end = '</span>'
 
-  it('should highlight', () => {
-    let input = 'pretty please'
-    let postings = F.postings(RegExp('p', 'gi'), input)
-    let expected =
-      '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
-    expect(F.highlightFromPostings(start, end, postings, input)).to.equal(
-      expected
-    )
-  })
-  it('should highlight backwards postings', () => {
-    let input = 'pretty please'
-    let expected =
-      '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
-    expect(
-      F.highlightFromPostings(
-        start,
-        end,
-        [
-          [7, 8],
-          [0, 1],
-        ],
-        input
+  describe('highlightFromPostings', () => {
+    let start = '<span class="highlight">'
+    let end = '</span>'
+          
+    it('highlightFromPostings', () => {
+      let input = 'pretty please'
+      let postings = F.postings(RegExp('p', 'gi'), input)
+      let expected =
+        '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
+      expect(F.highlightFromPostings(start, end, postings, input)).to.equal(
+        expected
       )
-    ).to.equal(expected)
+    })
+    it('should highlight backwards postings', () => {
+      let input = 'pretty please'
+      let expected =
+        '<span class="highlight">p</span>retty <span class="highlight">p</span>lease'
+      expect(
+        F.highlightFromPostings(
+          start,
+          end,
+          [
+            [7, 8],
+            [0, 1],
+          ],
+          input
+        )
+      ).to.equal(expected)
+      })
   })
-  it('should high level highlight', () => {
-    let input = 'pretty please'
-    let pattern = 'pr pl'
-    let expected =
-      '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease'
-    expect(F.highlight(start, end, pattern, input)).to.deep.equal(expected)
-  })
-  it('should highlight from regexp', () => {
-    let input = 'pretty please nope'
-    let pattern = /\bp\w/g
-    let expected =
-      '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease nope'
-    expect(F.highlight(start, end, pattern, input)).to.deep.equal(expected)
+  describe('highlight', () => {
+    it('highlight', () => {
+      let start = '<span class="highlight">'
+      let end = '</span>'
+      let input = 'pretty please'
+      let pattern = 'pr pl'
+      let expected =
+        '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease'
+      expect(F.highlight(start, end, pattern, input)).to.deep.equal(expected)
+    })
+    it('should highlight from regexp', () => {
+      let start = '<span class="highlight">'
+      let end = '</span>'
+      let input = 'pretty please nope'
+      let pattern = /\bp\w/g
+      let expected =
+        '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease nope'
+      expect(F.highlight(start, end, pattern, input)).to.deep.equal(expected)
+    })
   })
 })
