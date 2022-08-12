@@ -8,8 +8,8 @@ describe('Lang Functions', () => {
   it('throws', () => {
     expect(() => F.throws(Error('oops'))).to.throw()
   })
-  it.only('tapError', () => {
-    let total = 0
+  it('tapError', () => {
+    let total = ''
     let errorFn = (e, pre, post) => total = `${e} and total is ${pre + post}`
     let errorOfMine = new Error('myError')
     try {
