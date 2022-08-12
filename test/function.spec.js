@@ -37,25 +37,25 @@ describe('Function Functions', () => {
   })
   it('defer -pending', () => {})
   describe('debounceAsync', () => {
-  it('debounceAsync', async () => {
-    let inner = sinon.spy(x => x + 10)
-    let fn = F.debounceAsync(10, inner)
-    let result = await Promise.all([fn(1), fn(2), fn(3)])
-    expect(inner).to.have.callCount(1)
-    expect(result).to.deep.equal([13, 13, 13])
-    let secondResult = await Promise.all([fn(11), fn(12), fn(13)])
-    expect(secondResult).to.deep.equal([23, 23, 23])
+    it('debounceAsync', async () => {
+      let inner = sinon.spy(x => x + 10)
+      let fn = F.debounceAsync(10, inner)
+      let result = await Promise.all([fn(1), fn(2), fn(3)])
+      expect(inner).to.have.callCount(1)
+      expect(result).to.deep.equal([13, 13, 13])
+      let secondResult = await Promise.all([fn(11), fn(12), fn(13)])
+      expect(secondResult).to.deep.equal([23, 23, 23])
+    })
+    it('should demonstrate failing with regular debounce', async () => {
+      let inner2 = sinon.spy(x => x + 10)
+      let fn2 = _.debounce(10, inner2)
+      let result2 = await Promise.all([fn2(1), fn2(2), fn2(3)])
+      expect(inner2).to.have.callCount(0)
+      expect(result2).to.deep.equal([undefined, undefined, undefined])
+      let thirdResult = await Promise.all([fn2(11), fn2(12), fn2(13)])
+      expect(thirdResult).to.deep.equal([undefined, undefined, undefined])
+    })
   })
-  it('should demonstrate failing with regular debounce', async () => {
-    let inner2 = sinon.spy(x => x + 10)
-    let fn2 = _.debounce(10, inner2)
-    let result2 = await Promise.all([fn2(1), fn2(2), fn2(3)])
-    expect(inner2).to.have.callCount(0)
-    expect(result2).to.deep.equal([undefined, undefined, undefined])
-    let thirdResult = await Promise.all([fn2(11), fn2(12), fn2(13)])
-    expect(thirdResult).to.deep.equal([undefined, undefined, undefined])
-  })
-})
   it('flurry', () => {
     let add = (x, y) => x + y
     let double = x => x * 2
