@@ -10,7 +10,7 @@ describe('Lang Functions', () => {
   })
   it.only('tapError', () => {
     let total = 0
-    let errorFn = (e, pre, post) => total = `${e} and total is ${pre + post}`
+    let errorFn = (e, pre, post) => (total = `${e} and total is ${pre + post}`)
     let errorOfMine = new Error('myError')
     try {
       F.tapError(errorFn)(errorOfMine, 20, 45)
