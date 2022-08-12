@@ -1,3 +1,6 @@
+# 1.69.9
+- Organized string tests
+
 # 1.69.4
 - Organized and added to conversions tests
 # 1.69.3
