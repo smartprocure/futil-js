@@ -11,13 +11,10 @@ describe('Lang Functions', () => {
   it('tapError', () => {
     let errorFn = (e, preCode, postCode) => console.log(`${e} with code ${preCode}${postCode}`)
     let errorOfMine = new Error('myError')
-    try {
-      // It will print: 'Error: myError with code 2045'
-      // Then it will throw errorOfMine
-      expect(F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw('myError')
-    } catch (e) {
-      expect(e).to.deep.equal(errorOfMine)
-    }
+    // It will print: 'Error: myError with code 2045'
+    // Then it will throw errorOfMine
+    expect(() => F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw('myError')
+    expect(() => F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw(errorOfMine)
   })
   it('isNotNil', () => {
     expect(F.isNotNil(null)).to.equal(false)
