@@ -1,3 +1,6 @@
+# 1.69.8
+- Removed basic function tests from the misc.spec file. A separate PR moves them into the function.spec file.
+
 # 1.69.4
 - Organized and added to conversions tests
 # 1.69.3
