@@ -81,6 +81,14 @@ describe('Object Functions', () => {
       c: {},
     })
   })
+  it('renameProperty', () => {
+    const o = { a: 1 }
+    const newO = F.renameProperty('a', 'b', o)
+    expect(newO).not.to.deep.equal(o)
+    expect(newO).to.deep.equal({ b: 1 })
+    const new1 = F.renameProperty('c', 'b', o)
+    expect(new1).to.deep.equal({ a: 1 })
+  })
   it('unwind', () => {
     expect(F.unwind('x', { x: ['a', 'b'], y: 1 })).to.deep.equal([
       { x: 'a', y: 1 },
@@ -143,6 +151,7 @@ describe('Object Functions', () => {
       { x: 1, y: 2 },
     ])
   })
+  it('isFlatObject -pending', () => {})
   it('flattenObject', () => {
     expect(
       F.flattenObject({
@@ -184,14 +193,6 @@ describe('Object Functions', () => {
       },
     })
   })
-  it('renameProperty', () => {
-    const o = { a: 1 }
-    const newO = F.renameProperty('a', 'b', o)
-    expect(newO).not.to.deep.equal(o)
-    expect(newO).to.deep.equal({ b: 1 })
-    const new1 = F.renameProperty('c', 'b', o)
-    expect(new1).to.deep.equal({ a: 1 })
-  })
   it('matchesSignature', () => {
     expect(F.matchesSignature([], 0)).to.equal(false)
     expect(F.matchesSignature([], '')).to.equal(false)
@@ -227,6 +228,7 @@ describe('Object Functions', () => {
     expect(F.compareDeep('a.b.c')(o, '1')).to.deep.equal(false)
     expect(F.compareDeep('a.b.c')(o)('1')).to.deep.equal(false)
   })
+  // deprecated
   // it('mapProp', () => {
   //   const a = F.mapProp('a', val => val * val, { a: 2, b: 1 })
   //   expect(a).to.deep.equal({ a: 4, b: 1 })
@@ -282,8 +284,6 @@ describe('Object Functions', () => {
         field: 'd.e',
       },
     ])
-  })
-  it('unkeyBy', () => {
     expect(
       F.unkeyBy('', {
         a: {
@@ -557,6 +557,8 @@ describe('Object Functions', () => {
       },
     ])
   })
+  it('pickOn -pending', () => {})
+  it('mergeArrays -pending', () => {})
   it('mergeAllArrays', () => {
     expect(
       F.mergeAllArrays([
