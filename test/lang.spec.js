@@ -13,12 +13,11 @@ describe('Lang Functions', () => {
     let errorOfMine = new Error('myError')
     try {
       // It will print: 'Error: myError with code 2045'
-      // Then it will throw error
+      // Then it will throw errorOfMine
       expect(F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw('myError')
     } catch (e) {
-      expect(e).to.equal(errorOfMine)
+      expect(e).to.deep.equal(errorOfMine)
     }
-    
   })
   it('isNotNil', () => {
     expect(F.isNotNil(null)).to.equal(false)
@@ -34,7 +33,6 @@ describe('Lang Functions', () => {
     expect(F.exists(0)).to.equal(true)
     expect(F.exists('')).to.equal(true)
     expect(F.exists([])).to.equal(true)
-    expect(F.exists).to.equal(F.isNotNil)
   })
   it('isMultiple', () => {
     expect(F.isMultiple([''])).to.equal(false)

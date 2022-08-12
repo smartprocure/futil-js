@@ -1,3 +1,17 @@
+# 1.69.5
+- Organized and added lang tests
+
+# 1.69.4
+- Organized and added to conversions tests
+# 1.69.3
+- Moves tests from algebra file to collections file to mirror functions file system
+
+# 1.69.2
+- Adds and revised the array tests
+
+# 1.69.1
+- Fixed f and F discrepancy. Changed all f. to F. in all tests for consistency.
+
 # 1.69.0
 - Add `isPromise` utility
 
