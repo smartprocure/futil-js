@@ -8,11 +8,15 @@ describe('Lang Functions', () => {
   it('throws', () => {
     expect(() => F.throws(Error('oops'))).to.throw()
   })
-  it('tapError', () => {
-    let errorFn = (e, preCode, postCode) => console.log(`${e} with code ${preCode}${postCode}`)
+  it.only('tapError', () => {
+    let total = 0
+    let errorFn = (e, pre, post) => total = `${e} and total is ${pre + post}`
     let errorOfMine = new Error('myError')
-    // It will print: 'Error: myError with code 2045'
-    // Then it will throw errorOfMine
+    try {
+      F.tapError(errorFn)(errorOfMine, 20, 45)
+    } catch (e) {
+      expect(total).to.deep.equal('Error: myError and total is 65')
+    }
     expect(() => F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw('myError')
     expect(() => F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw(errorOfMine)
   })
