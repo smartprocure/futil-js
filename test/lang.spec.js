@@ -67,12 +67,6 @@ describe('Lang Functions', () => {
     expect(F.isNotBlank({ a: 1 })).to.equal(true)
     expect(F.isNotBlank([3, 4])).to.equal(true)
     expect(F.isNotBlank(new Date())).to.equal(true)
-    expect(
-      F.isNotBlank({
-        a: 1,
-        b: 'as',
-      })
-    ).to.equal(true)
     expect(F.isNotBlank(null)).to.equal(false)
     expect(F.isNotBlank(undefined)).to.equal(false)
     expect(F.isNotBlank('')).to.equal(false)
