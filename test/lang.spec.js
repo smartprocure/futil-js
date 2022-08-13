@@ -10,15 +10,14 @@ describe('Lang Functions', () => {
   })
   it('tapError', () => {
     let total = ''
-    let errorFn = (e, pre, post) => total = `${e} and total is ${pre + post}`
+    let errorFn = (e, pre, post) => total = `${e}. The total is ${pre + post}`
     let errorOfMine = new Error('myError')
     try {
       F.tapError(errorFn)(errorOfMine, 20, 45)
     } catch (e) {
-      expect(total).to.deep.equal('Error: myError and total is 65')
+      expect(total).to.deep.equal('Error: myError. The total is 65')
+      expect(e).to.deep.equal(errorOfMine)
     }
-    expect(() => F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw('myError')
-    expect(() => F.tapError(errorFn)(errorOfMine, 20, 45)).to.throw(errorOfMine)
   })
   it('isNotNil', () => {
     expect(F.isNotNil(null)).to.equal(false)
