@@ -37,7 +37,13 @@ describe('Function Functions', () => {
     )
     expect(F.boundMethod('greet', obj)()).to.equal('Welcome, Wade Watts')
   })
-  it('converge -pending', () => {})
+  it('converge', () => {
+    let divide = arr => arr[0] / arr[1]
+    let sum = arr => _.sum(arr)
+    let length = arr => arr.length
+    // average
+    expect(F.converge(divide, [sum, length])([5, 10, 15])).to.deep.equal(10)
+  })
   it('composeApply', () => {
     let fn1 = lastResult => x => lastResult / x
     let fn2 = x => x + 5
@@ -47,7 +53,20 @@ describe('Function Functions', () => {
     // F.append(x => x * 2)(5) => (5 * 2) + 5
     expect(F.comply(F.append, x => x * 2)(5)).to.equal(15)
   })
-  it('defer -pending', () => {})
+  it('defer', () => {
+    let delay = ms => {
+      let resolver = F.defer();
+      let now = Date.now();
+      setTimeout(() => {
+          resolver.resolve(Date.now() - now);
+      }, ms);
+      return resolver.promise;
+  }
+  
+  delay(500).then(ms => {
+      expect(ms).is.at.least(500)
+  });
+  })
   describe('debounceAsync', () => {
   it('debounceAsync', async () => {
     let inner = sinon.spy(x => x + 10)
