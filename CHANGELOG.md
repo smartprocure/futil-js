@@ -1,3 +1,6 @@
+# 1.69.8
+- Organized string tests
+
 # 1.69.7
 - Organized and added to functions tests
 
