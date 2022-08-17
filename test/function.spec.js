@@ -24,7 +24,6 @@ describe('Function Functions', () => {
     // callOrReturn should call fn with parameters
     expect(F.callOrReturn(fn, 5, 6)).to.deep.equal(fn(5, 6))
   })
-
   it('boundMethod', () => {
     // boundMethod should bind a method of an object to it's object
     let obj = {
