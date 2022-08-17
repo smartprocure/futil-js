@@ -1,7 +1,15 @@
 # 1.69.7
 - Organized and added to functions tests
+
+# 1.69.6
+- Organized and added to logic tests
+
+# 1.69.5
+- Organized and added lang tests
+
 # 1.69.4
 - Organized and added to conversions tests
+
 # 1.69.3
 - Moves tests from algebra file to collections file to mirror functions file system
 
