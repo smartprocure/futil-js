@@ -1,3 +1,6 @@
+# 1.69.9
+- Removed basic function tests from the misc.spec file. A separate PR moves them into the function.spec file.
+
 # 1.69.8
 - Organized string tests
 
