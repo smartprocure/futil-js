@@ -1,3 +1,5 @@
+# 1.69.10
+- Organized and added to regexp tests
 # 1.69.9
 - Removed basic function tests from the misc.spec file. A separate PR moves them into the function.spec file.
 

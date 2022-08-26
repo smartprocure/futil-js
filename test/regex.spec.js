@@ -24,11 +24,14 @@ describe('Regexp Functions', () => {
 
     expect(F.makeAndTest(options)(reText)(text)).to.deep.equal(regex.test(text))
   })
-  it('anyWordToRegexp -pending', () => {})
+  
+  it('anyWordToRegexp', () => {
+    expect(F.anyWordToRegexp('Any word to regexp')).to.deep.equal('Any|word|to|regexp')
+  })
 
-  it('wordsToRegexp -pending', () => {})
-
-  it('matchWords -pending', () => {})
+  it('wordsToRegexp', () => {
+    expect(F.wordsToRegexp('my three words')).to.deep.equal('.*(?=.*my.*)(?=.*three.*)(?=.*words.*).*')
+  })
 
   it('matchAllWords', () => {
     const reText = 'Some text'
