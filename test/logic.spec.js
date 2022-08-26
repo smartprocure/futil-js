@@ -5,6 +5,13 @@ chai.expect()
 const expect = chai.expect
 
 describe('Logic Functions', () => {
+  it('overNone', () => {
+    let ten = x => x > 10
+    let twenty = x => x > 20
+    let thirty = x => x > 30
+    expect(F.overNone([ten, twenty, thirty])(5)).to.deep.equal(true)
+    expect(F.overNone([ten, twenty, thirty])(15)).to.deep.equal(false)
+  })
   describe('ifElse', () => {
     it('should handle functions', () => {
       let clamp5 = F.ifElse(
