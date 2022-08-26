@@ -151,7 +151,7 @@ describe('Object Functions', () => {
       { x: 1, y: 2 },
     ])
   })
-  it('isFlatObject -pending', () => {})
+  it('isFlatObject -pending', () => {  })
   it('flattenObject', () => {
     expect(
       F.flattenObject({
@@ -557,8 +557,15 @@ describe('Object Functions', () => {
       },
     ])
   })
-  it('pickOn -pending', () => {})
-  it('mergeArrays -pending', () => {})
+  it('pickOn', () => {
+    let person = {
+      name: 'Lucy',
+      age: 21,
+      height: `5.8`
+    }
+    F.pickOn(['name', 'age'], person)
+    expect(person).to.deep.equal({name: 'Lucy', age: 21})
+  })
   it('mergeAllArrays', () => {
     expect(
       F.mergeAllArrays([
