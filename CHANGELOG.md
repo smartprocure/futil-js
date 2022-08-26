@@ -1,3 +1,5 @@
+# 1.69.13
+- Organized and added tests to the tree tests file.
 # 1.69.9
 - Removed basic function tests from the misc.spec file. A separate PR moves them into the function.spec file.
 
