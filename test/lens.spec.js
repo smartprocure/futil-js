@@ -42,25 +42,17 @@ describe('Lens Functions', () => {
       expect(l.get()).to.equal(1)
       l.set(5)
       expect(l.get()).to.equal(5)
-    })
-    it('lensProp deep', () => {
-      let l = F.lensProp('x.a', {
+      //lensProp deep
+      let ld = F.lensProp('x.a', {
         x: {
           a: 1,
         },
       })
-      expect(l.get()).to.equal(1)
-      l.set(5)
-      expect(l.get()).to.equal(5)
+      expect(ld.get()).to.equal(1)
+      ld.set(5)
+      expect(ld.get()).to.equal(5)
     })
-    it('lensOf', () => {
-      let l = F.lensOf({
-        a: 1,
-      })
-      expect(l.a.get()).to.equal(1)
-      l.a.set(5)
-      expect(l.a.get()).to.equal(5)
-    })
+    it('lensOf -pending', () => {})
     it('includeLens', () => {
       let object = {
         arr: ['a', 'b', 'c', 'd'],
@@ -81,18 +73,34 @@ describe('Lens Functions', () => {
   })
   describe('Manipulation', () => {
     it('view', () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      expect(F.view('b', x)).to.equal(2)
       let fl = F.functionLens(1)
       let ol = F.objectLens(1)
       expect(F.view(fl)).to.equal(1)
       expect(F.view(ol)).to.equal(1)
     })
     it('views', () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      expect(F.views('b', x)()).to.equal(2)
       let fl = F.functionLens(1)
       let ol = F.objectLens(1)
       expect(F.views(fl)()).to.equal(1)
       expect(F.views(ol)()).to.equal(1)
     })
     it('set', () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      F.set(5, 'a', x)
+      expect(x.a).to.equal(5)
       let object = {
         a: 1,
       }
@@ -101,6 +109,12 @@ describe('Lens Functions', () => {
       expect(object.a).to.equal(5)
     })
     it('sets', () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      F.sets(5, 'a', x)()
+      expect(x.a).to.equal(5)
       let object = {
         a: 1,
       }
@@ -117,6 +131,11 @@ describe('Lens Functions', () => {
       expect(object.a).to.equal(10)
     })
     it('flip', () => {
+      let x = {
+        a: 1,
+      }
+      F.flip('a', x)()
+      expect(x.a).to.equal(false)
       let object = {
         a: 1,
       }
@@ -125,6 +144,11 @@ describe('Lens Functions', () => {
       expect(object.a).to.equal(false)
     })
     it('on', () => {
+      let x = {
+        a: 1,
+      }
+      F.on('a', x)()
+      expect(x.a).to.equal(true)
       let object = {
         a: 1,
       }
@@ -133,6 +157,11 @@ describe('Lens Functions', () => {
       expect(object.a).to.equal(true)
     })
     it('off', () => {
+      let x = {
+        a: 1,
+      }
+      F.off('a', x)()
+      expect(x.a).to.equal(false)
       let object = {
         a: 1,
       }
@@ -141,59 +170,83 @@ describe('Lens Functions', () => {
       expect(object.a).to.equal(false)
     })
   })
-  describe('Implicit Lens Prop', () => {
-    it('view', () => {
-      let x = {
+  describe('domLens', () => {
+    it('domLens.value', () => {
+      let state = {
         a: 1,
-        b: 2,
       }
-      expect(F.view('a', x)).to.equal(1)
+      let props = F.domLens.value('a', state)
+      expect(props.value).to.equal(1)
+      props.onChange({ target: { value: 5 } })
+      expect(state.a).to.equal(5)
+      // non-native value
+      let state2 = {
+        a: 1,
+      }
+      let props2 = F.domLens.value('a', state2)
+      expect(props2.value).to.equal(1)
+      props2.onChange(5)
+      expect(state2.a).to.equal(5)
     })
-    it('views', () => {
-      let x = {
-        a: 1,
-        b: 2,
+    it('domLens.checkboxValues', () => {
+      let state = {
+        a: ['x', 'y', 'z'],
       }
-      expect(F.views('a', x)()).to.equal(1)
+      // Props for if `x` is in the list
+      let props = F.domLens.checkboxValues('x', 'a', state)
+      expect(props.checked).to.equal(true)
+      // uncheck
+      props.onChange({ target: { value: false } })
+      expect(_.includes('a', state.a)).to.be.false
     })
-    it('set', () => {
-      let x = {
-        a: 1,
-        b: 2,
+    it('domLens.hover', () => {
+      let state = {
+        hovering: false,
       }
-      F.set(5, 'a', x)
-      expect(x.a).to.equal(5)
+      let props = F.domLens.hover('hovering', state)
+      props.onMouseEnter()
+      expect(state.hovering).to.be.true
+      props.onMouseLeave()
+      expect(state.hovering).to.be.false
     })
-    it('sets', () => {
-      let x = {
-        a: 1,
-        b: 2,
+    it('domLens.focus', () => {
+      let state = {
+        focusing: false,
       }
-      F.sets(5, 'a', x)()
-      expect(x.a).to.equal(5)
+      let props = F.domLens.focus('focusing', state)
+      props.onFocus()
+      expect(state.focusing).to.be.true
+      props.onBlur()
+      expect(state.focusing).to.be.false
     })
-    it('flip', () => {
-      let object = {
-        a: 1,
-      }
-      F.flip('a', object)()
-      expect(object.a).to.equal(false)
+    it('domLens.targetBinding', () => {
+      let state = { color: 'red' }
+      let props = F.domLens.targetBinding('x')('color', state)
+      expect(props.x).to.equal('red')
+      props.onChange({ target: { x: 'green' } })
+      expect(state.color).to.equal('green')
+      // should handle objects with `target` as an inherited property
+      function Event() {}
+      Event.prototype.target = {}
+      Event.prototype.target.x = 'blue'
+      props.onChange(new Event())
+      expect(state.color).to.equal('blue')
+      // should handle targetless arguments
+      props.onChange('purple')
+      expect(state.color).to.equal('purple')
     })
-    it('on', () => {
-      let object = {
-        a: 1,
+    it('domLens.binding', () => {
+      let state = {
+        selectedItem: 'item1',
       }
-      F.on('a', object)()
-      expect(object.a).to.equal(true)
-    })
-    it('off', () => {
-      let object = {
-        a: 1,
-      }
-      F.off('a', object)()
-      expect(object.a).to.equal(false)
+      let weirdSelect = F.domLens.binding('selected', e => e.newSelectedValue)
+      let props = weirdSelect('selectedItem', state)
+      expect(props.selected).to.equal('item1')
+      props.onChange({ newSelectedValue: 'newItem' })
+      expect(state.selectedItem).to.equal('newItem')
     })
   })
+  it('stateLens -pending', () => {})
   describe('additional implicit lens formats', () => {
     it('arrayLens', () => {
       let arrayLens = val => {
@@ -225,83 +278,6 @@ describe('Lens Functions', () => {
       expect(object.a).to.be.false
       F.flip(get, set)()
       expect(object.a).to.be.true
-    })
-  })
-  describe('domLens', () => {
-    it('value', () => {
-      let state = {
-        a: 1,
-      }
-      let props = F.domLens.value('a', state)
-      expect(props.value).to.equal(1)
-      props.onChange({ target: { value: 5 } })
-      expect(state.a).to.equal(5)
-    })
-    it('non-native value', () => {
-      let state = {
-        a: 1,
-      }
-      let props = F.domLens.value('a', state)
-      expect(props.value).to.equal(1)
-      props.onChange(5)
-      expect(state.a).to.equal(5)
-    })
-    it('checkboxValues', () => {
-      let state = {
-        a: ['x', 'y', 'z'],
-      }
-      // Props for if `x` is in the list
-      let props = F.domLens.checkboxValues('x', 'a', state)
-      expect(props.checked).to.equal(true)
-      // uncheck
-      props.onChange({ target: { value: false } })
-      expect(_.includes('a', state.a)).to.be.false
-    })
-    it('hover', () => {
-      let state = {
-        hovering: false,
-      }
-      let props = F.domLens.hover('hovering', state)
-      props.onMouseEnter()
-      expect(state.hovering).to.be.true
-      props.onMouseLeave()
-      expect(state.hovering).to.be.false
-    })
-    it('focus', () => {
-      let state = {
-        focusing: false,
-      }
-      let props = F.domLens.focus('focusing', state)
-      props.onFocus()
-      expect(state.focusing).to.be.true
-      props.onBlur()
-      expect(state.focusing).to.be.false
-    })
-    it('targetBinding', () => {
-      let state = { color: 'red' }
-      let props = F.domLens.targetBinding('x')('color', state)
-      expect(props.x).to.equal('red')
-      props.onChange({ target: { x: 'green' } })
-      expect(state.color).to.equal('green')
-      // should handle objects with `target` as an inherited property
-      function Event() {}
-      Event.prototype.target = {}
-      Event.prototype.target.x = 'blue'
-      props.onChange(new Event())
-      expect(state.color).to.equal('blue')
-      // should handle targetless arguments
-      props.onChange('purple')
-      expect(state.color).to.equal('purple')
-    })
-    it('binding', () => {
-      let state = {
-        selectedItem: 'item1',
-      }
-      let weirdSelect = F.domLens.binding('selected', e => e.newSelectedValue)
-      let props = weirdSelect('selectedItem', state)
-      expect(props.selected).to.equal('item1')
-      props.onChange({ newSelectedValue: 'newItem' })
-      expect(state.selectedItem).to.equal('newItem')
     })
   })
 })
