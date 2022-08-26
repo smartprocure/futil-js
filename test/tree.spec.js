@@ -29,8 +29,8 @@ describe('Tree Functions', () => {
         c: 2,
       },
     }
-    let values = []
     it('pre-order traversal', () => {
+      let values = []
       F.walk()(tree => {
         values.push(tree)
       })(x)
@@ -206,7 +206,16 @@ describe('Tree Functions', () => {
     }
     expect(F.leaves()(x)).to.deep.equal([1, 2])
   })
-  it('treeLookup -pending', () => {})
+  it.only('treeLookup -pending', () => {
+    let x = {
+      a: 1,
+      b: {
+        c: 3,
+      }
+    }
+    expect(F.treeLookup()('c')(x)).to.deep.equal({c: 3})
+    //that's as far as I got. I would have thought that ('a')(x) would have also work, but it doesn't
+  })
   it('keyTreeByWith -pending', () => {})
   it('treeKeys -pending', () => {})
   it('treeValues -pending', () => {})
