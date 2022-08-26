@@ -24,13 +24,17 @@ describe('Regexp Functions', () => {
 
     expect(F.makeAndTest(options)(reText)(text)).to.deep.equal(regex.test(text))
   })
-  
+
   it('anyWordToRegexp', () => {
-    expect(F.anyWordToRegexp('Any word to regexp')).to.deep.equal('Any|word|to|regexp')
+    expect(F.anyWordToRegexp('Any word to regexp')).to.deep.equal(
+      'Any|word|to|regexp'
+    )
   })
 
   it('wordsToRegexp', () => {
-    expect(F.wordsToRegexp('my three words')).to.deep.equal('.*(?=.*my.*)(?=.*three.*)(?=.*words.*).*')
+    expect(F.wordsToRegexp('my three words')).to.deep.equal(
+      '.*(?=.*my.*)(?=.*three.*)(?=.*words.*).*'
+    )
   })
 
   it('matchAllWords', () => {
@@ -88,7 +92,7 @@ describe('Posting Highlight Functions', () => {
   describe('highlightFromPostings', () => {
     let start = '<span class="highlight">'
     let end = '</span>'
-          
+
     it('highlightFromPostings', () => {
       let input = 'pretty please'
       let postings = F.postings(RegExp('p', 'gi'), input)
@@ -113,7 +117,7 @@ describe('Posting Highlight Functions', () => {
           input
         )
       ).to.equal(expected)
-      })
+    })
   })
   describe('highlight', () => {
     it('highlight', () => {
