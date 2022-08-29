@@ -251,7 +251,6 @@ describe('Lens Functions', () => {
       expect(state.selectedItem).to.equal('newItem')
     })
   })
-  it('stateLens -pending', () => {})
   describe('additional implicit lens formats', () => {
     it('arrayLens', () => {
       let arrayLens = val => {
