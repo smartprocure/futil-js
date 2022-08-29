@@ -52,7 +52,12 @@ describe('Lens Functions', () => {
       ld.set(5)
       expect(ld.get()).to.equal(5)
     })
-    it('lensOf -pending', () => {})
+    it('lensOf', () => {
+      let object = { a: 1 }
+      let lens = F.lensOf(object)
+      lens.a.set(8)
+      expect(lens.a.get()).to.deep.equal(8)
+    })
     it('includeLens', () => {
       let object = {
         arr: ['a', 'b', 'c', 'd'],
