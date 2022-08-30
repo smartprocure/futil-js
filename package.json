@@ -23,6 +23,8 @@
     "docsfolder": "node -r esm ./scripts/docs-folder.js",
     "prejsdoc": "npm run docsfolder",
     "jsdoc": "jsdoc -X ./src > ./docs/data/jsdoc.json",
+    "predocs": "npm run jsdoc",
+    "docs": "node -r esm ./scripts/generate-docs.js",
   },
   "author": {
     "name": "Samuel Greene",
