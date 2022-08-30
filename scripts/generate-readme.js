@@ -31,7 +31,7 @@ ${signature(doc.signature)}${doc.description}${example(doc.example)}${note(
 )
 
 let run = async () => {
-  let readmeHeader = await readFile('./scripts/readme-header.md')
+  let readmeHeader = await readFile('./scripts/readme-preamble.md')
   let markdown = `${readmeHeader}\n# API${apiDocs(docs)}`
   return writeFile('./README.md', markdown, { flag: 'w' })
 }
