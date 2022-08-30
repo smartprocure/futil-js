@@ -24,21 +24,21 @@ export let isNotNil = _.negate(_.isNil)
 
 /**
  * Negated `_.isNil`
- * 
+ *
  * @aliases isNotNil
  */
 export let exists = isNotNil
 
 /**
  * Returns true if the input has a `length` property > 1, such as arrays, strings, or custom objects with a lenth property
- * 
+ *
  * @signature (Array<T> | string | {length}) -> bool
  */
 export let isMultiple = x => (x || []).length > 1
 
 /**
  * A curried, flipped `_.add`. The flipping matters for strings, e.g. `F.append('a')('b') -> 'ba'`
- * 
+ *
  * @signature (a, b) => b + a
  */
 export let append = _.curry((x, y) => y + x)
@@ -47,7 +47,7 @@ export let append = _.curry((x, y) => y + x)
 
 /**
  * Designed to determine if something has a meaningful value, like a ux version of truthiness. It's false for everything except null, undefined, '', [], and {}. Another way of describing it is that it's the same as falsiness except 0 and false are truthy and {} is falsey. Useful for implementing "required" validation rules.
- * 
+ *
  * @signature x -> bool
  */
 export let isBlank = _.overSome([
@@ -59,14 +59,14 @@ export let isBlank = _.overSome([
 
 /**
  * Opposite of `isBlank`
- * 
+ *
  * @signature x -> bool
  */
 export let isNotBlank = _.negate(isBlank)
 
 /**
  * Recurses through an object's leaf properties and passes an array of booleans to the combinator, such as `_.some`, `_.every`, and `F.none`
- * 
+ *
  * @signature f -> x -> bool
  */
 export let isBlankDeep = combinator => x =>

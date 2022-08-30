@@ -17,21 +17,21 @@ const noCap = _.convert({ cap: false })
 
 /**
  * Creates an object with a key and value.
- * 
+ *
  * @signature (k, v) -> {k: v}
  */
 export const singleObject = _.curry((key, value) => ({ [key]: value }))
 
 /**
  * Flipped version of `singleObject`.
- * 
+ *
  * @signature (v, k) -> {k: v}
  */
 export const singleObjectR = _.flip(singleObject)
 
 /**
  * Breaks an object into an array of objects with one key each.
- * 
+ *
  * @signature ({a, b}) -> [{a}, {b}]
  */
 export const chunkObject = value =>
@@ -39,7 +39,7 @@ export const chunkObject = value =>
 
 /**
  * Remove properties with falsey values.
- * 
+ *
  * @example ({ a: 1, b: null, c: false }) -> {a:1}
  */
 export const compactObject = _.pickBy(_.identity)
@@ -56,7 +56,7 @@ export const isNotEmptyObject = _.negate(isEmptyObject)
 
 /**
  * Omit properties whose values are empty objects.
- * 
+ *
  * @note (*TODO* rename to `omitEmptyObjects`)
  * @example { a:1, b:{}, c:2 } -> {a:1, c:2}
  */
@@ -71,10 +71,9 @@ export const stripEmptyObjects = _.pickBy(isNotEmptyObject)
  */
 export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 
-
 /**
  * Rename a property on an object.
- * 
+ *
  * @signature sourcePropertyName -> targetPropertyName -> sourceObject -> sourceObject
  * @example renameProperty('a', 'b', { a: 1 }) -> { b: 1 }
  */
@@ -86,7 +85,7 @@ export const renameProperty = _.curry((from, to, target) =>
 
 /**
  * Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property or a property whose value is not an array returns an empty array.
- * 
+ *
  * @signature k -> { k: [a, b] } -> [{ k: a }, { k: b }]
  * @example F.unwind('b', [{ a: true, b: [1, 2] }])
  *       //=> [{ a: true, b: 1 }, { a: true, b: 2 }]
@@ -102,7 +101,7 @@ export const unwind = _.curry((prop, x) =>
 
 /**
  * Unwinds an array of objects instead of a single object, as you might expect if you're used to mongo's `$unwind`. Alias for `(key, data) => _.flatMap(F.unwind(key), data)`
- * 
+ *
  * @signature k -> [{ k: [a, b] }] -> [{ k: a }, { k: b }]
  * @example F.unwindArray('b', [{ a: true, b: [1, 2] }, { a: false, b: [3, 4] }])
  * //=> [
@@ -118,7 +117,7 @@ export const isFlatObject = overNone([_.isPlainObject, _.isArray])
 
 /**
  * Flatten an object with the paths for keys.
- * 
+ *
  * @example { a: { b: { c: 1 } } } => { 'a.b.c' : 1 }
  */
 export const flattenObject = (input, paths) =>
@@ -137,7 +136,7 @@ export const flattenObject = (input, paths) =>
 
 /**
  * Unlatten an object with the paths for keys.
- * 
+ *
  * @example { 'a.b.c' : 1 } => { a: { b: { c: 1 } } }
  */
 export const unflattenObject = x => _.zipObjectDeep(_.keys(x), _.values(x))
@@ -164,7 +163,7 @@ export const compareDeep = _.curry(
 
 /**
  * _Deprecated in favor of lodash `update`_ Applies a map function at a specific path
- * 
+ *
  * @example mapProp(double, 'a', {a: 2, b: 1}) -> {a: 4, b: 1}
  * @deprecated 1.46.0
  */
@@ -225,7 +224,7 @@ export let cascadeProp = _.curry((paths, obj) =>
 
 /**
  * Opposite of `_.keyBy`. Creates an array from an object where the key is merged into the values keyed by `newKey`.
- * 
+ *
  * @signature newKey -> {a:x, b:y} -> [{...x, newKey: a}, {...y, newKey: b}]
  * @note Passing a falsy value other than `undefined` for `newKay` will result in each object key being pushed into its corresponding return array member with itself as value, e.g. `F.unkeyBy('')({ a: { status: true}, b: { status: false }) -> [{ status: true, a: 'a' }, { status: false, b: 'b' }]`. Passing `undefined` will return another instance of F.unkeyBy.
  * @example F.unkeyBy('_key')({ a: { status: true}, b: { status: false }) -> [{ status: true, _key: 'a' }, { status: false, _key: 'b' }]
@@ -236,7 +235,7 @@ export let unkeyBy = _.curry((keyName, obj) =>
 
 /**
  * Produces a simple flattened (see `flattenObject`) diff between two objects. For each (flattened) key, it produced a `from` and a `to` value. Note that this will omit any values that are not present in the deltas object.
- * 
+ *
  * @signature (from, to) -> simpleDiff
  */
 export let simpleDiff = (original, deltas) => {
@@ -250,14 +249,14 @@ export let simpleDiff = (original, deltas) => {
 
 /**
  * Same as `simpleDiff`, but produces an array of `{ field, from, to }` objects instead of `{ field: { from, to } }`
- * 
+ *
  * @signature (from, to) -> [simpleDiffChanges]
  */
 export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
 
 /**
  * Same as `simpleDiff`, but also takes in count deleted properties.
- * 
+ *
  * @signature (from, to) -> diff
  * @note We're considering not maintaining this in the long term, so you might probably have more success with any existing library for this purpose.
  */
@@ -272,7 +271,7 @@ export let diff = (original, deltas) => {
 
 /**
  * Same as `simpleDiffArray`, but also takes in count deleted properties.
- * 
+ *
  * @signature (from, to) -> [diffChanges]
  * @note We're considering not maintaining this in the long term, so you might probably have more success with any existing library for this purpose.
  */
@@ -301,7 +300,7 @@ export let mergeAllArrays = _.mergeAllWith(mergeArrays)
 
 /**
  * Similar to `_.invert`, but expands arrays instead of converting them to strings before making them keys.
- * 
+ *
  * @signature { a: [x, y, z], b: [x] } -> { x: [a, b], y: [a], z: [a] }
  */
 export let invertByArray = _.flow(
@@ -311,13 +310,12 @@ export let invertByArray = _.flow(
 
 /**
  * Iterates over object properties and stamps their keys on the values in the field name provided.
- * 
+ *
  * @signature key -> { a: { x: 1 }, b: { y: 2 } } -> { a: { x: 1, key: 'a' }, b: { y: 2, key: 'b' } }
  */
 export const stampKey = _.curry((key, x) =>
   mapValuesIndexed((val, k) => ({ ...val, [key]: k }), x)
 )
-
 
 /**
  * `_.omitBy` using `_.isNil` as function argument.
@@ -341,7 +339,7 @@ export let omitEmpty = x => _.omitBy(_.isEmpty, x)
 
 /**
  * Composition of `_.over` and `_.mergeAll`. Takes an array of functions and an arbitrary number of arguments, calls each function with those arguments, and merges the results. Can be called with `mergeOverAll([f, g], x, y)` or `mergeOverAll([f, g])(x, y)`.
- * 
+ *
  * @signature ([f, g], ...args) -> {...f(...args), ...g(...args)}
  * @note For functions that do not return objects, `_.merge`'s behavior is followed: for strings and arrays, the indices will be converted to keys and the result will be merged, and for all other primitives, nothing will be merged.
  */
@@ -351,7 +349,7 @@ export let mergeOverAll = _.curryN(2, (fns, ...x) =>
 
 /**
  * A customizable `mergeOverAll` that takes a function of the form `(objValue, srcValue) -> newValue` as its first argument; see [`_.mergeWith`](https://lodash.com/docs/latest#mergeWith). Both the customizer and array of functions can be partially applied.
- * 
+ *
  * @signature (customizer, [f, g], ...args) -> {...f(...args), ...g(...args)}
  */
 export let mergeOverAllWith = _.curryN(3, (customizer, fns, ...x) =>
@@ -360,14 +358,14 @@ export let mergeOverAllWith = _.curryN(3, (customizer, fns, ...x) =>
 
 /**
  * A customized `mergeOverAll` that applies the array-merging behavior of `mergeAllArrays`.
- * 
+ *
  * @signature ([f, g], ...args) -> {...f(...args), ...g(...args)}
  */
 export let mergeOverAllArrays = mergeOverAllWith(mergeArrays)
 
 /**
  * Like `_.get`, but accepts a customizer function which is called on the value to transform it before it is returned. Argument order is `(customizer, path, object)`.
- * 
+ *
  * @signature (x -> y) -> k -> {k: x} -> y
  */
 export let getWith = _.curry((customizer, path, object) =>
@@ -376,7 +374,7 @@ export let getWith = _.curry((customizer, path, object) =>
 
 /**
  * Accepts a transform function and an object. Returns the result of applying the transform function to the object, merged onto the original object. `expandObject(f, obj)` is equivalent to `mergeOverAll([_.identity, f], obj)`.
- * 
+ *
  * @signature (transform: obj -> newObj) -> obj -> { ...obj, ...newObj }
  */
 export let expandObject = _.curry((transform, obj) => ({
@@ -386,7 +384,7 @@ export let expandObject = _.curry((transform, obj) => ({
 
 /**
  * Expands an object by transforming the value at a single key into a new object, and merging the result with the original object. Similar to `expandObject`, but the argument order is `(key, transform, object)`, and the transform function is called on the value at that key instead of on the whole object.
- * 
+ *
  * @signature key -> (transform: x -> newObj) -> (obj: { key: x }) -> { ...obj, ...newObj }
  */
 export let expandObjectBy = _.curry((key, fn, obj) =>
@@ -395,7 +393,7 @@ export let expandObjectBy = _.curry((key, fn, obj) =>
 
 /**
  * Takes two objects and returns the keys they have in common
- * 
+ *
  * @signature (x, y) -> [keys]
  */
 export let commonKeys = _.curryN(2, mapArgs(_.keys, _.intersection))
@@ -403,7 +401,7 @@ let findKeyIndexed = _.findKey.convert({ cap: false })
 
 /**
  * Takes two objects and returns the first key in `y` that x also has
- * 
+ *
  * @signature (x, y) -> key
  */
 export let firstCommonKey = _.curry((x, y) =>

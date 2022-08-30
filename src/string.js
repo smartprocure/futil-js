@@ -10,7 +10,7 @@ export const quote = _.partial(wrap, ['"', '"'])
 
 /**
  * Wraps a string in parenthesis.
- * 
+ *
  * @signature 'asdf' -> '(asdf)'
  */
 export const parens = _.partial(wrap, ['(', ')'])
@@ -18,21 +18,21 @@ export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
 
 /**
  * Maps `_.trim` through all the strings of a given object or array.
- * 
+ *
  */
 export const trimStrings = map(when(_.isString, _.trim))
 
 // _.startCase does the trick, deprecate it!
 /**
  * Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support.
- * 
+ *
  * @signature string -> string
  */
 export let autoLabel = _.startCase
 
 /**
  * Creates a `{value, label}` which applies `autoLabel` the string parameter on puts it on the label property, with the original on the value property. You can also pass in an object with value or with both value and label.
- * 
+ *
  * @signature string -> {value:string, label:string}
  */
 export let autoLabelOption = a => ({
@@ -42,14 +42,14 @@ export let autoLabelOption = a => ({
 
 /**
  * Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
- * 
+ *
  * @signature [string] -> [{value:string, label:string}]
  */
 export let autoLabelOptions = _.map(autoLabelOption)
 
 /**
  * Just like `toSentence`, but with the ability to override the `separator` and `lastSeparator`
- * 
+ *
  * @signature (separator, lastSeparator, array) => string
  * @example (' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'
  */
@@ -67,7 +67,7 @@ export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
 
 /**
  * Joins an array into a human readable string. See https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
- * 
+ *
  * @signature array => string
  * @example ['a', 'b', 'c'] -> 'a, b and c'
  */
@@ -105,10 +105,9 @@ export let uniqueStringWith = _.curry((cachizer, initialKeys) => {
   return f
 })
 
-
 /**
  * Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to read and clear the cache, respectively.
- * 
+ *
  * @signature array -> string -> string
  * @example let dedupe = uniqueString()
  * _.map(dedupe, ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']

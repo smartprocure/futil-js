@@ -4,21 +4,21 @@ import { insertAtIndex } from './collection'
 
 /**
  * Just like ramda test, creates a function to test a regex on a string.
- * 
+ *
  * @signature regex -> string -> bool
  */
 export const testRegex = _.curry((regex, str) => new RegExp(regex).test(str))
 
 /**
  * A curried implementation of `RegExp` construction.
- * 
+ *
  * @signature options:string -> string -> regex
  */
 export const makeRegex = options => text => RegExp(text, options)
 
 /**
  * Makes and tests a RegExp with makeRegex and testRegex.
- * 
+ *
  * @signature options:string -> string -> (string -> bool)
  */
 export const makeAndTest = options => _.flow(makeRegex(options), testRegex)
@@ -38,26 +38,23 @@ const matchWords = _.curry((buildRegex, x) => {
   return y => !!(y && y.match(regexp))
 })
 
-
 /**
  * Returns true if the second string matches all of the words in the first string.
- * 
+ *
  * @signature string -> string -> bool
  */
 export const matchAllWords = matchWords(wordsToRegexp)
 
-
 /**
  * Returns true if the second string matches any of the words in the first string.
- * 
+ *
  * @signature string -> string -> bool
  */
 export const matchAnyWord = matchWords(anyWordToRegexp)
 
-
 /**
  * Returns an array of matches with start/end data
- * 
+ *
  * @signature regex -> string -> [{text: string, start: number, end: number}]
  * @example F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]
  */
@@ -77,10 +74,9 @@ export const allMatches = _.curry((regexStr, str) => {
   return result
 })
 
-
 /**
  * Returns an array of postings (position ranges) for a regex and string to test, e.g. `F.postings(/a/g, 'vuhfaof') -> [[4, 5]]`
- * 
+ *
  * @signature regex -> string -> [[number, number]]
  */
 export const postings = _.curry((regex, str) => {
@@ -99,7 +95,7 @@ export const postings = _.curry((regex, str) => {
 
 /**
  * Takes a string of words and a string to test, and returns an array of arrays of postings for each word.
- * 
+ *
  * @signature words -> string -> [[[number, number]]]
  * @example F.postingsForWords('she lls', 'she sells sea shells')
  * // [
@@ -127,7 +123,7 @@ export const highlightFromPostings = _.curry((start, end, postings, str) => {
 
 /**
  * Wraps the matches for `pattern` found in `input` with the strings `start` and `end`. The `pattern` argument can either be a string of words to match, or a regular expression.
- * 
+ *
  * @signature start -> end -> pattern -> input -> highlightedInput
  * @example let braceHighlight = F.highlight('{', '}')
  * braceHighlight('l o', 'hello world') //-> "he{llo} w{o}r{l}d"
