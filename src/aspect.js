@@ -2,14 +2,14 @@
  * Aspects provide a functional oriented implementation of Aspect Oriented Programming.
  * An aspect wraps a function and allows you run code at various points like before and after execution.
  * Notably, aspects in this library allow you to have a shared state object between aspects and are very useful for automating things like status indicators, etc on functions.
- * 
+ *
  * There is a _lot_ of prior art in the javascript world, but most of it assumes a vaguely object oriented context.
  * The implementation in `futil-js` is done in just 20 lines of code and seems to capture all of the use cases of AOP.
- * 
+ *
  * **Note**: To do OO style AOP with this these aspects, just use lodash's `_.update` method and optionally `boundMethod` from `futil` if `this` matters
- * 
+ *
  * **Caveat**: While you can and should compose (or `_.flow`) aspects together, don't put non aspects in the middle of the composition. Aspects rely on a `.state` property on the wrapped function that they propagate through, but the chain will break if a non-aspect is mixed in between. Additionally, if you need external access to the state, make sure the aspects are the outer most part of the composition so the `.state` property will be available on the result of the composition.
- * 
+ *
  * There are a few basic aspects included on `F.aspects` (E.g. `var loggedFunc = F.aspect(F.aspects.logs)(func)`) because they seem to be universally useful.
  * All of the provided aspects take an `extend` function to allow customizing the state mutation method (e.g. in mobx, you'd use `extendObservable`).
  * If null, they default to `defaultsOn` from `futil-js` - check the unit tests for example usage.
@@ -86,10 +86,9 @@ export let aspect = ({
   return x[name]
 }
 
-
 /**
  * This is a synchronous version of `aspect`, for situations when it's not desirable to `await` a method you're adding aspects to. The API is the same, but things like `onError` won't work if you pass an async function to the aspect.
- * 
+ *
  * @tags aspect
  */
 export let aspectSync = ({
@@ -211,56 +210,56 @@ let deprecate = (subject, version, alternative) =>
 export let aspects = {
   /**
    * Logs adds a `logs` array to the function state and just pushes in results on each run
-   * 
+   *
    * @tags aspect
    */
   logs,
-  
+
   /**
    * Captures any exceptions thrown and set it on an `error` error it puts on state
-   * 
+   *
    * @tags aspect
    */
   error,
 
   /**
    * Captures any exceptions thrown and pushes them sequentially into an `errors` array it puts on state
-   * 
+   *
    * @tags aspect
    */
   errors,
-  
+
   /**
    * Adds a `status` property that is set to `processing` before the wrapped function runs and `succeeded` when it's done or `failed` if it threw an exception. Also adds shortcuts on state for `processing`, `succeeded`, and `failed`, which are booleans which are based on the value of `status`. Also adds a `setStatus` method which is used internally to update these properties.
-   * 
+   *
    * @tags aspect
    */
   status,
-  
+
   /**
    * Utility for marking functions as deprecated - it's just a `before` with a console.warn. Takes the name of thing being deprecated, optionally deprecation version, and optionally an alternative and returns a higher order function which you can wrap deprecated methods in. This is what's used internally to mark deprecations. Includes a partial stack trace as part of the deprecation warning.
-   * 
+   *
    * @tags aspect
    */
   deprecate,
-  
+
   /**
    * Sets `status` to null after provided timeout (default is 500ms) elapses. If a null timeout is passed, it will never set status to null.
-   * 
+   *
    * @tags aspect
    */
   clearStatus,
-  
+
   /**
    * Prevents a function from running if it's state has `processing` set to true at the time of invocation
-   * 
+   *
    * @tags aspect
    */
   concurrency,
-  
+
   /**
    * Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `extend` and `timeout` as optional parameters to construct the aspect
-   * 
+   *
    * @tags aspect
    */
   command,

@@ -47,3 +47,6 @@ browser-results.json
 
 #OS X
 .DS_Store
+
+# Generated docs data
+docs/data

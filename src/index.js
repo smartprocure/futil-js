@@ -33,7 +33,7 @@ import * as iterators from './iterators'
 
 /**
  * Returns true if number is greater than one.
- * 
+ *
  * @signature number -> bool
  * @tags math
  */
@@ -44,7 +44,7 @@ export const greaterThanOne = _.lt(1)
 
 /**
  * A utility that checks if the argument passed in is of type promise
- * 
+ *
  * @signature x -> bool
  * @tags lang
  */

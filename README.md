@@ -1,3 +1,5 @@
+> **NOTE** This file is generated from jsdoc, do not edit directly. Instead, run `npm run docs`
+
 <a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
@@ -705,9 +707,11 @@ Tap error will run the provided function and then throw the first argument. It's
 Negated `_.isNil`
 
 ### isMultiple
+`(Array<T> | string | {length}) -> bool`
 Returns true if the input has a `length` property > 1, such as arrays, strings, or custom objects with a lenth property
 
 ### append
+`(a, b) => b + a`
 A curried, flipped `_.add`. The flipping matters for strings, e.g. `F.append('a')('b') -> 'ba'`
 
 ### isBlank
