@@ -707,9 +707,11 @@ Tap error will run the provided function and then throw the first argument. It's
 Negated `_.isNil`
 
 ### isMultiple
+`(Array<T> | string | {length}) -> bool`
 Returns true if the input has a `length` property > 1, such as arrays, strings, or custom objects with a lenth property
 
 ### append
+`(a, b) => b + a`
 A curried, flipped `_.add`. The flipping matters for strings, e.g. `F.append('a')('b') -> 'ba'`
 
 ### isBlank
