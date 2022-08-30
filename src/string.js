@@ -12,7 +12,6 @@ export const quote = _.partial(wrap, ['"', '"'])
  * Wraps a string in parenthesis.
  * 
  * @signature 'asdf' -> '(asdf)'
- * @tags string
  */
 export const parens = _.partial(wrap, ['(', ')'])
 export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
@@ -20,7 +19,6 @@ export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
 /**
  * Maps `_.trim` through all the strings of a given object or array.
  * 
- * @tags string
  */
 export const trimStrings = map(when(_.isString, _.trim))
 
@@ -29,7 +27,6 @@ export const trimStrings = map(when(_.isString, _.trim))
  * Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support.
  * 
  * @signature string -> string
- * @tags string
  */
 export let autoLabel = _.startCase
 
@@ -37,7 +34,6 @@ export let autoLabel = _.startCase
  * Creates a `{value, label}` which applies `autoLabel` the string parameter on puts it on the label property, with the original on the value property. You can also pass in an object with value or with both value and label.
  * 
  * @signature string -> {value:string, label:string}
- * @tags string
  */
 export let autoLabelOption = a => ({
   value: when(_.isUndefined, a)(a.value),
@@ -48,7 +44,6 @@ export let autoLabelOption = a => ({
  * Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
  * 
  * @signature [string] -> [{value:string, label:string}]
- * @tags string
  */
 export let autoLabelOptions = _.map(autoLabelOption)
 
@@ -57,7 +52,6 @@ export let autoLabelOptions = _.map(autoLabelOption)
  * 
  * @signature (separator, lastSeparator, array) => string
  * @example (' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'
- * @tags string
  */
 export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
   _.flow(
@@ -76,7 +70,6 @@ export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
  * 
  * @signature array => string
  * @example ['a', 'b', 'c'] -> 'a, b and c'
- * @tags string
  */
 export let toSentence = toSentenceWith(', ', ' and ')
 
@@ -92,7 +85,6 @@ Like `uniqueString`, the resulting deduplication function exposes `cache` and `c
  * let dedupe = uniqueStringStripDigits(['foo', 'foo42', 'foo3000'])
  * dedupe('foo')  //-> 'foo3'
  * uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
- * @tags string
  */
 export let uniqueStringWith = _.curry((cachizer, initialKeys) => {
   let f = x => {
@@ -124,7 +116,6 @@ export let uniqueStringWith = _.curry((cachizer, initialKeys) => {
  * dedupe.clear()
  * dedupe.cache  //-> {}
  * dedupe('foo')  //-> 'foo'
- * @tags string
  */
 export let uniqueString = (arr = []) =>
   uniqueStringWith(_.countBy(_.identity), arr)

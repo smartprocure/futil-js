@@ -6,7 +6,6 @@ import { insertAtIndex } from './collection'
  * Just like ramda test, creates a function to test a regex on a string.
  * 
  * @signature regex -> string -> bool
- * @tags regex
  */
 export const testRegex = _.curry((regex, str) => new RegExp(regex).test(str))
 
@@ -14,7 +13,6 @@ export const testRegex = _.curry((regex, str) => new RegExp(regex).test(str))
  * A curried implementation of `RegExp` construction.
  * 
  * @signature options:string -> string -> regex
- * @tags regex
  */
 export const makeRegex = options => text => RegExp(text, options)
 
@@ -22,7 +20,6 @@ export const makeRegex = options => text => RegExp(text, options)
  * Makes and tests a RegExp with makeRegex and testRegex.
  * 
  * @signature options:string -> string -> (string -> bool)
- * @tags regex
  */
 export const makeAndTest = options => _.flow(makeRegex(options), testRegex)
 
@@ -46,7 +43,6 @@ const matchWords = _.curry((buildRegex, x) => {
  * Returns true if the second string matches all of the words in the first string.
  * 
  * @signature string -> string -> bool
- * @tags regex
  */
 export const matchAllWords = matchWords(wordsToRegexp)
 
@@ -55,7 +51,6 @@ export const matchAllWords = matchWords(wordsToRegexp)
  * Returns true if the second string matches any of the words in the first string.
  * 
  * @signature string -> string -> bool
- * @tags regex
  */
 export const matchAnyWord = matchWords(anyWordToRegexp)
 
@@ -65,7 +60,6 @@ export const matchAnyWord = matchWords(anyWordToRegexp)
  * 
  * @signature regex -> string -> [{text: string, start: number, end: number}]
  * @example F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]
- * @tags regex
  */
 export const allMatches = _.curry((regexStr, str) => {
   let matched
@@ -88,7 +82,6 @@ export const allMatches = _.curry((regexStr, str) => {
  * Returns an array of postings (position ranges) for a regex and string to test, e.g. `F.postings(/a/g, 'vuhfaof') -> [[4, 5]]`
  * 
  * @signature regex -> string -> [[number, number]]
- * @tags regex
  */
 export const postings = _.curry((regex, str) => {
   var match = regex.exec(str)
@@ -113,7 +106,6 @@ export const postings = _.curry((regex, str) => {
  * //   [[0, 3], [14, 17]]
  * //   [[6, 9], [17, 20]]
  * // ]
- * @tags regex
  */
 export const postingsForWords = _.curry((string, str) =>
   _.reduce(
@@ -140,7 +132,6 @@ export const highlightFromPostings = _.curry((start, end, postings, str) => {
  * @example let braceHighlight = F.highlight('{', '}')
  * braceHighlight('l o', 'hello world') //-> "he{llo} w{o}r{l}d"
  * braceHighlight(/l+\w/, 'hello world') //-> "he{llo} wor{ld}"
- * @tags regex
  */
 export const highlight = _.curry((start, end, pattern, input) =>
   highlightFromPostings(
