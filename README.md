@@ -1,3 +1,5 @@
+**NOTE** This file is generated from jsdoc, do not edit directly
+
 <a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
