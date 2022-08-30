@@ -21,6 +21,8 @@
     "prepublish": "webpack",
     "rename": "node renamePackage",
     "docsfolder": "node -r esm ./scripts/docs-folder.js",
+    "prejsdoc": "npm run docsfolder",
+    "jsdoc": "jsdoc -X ./src > ./docs/data/jsdoc.json",
   },
   "author": {
     "name": "Samuel Greene",
