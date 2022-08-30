@@ -25,6 +25,8 @@
     "jsdoc": "jsdoc -X ./src > ./docs/data/jsdoc.json",
     "predocs": "npm run jsdoc",
     "docs": "node -r esm ./scripts/generate-docs.js",
+    "prereadme": "npm run docs",
+    "readme": "node -r esm ./scripts/generate-readme.js"
   },
   "author": {
     "name": "Samuel Greene",
