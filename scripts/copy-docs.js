@@ -1,3 +1,6 @@
+// This script exists to workaround create-react-app's limitation around importing outside /src
+// Once this moves out of docs/beta, we could just drive readme generation out of docs/src/data instead of docs/data and not copy
+
 import { copyFile, mkdir } from 'fs/promises'
 
 let run = async () => {
