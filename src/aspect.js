@@ -209,6 +209,12 @@ let deprecate = (subject, version, alternative) =>
           alternative ? ` in favor of \`${alternative}\`` : ''
         } ${_.trim((Error().stack || '').split('\n')[3])}`
       ),
+    init(state) {
+      state.isDeprecated = true
+      state.subject = subject
+      state.version = version
+      state.alternative = alternative
+    },
   })
 
 export let aspects = {
