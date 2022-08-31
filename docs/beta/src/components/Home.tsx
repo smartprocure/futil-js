@@ -56,10 +56,9 @@ let Logo = () => (
   <Image width={200} src={LogoDark} mb={8} />
 )
 
-let green = 'linear(to-r, #39b54a, #8dc63f)'
-// let green = 'linear(135deg, #39b54a, #8dc63f)'
+// let green = 'linear(to-r, #39b54a, #8dc63f)'
 // let blue = 'linear(to-r, #27aae1, #1c75bc)'
-let blue = 'linear(to-r, #1c75bc, #27aae1)'
+// let blue = 'linear(to-r, #1c75bc, #27aae1)'
 let gray = 'linear(to-b, gray.900, gray.700)'
 let lightGray = 'linear(225deg, gray.700, gray.900)'
 let Summary = ({ dispatch }) => (

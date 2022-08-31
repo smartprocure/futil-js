@@ -8,9 +8,13 @@ export let ignoreError = _.curryN(2, (f, ...args) => {
   } catch (e) {}
 })
 
+// `eval` is the only way to do this
+// eslint-disable-next-line 
+let suppressedEval = ignoreError(eval)
+
 // Needed because eval({ a:1 }) returns 1
-export let tolerantEval = x => ignoreError(eval, `(${x})`)
-export let tolerantArrayEval = x => ignoreError(eval, `[${x}]`)
+export let tolerantEval = x => suppressedEval(`(${x})`)
+export let tolerantArrayEval = x => suppressedEval(`[${x}]`)
 
 // Find _all_ keys that match
 export let findKeys = (f, obj) =>
