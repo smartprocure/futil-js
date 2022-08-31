@@ -30,7 +30,8 @@ export let exploreAPI = (lib, inputs, output, e = x => x) => {
   return findKeys(
     ignoreError(
       f =>
-        !f.isDeprecated && _.isEqual(F.maybeCall(f, ...inputValues), expected)
+        !_.get('state.isDeprecated', f) &&
+        _.isEqual(F.maybeCall(f, ...inputValues), expected)
     ),
     lib
   )

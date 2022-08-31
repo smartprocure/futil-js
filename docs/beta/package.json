@@ -16,7 +16,7 @@
     "@types/react-dom": "^18.0.5",
     "chakra-ui-markdown-renderer": "^4.1.0",
     "framer-motion": "^6.3.16",
-    "futil": "^1.69.0",
+    "futil": "^1.70.0",
     "jsdoc": "^3.6.11",
     "lodash": "^4.17.21",
     "ramda": "^0.28.0",
