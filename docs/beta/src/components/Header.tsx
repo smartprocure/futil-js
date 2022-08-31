@@ -49,7 +49,7 @@ let NavIcon = ({ name, icon, page, dispatch }) => (
     <IconButton
       size="md"
       fontSize="lg"
-      variant={page == name ? 'solid' : 'ghost'}
+      variant={page === name ? 'solid' : 'ghost'}
       onClick={() => dispatch({ page: name })}
       icon={icon}
       aria-label={_.startCase(name)}

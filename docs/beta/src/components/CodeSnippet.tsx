@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { vs2015, vs } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { useColorMode, useColorModeValue, Flex, Button } from '@chakra-ui/react'
@@ -19,7 +19,7 @@ let Runkit = ({
   //   let theme = useColorModeValue(undefined, 'untilted-6dtfo0ftb4ws')
   let theme = useColorModeValue('runkit-light', 'atom-dark')
 
-  let init = () => {
+  let init = useCallback(() => {
     if (!embed.current) {
       // @ts-ignore:next-line
       embed.current = window.RunKit.createNotebook({
@@ -31,8 +31,8 @@ let Runkit = ({
         theme,
       })
     }
-  }
-  useEffect(init, [])
+  }, [preamble, source, theme])
+  useEffect(init, [preamble, source, theme, init])
   useEffect(
     () => {
       if (embed.current) {
@@ -42,7 +42,7 @@ let Runkit = ({
         init()
       }
     },
-    [colorMode]
+    [colorMode, init]
   )
 
   return <div ref={ref} />
