@@ -9,7 +9,7 @@ export let ignoreError = _.curryN(2, (f, ...args) => {
 })
 
 // `eval` is the only way to do this
-// eslint-disable-next-line 
+// eslint-disable-next-line
 let suppressedEval = ignoreError(eval)
 
 // Needed because eval({ a:1 }) returns 1
@@ -28,7 +28,10 @@ export let exploreAPI = (lib, inputs, output, e = x => x) => {
   let inputValues = _.map(e, inputs)
   let expected = e(output)
   return findKeys(
-    ignoreError(f => _.isEqual(F.maybeCall(f, ...inputValues), expected)),
+    ignoreError(
+      f =>
+        !f.isDeprecated && _.isEqual(F.maybeCall(f, ...inputValues), expected)
+    ),
     lib
   )
 }
