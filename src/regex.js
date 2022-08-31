@@ -14,28 +14,28 @@ export const testRegex = _.curry((regex, str) => new RegExp(regex).test(str))
  *
  * @signature options:string -> string -> regex
  */
-export const makeRegex = options => text => RegExp(text, options)
+export const makeRegex = (options) => (text) => RegExp(text, options)
 
 /**
  * Makes and tests a RegExp with makeRegex and testRegex.
  *
  * @signature options:string -> string -> (string -> bool)
  */
-export const makeAndTest = options => _.flow(makeRegex(options), testRegex)
+export const makeAndTest = (options) => _.flow(makeRegex(options), testRegex)
 
 export const anyWordToRegexp = _.flow(_.words, _.join('|'))
 
 export const wordsToRegexp = _.flow(
   _.words,
-  _.map(x => `(?=.*${x}.*)`),
+  _.map((x) => `(?=.*${x}.*)`),
   _.join(''),
-  x => `.*${x}.*`
+  (x) => `.*${x}.*`
 )
 
 const matchWords = _.curry((buildRegex, x) => {
   // Not inlining so that we don't create the regexp every time
   const regexp = RegExp(buildRegex(x), 'gi')
-  return y => !!(y && y.match(regexp))
+  return (y) => !!(y && y.match(regexp))
 })
 
 /**
@@ -112,7 +112,7 @@ export const postingsForWords = _.curry((string, str) =>
 
 export const highlightFromPostings = _.curry((start, end, postings, str) => {
   let offset = 0
-  _.each(posting => {
+  _.each((posting) => {
     str = insertAtIndex(posting[0] + offset, start, str)
     offset += start.length
     str = insertAtIndex(posting[1] + offset, end, str)

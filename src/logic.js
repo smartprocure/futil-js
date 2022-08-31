@@ -9,7 +9,8 @@ import { exists } from './lang'
  */
 export const overNone = _.flow(_.overSome, _.negate)
 
-let boolIteratee = x => (_.isBoolean(x) || _.isNil(x) ? () => x : _.iteratee(x))
+let boolIteratee = (x) =>
+  _.isBoolean(x) || _.isNil(x) ? () => x : _.iteratee(x)
 
 /**
  * http://ramdajs.com/docs/#ifElse. The transform function T supports passing a boolean for `condition` as well as any valid argument of `_.iteratee`, e.g. `myBool = applyTest(x); F.ifElse(myBool, doSomething, doSomethingElse);`

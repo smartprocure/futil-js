@@ -47,15 +47,17 @@ import { when } from './logic'
 /**
  * Takes a value and returns a function lens for that value. Mostly used for testing and mocking purposes.
  */
-export let functionLens = val => (...x) => {
-  if (!x.length) return val
-  val = x[0]
-}
+export let functionLens =
+  (val) =>
+  (...x) => {
+    if (!x.length) return val
+    val = x[0]
+  }
 
 /**
  * Takes a value and returns a object lens for that value. Mostly used for testing and mocking purposes.
  */
-export let objectLens = val => ({
+export let objectLens = (val) => ({
   get: () => val,
 
   /**
@@ -73,7 +75,7 @@ export let objectLens = val => ({
 /**
  * Converts a function lens an object lens. Mostly used for testing and mocking purposes.
  */
-export let fnToObj = fn => ({
+export let fnToObj = (fn) => ({
   get: fn,
   set: fn,
 })
@@ -81,8 +83,10 @@ export let fnToObj = fn => ({
 /**
  * Converts an object lens to a function lens. Mostly used for testing and mocking purposes.
  */
-export let objToFn = lens => (...values) =>
-  values.length ? lens.set(values[0]) : lens.get()
+export let objToFn =
+  (lens) =>
+  (...values) =>
+    values.length ? lens.set(values[0]) : lens.get()
 
 // Lens Construction
 
@@ -108,7 +112,7 @@ export let lensProp = (field, source) => ({
 /**
  * Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`. Typically you would use the implicit `(key, object)` format instead.
  */
-export let lensOf = object =>
+export let lensOf = (object) =>
   _.reduce(
     (res, key) => {
       res[key] = lensProp(key, object)
@@ -126,7 +130,7 @@ export let lensOf = object =>
 export let includeLens = (value, ...lens) => ({
   get: () => _.includes(value, view(...lens)),
   // Uniq is to ensure multiple calls to set(true) don't push multiple times since this is about membership of a set
-  set: x => set(_.uniq(toggleElementBy(!x, value, view(...lens))), ...lens),
+  set: (x) => set(_.uniq(toggleElementBy(!x, value, view(...lens))), ...lens),
 })
 
 // Lens Manipulation
@@ -139,7 +143,7 @@ let construct = (...args) =>
       : lensProp(...args)
     : when(_.isArray, stateLens)(args[0])
 
-let read = lens => (lens.get ? lens.get() : lens())
+let read = (lens) => (lens.get ? lens.get() : lens())
 
 /**
  * Gets the value of the lens, regardless of its format
@@ -153,26 +157,39 @@ export let view = (...lens) => read(construct(...lens))
  *
  * @signature Lens -> (() -> object.propertyName)
  */
-export let views = (...lens) => () => view(...lens)
+export let views =
+  (...lens) =>
+  () =>
+    view(...lens)
 let write = (val, lens) => (lens.set ? lens.set(val) : lens(val))
 export let set = _.curryN(2, (val, ...lens) => write(val, construct(...lens)))
 
 /**
  * Creates a function that will set a lens with the provided value
  */
-export let sets = _.curryN(2, (val, ...lens) => () => set(val, ...lens))
+export let sets = _.curryN(
+  2,
+  (val, ...lens) =>
+    () =>
+      set(val, ...lens)
+)
 
 /**
  * Takes an iteratee and lens and creates a function that will set a lens with the result of calling the iteratee with the provided value
  */
-export let setsWith = _.curry((f, ...lens) => x =>
-  set(_.iteratee(f)(x), ...lens)
+export let setsWith = _.curry(
+  (f, ...lens) =>
+    (x) =>
+      set(_.iteratee(f)(x), ...lens)
 )
 
 /**
  * Takes a lens and negates its value
  */
-export let flip = (...lens) => () => set(!view(...lens), ...lens)
+export let flip =
+  (...lens) =>
+  () =>
+    set(!view(...lens), ...lens)
 
 /**
  * Returns a function that will set a lens to `true`
@@ -186,12 +203,14 @@ export let off = sets(false)
 
 // Lens Consumption
 // Map lens to dom event handlers
-let binding = (value, getEventValue) => (...lens) => ({
-  [value]: view(...lens),
-  onChange: setsWith(getEventValue, ...lens),
-})
+let binding =
+  (value, getEventValue) =>
+  (...lens) => ({
+    [value]: view(...lens),
+    onChange: setsWith(getEventValue, ...lens),
+  })
 // Dom events have relevent fields on the `target` property of event objects
-let targetBinding = field =>
+let targetBinding = (field) =>
   binding(field, when(_.hasIn(`target.${field}`), _.get(`target.${field}`)))
 
 export let domLens = {

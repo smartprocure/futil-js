@@ -14,32 +14,30 @@ import { push, dotEncoder, slashEncoder } from './array'
  *
  * @signature node -> bool
  */
-export let isTraversable = x => _.isArray(x) || _.isPlainObject(x)
+export let isTraversable = (x) => _.isArray(x) || _.isPlainObject(x)
 
 /**
  * The default traversal function used in other tree methods if you don't supply one. It returns false if it's not traversable or empty, and returns the object if it is.
  *
  * @signature node -> [...childNodes]
  */
-export let traverse = x => isTraversable(x) && !_.isEmpty(x) && x
+export let traverse = (x) => isTraversable(x) && !_.isEmpty(x) && x
 
 /**
  * A depth first search which visits every node returned by `traverse` recursively. Both `pre-order` and `post-order` traversals are supported (and can be mixed freely). `walk` also supports exiting iteration early by returning a truthy value from either the `pre` or `post` functions. The returned value is also the return value of `walk`. The pre, post, and traversal functions are passed the current node as well as the parent stack (where parents[0] is the direct parent).
  *
  * @signature traverse -> (pre, post=_.noop) -> tree -> x
  */
-export let walk = (next = traverse) => (
-  pre,
-  post = _.noop,
-  parents = [],
-  parentIndexes = []
-) => (tree, index) =>
-  pre(tree, index, parents, parentIndexes) ||
-  findIndexed(
-    walk(next)(pre, post, [tree, ...parents], [index, ...parentIndexes]),
-    next(tree, index, parents, parentIndexes) || []
-  ) ||
-  post(tree, index, parents, parentIndexes)
+export let walk =
+  (next = traverse) =>
+  (pre, post = _.noop, parents = [], parentIndexes = []) =>
+  (tree, index) =>
+    pre(tree, index, parents, parentIndexes) ||
+    findIndexed(
+      walk(next)(pre, post, [tree, ...parents], [index, ...parentIndexes]),
+      next(tree, index, parents, parentIndexes) || []
+    ) ||
+    post(tree, index, parents, parentIndexes)
 
 // async/await is so much cleaner but causes regeneratorRuntime shenanigans
 // export let findIndexedAsync = async (f, data) => {
@@ -51,7 +49,7 @@ export let walk = (next = traverse) => (
 export let findIndexedAsync = (f, data, remaining = _.toPairs(data)) => {
   if (!remaining.length) return
   let [[key, val], ...rest] = remaining
-  return Promise.resolve(f(val, key, data)).then(result =>
+  return Promise.resolve(f(val, key, data)).then((result) =>
     result ? val : rest.length ? findIndexedAsync(f, data, rest) : undefined
   )
 }
@@ -61,27 +59,27 @@ export let findIndexedAsync = (f, data, remaining = _.toPairs(data)) => {
  *
  * @signature traverse -> (pre, post=_.noop) -> async tree -> x
  */
-export let walkAsync = (next = traverse) => (
-  pre,
-  post = _.noop,
-  parents = [],
-  parentIndexes = []
-) => (tree, index) =>
-  Promise.resolve(pre(tree, index, parents, parentIndexes))
-    .then(
-      preResult =>
-        preResult ||
-        findIndexedAsync(
-          walkAsync(next)(
-            pre,
-            post,
-            [tree, ...parents],
-            [index, ...parentIndexes]
-          ),
-          next(tree, index, parents, parentIndexes) || []
-        )
-    )
-    .then(stepResult => stepResult || post(tree, index, parents, parentIndexes))
+export let walkAsync =
+  (next = traverse) =>
+  (pre, post = _.noop, parents = [], parentIndexes = []) =>
+  (tree, index) =>
+    Promise.resolve(pre(tree, index, parents, parentIndexes))
+      .then(
+        (preResult) =>
+          preResult ||
+          findIndexedAsync(
+            walkAsync(next)(
+              pre,
+              post,
+              [tree, ...parents],
+              [index, ...parentIndexes]
+            ),
+            next(tree, index, parents, parentIndexes) || []
+          )
+      )
+      .then(
+        (stepResult) => stepResult || post(tree, index, parents, parentIndexes)
+      )
 
 /**
  * Structure preserving pre-order depth first traversal which clones, mutates, and then returns a tree. Basically `walk` with a `_.cloneDeep` first (similar to a tree map because it preserves structure). `_iteratee` can be any suitable argument to `_.iteratee` https://lodash.com/docs/4.17.5#iteratee
@@ -108,9 +106,11 @@ export let reduceTree = (next = traverse) =>
     return result
   })
 
-let writeProperty = (next = traverse) => (node, index, [parent]) => {
-  next(parent)[index] = node
-}
+let writeProperty =
+  (next = traverse) =>
+  (node, index, [parent]) => {
+    next(parent)[index] = node
+  }
 
 /**
  * Structure preserving tree map! `writeNode` informs how to write a single node, but the default will generally work for most cases. The iteratee is passed the standard `node, index, parents, parentIndexes` args and is expected to return a transformed node.
@@ -135,7 +135,7 @@ export let mapTreeLeaves = (next = traverse, writeNode = writeProperty(next)) =>
   _.curry((mapper, tree) =>
     // this unless wrapping can be done in user land, this is pure convenience
     // mapTree(next, writeNode)(F.unless(next, mapper), tree)
-    mapTree(next, writeNode)(node => (next(node) ? node : mapper(node)), tree)
+    mapTree(next, writeNode)((node) => (next(node) ? node : mapper(node)), tree)
   )
 
 /**
@@ -153,7 +153,7 @@ export let treeToArrayBy = (next = traverse) =>
  *
  * @signature traverse -> tree -> [treeNode, treeNode, ...]
  */
-export let treeToArray = (next = traverse) => treeToArrayBy(next)(x => x)
+export let treeToArray = (next = traverse) => treeToArrayBy(next)((x) => x)
 
 // This could reuse treeToArrayBy and just reject traversable elements after, but this is more efficient
 // We can potentially unify these with tree transducers
@@ -177,7 +177,7 @@ export let leavesBy = (next = traverse) =>
  *
  * @signature traverse -> tree -> [treeNodes]
  */
-export let leaves = (next = traverse) => leavesBy(next)(x => x)
+export let leaves = (next = traverse) => leavesBy(next)((x) => x)
 
 /**
  * Looks up a node matching a path, which defaults to lodash `iteratee` but can be customized with buildIteratee. The `_iteratee` members of the array can be any suitable arguments for `_.iteratee` https://lodash.com/docs/4.17.5#iteratee
@@ -204,8 +204,8 @@ export let keyTreeByWith = (next = traverse) =>
       treeToArrayBy(next)(_.iteratee(groupIteratee)),
       _.uniq,
       _.keyBy(_.identity),
-      _.mapValues(group =>
-        transformTree(next)(node => {
+      _.mapValues((group) =>
+        transformTree(next)((node) => {
           let matches = _.iteratee(groupIteratee)(node) === group
           transformer(node, matches, group)
         }, x)
@@ -234,15 +234,17 @@ export let treeValues = (x, i, xs) => [x, ...xs]
  *
  * @signature (build, encoder) -> treePathBuilderFunction
  */
-export let treePath = (build = treeKeys, encoder = dotEncoder) => (...args) =>
-  (encoder.encode || encoder)(build(...args).reverse())
+export let treePath =
+  (build = treeKeys, encoder = dotEncoder) =>
+  (...args) =>
+    (encoder.encode || encoder)(build(...args).reverse())
 
 /**
  * Creates a path builder for use in `flattenTree`, using a slashEncoder and using the specified prop function as an iteratee on each node to determine the keys.
  *
  * @signature prop -> treePathBuilderFunction
  */
-export let propTreePath = prop =>
+export let propTreePath = (prop) =>
   treePath(_.flow(treeValues, _.map(prop)), slashEncoder)
 
 /**
@@ -250,11 +252,13 @@ export let propTreePath = prop =>
  *
  * @signature traverse -> buildPath -> tree -> result
  */
-export let flattenTree = (next = traverse) => (buildPath = treePath()) =>
-  reduceTree(next)(
-    (result, node, ...x) => _.set([buildPath(node, ...x)], node, result),
-    {}
-  )
+export let flattenTree =
+  (next = traverse) =>
+  (buildPath = treePath()) =>
+    reduceTree(next)(
+      (result, node, ...x) => _.set([buildPath(node, ...x)], node, result),
+      {}
+    )
 
 export let flatLeaves = (next = traverse) => _.reject(next)
 

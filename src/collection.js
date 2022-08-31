@@ -30,7 +30,7 @@ export let map = _.curry((f, x) =>
  * @signature (a -> b) -> [a] -> [b]
  */
 export let deepMap = _.curry((fn, obj, _map = map, is = isTraversable) =>
-  _map(e => (is(e) ? deepMap(fn, fn(e), _map, is) : e), obj)
+  _map((e) => (is(e) ? deepMap(fn, fn(e), _map, is) : e), obj)
 )
 
 let insertAtStringIndex = (index, val, str) =>

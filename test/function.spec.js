@@ -38,23 +38,23 @@ describe('Function Functions', () => {
     expect(F.boundMethod('greet', obj)()).to.equal('Welcome, Wade Watts')
   })
   it('converge', () => {
-    let divide = arr => arr[0] / arr[1]
-    let sum = arr => _.sum(arr)
-    let length = arr => arr.length
+    let divide = (arr) => arr[0] / arr[1]
+    let sum = (arr) => _.sum(arr)
+    let length = (arr) => arr.length
     // average
     expect(F.converge(divide, [sum, length])([5, 10, 15])).to.deep.equal(10)
   })
   it('composeApply', () => {
-    let fn1 = lastResult => x => lastResult / x
-    let fn2 = x => x + 5
+    let fn1 = (lastResult) => (x) => lastResult / x
+    let fn2 = (x) => x + 5
     expect(F.composeApply(fn1, fn2)(5)).to.deep.equal(2)
   })
   it('comply', () => {
     // F.append(x => x * 2)(5) => (5 * 2) + 5
-    expect(F.comply(F.append, x => x * 2)(5)).to.equal(15)
+    expect(F.comply(F.append, (x) => x * 2)(5)).to.equal(15)
   })
   it('defer', () => {
-    let delay = ms => {
+    let delay = (ms) => {
       let resolver = F.defer()
       let now = Date.now()
       setTimeout(() => {
@@ -63,13 +63,13 @@ describe('Function Functions', () => {
       return resolver.promise
     }
 
-    delay(500).then(ms => {
+    delay(500).then((ms) => {
       expect(ms).is.at.least(500)
     })
   })
   describe('debounceAsync', () => {
     it('debounceAsync', async () => {
-      let inner = sinon.spy(x => x + 10)
+      let inner = sinon.spy((x) => x + 10)
       let fn = F.debounceAsync(10, inner)
       let result = await Promise.all([fn(1), fn(2), fn(3)])
       expect(inner).to.have.callCount(1)
@@ -78,7 +78,7 @@ describe('Function Functions', () => {
       expect(secondResult).to.deep.equal([23, 23, 23])
     })
     it('should demonstrate failing with regular debounce', async () => {
-      let inner2 = sinon.spy(x => x + 10)
+      let inner2 = sinon.spy((x) => x + 10)
       let fn2 = _.debounce(10, inner2)
       let result2 = await Promise.all([fn2(1), fn2(2), fn2(3)])
       expect(inner2).to.have.callCount(0)
@@ -89,7 +89,7 @@ describe('Function Functions', () => {
   })
   it('flurry', () => {
     let add = (x, y) => x + y
-    let double = x => x * 2
+    let double = (x) => x * 2
     // Passing all args
     expect(F.flurry(add, double)(1, 4)).to.equal(10)
     // Passing 1 at a time
@@ -97,7 +97,7 @@ describe('Function Functions', () => {
   })
   it('mapArgs', () => {
     let add = (x, y) => x + y
-    let double = x => x * 2
+    let double = (x) => x * 2
     let doubledAdd = F.mapArgs(double, add)
     // (5*2) + (7*2)
     expect(doubledAdd(5, 7)).to.equal(24)

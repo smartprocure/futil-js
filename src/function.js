@@ -26,10 +26,12 @@ export let boundMethod = (method, object) => object[method].bind(object)
  *
  * @signature (f, [g1, g2, ...gn]) -> a -> f([g1(a), g2(a), ...])
  */
-export let converge = (converger, branches) => (...args) =>
-  converger(_.over(branches)(...args))
+export let converge =
+  (converger, branches) =>
+  (...args) =>
+    converger(_.over(branches)(...args))
 
-export let composeApply = (f, g) => x => f(g(x))(x)
+export let composeApply = (f, g) => (x) => f(g(x))(x)
 
 /**
  * A combinator that combines compose and apply. `f` should be a 2 place curried function. Useful for applying comparisons to pairs defined by some one place function, e.g. `var isShorterThanFather = F.comply(isTallerThan, fatherOf)`
@@ -71,7 +73,10 @@ export let debounceAsync = (n, f) => {
   }
 }
 
-let currier = f => (...fns) => _.curryN(fns[0].length, f(...fns))
+let currier =
+  (f) =>
+  (...fns) =>
+    _.curryN(fns[0].length, f(...fns))
 /**
  * Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
  *
@@ -84,4 +89,8 @@ export let flurry = currier(_.flow)
  *
  * @signature (mapper, fn) -> (...args) -> fn(...args.map(mapper))
  */
-export let mapArgs = _.curry((mapper, fn) => (...x) => fn(...x.map(mapper)))
+export let mapArgs = _.curry(
+  (mapper, fn) =>
+    (...x) =>
+      fn(...x.map(mapper))
+)

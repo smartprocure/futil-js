@@ -35,7 +35,7 @@ export let autoLabel = _.startCase
  *
  * @signature string -> {value:string, label:string}
  */
-export let autoLabelOption = a => ({
+export let autoLabelOption = (a) => ({
   value: when(_.isUndefined, a)(a.value),
   label: a.label || autoLabel(when(_.isUndefined, a)(a.value)),
 })
@@ -87,7 +87,7 @@ Like `uniqueString`, the resulting deduplication function exposes `cache` and `c
  * uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
  */
 export let uniqueStringWith = _.curry((cachizer, initialKeys) => {
-  let f = x => {
+  let f = (x) => {
     let result = x
     while (cache[result]) {
       result = x + cache[x]

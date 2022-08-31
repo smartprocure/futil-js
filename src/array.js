@@ -4,10 +4,10 @@ import { insertAtIndex } from './collection'
 import { reduceIndexed } from './conversion'
 
 // TODO: Move to proper files and expose
-let callUnless = check => failFn => fn => (x, y) =>
+let callUnless = (check) => (failFn) => (fn) => (x, y) =>
   check(x) ? failFn(y) : check(y) ? failFn(x) : fn(x, y)
 let callUnlessEmpty = callUnless(_.isEmpty)
-let wrapArray = x => [x]
+let wrapArray = (x) => [x]
 let callUnlessEmptyArray = callUnlessEmpty(wrapArray)
 let dropRight = _.dropRight(1)
 let last = _.takeRight(1)
@@ -31,7 +31,7 @@ export let dotJoin = compactJoin('.')
  *
  * @signature filterFunction -> [string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN
  */
-export let dotJoinWith = fn => x => _.filter(fn, x).join('.')
+export let dotJoinWith = (fn) => (x) => _.filter(fn, x).join('.')
 
 /**
  * Returns an array of elements that are repeated in the array.
@@ -39,8 +39,8 @@ export let dotJoinWith = fn => x => _.filter(fn, x).join('.')
  * @signature [a] -> [a]
  */
 export let repeated = _.flow(
-  _.groupBy(e => e),
-  _.filter(e => e.length > 1),
+  _.groupBy((e) => e),
+  _.filter((e) => e.length > 1),
   _.flatten,
   _.uniq
 )
@@ -124,15 +124,15 @@ export let flags = zipObjectDeepWith(_, () => true)
  *
  * @signature ['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]
  */
-export let prefixes = list =>
-  _.range(1, list.length + 1).map(x => _.take(x, list))
+export let prefixes = (list) =>
+  _.range(1, list.length + 1).map((x) => _.take(x, list))
 
 /**
  * Creates an object with encode and decode functions for encoding arrays as strings. The input string is used as input for join/split.
  *
  * @signature string -> {encode: array -> string, decode: string -> array}
  */
-export let encoder = separator => ({
+export let encoder = (separator) => ({
   encode: compactJoin(separator),
   decode: _.split(separator),
 })
@@ -227,7 +227,7 @@ export let intersperse = _.curry((f, [x0, ...xs]) =>
  * @signature (fn(array_element), value, array) -> array
  */
 export let replaceElementBy = _.curry((f, b, arr) =>
-  _.map(c => (f(c) ? b : c), arr)
+  _.map((c) => (f(c) ? b : c), arr)
 )
 
 /**
