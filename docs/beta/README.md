@@ -1,3 +1,8 @@
+# Futil Doc Notes
+To run this, you'll want to run `npm run docs-site` at the root of the repo, and then `npm start` (or `npm build`, etc) here.
+
+# Original CRA Readme
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
