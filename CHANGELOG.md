@@ -1,3 +1,6 @@
+# 1.69.10
+- New docs site! The new docs site is packed with awesome features. We've got dark mode, super fast search, embedded runkits, and the ability to search futil, lodash, and ramda based on input/output expectations.
+
 # 1.69.9
 - Removed basic function tests from the misc.spec file. A separate PR moves them into the function.spec file.
 
