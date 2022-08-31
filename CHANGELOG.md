@@ -1,3 +1,6 @@
+# 1.70.0
+- Add state to deprecated methods so they can be inspected
+
 # 1.69.9
 - Removed basic function tests from the misc.spec file. A separate PR moves them into the function.spec file.
 
