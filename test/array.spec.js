@@ -74,8 +74,8 @@ describe('Array Functions', () => {
   it('arrayToObject', () => {
     expect(
       F.arrayToObject(
-        x => `key${x}`,
-        x => `val${x}`,
+        (x) => `key${x}`,
+        (x) => `val${x}`,
         ['a', 'b', 'c']
       )
     ).to.deep.equal({ keya: 'vala', keyb: 'valb', keyc: 'valc' })
@@ -150,7 +150,7 @@ describe('Array Functions', () => {
     let list = ['a', 'b', 'c']
     let valueToToggle = 'b'
 
-    let toggleB = shouldAdd =>
+    let toggleB = (shouldAdd) =>
       F.toggleElementBy(!shouldAdd, valueToToggle, list)
 
     expect(toggleB(true)).to.deep.equal(['a', 'b', 'c', 'b'])
@@ -172,11 +172,8 @@ describe('Array Functions', () => {
     ])
   })
   it('replaceElementBy', () => {
-    expect(F.replaceElementBy(c => c > 10, 0, [1, 11, 3, 5])).to.deep.equal([
-      1,
-      0,
-      3,
-      5,
+    expect(F.replaceElementBy((c) => c > 10, 0, [1, 11, 3, 5])).to.deep.equal([
+      1, 0, 3, 5,
     ])
   })
   it('replaceElement', () => {

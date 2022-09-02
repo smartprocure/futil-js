@@ -172,7 +172,7 @@ describe('Converted Functions', () => {
     })
     it('updateOn', () => {
       let object = { a: [{ b: { c: 3 } }] }
-      expect(F.updateOn('a[0].b.c', x => x * x)(object)).to.deep.equal({
+      expect(F.updateOn('a[0].b.c', (x) => x * x)(object)).to.deep.equal({
         a: [{ b: { c: 9 } }],
       })
       expect(object).to.deep.equal({

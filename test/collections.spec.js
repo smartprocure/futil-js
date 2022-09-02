@@ -9,16 +9,16 @@ describe('Collections Functions', () => {
   it('flowMap', () => {
     expect(
       F.flowMap(
-        n => n + n,
-        n => n * n
+        (n) => n + n,
+        (n) => n * n
       )([0, 1, 2, 3, 4])
     ).to.eql([0, 4, 16, 36, 64])
     expect(
       F.flowMap(
-        s => s.toUpperCase(),
-        s => s.split(''),
-        s => s.reverse(),
-        s => s.join('')
+        (s) => s.toUpperCase(),
+        (s) => s.split(''),
+        (s) => s.reverse(),
+        (s) => s.join('')
       )(['Smart', 'Procure'])
     ).to.eql(['TRAMS', 'ERUCORP'])
   })
@@ -26,18 +26,18 @@ describe('Collections Functions', () => {
     let x = {
       a: 1,
     }
-    expect(F.findApply(f => x[f], ['b', 'c', 'a'])).to.equal(1)
-    expect(F.findApply(f => x[f], ['b', 'c'])).to.equal(undefined)
+    expect(F.findApply((f) => x[f], ['b', 'c', 'a'])).to.equal(1)
+    expect(F.findApply((f) => x[f], ['b', 'c'])).to.equal(undefined)
     let xs = [{ b: 2 }, { c: 3 }, { a: 1 }]
-    expect(F.findApply(f => f.a, xs)).to.equal(1)
+    expect(F.findApply((f) => f.a, xs)).to.equal(1)
     expect(F.findApply('a', xs)).to.equal(1)
     expect(F.findApply('d', xs)).to.equal(undefined)
   })
   it('map', () => {
     // map plain arrays
-    expect(F.map(x => x * x, [1, 2, 3])).to.deep.equal([1, 4, 9])
+    expect(F.map((x) => x * x, [1, 2, 3])).to.deep.equal([1, 4, 9])
     // map plain objects
-    expect(F.map(x => x * x, { a: 1, b: 2, c: 3 })).to.deep.equal({
+    expect(F.map((x) => x * x, { a: 1, b: 2, c: 3 })).to.deep.equal({
       a: 1,
       b: 4,
       c: 9,
@@ -48,7 +48,7 @@ describe('Collections Functions', () => {
       // arrays
       const arr = [0, [1, [2, []]]]
       const arrBackup = _.cloneDeep(arr)
-      const arrMutated = F.deepMap(e => e.concat(101), arr)
+      const arrMutated = F.deepMap((e) => e.concat(101), arr)
       //      Checking immutability
       expect(arr).to.eql(arrBackup)
       expect(arrMutated).to.eql([0, [1, [2, [101], 101], 101]])
@@ -73,8 +73,8 @@ describe('Collections Functions', () => {
       }
       const objABackup = _.cloneDeep(objA)
       const pathA = 'match.matched'
-      const setMatchedA = e => e.match && _.set(pathA, true, e)
-      const objAMutated = F.deepMap(e => setMatchedA(e) || e)(objA)
+      const setMatchedA = (e) => e.match && _.set(pathA, true, e)
+      const objAMutated = F.deepMap((e) => setMatchedA(e) || e)(objA)
       //      Checking immutability
       expect(objA).to.eql(objABackup)
       expect(objAMutated).to.eql({
@@ -119,9 +119,9 @@ describe('Collections Functions', () => {
       }
       const objBBackup = _.cloneDeep(objB)
       const pathB = 'match.matched'
-      const setMatchedB = e => e.match && _.set(pathB, true, e)
-      const push101 = e => _.isArray(e) && e.concat(101)
-      const objBMutated = F.deepMap(e => push101(e) || setMatchedB(e) || e)(
+      const setMatchedB = (e) => e.match && _.set(pathB, true, e)
+      const push101 = (e) => _.isArray(e) && e.concat(101)
+      const objBMutated = F.deepMap((e) => push101(e) || setMatchedB(e) || e)(
         objB
       )
       //         Checking immutability
@@ -166,7 +166,7 @@ describe('Collections Functions', () => {
   })
   it('compactMap', () => {
     let names = ['adam', 'betty', 'carlos', 'doug', 'emily']
-    let exceptDoug = fn => x => (x === 'doug' ? undefined : fn(x))
+    let exceptDoug = (fn) => (x) => x === 'doug' ? undefined : fn(x)
     expect(F.compactMap(_.capitalize, names)).to.deep.equal([
       'Adam',
       'Betty',
@@ -180,6 +180,6 @@ describe('Collections Functions', () => {
       'Carlos',
       'Emily',
     ])
-    expect(F.compactMap(x => x - 2, [0, 1, 2, 3])).to.deep.equal([-2, -1, 1])
+    expect(F.compactMap((x) => x - 2, [0, 1, 2, 3])).to.deep.equal([-2, -1, 1])
   })
 })

@@ -43,7 +43,7 @@ export const pickIn = noRearg.pick
  * @tags convert(_In)
  */
 export const includesIn = noRearg.includes
-export const inversions = _.mapKeys(k => `${k}In`, noRearg)
+export const inversions = _.mapKeys((k) => `${k}In`, noRearg)
 
 // Mutables
 // ----------

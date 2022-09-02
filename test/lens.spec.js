@@ -112,7 +112,7 @@ describe('Lens Functions', () => {
       let object = {
         a: 1,
       }
-      let setter = F.setsWith(x => x * 2, 'a', object)
+      let setter = F.setsWith((x) => x * 2, 'a', object)
       setter(5)
       expect(object.a).to.equal(10)
     })
@@ -196,9 +196,9 @@ describe('Lens Functions', () => {
   })
   describe('additional implicit lens formats', () => {
     it('arrayLens', () => {
-      let arrayLens = val => {
+      let arrayLens = (val) => {
         let result = [val]
-        result.push(x => {
+        result.push((x) => {
           result[0] = x
         })
         return result
@@ -216,7 +216,7 @@ describe('Lens Functions', () => {
         a: false,
       }
       let get = () => object.a
-      let set = x => {
+      let set = (x) => {
         object.a = x
       }
       F.on(get, set)()
@@ -297,7 +297,7 @@ describe('Lens Functions', () => {
       let state = {
         selectedItem: 'item1',
       }
-      let weirdSelect = F.domLens.binding('selected', e => e.newSelectedValue)
+      let weirdSelect = F.domLens.binding('selected', (e) => e.newSelectedValue)
       let props = weirdSelect('selectedItem', state)
       expect(props.selected).to.equal('item1')
       props.onChange({ newSelectedValue: 'newItem' })

@@ -1,3 +1,6 @@
+# 1.71.0
+- New docs site! The new docs site is packed with awesome features. We've got dark mode, super fast search, embedded runkits, and the ability to search futil, lodash, and ramda based on input/output expectations.
+
 # 1.70.0
 - Add state to deprecated methods so they can be inspected
 

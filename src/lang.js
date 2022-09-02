@@ -9,17 +9,19 @@ import { tree } from './tree'
 /**
  * Just throws whatever it is passed.
  */
-export let throws = x => {
+export let throws = (x) => {
   throw x
 }
 
 /**
  * Tap error will run the provided function and then throw the first argument. It's like `_.tap` for rethrowing errors.
  */
-export let tapError = f => (e, ...args) => {
-  f(e, ...args)
-  throw e
-}
+export let tapError =
+  (f) =>
+  (e, ...args) => {
+    f(e, ...args)
+    throw e
+  }
 export let isNotNil = _.negate(_.isNil)
 
 /**
@@ -34,7 +36,7 @@ export let exists = isNotNil
  *
  * @signature (Array<T> | string | {length}) -> bool
  */
-export let isMultiple = x => (x || []).length > 1
+export let isMultiple = (x) => (x || []).length > 1
 
 /**
  * A curried, flipped `_.add`. The flipping matters for strings, e.g. `F.append('a')('b') -> 'ba'`
@@ -69,5 +71,5 @@ export let isNotBlank = _.negate(isBlank)
  *
  * @signature f -> x -> bool
  */
-export let isBlankDeep = combinator => x =>
+export let isBlankDeep = (combinator) => (x) =>
   combinator(isBlank, tree().leaves(x))

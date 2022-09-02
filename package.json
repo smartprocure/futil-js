@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.70.0",
+  "version": "1.71.0",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -26,7 +26,10 @@
     "predocs": "npm run jsdoc",
     "docs": "node -r esm ./scripts/generate-docs.js",
     "prereadme": "npm run docs",
-    "readme": "node -r esm ./scripts/generate-readme.js"
+    "readme": "node -r esm ./scripts/generate-readme.js",
+    "tests-json": "node -r esm ./scripts/generate-tests-json.js",
+    "copy-docs": "node -r esm ./scripts/copy-docs.js",
+    "docs-site": "npm run readme && npm run tests-json && npm run copy-docs"
   },
   "author": {
     "name": "Samuel Greene",
@@ -80,7 +83,7 @@
     "mocha": "^6.2.2",
     "mocha-lcov-reporter": "^1.2.0",
     "nyc": "^12.0.1",
-    "prettier": "^1.7.4",
+    "prettier": "^2.7.1",
     "read-pkg": "^5.2.0",
     "sinon": "^7.5.0",
     "sinon-chai": "^3.0.0",

@@ -48,7 +48,7 @@ export const greaterThanOne = _.lt(1)
  * @signature x -> bool
  * @tags lang
  */
-export const isPromise = obj =>
+export const isPromise = (obj) =>
   !!obj &&
   (typeof obj === 'object' || typeof obj === 'function') &&
   typeof obj.then === 'function'

@@ -320,7 +320,7 @@ return <div>
   }
 </div>
 // Output:
-// **Results:**  
+// **Results:**
 // **1**, **2** and **3**.
 ```
 **Note:** This works great with the `differentLast` iterator. Also, `intersperse` can be used with JSX components!

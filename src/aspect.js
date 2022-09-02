@@ -48,79 +48,83 @@ Options supports the following parameters:
  * // post run
  * @tags aspect
  */
-export let aspect = ({
-  name = 'aspect',
-  init = _.noop,
-  after = _.noop,
-  before = _.noop,
-  always = _.noop,
-  onError = throws,
-  // ?: interceptParams, interceptResult, wrap
-}) => f => {
-  let { state = {} } = f
-  init(state)
-  // Trick to set function.name of anonymous function
-  let x = {
-    [name](...args) {
-      let result
-      let error
-      return Promise.resolve()
-        .then(() => before(args, state))
-        .then(() => f(...args))
-        .then(r => {
-          result = r
-        })
-        .then(() => after(result, state, args))
-        .catch(e => onError(e, state, args))
-        .catch(e => {
-          error = e
-        })
-        .then(() => always(state, args))
-        .then(() => {
-          if (error) throw error
-        })
-        .then(() => result)
-    },
+export let aspect =
+  ({
+    name = 'aspect',
+    init = _.noop,
+    after = _.noop,
+    before = _.noop,
+    always = _.noop,
+    onError = throws,
+    // ?: interceptParams, interceptResult, wrap
+  }) =>
+  (f) => {
+    let { state = {} } = f
+    init(state)
+    // Trick to set function.name of anonymous function
+    let x = {
+      [name](...args) {
+        let result
+        let error
+        return Promise.resolve()
+          .then(() => before(args, state))
+          .then(() => f(...args))
+          .then((r) => {
+            result = r
+          })
+          .then(() => after(result, state, args))
+          .catch((e) => onError(e, state, args))
+          .catch((e) => {
+            error = e
+          })
+          .then(() => always(state, args))
+          .then(() => {
+            if (error) throw error
+          })
+          .then(() => result)
+      },
+    }
+    x[name].state = state
+    return x[name]
   }
-  x[name].state = state
-  return x[name]
-}
 
 /**
  * This is a synchronous version of `aspect`, for situations when it's not desirable to `await` a method you're adding aspects to. The API is the same, but things like `onError` won't work if you pass an async function to the aspect.
  *
  * @tags aspect
  */
-export let aspectSync = ({
-  name = 'aspect',
-  init = _.noop,
-  after = _.noop,
-  before = _.noop,
-  always = _.noop,
-  onError = throws,
-  // ?: interceptParams, interceptResult, wrap
-}) => f => {
-  let { state = {} } = f
-  init(state)
-  // Trick to set function.name of anonymous function
-  let x = {
-    [name](...args) {
-      try {
-        before(args, state)
-        let result = f(...args)
-        after(result, state, args)
-        return result
-      } catch (e) {
-        onError(e, state, args)
-        throw e
-      } finally {
-        always(state, args)
-      }
-    },
+export let aspectSync =
+  ({
+    name = 'aspect',
+    init = _.noop,
+    after = _.noop,
+    before = _.noop,
+    always = _.noop,
+    onError = throws,
+    // ?: interceptParams, interceptResult, wrap
+  }) =>
+  (f) => {
+    let { state = {} } = f
+    init(state)
+    // Trick to set function.name of anonymous function
+    let x = {
+      [name](...args) {
+        try {
+          before(args, state)
+          let result = f(...args)
+          after(result, state, args)
+          return result
+        } catch (e) {
+          onError(e, state, args)
+          throw e
+        } finally {
+          always(state, args)
+        }
+      },
+    }
+    x[name].state = state
+    return x[name]
   }
-  x[name].state = state
-  return x[name]
-}
 
 // Example Aspects
 let logs = (extend = defaultsOn) =>
