@@ -58,6 +58,8 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-              npm run docs-publish
-              npm publish || true
+              npm run docs-site
+              cd docs/beta
+              npm install
+              npm run deploy
             fi
