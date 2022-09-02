@@ -3,7 +3,7 @@
 
 let local = false
 
-module.exports = function(config) {
+module.exports = function (config) {
   'use strict'
 
   let browsers

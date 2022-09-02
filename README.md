@@ -1,3 +1,5 @@
+> **NOTE** This file is generated from jsdoc, do not edit directly. Instead, run `npm run docs`
+
 <a href='https://smartprocure.github.io/futil-js/'><img src='https://user-images.githubusercontent.com/8062245/28718527-796382ac-7374-11e7-98a3-9791223042a4.png' width='200' alt='futil-js'></a>
 
 ---
@@ -118,14 +120,6 @@ Maps a flow of `f1, f2, ...fn` over a collection.
 `f -> x -> f(find(f, x))`
 A version of `find` that also applies the predicate function to the result. Useful when you have an existing function that you want to apply to a member of a collection that you can best find by applying the same function.
 
-### insertAtIndex
-`(index, val, array|string) -> array|string`
-Inserts value into an array or string at `index`
-
-### compactMap
-`(fn, collection) -> collection`
-Maps `fn` over the input collection and compacts the result.
-
 ### map
 `(a -> b) -> [a] -> [b]`
 Maps a function over an iterable. Works by default for Arrays and Plain Objects.
@@ -133,6 +127,19 @@ Maps a function over an iterable. Works by default for Arrays and Plain Objects.
 ### deepMap
 `(a -> b) -> [a] -> [b]`
 Maps a function over a recursive iterable. Works by default for nested Arrays, nested Plain Objects and mixed nested Arrays and Plain Objects. Also works for any other iterable data type as long as two other values are sent: a mapping function, and a type checker (See the unit tests for deepMap).
+
+### insertAtIndex
+`(index, val, array|string) -> array|string`
+Inserts value into an array or string at `index`
+
+Example:
+```jsx
+(1, '123', 'hi') -> 'h123i'
+```
+
+### compactMap
+`(fn, collection) -> collection`
+Maps `fn` over the input collection and compacts the result.
 
 
 ## Convert(_In)
@@ -228,6 +235,14 @@ Compacts an array by the provided function, then joins it with `.`
 `[a] -> [a]`
 Returns an array of elements that are repeated in the array.
 
+### push
+`(val, array) -> array`
+Return `array` with `val` pushed.
+
+### moveIndex
+`(from, to, array) -> array`
+Moves a value from one index to another
+
 ### mergeRanges
 `([[], [], []]) -> [[], []]`
 Takes any number of ranges and return the result of merging them all.
@@ -236,14 +251,6 @@ Example:
 ```jsx
 [[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]
 ```
-
-### push
-`(val, array) -> array`
-Return `array` with `val` pushed.
-
-### moveIndex
-`(from, to, array) -> array`
-Moves a value from one index to another
 
 ### cycle
 `[a, b...] -> a -> b`
@@ -282,13 +289,13 @@ Takes a predicate function and an array, and returns an array of arrays where ea
 
 The predicate is called with two arguments: the current group, and the current element. If it returns truthy, the element is appended to the current group; otherwise, it's used as the first element in a new group.
 
-### toggleElement
-`(any, array) -> array`
-Removes an element from an array if it's included in the array, or pushes it in if it doesn't. Immutable (so it's a clone of the array).
-
 ### toggleElementBy
 `bool -> value -> list -> newList`
 Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
+
+### toggleElement
+`(any, array) -> array`
+Removes an element from an array if it's included in the array, or pushes it in if it doesn't. Immutable (so it's a clone of the array).
 
 ### intersperse
 `f -> array -> [array[0], f(), array[n], ....)`
@@ -313,7 +320,7 @@ return <div>
   }
 </div>
 // Output:
-// **Results:**  
+// **Results:**
 // **1**, **2** and **3**.
 ```
 **Note:** This works great with the `differentLast` iterator. Also, `intersperse` can be used with JSX components!
@@ -333,7 +340,7 @@ Replaces all elements equal to `target` in an array with `value`.
 `(k, v) -> {k: v}`
 Creates an object with a key and value.
 
-### singleObjectE
+### singleObjectR
 `(v, k) -> {k: v}`
 Flipped version of `singleObject`.
 
@@ -364,15 +371,6 @@ Example:
 ```
 **Note:** (*TODO* rename to `omitEmptyObjects`)
 
-### compareDeep
-Checks if an object's property is equal to a value.
-
-### matchesSignature
-Returns true if object keys are only elements from signature list. (but does not require all signature keys to be present)
-
-### matchesSome
-Similar to `_.matches`, except it returns true if 1 or more object properties match instead of all of them. See https://github.com/lodash/lodash/issues/3713.
-
 ### pickInto
 *TODO*
 
@@ -392,7 +390,7 @@ Just like mongo's `$unwind`: produces an array of objects from an object and one
 Example:
 ```jsx
 F.unwind('b', [{ a: true, b: [1, 2] }])
-//=> [{ a: true, b: 1 }, { a: true, b: 2 }]
+      //=> [{ a: true, b: 1 }, { a: true, b: 2 }]
 ```
 
 ### unwindArray
@@ -426,6 +424,15 @@ Example:
 { 'a.b.c' : 1 } => { a: { b: { c: 1 } } }
 ```
 
+### matchesSignature
+Returns true if object keys are only elements from signature list. (but does not require all signature keys to be present)
+
+### matchesSome
+Similar to `_.matches`, except it returns true if 1 or more object properties match instead of all of them. See https://github.com/lodash/lodash/issues/3713.
+
+### compareDeep
+Checks if an object's property is equal to a value.
+
 ### mapProp
 _Deprecated in favor of lodash `update`_ Applies a map function at a specific path
 
@@ -452,11 +459,11 @@ Flipped cascade
 ### cascadeKey
 A `_.get` that takes an array of paths and returns the first path that matched
 
-### cascadeProp
-A `_.get` that takes an array of paths and returns the first value that has an existing path
-
 ### cascadePropKey
 A `_.get` that takes an array of paths and returns the first path that exists
+
+### cascadeProp
+A `_.get` that takes an array of paths and returns the first value that has an existing path
 
 ### unkeyBy
 `newKey -> {a:x, b:y} -> [{...x, newKey: a}, {...y, newKey: b}]`
@@ -503,7 +510,7 @@ Iterates over object properties and stamps their keys on the values in the field
 ### omitNil
 `_.omitBy` using `_.isNil` as function argument.
 
-### omitNull 
+### omitNull
 `_.omitBy` using `_.isNull` as function argument.
 
 ### omitBlank
@@ -557,7 +564,7 @@ Maps `_.trim` through all the strings of a given object or array.
 
 ### autoLabel
 `string -> string`
-Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support. 
+Converts strings like variable names to labels (generally) suitable for GUIs, including support for acronyms and numbers. It's basically `_.startCase` with acronym and number support.
 
 ### autoLabelOption
 `string -> {value:string, label:string}`
@@ -566,24 +573,6 @@ Creates a `{value, label}` which applies `autoLabel` the string parameter on put
 ### autoLabelOptions
 `[string] -> [{value:string, label:string}]`
 Applies `autoLabelOption` to a collection. Useful for working with option lists like generating select tag options from an array of strings.
-
-### insertAtIndex
-`(index, val, string) -> string`
-Insert a string at a specific index.
-
-Example:
-```jsx
-(1, '123', 'hi') -> 'h123i'
-```
-
-### toSentence
-`array => string`
-Joins an array into a human readable string. See https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
-
-Example:
-```jsx
-['a', 'b', 'c'] -> 'a, b and c'
-```
 
 ### toSentenceWith
 `(separator, lastSeparator, array) => string`
@@ -594,18 +583,13 @@ Example:
 (' - ', ' or ', ['a', 'b', 'c']) -> 'a - b or c'
 ```
 
-### uniqueString
-`array -> string -> string`
-Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to read and clear the cache, respectively.
+### toSentence
+`array => string`
+Joins an array into a human readable string. See https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
 
 Example:
 ```jsx
-let dedupe = uniqueString()
-_.map(dedupe, ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
-dedupe.cache  //-> { foo: 3, foo1: 1, foo2: 1 }
-dedupe.clear()
-dedupe.cache  //-> {}
-dedupe('foo')  //-> 'foo'
+['a', 'b', 'c'] -> 'a, b and c'
 ```
 
 ### uniqueStringWith
@@ -624,6 +608,20 @@ dedupe('foo')  //-> 'foo3'
 uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
 ```
 
+### uniqueString
+`array -> string -> string`
+Returns a function that takes a string and de-duplicates it against an internal cache. Each time this function is called, the resulting deduplicated string is added to the cache. Exposes `cache` and `clear()` properties to read and clear the cache, respectively.
+
+Example:
+```jsx
+let dedupe = uniqueString()
+_.map(dedupe, ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
+dedupe.cache  //-> { foo: 3, foo1: 1, foo2: 1 }
+dedupe.clear()
+dedupe.cache  //-> {}
+dedupe('foo')  //-> 'foo'
+```
+
 
 ## Regex
 
@@ -639,13 +637,22 @@ A curried implementation of `RegExp` construction.
 `options:string -> string -> (string -> bool)`
 Makes and tests a RegExp with makeRegex and testRegex.
 
+### matchAllWords
+`string -> string -> bool`
+Returns true if the second string matches all of the words in the first string.
+
 ### matchAnyWord
 `string -> string -> bool`
 Returns true if the second string matches any of the words in the first string.
 
-### matchAllWords
-`string -> string -> bool`
-Returns true if the second string matches all of the words in the first string.
+### allMatches
+`regex -> string -> [{text: string, start: number, end: number}]`
+Returns an array of matches with start/end data
+
+Example:
+```jsx
+F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]
+```
 
 ### postings
 `regex -> string -> [[number, number]]`
@@ -675,15 +682,6 @@ braceHighlight('l o', 'hello world') //-> "he{llo} w{o}r{l}d"
 braceHighlight(/l+\w/, 'hello world') //-> "he{llo} wor{ld}"
 ```
 
-### allMatches
-`regex -> string -> [{text: string, start: number, end: number}]`
-Returns an array of matches with start/end data
-
-Example:
-```jsx
-F.allMatches(/a/g, 'vuhfaof') -> [ { text: 'a', start: 4, end: 5 } ]
-```
-
 
 ## Math
 
@@ -695,6 +693,10 @@ Returns true if number is greater than one.
 ## Lang
 Language level utilities
 
+### isPromise
+`x -> bool`
+A utility that checks if the argument passed in is of type promise
+
 ### throws
 Just throws whatever it is passed.
 
@@ -705,9 +707,11 @@ Tap error will run the provided function and then throw the first argument. It's
 Negated `_.isNil`
 
 ### isMultiple
+`(Array<T> | string | {length}) -> bool`
 Returns true if the input has a `length` property > 1, such as arrays, strings, or custom objects with a lenth property
 
 ### append
+`(a, b) => b + a`
 A curried, flipped `_.add`. The flipping matters for strings, e.g. `F.append('a')('b') -> 'ba'`
 
 ### isBlank
@@ -721,10 +725,6 @@ Opposite of `isBlank`
 ### isBlankDeep
 `f -> x -> bool`
 Recurses through an object's leaf properties and passes an array of booleans to the combinator, such as `_.some`, `_.every`, and `F.none`
-
-### isPromise
-`x -> bool`
-A utility that checks if the argument passed in is of type promise
 
 
 ## Lens
@@ -764,6 +764,33 @@ Example Usage: `F.flip(getter, setter)`
 We've included a few example "bindings" on `F.domLens`. These take a lens and return an object that's useful in a DOM context (like React or raw JS). In React terms, they're methods that generate the props you'd use to do two way binding to a lens.
 ![lens meme](http://giphygifs.s3.amazonaws.com/media/1jnyRP4DorCh2/giphy.gif)
 
+### functionLens
+Takes a value and returns a function lens for that value. Mostly used for testing and mocking purposes.
+
+### objectLens
+Takes a value and returns a object lens for that value. Mostly used for testing and mocking purposes.
+
+### set
+`propertyValue -> Lens -> object.propertyName`
+Sets the value of the lens, regardless of its format
+
+### fnToObj
+Converts a function lens an object lens. Mostly used for testing and mocking purposes.
+
+### objToFn
+Converts an object lens to a function lens. Mostly used for testing and mocking purposes.
+
+### lensProp
+`propertyName -> object -> { get: () -> object.propertyName, set: propertyValue -> object.propertyName }`
+Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path. Supports deep paths like lodash get/set.
+You typically won't use this directly since it is supported implicitly.
+
+### lensOf
+Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`. Typically you would use the implicit `(key, object)` format instead.
+
+### includeLens
+`value -> arrayLens -> includeLens`
+An include lens represents membership of a value in a set. It takes a value and lens and returns a new lens - kind of like a "writeable computed" from MobX or Knockout. The view and set functions allow you to read and write a boolean value for whether or not a value is in an array. If you change to true or false, it will set the underlying array lens with a new array either without the value or with it pushed at the end.
 
 ### view
 `Lens -> object.propertyName`
@@ -772,10 +799,6 @@ Gets the value of the lens, regardless of its format
 ### views
 `Lens -> (() -> object.propertyName)`
 Returns a function that gets the value of the lens, regardless of its format
-
-### set
-`propertyValue -> Lens -> object.propertyName`
-Sets the value of the lens, regardless of its format
 
 ### sets
 Creates a function that will set a lens with the provided value
@@ -791,10 +814,6 @@ Returns a function that will set a lens to `true`
 
 ### off
 Returns a function that will set a lens to `false`
-
-### includeLens
-`value -> arrayLens -> includeLens`
-An include lens represents membership of a value in a set. It takes a value and lens and returns a new lens - kind of like a "writeable computed" from MobX or Knockout. The view and set functions allow you to read and write a boolean value for whether or not a value is in an array. If you change to true or false, it will set the underlying array lens with a new array either without the value or with it pushed at the end.
 
 ### domLens.value
 `lens -> {value, onChange}`
@@ -828,29 +847,9 @@ Utility for building lens consumers like `value` and `checkboxValues`
 `(field, getValue) -> lens -> {[field], onChange}`
 Even more generic utility than targetBinding which uses `getEventValue` to as the function for a setsWith which is mapped to `onChange`.
 
-### functionLens
-Takes a value and returns a function lens for that value. Mostly used for testing and mocking purposes.
-
-### objectLens
-Takes a value and returns a object lens for that value. Mostly used for testing and mocking purposes.
-
 ### stateLens
 `([value, setValue]) -> lens`
 Given the popularity of React, we decided to include this little helper that converts a `useState` hook call to a lens. Ex: `let lens = stateLens(useState(false))`. You generally won't use this directly since you can pass the `[value, setter]` pair directly to lens functions
-
-### lensProp
-`propertyName -> object -> { get: () -> object.propertyName, set: propertyValue -> object.propertyName }`
-Creates an object lens for a given property on an object. `.get` returns the value at that path and `set` places a new value at that path. Supports deep paths like lodash get/set.
-You typically won't use this directly since it is supported implicitly.
-
-### lensOf
-Takes an object and returns an object with lenses at the values of each path. Basically `mapValues(lensProp)`. Typically you would use the implicit `(key, object)` format instead.
-
-### fnToObj
-Converts a function lens an object lens. Mostly used for testing and mocking purposes.
-
-### objToFn
-Converts an object lens to a function lens. Mostly used for testing and mocking purposes.
 
 
 ## Aspect
@@ -914,6 +913,9 @@ Captures any exceptions thrown and pushes them sequentially into an `errors` arr
 ### aspects.status
 Adds a `status` property that is set to `processing` before the wrapped function runs and `succeeded` when it's done or `failed` if it threw an exception. Also adds shortcuts on state for `processing`, `succeeded`, and `failed`, which are booleans which are based on the value of `status`. Also adds a `setStatus` method which is used internally to update these properties.
 
+### aspects.deprecate
+Utility for marking functions as deprecated - it's just a `before` with a console.warn. Takes the name of thing being deprecated, optionally deprecation version, and optionally an alternative and returns a higher order function which you can wrap deprecated methods in. This is what's used internally to mark deprecations. Includes a partial stack trace as part of the deprecation warning.
+
 ### aspects.clearStatus
 Sets `status` to null after provided timeout (default is 500ms) elapses. If a null timeout is passed, it will never set status to null.
 
@@ -922,9 +924,6 @@ Prevents a function from running if it's state has `processing` set to true at t
 
 ### aspects.command
 Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `extend` and `timeout` as optional parameters to construct the aspect
-
-### aspects.deprecate
-Utility for marking functions as deprecated - it's just a `before` with a console.warn. Takes the name of thing being deprecated, optionally deprecation version, and optionally an alternative and returns a higher order function which you can wrap deprecated methods in. This is what's used internally to mark deprecations. Includes a partial stack trace as part of the deprecation warning.
 
 
 ## Tree
@@ -956,41 +955,45 @@ Structure preserving pre-order depth first traversal which clones, mutates, and 
 `traverse -> (accumulator, initialValue, tree) -> x`
 Just like `_.reduce`, but traverses over the tree with the traversal function in `pre-order`.
 
-### treeToArray
-`traverse -> tree -> [treeNode, treeNode, ...]`
-Flattens the tree nodes into an array, simply recording the node values in pre-order traversal.
+### mapTree
+`(traverse, writeNode) -> f -> tree -> newTree`
+Structure preserving tree map! `writeNode` informs how to write a single node, but the default will generally work for most cases. The iteratee is passed the standard `node, index, parents, parentIndexes` args and is expected to return a transformed node.
+
+### mapTreeLeaves
+`(traverse, writeNode) -> f -> tree -> newTree`
+Like `mapTree`, but only operates on lead nodes. It is a convenience method for `mapTree(next, writeNode)(F.unless(next, mapper), tree)`
 
 ### treeToArrayBy
 `traverse -> f -> tree -> [f(treeNode), f(treeNode), ...]`
 Like `treeToArray`, but accepts a customizer to process the tree nodes before putting them in an array. The customizer is passed the standard `node, index, parents, parentIndexes` args and is expected to return a transformed node. It's `_.map` for trees - but it's not called treeMap because it does not preserve the structure as you might expect `map` to do. See `mapTree` for that behavior.
 
-### leaves
-`traverse -> tree -> [treeNodes]`
-Returns an array of the tree nodes that can't be traversed into in `pre-order`.
+### treeToArray
+`traverse -> tree -> [treeNode, treeNode, ...]`
+Flattens the tree nodes into an array, simply recording the node values in pre-order traversal.
 
 ### leavesBy
 `traverse -> f -> tree -> [f(treeNode), f(treeNode), ...]`
 Like `leaves`, but accepts a customizer to process the leaves before putting them in an array.
 
-### treeMap
-`(traverse, writeNode) -> f -> tree -> newTree`
-Structure preserving tree map! `writeNode` informs how to write a single node, but the default will generally work for most cases. The iteratee is passed the standard `node, index, parents, parentIndexes` args and is expected to return a transformed node.
-
-### treeMapLeaves
-`(traverse, writeNode) -> f -> tree -> newTree`
-Like `mapTree`, but only operates on lead nodes. It is a convenience method for `mapTree(next, writeNode)(F.unless(next, mapper), tree)`
+### leaves
+`traverse -> tree -> [treeNodes]`
+Returns an array of the tree nodes that can't be traversed into in `pre-order`.
 
 ### treeLookup
 `(traverse, buildIteratee) -> ([_iteratee], tree) -> treeNode`
 Looks up a node matching a path, which defaults to lodash `iteratee` but can be customized with buildIteratee. The `_iteratee` members of the array can be any suitable arguments for `_.iteratee` https://lodash.com/docs/4.17.5#iteratee
 
-### keyByWith
+### keyTreeByWith
 `traverse -> transformer -> _iteratee -> tree -> result`
 Similar to a keyBy (aka groupBy) for trees, but also transforms the grouped values (instead of filtering out tree nodes). The transformer takes three args, the current node, a boolean of if the node matches the current group, and what group is being evaluated for this iteratee. The transformer is called on each node for each grouping. `_iteratee` is any suitable argument to `_.iteratee`, as above.
 
-### flattenTree
-`traverse -> buildPath -> tree -> result`
-Creates a flat object with a property for each node, using `buildPath` to determine the keys. `buildPath` takes the same arguments as a tree walking iteratee. It will default to a dot tree path.
+### treeKeys
+`(x, i, xs, is) => [i, ...is]`
+A utility tree iteratee that returns the stack of node indexes
+
+### treeValues
+`(x, i, xs) => [x, ...xs]`
+A utility tree iteratee that returns the stack of node values
 
 ### treePath
 `(build, encoder) -> treePathBuilderFunction`
@@ -1000,13 +1003,9 @@ Creates a path builder for use in `flattenTree`. By default, the builder will lo
 `prop -> treePathBuilderFunction`
 Creates a path builder for use in `flattenTree`, using a slashEncoder and using the specified prop function as an iteratee on each node to determine the keys.
 
-### treeKeys
-`(x, i, xs, is) => [i, ...is]`
-A utility tree iteratee that returns the stack of node indexes
-
-### treeValues
-`(x, i, xs) => [x, ...xs]`
-A utility tree iteratee that returns the stack of node values
+### flattenTree
+`traverse -> buildPath -> tree -> result`
+Creates a flat object with a property for each node, using `buildPath` to determine the keys. `buildPath` takes the same arguments as a tree walking iteratee. It will default to a dot tree path.
 
 ### tree
 `(traverse, buildIteratee, writeNode) -> {walk, reduce, transform, toArray, toArrayBy, leaves, leavesBy, map, mapLeaves, lookup, keyByWith, traverse, flatten, flatLeaves }`
