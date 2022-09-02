@@ -5,7 +5,7 @@ notify:
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: cimg/node:15.0.1
     steps:
       - checkout
       - restore_cache:
