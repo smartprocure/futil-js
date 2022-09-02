@@ -53,3 +53,11 @@ jobs:
               npm run rename futil
               npm publish || true
             fi
+      - deploy:
+          name: Maybe Deploy docs
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+              npm run docs-publish
+              npm publish || true
+            fi
