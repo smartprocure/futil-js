@@ -29,7 +29,9 @@
     "readme": "node -r esm ./scripts/generate-readme.js",
     "tests-json": "node -r esm ./scripts/generate-tests-json.js",
     "copy-docs": "node -r esm ./scripts/copy-docs.js",
-    "docs-site": "npm run readme && npm run tests-json && npm run copy-docs"
+    "docs-site": "npm run readme && npm run tests-json && npm run copy-docs",
+    "predocs-publish": "npm run docs-site",
+    "docs-publish": "cd docs/beta && npm run deploy"
   },
   "author": {
     "name": "Samuel Greene",
