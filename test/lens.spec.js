@@ -170,7 +170,7 @@ describe('Lens Functions', () => {
       expect(object.a).to.be.false
     })
   })
-  
+
   describe('additional implicit lens formats', () => {
     it('arrayLens', () => {
       let arrayLens = (val) => {
