@@ -84,7 +84,7 @@ let run = async () => {
       // Attempt to remove test wrappers but fallback if prettier explodes due to invalid JS
       return format(removeTestWrappers(code))
     } catch (e) {
-      return code
+      return removeTestWrappers(code)
     }
   }, tests)
 
