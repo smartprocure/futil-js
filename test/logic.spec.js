@@ -9,8 +9,8 @@ describe('Logic Functions', () => {
     let ten = (x) => x > 10
     let twenty = (x) => x > 20
     let thirty = (x) => x > 30
-    expect(F.overNone([ten, twenty, thirty])(5)).to.deep.equal(true)
-    expect(F.overNone([ten, twenty, thirty])(15)).to.deep.equal(false)
+    expect(F.overNone([ten, twenty, thirty])(5)).to.be.true
+    expect(F.overNone([ten, twenty, thirty])(15)).to.be.false
   })
   describe('ifElse', () => {
     it('should handle functions', () => {
@@ -86,6 +86,6 @@ describe('Logic Functions', () => {
     let fn = F.whenTruthy(5)
     expect(fn(3)).to.equal(5)
     expect(fn(null)).to.equal(null)
-    expect(fn(false)).to.equal(false)
+    expect(fn(false)).to.be.false
   })
 })

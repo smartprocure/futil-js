@@ -5,18 +5,18 @@ const expect = chai.expect
 
 describe('Array Functions', () => {
   it('compactJoin', () => {
-    expect(F.compactJoin(',', [1, undefined, 2, null, 3])).to.eql('1,2,3')
-    expect(F.compactJoin(' and ', [null, 'Alice', 'Bob', false])).to.eql(
+    expect(F.compactJoin(',', [1, undefined, 2, null, 3])).to.equal('1,2,3')
+    expect(F.compactJoin(' and ', [null, 'Alice', 'Bob', false])).to.equal(
       'Alice and Bob'
     )
   })
   it('dotJoin', () => {
-    expect(F.dotJoin([1, undefined, 2, null, 3])).to.eql('1.2.3')
-    expect(F.dotJoin([null, 'Alice', 'Bob', false])).to.eql('Alice.Bob')
+    expect(F.dotJoin([1, undefined, 2, null, 3])).to.equal('1.2.3')
+    expect(F.dotJoin([null, 'Alice', 'Bob', false])).to.equal('Alice.Bob')
   })
   it('repeated', () => {
-    expect(F.repeated([1, 1, 2, 3, 3, 4])).to.eql([1, 3])
-    expect(F.repeated(['a', 'b', 'b'])).to.eql(['b'])
+    expect(F.repeated([1, 1, 2, 3, 3, 4])).to.deep.equal([1, 3])
+    expect(F.repeated(['a', 'b', 'b'])).to.deep.equal(['b'])
   })
   it('push', () => {
     let arr = [1, 2, 3]
@@ -65,11 +65,11 @@ describe('Array Functions', () => {
     expect(cycle(4)).to.equal(1)
 
     cycle = F.cycle([true, false])
-    expect(cycle(true)).to.equal(false)
-    expect(cycle(false)).to.equal(true)
-    expect(cycle(null)).to.equal(true)
+    expect(cycle(true)).to.be.false
+    expect(cycle(false)).to.be.true
+    expect(cycle(null)).to.be.true
 
-    expect(F.cycle([true, false], true)).to.equal(false)
+    expect(F.cycle([true, false], true)).to.be.false
   })
   it('arrayToObject', () => {
     expect(
@@ -107,15 +107,15 @@ describe('Array Functions', () => {
   })
   it('encoder', () => {
     let encoder = F.encoder('->')
-    expect(encoder.encode(['a', 'b'])).to.deep.equal('a->b')
+    expect(encoder.encode(['a', 'b'])).to.equal('a->b')
     expect(encoder.decode('a->b')).to.deep.equal(['a', 'b'])
   })
   it('dotEncoder', () => {
-    expect(F.dotEncoder.encode(['a', 'b'])).to.deep.equal('a.b')
+    expect(F.dotEncoder.encode(['a', 'b'])).to.equal('a.b')
     expect(F.dotEncoder.decode('a.b')).to.deep.equal(['a', 'b'])
   })
   it('slashEncoder', () => {
-    expect(F.slashEncoder.encode(['a', 'b'])).to.deep.equal('a/b')
+    expect(F.slashEncoder.encode(['a', 'b'])).to.equal('a/b')
     expect(F.slashEncoder.decode('a/b')).to.deep.equal(['a', 'b'])
   })
   it('chunkBy', () => {

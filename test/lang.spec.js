@@ -15,77 +15,77 @@ describe('Lang Functions', () => {
     try {
       F.tapError(errorFn)(errorOfMine, 20, 45)
     } catch (e) {
-      expect(total).to.deep.equal('Error: myError. The total is 65')
-      expect(e).to.deep.equal(errorOfMine)
+      expect(total).to.equal('Error: myError. The total is 65')
+      expect(e).to.equal(errorOfMine)
     }
   })
   it('isNotNil', () => {
-    expect(F.isNotNil(null)).to.equal(false)
-    expect(F.isNotNil(undefined)).to.equal(false)
-    expect(F.isNotNil(0)).to.equal(true)
-    expect(F.isNotNil('')).to.equal(true)
-    expect(F.isNotNil([])).to.equal(true)
+    expect(F.isNotNil(null)).to.be.false
+    expect(F.isNotNil(undefined)).to.be.false
+    expect(F.isNotNil(0)).to.be.true
+    expect(F.isNotNil('')).to.be.true
+    expect(F.isNotNil([])).to.be.true
     expect(F.isNotNil).to.equal(F.exists)
   })
   it('exists', () => {
-    expect(F.exists(null)).to.equal(false)
-    expect(F.exists(undefined)).to.equal(false)
-    expect(F.exists(0)).to.equal(true)
-    expect(F.exists('')).to.equal(true)
-    expect(F.exists([])).to.equal(true)
+    expect(F.exists(null)).to.be.false
+    expect(F.exists(undefined)).to.be.false
+    expect(F.exists(0)).to.be.true
+    expect(F.exists('')).to.be.true
+    expect(F.exists([])).to.be.true
   })
   it('isMultiple', () => {
-    expect(F.isMultiple([''])).to.equal(false)
-    expect(F.isMultiple(['', ''])).to.equal(true)
-    expect(F.isMultiple('a')).to.equal(false)
-    expect(F.isMultiple('asdf')).to.equal(true)
-    expect(F.isMultiple({ x: 1, y: 2 })).to.equal(false)
-    expect(F.isMultiple({ x: 1, y: 2, length: 2 })).to.equal(true)
+    expect(F.isMultiple([''])).to.be.false
+    expect(F.isMultiple(['', ''])).to.be.true
+    expect(F.isMultiple('a')).to.be.false
+    expect(F.isMultiple('asdf')).to.be.true
+    expect(F.isMultiple({ x: 1, y: 2 })).to.be.false
+    expect(F.isMultiple({ x: 1, y: 2, length: 2 })).to.be.true
   })
   it('append', () => {
     expect(F.append('a', 'b')).to.equal('ba')
     expect(F.append(1, 4)).to.equal(5)
   })
   it('isBlank', () => {
-    expect(F.isBlank(1)).to.equal(false)
-    expect(F.isBlank('asdf')).to.equal(false)
-    expect(F.isBlank({ a: 1 })).to.equal(false)
-    expect(F.isBlank([3, 4])).to.equal(false)
-    expect(F.isBlank(new Date())).to.equal(false)
+    expect(F.isBlank(1)).to.be.false
+    expect(F.isBlank('asdf')).to.be.false
+    expect(F.isBlank({ a: 1 })).to.be.false
+    expect(F.isBlank([3, 4])).to.be.false
+    expect(F.isBlank(new Date())).to.be.false
     expect(
       F.isBlank({
         a: 1,
         b: 'as',
       })
-    ).to.equal(false)
-    expect(F.isBlank(null)).to.equal(true)
-    expect(F.isBlank(undefined)).to.equal(true)
-    expect(F.isBlank('')).to.equal(true)
-    expect(F.isBlank([])).to.equal(true)
-    expect(F.isBlank({})).to.equal(true)
+    ).to.be.false
+    expect(F.isBlank(null)).to.be.true
+    expect(F.isBlank(undefined)).to.be.true
+    expect(F.isBlank('')).to.be.true
+    expect(F.isBlank([])).to.be.true
+    expect(F.isBlank({})).to.be.true
   })
   it('isNotBlank', () => {
-    expect(F.isNotBlank(1)).to.equal(true)
-    expect(F.isNotBlank('asdf')).to.equal(true)
-    expect(F.isNotBlank({ a: 1 })).to.equal(true)
-    expect(F.isNotBlank([3, 4])).to.equal(true)
-    expect(F.isNotBlank(new Date())).to.equal(true)
-    expect(F.isNotBlank(null)).to.equal(false)
-    expect(F.isNotBlank(undefined)).to.equal(false)
-    expect(F.isNotBlank('')).to.equal(false)
-    expect(F.isNotBlank([])).to.equal(false)
-    expect(F.isNotBlank({})).to.equal(false)
+    expect(F.isNotBlank(1)).to.be.true
+    expect(F.isNotBlank('asdf')).to.be.true
+    expect(F.isNotBlank({ a: 1 })).to.be.true
+    expect(F.isNotBlank([3, 4])).to.be.true
+    expect(F.isNotBlank(new Date())).to.be.true
+    expect(F.isNotBlank(null)).to.be.false
+    expect(F.isNotBlank(undefined)).to.be.false
+    expect(F.isNotBlank('')).to.be.false
+    expect(F.isNotBlank([])).to.be.false
+    expect(F.isNotBlank({})).to.be.false
   })
   it('isBlankDeep', () => {
-    expect(F.isBlankDeep(_.every)(1)).to.equal(false)
-    expect(F.isBlankDeep(_.every)(false)).to.equal(false)
-    expect(F.isBlankDeep(_.every)('')).to.equal(true)
+    expect(F.isBlankDeep(_.every)(1)).to.be.false
+    expect(F.isBlankDeep(_.every)(false)).to.be.false
+    expect(F.isBlankDeep(_.every)('')).to.be.true
     expect(
       F.isBlankDeep(_.every)({
         a: 1,
         b: 'as',
       })
-    ).to.equal(false)
+    ).to.be.false
     expect(
       F.isBlankDeep(_.every)({
         a: null,
@@ -95,6 +95,6 @@ describe('Lang Functions', () => {
           b: '',
         },
       })
-    ).to.equal(true)
+    ).to.be.true
   })
 })

@@ -8,10 +8,10 @@ const expect = chai.expect
 
 describe('Tree Functions', () => {
   it('isTraversable', () => {
-    expect(F.isTraversable([])).to.equal(true)
-    expect(F.isTraversable({})).to.equal(true)
-    expect(F.isTraversable('')).to.equal(false)
-    expect(F.isTraversable(5)).to.equal(false)
+    expect(F.isTraversable([])).to.be.true
+    expect(F.isTraversable({})).to.be.true
+    expect(F.isTraversable('')).to.be.false
+    expect(F.isTraversable(5)).to.be.false
   })
   it('traverse', () => {
     let x = {
@@ -156,9 +156,7 @@ describe('Tree Functions', () => {
     }
     let tree = F.tree((x) => x.items)
 
-    expect(tree.lookup([{ a: 2 }, { a: 4 }], x)).to.deep.equal(
-      x.items[0].items[1]
-    )
+    expect(tree.lookup([{ a: 2 }, { a: 4 }], x)).to.equal(x.items[0].items[1])
   })
   it('lookup with path', () => {
     let x = {
@@ -185,7 +183,7 @@ describe('Tree Functions', () => {
       (x) => x.items,
       (a) => ({ a })
     )
-    expect(tree.lookup(['2', '4'], x)).to.deep.equal(x.items[0].items[1])
+    expect(tree.lookup(['2', '4'], x)).to.equal(x.items[0].items[1])
   })
   it('transform', () => {
     let x = {

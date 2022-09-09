@@ -122,7 +122,7 @@ describe('Lens Functions', () => {
       }
       let l = F.lensOf(object)
       F.flip(l.a)()
-      expect(object.a).to.equal(false)
+      expect(object.a).to.be.false
     })
     it('on', () => {
       let object = {
@@ -130,7 +130,7 @@ describe('Lens Functions', () => {
       }
       let l = F.lensOf(object)
       F.on(l.a)()
-      expect(object.a).to.equal(true)
+      expect(object.a).to.be.true
     })
     it('off', () => {
       let object = {
@@ -138,7 +138,7 @@ describe('Lens Functions', () => {
       }
       let l = F.lensOf(object)
       F.off(l.a)()
-      expect(object.a).to.equal(false)
+      expect(object.a).to.be.false
     })
   })
   describe('Implicit Lens Prop', () => {
@@ -177,21 +177,21 @@ describe('Lens Functions', () => {
         a: 1,
       }
       F.flip('a', object)()
-      expect(object.a).to.equal(false)
+      expect(object.a).to.be.false
     })
     it('on', () => {
       let object = {
         a: 1,
       }
       F.on('a', object)()
-      expect(object.a).to.equal(true)
+      expect(object.a).to.be.true
     })
     it('off', () => {
       let object = {
         a: 1,
       }
       F.off('a', object)()
-      expect(object.a).to.equal(false)
+      expect(object.a).to.be.false
     })
   })
   describe('additional implicit lens formats', () => {
@@ -252,7 +252,7 @@ describe('Lens Functions', () => {
       }
       // Props for if `x` is in the list
       let props = F.domLens.checkboxValues('x', 'a', state)
-      expect(props.checked).to.equal(true)
+      expect(props.checked).to.be.true
       // uncheck
       props.onChange({ target: { value: false } })
       expect(_.includes('a', state.a)).to.be.false

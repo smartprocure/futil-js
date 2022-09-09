@@ -12,7 +12,7 @@ describe('Converted Functions', () => {
         father: 'Zeus',
         bornAt: 'Thebes',
       }
-      expect(F.getIn(hero, 'name')).to.eql('Heracles')
+      expect(F.getIn(hero, 'name')).to.equal('Heracles')
       expect(F.getIn(hero, 'Zeus')).to.equal(undefined)
       const obj = { a: 1 }
       expect(F.inversions.getIn(obj)('a')).to.equal(1)
@@ -24,7 +24,7 @@ describe('Converted Functions', () => {
         father: 'Zeus',
         bornAt: 'Thebes',
       }
-      expect(F.getIn(hero, 'name')).to.eql(_.get('name', hero))
+      expect(F.getIn(hero, 'name')).to.equal(_.get('name', hero))
     })
     it('hasIn', () => {
       let hero = {
@@ -32,8 +32,8 @@ describe('Converted Functions', () => {
         father: 'Zeus',
         bornAt: 'Thebes',
       }
-      expect(F.hasIn(hero, 'father')).to.equal(true)
-      expect(F.hasIn(hero, 'Zeus')).to.equal(false)
+      expect(F.hasIn(hero, 'father')).to.be.true
+      expect(F.hasIn(hero, 'Zeus')).to.be.false
     })
     it('pickIn', () => {
       let hero = {
@@ -41,8 +41,8 @@ describe('Converted Functions', () => {
         father: 'Zeus',
         bornAt: 'Thebes',
       }
-      expect(F.pickIn(hero, 'name')).to.eql({ name: 'Heracles' })
-      expect(F.pickIn(hero, ['name', 'father'])).to.eql({
+      expect(F.pickIn(hero, 'name')).to.deep.equal({ name: 'Heracles' })
+      expect(F.pickIn(hero, ['name', 'father'])).to.deep.equal({
         name: 'Heracles',
         father: 'Zeus',
       })
@@ -53,8 +53,8 @@ describe('Converted Functions', () => {
         father: 'Zeus',
         bornAt: 'Thebes',
       }
-      expect(F.pickIn(hero, 'name')).to.eql(_.pick('name', hero))
-      expect(F.pickIn(hero, ['name', 'father'])).to.eql(
+      expect(F.pickIn(hero, 'name')).to.deep.equal(_.pick('name', hero))
+      expect(F.pickIn(hero, ['name', 'father'])).to.deep.equal(
         _.pick(['name', 'father'], hero)
       )
     })
@@ -64,8 +64,8 @@ describe('Converted Functions', () => {
         father: 'Zeus',
         bornAt: 'Thebes',
       }
-      expect(F.includesIn(hero, 'Heracles')).to.eql(true)
-      expect(F.includesIn(hero, 'name')).to.eql(false)
+      expect(F.includesIn(hero, 'Heracles')).to.be.true
+      expect(F.includesIn(hero, 'name')).to.be.false
     })
     it('includesIn consistent with _.includes', () => {
       let hero = {
@@ -73,11 +73,11 @@ describe('Converted Functions', () => {
         father: 'Zeus',
         bornAt: 'Thebes',
       }
-      let expectEql = (obj, name) =>
-        expect(F.includesIn(obj, name)).to.eql(_.includes(name, obj))
-      expectEql(hero, 'name')
-      expectEql(hero, 'Heracles')
-      expectEql(hero, 'Zeus')
+      let expectDeepEqual = (obj, name) =>
+        expect(F.includesIn(obj, name)).to.deep.equal(_.includes(name, obj))
+      expectDeepEqual(hero, 'name')
+      expectDeepEqual(hero, 'Heracles')
+      expectDeepEqual(hero, 'Zeus')
     })
   })
 
@@ -106,10 +106,10 @@ describe('Converted Functions', () => {
         father: 'Zeus',
         bornAt: 'Thebes',
       }
-      let expectEql = (clone, obj) =>
-        expect(F.extendOn(clone, obj)).to.eql(_.extend(obj, clone))
-      expectEql(_.clone(hero), { name: 'Hercules' })
-      expectEql(_.clone(hero), { consort: 'Auge' })
+      let expectDeepEqual = (clone, obj) =>
+        expect(F.extendOn(clone, obj)).to.deep.equal(_.extend(obj, clone))
+      expectDeepEqual(_.clone(hero), { name: 'Hercules' })
+      expectDeepEqual(_.clone(hero), { consort: 'Auge' })
     })
     it('defaultsOn', () => {
       expect(
@@ -136,7 +136,7 @@ describe('Converted Functions', () => {
         bornAt: 'Thebes',
       }
       let clone = _.clone(hero)
-      expect(F.defaultsOn(clone, { consort: 'Auge' })).to.eql(
+      expect(F.defaultsOn(clone, { consort: 'Auge' })).to.deep.equal(
         _.defaults({ consort: 'Auge' }, clone)
       )
     })
@@ -162,7 +162,7 @@ describe('Converted Functions', () => {
     })
     it('unsetOn', () => {
       let object = { a: [{ b: { c: 3 } }] }
-      expect(F.unsetOn('a[0].b.c')(object)).to.deep.equal(true)
+      expect(F.unsetOn('a[0].b.c')(object)).to.be.true
       expect(object).to.deep.equal({ a: [{ b: {} }] })
     })
     it('pullOn', () => {

@@ -20,9 +20,9 @@ describe('Aspect Functions', () => {
   it('should combine aspect states', async () => {
     let f = Command(() => 6)
     expect(f.state.status).to.equal(null)
-    expect(f.state.processing).to.equal(false)
-    expect(f.state.failed).to.equal(false)
-    expect(f.state.succeeded).to.equal(false)
+    expect(f.state.processing).to.be.false
+    expect(f.state.failed).to.be.false
+    expect(f.state.succeeded).to.be.false
     expect(f.state.logs).to.deep.equal([])
     expect(f.state.errors).to.deep.equal([])
   })
@@ -37,10 +37,10 @@ describe('Aspect Functions', () => {
     let g = Command(() => {
       throw Error(5)
     })
-    expect(g.state.processing).to.equal(false)
+    expect(g.state.processing).to.be.false
     await g()
     expect(g.state.errors[0].message).to.equal('5')
-    expect(g.state.processing).to.equal(false)
+    expect(g.state.processing).to.be.false
     // Should be blocked as a concurrent run since it's still processing
     g.state.processing = true
     await g()
@@ -66,7 +66,7 @@ describe('Aspect Functions', () => {
       throw Error('Hi')
     })
     await throwsHi()
-    expect(throwsHi.state.error.message).to.deep.equal('Hi')
+    expect(throwsHi.state.error.message).to.equal('Hi')
   })
   it('should support status and clearing status', async () => {
     // Increase the timeout/delay to hundreds ms to make testing IE9/10/11 more
@@ -77,10 +77,10 @@ describe('Aspect Functions', () => {
     let result = f()
     await Promise.delay(100)
     expect(f.state.status).to.equal('processing')
-    expect(f.state.processing).to.equal(true)
+    expect(f.state.processing).to.be.true
     await result
     expect(f.state.status).to.equal('succeeded')
-    expect(f.state.succeeded).to.equal(true)
+    expect(f.state.succeeded).to.be.true
     await Promise.delay(300)
     expect(f.state.status).to.equal(null)
     let g = clearingStatus(async () => {
@@ -88,7 +88,7 @@ describe('Aspect Functions', () => {
     })
     await g()
     expect(g.state.status).to.equal('failed')
-    expect(g.state.failed).to.equal(true)
+    expect(g.state.failed).to.be.true
     await Promise.delay(15)
     expect(f.state.status).to.equal(null)
   })
@@ -113,6 +113,6 @@ describe('Aspect Functions', () => {
   it('should mark deprecated methods on state', () => {
     let fn = aspects.deprecate('test', '1.2.3', 'something else')(() => {})
 
-    expect(fn.state.isDeprecated).to.equal(true)
+    expect(fn.state.isDeprecated).to.be.true
   })
 })
