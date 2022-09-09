@@ -110,4 +110,9 @@ describe('Aspect Functions', () => {
     f()
     expect(y).to.equal(2)
   })
+  it('should mark deprecated methods on state', () => {
+    let fn = aspects.deprecate('test', '1.2.3', 'something else')(() => {})
+
+    expect(fn.state.isDeprecated).to.equal(true)
+  })
 })

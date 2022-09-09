@@ -30,11 +30,25 @@ import * as iterators from './iterators'
 
 // Math
 // ----
+
+/**
+ * Returns true if number is greater than one.
+ *
+ * @signature number -> bool
+ * @tags math
+ */
 export const greaterThanOne = _.lt(1)
 
 // Promise
 // ----
-export const isPromise = obj =>
+
+/**
+ * A utility that checks if the argument passed in is of type promise
+ *
+ * @signature x -> bool
+ * @tags lang
+ */
+export const isPromise = (obj) =>
   !!obj &&
   (typeof obj === 'object' || typeof obj === 'function') &&
   typeof obj.then === 'function'

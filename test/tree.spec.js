@@ -31,7 +31,7 @@ describe('Tree Functions', () => {
     }
     let values = []
     it('pre-order traversal', () => {
-      F.walk()(tree => {
+      F.walk()((tree) => {
         values.push(tree)
       })(x)
       expect(values).to.deep.equal([x, x.a, x.b, x.b.c])
@@ -40,7 +40,7 @@ describe('Tree Functions', () => {
       let values = []
       F.walk()(
         () => {},
-        tree => {
+        (tree) => {
           values.push(tree)
         }
       )(x)
@@ -48,7 +48,7 @@ describe('Tree Functions', () => {
     })
     it('halting', () => {
       let values = []
-      let r = F.walk()(tree => {
+      let r = F.walk()((tree) => {
         values.push(tree)
         return _.isNumber(tree)
       })(x)
@@ -111,7 +111,7 @@ describe('Tree Functions', () => {
       },
     }
     expect(
-      F.treeToArrayBy()(i => (_.isNumber(i) ? i * 2 : i), x)
+      F.treeToArrayBy()((i) => (_.isNumber(i) ? i * 2 : i), x)
     ).to.deep.equal([x, x.a * 2, x.b, x.b.c * 2])
   })
   it('leaves', () => {
@@ -154,7 +154,7 @@ describe('Tree Functions', () => {
         },
       ],
     }
-    let tree = F.tree(x => x.items)
+    let tree = F.tree((x) => x.items)
 
     expect(tree.lookup([{ a: 2 }, { a: 4 }], x)).to.deep.equal(
       x.items[0].items[1]
@@ -182,8 +182,8 @@ describe('Tree Functions', () => {
       ],
     }
     let tree = F.tree(
-      x => x.items,
-      a => ({ a })
+      (x) => x.items,
+      (a) => ({ a })
     )
     expect(tree.lookup(['2', '4'], x)).to.deep.equal(x.items[0].items[1])
   })
@@ -209,7 +209,7 @@ describe('Tree Functions', () => {
       ],
     }
     expect(
-      F.transformTree(x => x.items)(x => {
+      F.transformTree((x) => x.items)((x) => {
         x.b = 'transformed'
       }, x)
     ).to.deep.equal({
@@ -282,7 +282,7 @@ describe('Tree Functions', () => {
         },
       ],
     }
-    let tree = F.tree(x => x.items)
+    let tree = F.tree((x) => x.items)
 
     expect(
       tree.keyByWith(
@@ -382,7 +382,7 @@ describe('Tree Functions', () => {
         },
       },
     }
-    let Tree = F.tree(x => x.properties)
+    let Tree = F.tree((x) => x.properties)
     let result = _.flow(Tree.flatten(), _.omitBy(Tree.traverse))({ properties })
     expect(result).to.deep.equal({
       Field1: {
@@ -406,7 +406,7 @@ describe('Tree Functions', () => {
     })
   })
   it('flattenTree with propTreePath', () => {
-    let Tree = F.tree(x => x.children)
+    let Tree = F.tree((x) => x.children)
     let result = Tree.flatten(F.propTreePath('key'))({
       key: 'root',
       children: [
@@ -484,7 +484,7 @@ describe('Tree Functions', () => {
   })
   it('findIndexedAsync', async () => {
     let findIndexedAsyncTest = await F.findIndexedAsync(
-      async x => {
+      async (x) => {
         await Promise.delay(10)
         return x % 2 === 0
       },
@@ -500,7 +500,7 @@ describe('Tree Functions', () => {
         },
       },
     }
-    let walkAsyncTest = F.walkAsync()(async node => {
+    let walkAsyncTest = F.walkAsync()(async (node) => {
       await Promise.delay(10)
       if (_.isArray(node)) node.push(4)
     })(tree)
@@ -516,7 +516,7 @@ describe('Tree Functions', () => {
         },
       },
     }
-    let walkAsyncTest = F.walkAsync()(node => {
+    let walkAsyncTest = F.walkAsync()((node) => {
       if (_.isArray(node)) node.push(4)
     })(tree)
     expect(tree.a.b.c.length).to.equal(3)
@@ -525,7 +525,7 @@ describe('Tree Functions', () => {
   })
   it('mapTreeLeaves', () => {
     let tree = { a: { b: { c: [1, 2, 3] } } }
-    let double = x => x * 2
+    let double = (x) => x * 2
     let result = F.mapTreeLeaves()(double, tree)
     expect(tree).to.deep.equal({ a: { b: { c: [1, 2, 3] } } })
     expect(result).to.deep.equal({ a: { b: { c: [2, 4, 6] } } })
@@ -538,13 +538,13 @@ describe('Tree Functions', () => {
         { key: 'analysis', children: [{ key: 'results' }] },
       ],
     }
-    let getChildren = x => x.children
+    let getChildren = (x) => x.children
     // default writeChild works now!
     // let writeChild = (node, index, [parent]) => {
     //   parent.children[index] = node
     // }
     let mapLeaves = F.mapTreeLeaves(getChildren) //, writeChild)
-    let result = mapLeaves(node => ({ ...node, value: 'test' }), tree)
+    let result = mapLeaves((node) => ({ ...node, value: 'test' }), tree)
     expect(result).to.deep.equal({
       key: 'root',
       children: [
@@ -587,7 +587,7 @@ describe('Tree Functions', () => {
       },
     }
 
-    let getChildren = x => x.properties
+    let getChildren = (x) => x.properties
     let { map } = F.tree(getChildren)
 
     let jsonSchemaToMongoSchema = _.flow(

@@ -5,7 +5,7 @@ notify:
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: cimg/node:15.0.1
     steps:
       - checkout
       - restore_cache:
@@ -52,4 +52,14 @@ jobs:
               echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
               npm run rename futil
               npm publish || true
+            fi
+      - deploy:
+          name: Maybe Deploy docs
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+              npm run docs-site
+              cd docs/beta
+              npm install
+              npm run deploy
             fi

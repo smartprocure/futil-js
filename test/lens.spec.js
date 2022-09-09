@@ -131,7 +131,7 @@ describe('Lens Functions', () => {
       let object = {
         a: 1,
       }
-      let setter = F.setsWith(x => x * 2, 'a', object)
+      let setter = F.setsWith((x) => x * 2, 'a', object)
       setter(5)
       expect(object.a).to.equal(10)
     })
@@ -173,6 +173,39 @@ describe('Lens Functions', () => {
       let l = F.lensOf(object)
       F.off(l.a)()
       expect(object.a).to.equal(false)
+    })
+  })
+  describe('additional implicit lens formats', () => {
+    it('arrayLens', () => {
+      let arrayLens = (val) => {
+        let result = [val]
+        result.push((x) => {
+          result[0] = x
+        })
+        return result
+      }
+      let lens = arrayLens(false)
+      F.on(lens)()
+      expect(lens[0]).to.be.true
+      F.off(lens)()
+      expect(lens[0]).to.be.false
+      F.flip(lens)()
+      expect(lens[0]).to.be.true
+    })
+    it('functionPairLens', () => {
+      let object = {
+        a: false,
+      }
+      let get = () => object.a
+      let set = (x) => {
+        object.a = x
+      }
+      F.on(get, set)()
+      expect(object.a).to.be.true
+      F.off(get, set)()
+      expect(object.a).to.be.false
+      F.flip(get, set)()
+      expect(object.a).to.be.true
     })
   })
   describe('domLens', () => {
@@ -244,7 +277,7 @@ describe('Lens Functions', () => {
       let state = {
         selectedItem: 'item1',
       }
-      let weirdSelect = F.domLens.binding('selected', e => e.newSelectedValue)
+      let weirdSelect = F.domLens.binding('selected', (e) => e.newSelectedValue)
       let props = weirdSelect('selectedItem', state)
       expect(props.selected).to.equal('item1')
       props.onChange({ newSelectedValue: 'newItem' })
