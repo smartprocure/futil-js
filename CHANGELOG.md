@@ -1,6 +1,13 @@
 
+
 # 1.72.3
 - Organized and added to lens test file.
+
+# 1.71.2
+- Tests: 
+  - Replaced all `eql` with `deep.equal`
+  - Replaced all unnecessary `deep.equal` assertions with `.equal`
+  - Replaced `to.equal(true)` and `to.equal(false)` with `to.be.true` and `to.be.false`
 
 # 1.71.1
 - Organized and added to regexp tests

@@ -146,7 +146,7 @@ describe('Lens Functions', () => {
       }
       let l = F.lensOf(object)
       F.flip(l.a)()
-      expect(object.a).to.equal(false)
+      expect(object.a).to.be.false
     })
     it('on', () => {
       let x = {
@@ -159,9 +159,41 @@ describe('Lens Functions', () => {
       }
       let l = F.lensOf(object)
       F.on(l.a)()
-      expect(object.a).to.equal(true)
+      expect(object.a).to.be.true
     })
     it('off', () => {
+      let object = {
+        a: 1,
+      }
+      let l = F.lensOf(object)
+      F.off(l.a)()
+      expect(object.a).to.be.false
+    })
+  })
+  describe('Implicit Lens Prop', () => {
+    it('view', () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      expect(F.view('a', x)).to.equal(1)
+    })
+    it('views', () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      expect(F.views('a', x)()).to.equal(1)
+    })
+    it('set', () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      F.set(5, 'a', x)
+      expect(x.a).to.equal(5)
+    })
+    it('sets', () => {
       let x = {
         a: 1,
       }
@@ -170,9 +202,22 @@ describe('Lens Functions', () => {
       let object = {
         a: 1,
       }
-      let l = F.lensOf(object)
-      F.off(l.a)()
-      expect(object.a).to.equal(false)
+      F.flip('a', object)()
+      expect(object.a).to.be.false
+    })
+    it('on', () => {
+      let object = {
+        a: 1,
+      }
+      F.on('a', object)()
+      expect(object.a).to.be.true
+    })
+    it('off', () => {
+      let object = {
+        a: 1,
+      }
+      F.off('a', object)()
+      expect(object.a).to.be.false
     })
   })
   describe('additional implicit lens formats', () => {
@@ -232,7 +277,7 @@ describe('Lens Functions', () => {
       }
       // Props for if `x` is in the list
       let props = F.domLens.checkboxValues('x', 'a', state)
-      expect(props.checked).to.equal(true)
+      expect(props.checked).to.be.true
       // uncheck
       props.onChange({ target: { value: false } })
       expect(_.includes('a', state.a)).to.be.false

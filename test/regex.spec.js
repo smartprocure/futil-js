@@ -5,8 +5,8 @@ const expect = chai.expect
 
 describe('Regexp Functions', () => {
   it('testRegex', () => {
-    expect(F.testRegex(/smart/i)('SmartProcure')).to.equal(true)
-    expect(F.testRegex(/smart/)('SmartProcure')).to.equal(false)
+    expect(F.testRegex(/smart/i)('SmartProcure')).to.be.true
+    expect(F.testRegex(/smart/)('SmartProcure')).to.be.false
   })
 
   it('makeRegExp', () => {
@@ -26,13 +26,13 @@ describe('Regexp Functions', () => {
   })
 
   it('anyWordToRegexp', () => {
-    expect(F.anyWordToRegexp('Any word to regexp')).to.deep.equal(
+    expect(F.anyWordToRegexp('Any word to regexp')).to.equal(
       'Any|word|to|regexp'
     )
   })
 
   it('wordsToRegexp', () => {
-    expect(F.wordsToRegexp('my three words')).to.deep.equal(
+    expect(F.wordsToRegexp('my three words')).to.equal(
       '.*(?=.*my.*)(?=.*three.*)(?=.*words.*).*'
     )
   })
@@ -42,7 +42,7 @@ describe('Regexp Functions', () => {
     const text = 'Here is some to test'
     const match = F.matchAllWords(reText)
 
-    expect(match(text)).to.equal(false)
+    expect(match(text)).to.be.false
   })
 
   it('matchAnyWord', () => {
@@ -50,7 +50,7 @@ describe('Regexp Functions', () => {
     const text = 'Here is some text to test'
     const match = F.matchAnyWord(reText)
 
-    expect(match(text)).to.equal(true)
+    expect(match(text)).to.be.true
   })
 
   it('allMatches', () => {
@@ -127,7 +127,7 @@ describe('Posting Highlight Functions', () => {
       let pattern = 'pr pl'
       let expected =
         '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease'
-      expect(F.highlight(start, end, pattern, input)).to.deep.equal(expected)
+      expect(F.highlight(start, end, pattern, input)).to.equal(expected)
     })
     it('should highlight from regexp', () => {
       let start = '<span class="highlight">'
@@ -136,7 +136,7 @@ describe('Posting Highlight Functions', () => {
       let pattern = /\bp\w/g
       let expected =
         '<span class="highlight">pr</span>etty <span class="highlight">pl</span>ease nope'
-      expect(F.highlight(start, end, pattern, input)).to.deep.equal(expected)
+      expect(F.highlight(start, end, pattern, input)).to.equal(expected)
     })
   })
 })
