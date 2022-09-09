@@ -56,7 +56,7 @@ describe('Lens Functions', () => {
       let object = { a: 1 }
       let lens = F.lensOf(object)
       lens.a.set(8)
-      expect(lens.a.get()).to.deep.equal(8)
+      expect(lens.a.get()).to.equal(8)
     })
     it('includeLens', () => {
       let object = {
@@ -140,7 +140,7 @@ describe('Lens Functions', () => {
         a: 1,
       }
       F.flip('a', x)()
-      expect(x.a).to.equal(false)
+      expect(x.a).to.be.false
       let object = {
         a: 1,
       }
@@ -153,7 +153,7 @@ describe('Lens Functions', () => {
         a: 1,
       }
       F.on('a', x)()
-      expect(x.a).to.equal(true)
+      expect(x.a).to.be.true
       let object = {
         a: 1,
       }
@@ -198,7 +198,7 @@ describe('Lens Functions', () => {
         a: 1,
       }
       F.off('a', x)()
-      expect(x.a).to.equal(false)
+      expect(x.a).to.be.false
       let object = {
         a: 1,
       }
