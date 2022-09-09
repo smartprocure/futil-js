@@ -170,56 +170,7 @@ describe('Lens Functions', () => {
       expect(object.a).to.be.false
     })
   })
-  describe('Implicit Lens Prop', () => {
-    it('view', () => {
-      let x = {
-        a: 1,
-        b: 2,
-      }
-      expect(F.view('a', x)).to.equal(1)
-    })
-    it('views', () => {
-      let x = {
-        a: 1,
-        b: 2,
-      }
-      expect(F.views('a', x)()).to.equal(1)
-    })
-    it('set', () => {
-      let x = {
-        a: 1,
-        b: 2,
-      }
-      F.set(5, 'a', x)
-      expect(x.a).to.equal(5)
-    })
-    it('sets', () => {
-      let x = {
-        a: 1,
-      }
-      F.off('a', x)()
-      expect(x.a).to.be.false
-      let object = {
-        a: 1,
-      }
-      F.flip('a', object)()
-      expect(object.a).to.be.false
-    })
-    it('on', () => {
-      let object = {
-        a: 1,
-      }
-      F.on('a', object)()
-      expect(object.a).to.be.true
-    })
-    it('off', () => {
-      let object = {
-        a: 1,
-      }
-      F.off('a', object)()
-      expect(object.a).to.be.false
-    })
-  })
+  
   describe('additional implicit lens formats', () => {
     it('arrayLens', () => {
       let arrayLens = (val) => {
