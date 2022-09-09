@@ -12,7 +12,7 @@ describe('Collections Functions', () => {
         (n) => n + n,
         (n) => n * n
       )([0, 1, 2, 3, 4])
-    ).to.eql([0, 4, 16, 36, 64])
+    ).to.deep.equal([0, 4, 16, 36, 64])
     expect(
       F.flowMap(
         (s) => s.toUpperCase(),
@@ -20,7 +20,7 @@ describe('Collections Functions', () => {
         (s) => s.reverse(),
         (s) => s.join('')
       )(['Smart', 'Procure'])
-    ).to.eql(['TRAMS', 'ERUCORP'])
+    ).to.deep.equal(['TRAMS', 'ERUCORP'])
   })
   it('findApply', () => {
     let x = {
@@ -49,9 +49,9 @@ describe('Collections Functions', () => {
       const arr = [0, [1, [2, []]]]
       const arrBackup = _.cloneDeep(arr)
       const arrMutated = F.deepMap((e) => e.concat(101), arr)
-      //      Checking immutability
-      expect(arr).to.eql(arrBackup)
-      expect(arrMutated).to.eql([0, [1, [2, [101], 101], 101]])
+      // Checking immutability
+      expect(arr).to.deep.equal(arrBackup)
+      expect(arrMutated).to.deep.equal([0, [1, [2, [101], 101], 101]])
     })
     it('deepMap plain objects', () => {
       const objA = {
@@ -76,8 +76,8 @@ describe('Collections Functions', () => {
       const setMatchedA = (e) => e.match && _.set(pathA, true, e)
       const objAMutated = F.deepMap((e) => setMatchedA(e) || e)(objA)
       //      Checking immutability
-      expect(objA).to.eql(objABackup)
-      expect(objAMutated).to.eql({
+      expect(objA).to.deep.equal(objABackup)
+      expect(objAMutated).to.deep.equal({
         a: {
           match: {
             id: 1,
@@ -124,9 +124,9 @@ describe('Collections Functions', () => {
       const objBMutated = F.deepMap((e) => push101(e) || setMatchedB(e) || e)(
         objB
       )
-      //         Checking immutability
-      expect(objB).to.eql(objBBackup)
-      expect(objBMutated).to.eql({
+      // Checking immutability
+      expect(objB).to.deep.equal(objBBackup)
+      expect(objBMutated).to.deep.equal({
         a: {
           array: [
             0,
@@ -159,7 +159,7 @@ describe('Collections Functions', () => {
     expect(x).to.deep.equal([1, 5, 2, 3])
     expect(arr).to.deep.equal([1, 2, 3])
 
-    expect(F.insertAtIndex(1, 'z', 'abc')).to.deep.equal('azbc')
+    expect(F.insertAtIndex(1, 'z', 'abc')).to.equal('azbc')
 
     var result = F.insertAtIndex(0, '<span>', 'pretty please')
     expect(result).to.equal('<span>pretty please')

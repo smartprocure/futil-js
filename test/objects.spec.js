@@ -44,14 +44,14 @@ describe('Object Functions', () => {
     })
   })
   it('isEmptyObject', () => {
-    let expectEql = (obj, v) => expect(F.isEmptyObject(obj)).to.equal(v)
-    expectEql({ a: 1 }, false)
-    expectEql({}, true)
+    let expectEqual = (obj, v) => expect(F.isEmptyObject(obj)).to.equal(v)
+    expectEqual({ a: 1 }, false)
+    expectEqual({}, true)
   })
   it('isNotEmptyObject', () => {
-    let expectEql = (obj, v) => expect(F.isNotEmptyObject(obj)).to.equal(v)
-    expectEql({ a: 1 }, true)
-    expectEql({}, false)
+    let expectEqual = (obj, v) => expect(F.isNotEmptyObject(obj)).to.equal(v)
+    expectEqual({ a: 1 }, true)
+    expectEqual({}, false)
   })
   it('stripEmptyObjects', () => {
     expect(
@@ -121,7 +121,7 @@ describe('Object Functions', () => {
       { x: 'b', y: 1 },
       { x: 'a', y: 2 },
       { x: 'c', y: 2 },
-      // { x: 'd', y: 3 },
+      // { x: 'd', y: 3 }, not present
     ])
     // should not unwind strings
     expect(
@@ -193,39 +193,29 @@ describe('Object Functions', () => {
     expect(new1).to.deep.equal({ a: 1 })
   })
   it('matchesSignature', () => {
-    expect(F.matchesSignature([], 0)).to.equal(false)
-    expect(F.matchesSignature([], '')).to.equal(false)
-    expect(F.matchesSignature([], (x) => x)).to.equal(true)
-    expect(F.matchesSignature([], [])).to.equal(true)
-    expect(F.matchesSignature([], { a: 1 })).to.equal(false)
-    expect(F.matchesSignature(['a'], { a: 1 })).to.equal(true)
-    expect(F.matchesSignature(['b'], { a: 1 })).to.equal(false)
-    expect(F.matchesSignature(['a'], { a: 1, b: 2 })).to.equal(false)
-    expect(F.matchesSignature(['a'], { a: undefined, b: undefined })).to.equal(
-      false
-    )
-    expect(F.matchesSignature(['a', 'b'], { a: undefined })).to.equal(true)
+    expect(F.matchesSignature([], 0)).to.be.false
+    expect(F.matchesSignature([], '')).to.be.false
+    expect(F.matchesSignature([], (x) => x)).to.be.true
+    expect(F.matchesSignature([], [])).to.be.true
+    expect(F.matchesSignature([], { a: 1 })).to.be.false
+    expect(F.matchesSignature(['a'], { a: 1 })).to.be.true
+    expect(F.matchesSignature(['b'], { a: 1 })).to.be.false
+    expect(F.matchesSignature(['a'], { a: 1, b: 2 })).to.be.false
+    expect(F.matchesSignature(['a'], { a: undefined, b: undefined })).to.be.false
+    expect(F.matchesSignature(['a', 'b'], { a: undefined })).to.be.true
   })
   it('matchesSome', () => {
-    expect(F.matchesSome({ a: 1, b: 2 })({ a: 1, b: 2, c: 3 })).to.deep.equal(
-      true
-    )
-    expect(F.matchesSome({ a: 1, b: 20 })({ a: 1, b: 2, c: 3 })).to.deep.equal(
-      true
-    )
-    expect(F.matchesSome({ a: 10, b: 2 })({ a: 1, b: 2, c: 3 })).to.deep.equal(
-      true
-    )
-    expect(F.matchesSome({ a: 10, b: 20 })({ a: 1, b: 2, c: 3 })).to.deep.equal(
-      false
-    )
+    expect(F.matchesSome({ a: 1, b: 2 })({ a: 1, b: 2, c: 3 })).to.be.true
+    expect(F.matchesSome({ a: 1, b: 20 })({ a: 1, b: 2, c: 3 })).to.be.true
+    expect(F.matchesSome({ a: 10, b: 2 })({ a: 1, b: 2, c: 3 })).to.be.true
+    expect(F.matchesSome({ a: 10, b: 20 })({ a: 1, b: 2, c: 3 })).to.be.false
   })
   it('compareDeep', () => {
     const o = { a: { b: { c: 1 } } }
-    expect(F.compareDeep('a.b.c', o, 1)).to.deep.equal(true)
-    expect(F.compareDeep('a.b.c', o, 2)).to.deep.equal(false)
-    expect(F.compareDeep('a.b.c')(o, '1')).to.deep.equal(false)
-    expect(F.compareDeep('a.b.c')(o)('1')).to.deep.equal(false)
+    expect(F.compareDeep('a.b.c', o, 1)).to.be.true
+    expect(F.compareDeep('a.b.c', o, 2)).to.be.false
+    expect(F.compareDeep('a.b.c')(o, '1')).to.be.false
+    expect(F.compareDeep('a.b.c')(o)('1')).to.be.false
   })
   // it('mapProp', () => {
   //   const a = F.mapProp('a', val => val * val, { a: 2, b: 1 })
@@ -235,30 +225,30 @@ describe('Object Functions', () => {
     expect(F.getOrReturn('x', { a: 1 })).to.deep.equal({ a: 1 })
   })
   it('alias', () => {
-    expect(F.alias('x', { a: 1 })).to.deep.equal('x')
+    expect(F.alias('x', { a: 1 })).to.equal('x')
   })
   it('aliasIn', () => {
-    expect(F.aliasIn({ a: 1 }, 'x')).to.deep.equal('x')
+    expect(F.aliasIn({ a: 1 }, 'x')).to.equal('x')
   })
   it('cascade', () => {
-    expect(F.cascade(['x', 'y'], { a: 1, y: 2 })).to.deep.equal(2)
-    expect(F.cascade(['x', 'c'], { a: 1, y: 2 }, 2)).to.deep.equal(2)
-    expect(F.cascade(['x', (x) => x.y], { a: 1, y: 2 })).to.deep.equal(2)
-    expect(F.cascade(['x', 'y'], { a: 1, x: null, y: 2 })).to.deep.equal(2)
+    expect(F.cascade(['x', 'y'], { a: 1, y: 2 })).to.equal(2)
+    expect(F.cascade(['x', 'c'], { a: 1, y: 2 }, 2)).to.equal(2)
+    expect(F.cascade(['x', (x) => x.y], { a: 1, y: 2 })).to.equal(2)
+    expect(F.cascade(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal(2)
   })
   it('cascadeIn', () => {
-    expect(F.cascadeIn({ a: 1, y: 2 }, ['x', 'y'])).to.deep.equal(2)
+    expect(F.cascadeIn({ a: 1, y: 2 }, ['x', 'y'])).to.equal(2)
   })
   it('cascadeKey', () => {
-    expect(F.cascadeKey(['x', 'y'], { a: 1, x: 2 })).to.deep.equal('x')
+    expect(F.cascadeKey(['x', 'y'], { a: 1, x: 2 })).to.equal('x')
   })
   it('cascadePropKey', () => {
-    expect(F.cascadePropKey(['x', 'y'], { a: 1, x: null, y: 2 })).to.deep.equal(
+    expect(F.cascadePropKey(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal(
       'x'
     )
   })
   it('cascadeProp', () => {
-    expect(F.cascadeProp(['x', 'y'], { a: 1, x: null, y: 2 })).to.deep.equal(
+    expect(F.cascadeProp(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal(
       null
     )
   })

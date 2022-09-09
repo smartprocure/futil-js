@@ -1,3 +1,9 @@
+# 1.71.2
+- Tests: 
+  - Replaces `eql` for `deep.equal`
+  - Removed all unnecessary `deep.equal` assertions
+  - Replaced `to.equal(true)` and `to.equal(false)` with `to.be.true` and `to.be.false`
+
 # 1.71.1
 - Organized and added to regexp tests
 

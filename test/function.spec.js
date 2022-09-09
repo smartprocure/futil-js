@@ -8,21 +8,21 @@ chai.use(sinonChai)
 
 describe('Function Functions', () => {
   it('maybeCall', () => {
-    expect(F.maybeCall(() => 5)).to.deep.equal(5)
-    expect(F.maybeCall(null)).to.deep.equal(false)
+    expect(F.maybeCall(() => 5)).to.equal(5)
+    expect(F.maybeCall(null)).to.be.false
     const fn = (x, y) => x + y
-    expect(F.maybeCall(fn, 5, 6)).to.deep.equal(11)
+    expect(F.maybeCall(fn, 5, 6)).to.equal(11)
     // maybeCall should call fn with parameters
-    expect(F.maybeCall(fn, 5, 6)).to.deep.equal(fn(5, 6))
+    expect(F.maybeCall(fn, 5, 6)).to.equal(fn(5, 6))
   })
   it('callOrReturn', () => {
-    expect(F.callOrReturn(() => 5)).to.deep.equal(5)
-    expect(F.callOrReturn(5)).to.deep.equal(5)
-    expect(F.callOrReturn(null)).to.deep.equal(null)
+    expect(F.callOrReturn(() => 5)).to.equal(5)
+    expect(F.callOrReturn(5)).to.equal(5)
+    expect(F.callOrReturn(null)).to.equal(null)
     const fn = (x, y) => x + y
-    expect(F.callOrReturn(fn, 5, 6)).to.deep.equal(11)
+    expect(F.callOrReturn(fn, 5, 6)).to.equal(11)
     // callOrReturn should call fn with parameters
-    expect(F.callOrReturn(fn, 5, 6)).to.deep.equal(fn(5, 6))
+    expect(F.callOrReturn(fn, 5, 6)).to.equal(fn(5, 6))
   })
   it('boundMethod', () => {
     // boundMethod should bind a method of an object to it's object
@@ -42,12 +42,12 @@ describe('Function Functions', () => {
     let sum = (arr) => _.sum(arr)
     let length = (arr) => arr.length
     // average
-    expect(F.converge(divide, [sum, length])([5, 10, 15])).to.deep.equal(10)
+    expect(F.converge(divide, [sum, length])([5, 10, 15])).to.equal(10)
   })
   it('composeApply', () => {
     let fn1 = (lastResult) => (x) => lastResult / x
     let fn2 = (x) => x + 5
-    expect(F.composeApply(fn1, fn2)(5)).to.deep.equal(2)
+    expect(F.composeApply(fn1, fn2)(5)).to.equal(2)
   })
   it('comply', () => {
     // F.append(x => x * 2)(5) => (5 * 2) + 5

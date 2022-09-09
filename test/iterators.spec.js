@@ -11,6 +11,6 @@ describe('Iterator Generators', () => {
         { a: 1, b: 2 },
         { a: 1, b: 2 },
       ])
-    ).to.eql([1, 1, 2])
+    ).to.deep.equal([1, 1, 2])
   })
 })
