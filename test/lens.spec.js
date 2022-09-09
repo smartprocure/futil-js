@@ -329,5 +329,4 @@ describe('Lens Functions', () => {
       expect(state.selectedItem).to.equal('newItem')
     })
   })
-
 })
