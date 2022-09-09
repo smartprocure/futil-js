@@ -201,7 +201,8 @@ describe('Object Functions', () => {
     expect(F.matchesSignature(['a'], { a: 1 })).to.be.true
     expect(F.matchesSignature(['b'], { a: 1 })).to.be.false
     expect(F.matchesSignature(['a'], { a: 1, b: 2 })).to.be.false
-    expect(F.matchesSignature(['a'], { a: undefined, b: undefined })).to.be.false
+    expect(F.matchesSignature(['a'], { a: undefined, b: undefined })).to.be
+      .false
     expect(F.matchesSignature(['a', 'b'], { a: undefined })).to.be.true
   })
   it('matchesSome', () => {
@@ -243,14 +244,10 @@ describe('Object Functions', () => {
     expect(F.cascadeKey(['x', 'y'], { a: 1, x: 2 })).to.equal('x')
   })
   it('cascadePropKey', () => {
-    expect(F.cascadePropKey(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal(
-      'x'
-    )
+    expect(F.cascadePropKey(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal('x')
   })
   it('cascadeProp', () => {
-    expect(F.cascadeProp(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal(
-      null
-    )
+    expect(F.cascadeProp(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal(null)
   })
   it('unkeyBy', () => {
     expect(

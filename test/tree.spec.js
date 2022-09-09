@@ -156,9 +156,7 @@ describe('Tree Functions', () => {
     }
     let tree = F.tree((x) => x.items)
 
-    expect(tree.lookup([{ a: 2 }, { a: 4 }], x)).to.equal(
-      x.items[0].items[1]
-    )
+    expect(tree.lookup([{ a: 2 }, { a: 4 }], x)).to.equal(x.items[0].items[1])
   })
   it('lookup with path', () => {
     let x = {
