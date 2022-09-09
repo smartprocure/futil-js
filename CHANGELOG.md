@@ -1,7 +1,7 @@
 # 1.71.2
 - Tests: 
-  - Replaces `eql` for `deep.equal`
-  - Removed all unnecessary `deep.equal` assertions
+  - Replaced all `eql` with `deep.equal`
+  - Replaced all unnecessary `deep.equal` assertions with `.equal`
   - Replaced `to.equal(true)` and `to.equal(false)` with `to.be.true` and `to.be.false`
 
 # 1.71.1
