@@ -284,37 +284,5 @@ describe('Lens Functions', () => {
       expect(state.selectedItem).to.equal('newItem')
     })
   })
-  describe('additional implicit lens formats', () => {
-    it('arrayLens', () => {
-      let arrayLens = val => {
-        let result = [val]
-        result.push(x => {
-          result[0] = x
-        })
-        return result
-      }
-      let lens = arrayLens(false)
-      F.on(lens)()
-      expect(lens[0]).to.be.true
-      F.off(lens)()
-      expect(lens[0]).to.be.false
-      F.flip(lens)()
-      expect(lens[0]).to.be.true
-    })
-    it('functionPairLens', () => {
-      let object = {
-        a: false,
-      }
-      let get = () => object.a
-      let set = x => {
-        object.a = x
-      }
-      F.on(get, set)()
-      expect(object.a).to.be.true
-      F.off(get, set)()
-      expect(object.a).to.be.false
-      F.flip(get, set)()
-      expect(object.a).to.be.true
-    })
-  })
+
 })
