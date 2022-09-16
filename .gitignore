@@ -40,7 +40,7 @@ jspm_packages
 lib
 
 # Package lock files
-package-lock.json
+yarn.lock
 
 # Browser test result file
 browser-results.json
