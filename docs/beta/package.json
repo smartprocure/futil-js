@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://smartprocure.github.io/futil-js",
   "dependencies": {
-    "@chakra-ui/react": "^2.2.4",
+    "@chakra-ui/react": "^2.3.2",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@futil-docs/data": "file:./../data",
