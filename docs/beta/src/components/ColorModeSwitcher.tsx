@@ -33,7 +33,7 @@ export const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (props) => {
               aria-label={label}
             />
           </Tooltip>
-          <Text display={['inherit', 'inherit', 'inherit', 'none']} align={'center'} fontSize={'md'}>{props.title}</Text>
+          <Text display={{base:'inherit', lg: 'none'}} align={'center'} fontSize={'md'}>{props.title}</Text>
       </HStack>
     </Box>
    

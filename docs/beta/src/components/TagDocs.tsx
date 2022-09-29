@@ -14,7 +14,7 @@ import { Markdown } from './Markdown'
 
 let TagTitle = ({ tag }) => (
   <Heading flex="1" textAlign="left" size="lg">
-    <Box as="span" fontFamily="'Fira Code', monospace">
+    <Box as="span">
       {tag}
     </Box>{' '}
     Methods

@@ -63,7 +63,7 @@ let Logo = () => (
 let gray = 'linear(to-b, gray.900, gray.700)'
 let lightGray = 'linear(225deg, gray.700, gray.900)'
 let Summary = ({ dispatch }) => (
-  <Box bgGradient={useColorModeValue(lightGray, gray)} w="full" p={16}>
+  <Box bgGradient={useColorModeValue(lightGray, gray)} w="100%" p={16}>
     <Container maxW="4xl" color="#fff">
       <VStack spacing={4} alignItems="stretch">
         <Logo />
@@ -132,7 +132,6 @@ F.unflattenObject({ a: 1, 'b.x': 10, 'b.y': 11, c: 3 })
 
 let BrowserCoverage = () => (
   <Box>
-    {/* <Heading>Browser Compatibility</Heading> */}
     <a href="https://saucelabs.com/u/futil">
       <img
         style={{ background: 'white' }}

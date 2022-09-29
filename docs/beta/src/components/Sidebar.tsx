@@ -26,8 +26,11 @@ type SidebarProps = {
 
 export let Sidebar = ({ docs, search, input, output }: SidebarProps) => {
   const sideBarRef = React.useRef(null)
+    /* deprecated: but documentation for the replacement is non existent atm.
+     purpose: grabs updated sizes of reference
+     needed: The gradient is not responsive and requires a value be set for width
+  */
   const dimension = useDimensions(sideBarRef, true) //deprecated, but documentation for the replacement is non existent atm.
-  React.useEffect(()=>console.log(dimension?.borderBox.width),[dimension])
 
   return (
   <VStack
@@ -47,8 +50,8 @@ export let Sidebar = ({ docs, search, input, output }: SidebarProps) => {
       display: 'block',
       left: '0px',
       bottom: '0px',
-      width: `${dimension?.borderBox.width}px`,
-      height: '142px', // arbitrary height
+      width: `${dimension?.borderBox.width}px`, //Needed to make the gradient fit the sidebar
+      height: '25%', // arbitrary height
       background: useColorModeValue(
         // linear gradient from 0-100 opacity of bg color
         'linear-gradient(0deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%)',
@@ -66,9 +69,6 @@ export let Sidebar = ({ docs, search, input, output }: SidebarProps) => {
             _.map(
               (tag) => (
                 <React.Fragment key={tag}>
-                  {/* <Heading fontFamily="'Fira Code', monospace" size="sm">
-                  {tag}
-                </Heading> */}
                   <Divider />
                 </React.Fragment>
               ),

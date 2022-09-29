@@ -1,37 +1,28 @@
 import * as React from 'react'
 import _ from 'lodash/fp'
 import {
-  chakra,
   Box,
   ChakraProvider,
   extendTheme,
-  Grid,
-  GridItem,
   useColorModeValue,
   VStack,
-  HStack,
-  useDimensions,
-  Flex,
-  Spacer
 } from '@chakra-ui/react'
 import { setupHashScroll } from './utils/scroll'
 import { Doc } from './types/Doc'
 
 // Components
 import Home from './components/Home'
-import { PageHeader } from './components/Header'
+import { PageHeader } from './components/header/Header'
 import { Changelog } from './components/Changelog'
 import { TagDocs } from './components/TagDocs'
 import { MethodBox } from './components/MethodBox'
 import { Sidebar } from './components/Sidebar'
-import { NavBarButton } from './components/GSSinglePageLayout/NavBarButton'
 
 // Data
 import docs from './data/docs.json'
 import tagDocs from './data/tag-docs.json'
 import tests from './data/tests.json'
-
-import { FaSearch } from 'react-icons/fa'
+import { ResponsiveBasicLayout } from './components/GSSinglePageLayout/ResponsiveBasicLayout'
 
 // Stamp tests on docs
 _.each((doc) => {
@@ -55,21 +46,81 @@ let theme = extendTheme({
     headerBack: {
       dark: '#rgba(26, 29, 38, 0.8)',
       light: '#rgba(26, 29, 38, 0.8)'
+    },
+    contentBack: {
+      dark: '#1A202C',
+      light: 'white'
+    },
+    hamburgerMenu: {
+      dark: 'rgb(57,64,76)',
+      light: 'rgb(57,64,76)'
+    },
+  },
+  components: {
+    Heading: {
+      sizes: {
+        md: {
+          fontFamily: 'Fira Code, monospace'
+        },
+        lg: {
+          fontFamily: 'Fira Code, monospace'
+        },
+        sm: {
+          fontFamily: 'Lato, system-ui, sans-serif' 
+        }
+
+      }
     }
   }
 })
 //inputback = 
 let headerHeight = 75
 
+//Responsive definitions
+const functionViewResponsive = {
+  main: {
+    padding: [1, 8]
+  },
+  signature: {
+    styling: {colStart: [0, 0, 0, 5],
+              colSpan: [12, 12, 12, 6],
+              rowStart: [2, 2, 2, 1],
+
+            }   
+  },
+}
+const headerResponsive = {
+  nav: {
+    iconText:  {base:'inherit', lg: 'none'},
+    showMobileFilter: {sm: 'inherit', md: 'none'},
+    showHamburgerMenu: {base:'flex', lg: 'none'},
+    showDesktopIcons: {base:'none', lg: 'flex'},
+    showDesktopInputs: {base: "none", md: "inherit"},
+    showMobileInputs:  {base: "inherit"}
+  }
+}
+const sidebarResponsive = {
+  showDesktopBar: { display:{base: 'none', md: 'inherit'}, 
+                    colSpan:{base: 0, md: 4, lg: 3}
+                  } 
+}
+const mainContentResponsive = {
+  resizeMainContent: {base: 12, md: 8, lg: 9},
+  padding: {base: '12px', sm: '24px', md: '32px' }
+}
+const responsiveStyle = {mainContentResponsive, sidebarResponsive, headerResponsive, functionViewResponsive}
+
+
 let MainContent = React.memo(() => {
   return (
     <Box bg={useColorModeValue('gray.100', 'gray.700')}>
-      <VStack spacing={8} mt={headerHeight} marginLeft={['0px', '0px', '0px']}  p={['12px','24px','32px']} align="stretch">
+     
+      <VStack spacing={8} mt={headerHeight} marginLeft={'0px'}  p={mainContentResponsive.padding} align="stretch">
         {_.map(
           (doc) => (
             <React.Fragment key={`${doc.name}-main`}>
               <TagDocs unseenTags={doc.unseenTags} tagDocs={tagDocs} />
-              <MethodBox doc={doc} />
+              <MethodBox responsive={functionViewResponsive} doc={doc} />
             </React.Fragment>
           ),
           docs
@@ -78,109 +129,54 @@ let MainContent = React.memo(() => {
     </Box>
 )})
 
+function getHeaderContent(page, state, dispatch){
+  return page !== "home" ? 
+  (<PageHeader responsive={headerResponsive} {...state} dispatch={dispatch} />)
+  :
+  (<></>)
+}
 
-let ResponsiveBasicLayout = ({header, sidebar, main, dispatch, state}) => {
-  // let sideRef = React.useRef(sidebar)
-  console.log(sidebar.type)
+function getMainContent(page, dispatch){
+  let mainContent = {}
+  if(page === "changelog"){
+    mainContent = ( 
+      <Box pt={75}>
+        <Changelog />
+      </Box>
+    )
+  }else if(["docs", "search"].includes(page)){
+    mainContent = (<MainContent/>)
+  }else if(page === "home"){
+    mainContent = (<Home dispatch={dispatch} />)
+  }
+  return mainContent
+}
 
-  return (
-    <>
-        <chakra.header
-          bg={useColorModeValue('rgba(255, 255, 255, 0.8)', 'gray.800')}
-          backdropFilter="saturate(180%) blur(5px)"
-          position="fixed"
-          zIndex={10}
-          borderBottom = "solid 1px"
-          borderColor={useColorModeValue('gray.200', 'rgba(255, 255, 255, 0.16)')}
-          width={"100%"}
-          px={6}
-          py={4}
-          >
-   
-         <Flex as="header" >
-            {header}
-            {state.page !== "home" && 
-              <GridItem display={{sm: 'inherit', md: 'none'}} colSpan={1}>
-                <HStack>
-                  <VStack >
-                      <NavBarButton sidebar={sidebar} dispatch={dispatch} state={state}/>
-                  </VStack>
-                </HStack>
-               
-              </GridItem>
-            }
-          </Flex>
-        </chakra.header>
-     
-         {sidebar.type === React.Fragment ? 
-         <Box p={5} >{main}</Box> 
-         : 
-          <Grid templateColumns={"repeat(12, 1fr)"}>
-        
-            <GridItem display={["none", "none", "inherit", "inherit"]} colSpan={[0, 0, 4, 3]}>
-              {sidebar}
-            </GridItem> 
-              
-            <GridItem colSpan={[12, 12, 8, 9]}>
-              {main}
-            </GridItem>
-            
-          </Grid>
-        }
-      </>
-  
-    
-  )
+function getSideBarContent(page, state){
+  return ["docs", "search"].includes(page) === true ? 
+            (<Sidebar docs={docs} {...state}/>)
+            :
+            (<></>)
+
 }
 
 
-export let sidebar = (state) => (<Sidebar docs={docs} {...state} />)
-
 let initialState = { input: '', output: '', search: '', isModalSearch: false, page: 'docs' }
 export const App = () => {
- 
   React.useEffect(setupHashScroll, [])
   let [state, dispatch]: any = React.useReducer(_.merge, initialState)
   let { page } = state
-  let pageHeaderRef = (<PageHeader {...state} dispatch={dispatch} />)
-  let mainContent = {}
-  let sidebar = (<Sidebar docs={docs} {...state}/>)
-
-  if(page === 'docs' || page === 'search') {
-    mainContent = (<MainContent/>)
-  }else if(page === 'changelog'){
-    sidebar = (<></>)
-    mainContent = ( 
-                    <Box pt={75}>
-                      <Changelog />
-                    </Box>
-                  )
-  }else if(page === 'home'){
-    sidebar = (<></>)
-    pageHeaderRef = (<></>)
-    mainContent = (<Home dispatch={dispatch} />)
-  }
-
 
   return (
     <ChakraProvider theme={theme}>
-     
-        <>
           <ResponsiveBasicLayout
-            header={pageHeaderRef} 
-            sidebar={sidebar} 
-            main={mainContent}  
+            header={getHeaderContent(page, state, dispatch)} 
+            sidebar={getSideBarContent(page, state)} 
+            main={getMainContent(page, dispatch)}  
             dispatch={dispatch} 
             state={state} 
+            responsive={responsiveStyle}
            />
-        </>
-    
-      {/* {page === 'changelog' && (
-        <Box pt={75}>
-          <Changelog />
-        </Box>
-      )}
-      {page === 'home' && <Home dispatch={dispatch} />} */}
     </ChakraProvider>
   )
 }

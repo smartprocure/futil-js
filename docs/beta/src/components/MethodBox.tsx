@@ -3,7 +3,6 @@ import {
   Code,
   Flex,
   Heading,
-  HStack,
   Tab,
   TabList,
   TabPanel,
@@ -24,24 +23,28 @@ import { CodeSnippet } from './CodeSnippet'
 
 let headerHeight = 75
 
-export let MethodBox = ({ doc }: { doc: Doc }) => {
+export let MethodBox = ({ doc, responsive }: { doc: Doc, responsive: Object }) => {
   const replParent = React.useRef(null)
-  const dimension = useDimensions(replParent, true) //deprecated, but documentation for the replacement is non existent atm.
-return (
+  /* deprecated: but documentation for the replacement is non existent atm.
+     purpose: grabs updated sizes of reference
+     needed: for ensuring the Iframe displays properly
+  */
+  const replDimensions = useDimensions(replParent, true) 
+
+  return (
   <Box
-   
     id={`${doc.name}-method`}
     scrollMarginTop={headerHeight}
-    p={[1, 8]}
+    p={responsive["main"].padding}
     rounded="md"
-    bg={useColorModeValue('white', 'gray.800')}
+    bg={useColorModeValue('contentBack.light', 'contentBack.dark')}
   >
     <VStack spacing={4} align="stretch">
     <Grid templateColumns='repeat(12, 1fr)' gap={6} >
       <GridItem colSpan={12} rowStart={1} colStart={1}>
             <Flex >
               <Box>
-                <Heading  size="md" fontFamily="'Fira Code', monospace">
+                <Heading size="md" >
                   F.{doc.name}
                 </Heading>
               </Box>
@@ -51,8 +54,7 @@ return (
               </Box>
             </Flex>
       </GridItem>
-       
-      <GridItem   colStart={[0, 0, 0, 5]} colSpan={[12, 12, 12, 6]} rowStart={[2, 2, 2, 1]} alignItems={'flex-end'}>
+      <GridItem {...responsive["signature"].styling} >
         <Code>{doc.signature}</Code>
       </GridItem>
     </Grid>
@@ -68,17 +70,24 @@ return (
         <TabPanels >
           {doc.example && (
             <TabPanel px={0}>
-              <CodeSnippet>{doc.example}</CodeSnippet>
+              <CodeSnippet>
+                {doc.example}
+              </CodeSnippet>
             </TabPanel>
           )}
           {doc.tests && (
             <TabPanel  px={0}>
-              <CodeSnippet parentWidth={`${dimension ? dimension.borderBox.width-200:0}px`}>{doc.tests}</CodeSnippet>
+              {/* replDimensions uses the parent container and adjusts as needed, for the Iframe embedded*/}
+              <CodeSnippet parentWidth={`${replDimensions?.borderBox.width}px`}>
+                {doc.tests}
+              </CodeSnippet>
             </TabPanel>
           )}
           {doc.source && (
             <TabPanel  px={0}>
-              <CodeSnippet noRepl>{doc.source}</CodeSnippet>
+              <CodeSnippet noRepl>
+                {doc.source}
+              </CodeSnippet>
             </TabPanel>
           )}
         </TabPanels>

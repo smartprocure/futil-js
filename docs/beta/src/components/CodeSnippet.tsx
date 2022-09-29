@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { vs2015, vs } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { useColorMode, useColorModeValue, Flex, Button, Box, useDimensions } from '@chakra-ui/react'
+import { useColorMode, useColorModeValue, Flex, Button, Box } from '@chakra-ui/react'
 
 let Runkit = ({
   source,
@@ -33,7 +33,7 @@ let Runkit = ({
         source,
         preamble,
         theme,
-        gutterStyle: 'outside',
+        gutterStyle: 'inside',
         minHeight: '200px'
       })
       
@@ -68,15 +68,18 @@ type Props = {
   children?: string
   parentWidth?: string
 }
+
 export const CodeSnippet = ({ forceDark, noRepl, language = 'javascript', children, parentWidth }: Props) => {
   let [repl, setRepl] = useState(false)
-  let parentRef = useRef(null)
   let style = useColorModeValue(vs, vs2015)
+  let snippet = {}
 
-  return repl ? (
-    <Box width={parentWidth} margin={"0 auto"}>
-      <Runkit parentWidth={parentWidth} source={children} preamble={imports}/>
-    </Box>
+
+  return repl ? ( 
+      //Leaving responsive styles in this section out of adding to object due to need for grabbing parentWidth
+      <Box width={['350px', `${parentWidth}`]}  margin={"0 auto"}  overflowX={{base: 'scroll', sm: 'hidden'}}>
+        <Runkit parentWidth={parentWidth} source={children} preamble={imports}/>
+      </Box>
   ) : (
     <>
       <SyntaxHighlighter language={language} style={forceDark ? vs2015 : style}>
