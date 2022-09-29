@@ -7,6 +7,7 @@ import {
   Link,
   useColorModeValue,
   VStack,
+  useDimensions
 } from '@chakra-ui/react'
 import { Doc } from '../types/Doc'
 import { filterDocs } from '../utils/filterDocs'
@@ -23,17 +24,21 @@ type SidebarProps = {
   output: string
 }
 
-export let Sidebar = ({ docs, search, input, output }: SidebarProps) => (
+export let Sidebar = ({ docs, search, input, output }: SidebarProps) => {
+  const sideBarRef = React.useRef(null)
+  const dimension = useDimensions(sideBarRef, true) //deprecated, but documentation for the replacement is non existent atm.
+  React.useEffect(()=>console.log(dimension?.borderBox.width),[dimension])
+
+  return (
   <VStack
+    ref={sideBarRef}
     pos="sticky"
     top={headerHeight}
     overflow="scroll"
     h="100vh"
     px={8}
     py={4}
-    borderRight="solid 1px"
-    // dark moder border is divider color
-    borderColor={useColorModeValue('gray.200', 'rgba(255, 255, 255, 0.16)')}
+    borderRight={["none", "none",`solid 1px ${useColorModeValue('gray.200', 'rgba(255, 255, 255, 0.16)')}`]}
     spacing={4}
     _before={{
       pointerEvents: 'none',
@@ -42,7 +47,7 @@ export let Sidebar = ({ docs, search, input, output }: SidebarProps) => (
       display: 'block',
       left: '0px',
       bottom: '0px',
-      width: '400px', // arbitrary sidebar width
+      width: `${dimension?.borderBox.width}px`,
       height: '142px', // arbitrary height
       background: useColorModeValue(
         // linear gradient from 0-100 opacity of bg color
@@ -98,4 +103,4 @@ export let Sidebar = ({ docs, search, input, output }: SidebarProps) => (
       filterDocs(search, input, output, docs)
     )}
   </VStack>
-)
+)}

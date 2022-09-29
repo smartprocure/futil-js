@@ -2,6 +2,7 @@ import _ from 'lodash/fp'
 import {
   chakra,
   Grid,
+  GridItem,
   Heading,
   HStack,
   IconButton,
@@ -16,6 +17,14 @@ import {
   Tooltip,
   useColorModeValue,
   VStack,
+  Menu,
+  MenuItem,
+  MenuButton,
+  MenuList,
+  Box,
+  Spacer,
+  Flex
+  
 } from '@chakra-ui/react'
 import {
   BsChevronCompactLeft,
@@ -27,6 +36,13 @@ import { AiFillGithub, AiOutlineFunction, AiOutlineHome } from 'react-icons/ai'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
 import LogoLight from '../logos/logo-light.svg'
 import LogoDark from '../logos/logo-dark.svg'
+import {ToolTipLabel} from './GSSinglePageLayout/ToolTipLabel'
+import { head } from 'lodash'
+import { CgMenu } from 'react-icons/cg'
+import { FaSearch } from 'react-icons/fa'
+import React from 'react'
+
+
 
 let WWTMTooltip = () => (
   <VStack alignItems="flex-start" p={2} spacing={4}>
@@ -44,102 +60,172 @@ let NameTooltip = () => (
   </VStack>
 )
 
-let NavIcon = ({ name, icon, page, dispatch }) => (
-  <Tooltip hasArrow label={_.startCase(name)}>
-    <IconButton
-      size="md"
-      fontSize="lg"
-      variant={page === name ? 'solid' : 'ghost'}
-      onClick={() => dispatch({ page: name })}
-      icon={icon}
-      aria-label={_.startCase(name)}
-    />
-  </Tooltip>
-)
+let NavIcon = ({ name, icon, page, dispatch }) => {
+let highlight = useColorModeValue('icon.light', 'icon.dark');
 
-export let PageHeader = ({ search, input, output, page, dispatch }) => (
-  <chakra.header
-    position="fixed"
-    w="100%"
-    borderBottom="solid 1px"
-    // dark moder border is divider color
-    borderColor={useColorModeValue('gray.200', 'rgba(255, 255, 255, 0.16)')}
-    zIndex={10}
-  >
-    <Grid
-      templateColumns="150px 1fr 225px"
-      bg={useColorModeValue('rgba(255, 255, 255, 0.8)', 'gray.800')}
-      backdropFilter="saturate(180%) blur(5px)"
-      py={4}
-      px={8}
-    >
-      <HStack onClick={() => dispatch({ page: 'home' })} cursor="pointer">
-        <Image height={45} src ={useColorModeValue(LogoLight, LogoDark)} />
-      </HStack>
-      <HStack justifyContent="center">
-        <Tooltip hasArrow label={<NameTooltip />}>
-          <InputGroup width="auto">
-            <InputLeftElement>
-              <AiOutlineFunction />
-            </InputLeftElement>
-            <Input
-              type="text"
-              placeholder="Name"
-              value={search}
-              onChange={(e) => dispatch({ search: e.target.value })}
-              w="250px"
-            />
-          </InputGroup>
-        </Tooltip>
-        <Tooltip hasArrow label={<WWTMTooltip />}>
-          <InputGroup width="auto">
-            <InputLeftAddon>
-              <BsChevronCompactLeft />
-            </InputLeftAddon>
-            <Input
-              type="Heading"
-              placeholder="Input (e.g. x => x * 2, [1, 2])"
-              value={input}
-              onChange={(e) => dispatch({ input: e.target.value })}
-              w="250px"
-            />
-            <InputRightAddon>
-              <BsChevronCompactRight />
-            </InputRightAddon>
-          </InputGroup>
-        </Tooltip>
-        <Tooltip hasArrow label={<WWTMTooltip />}>
-          <InputGroup width="auto">
-            <InputLeftAddon>{/* <BsArrowRight /> */}=</InputLeftAddon>
-            <Input
-              type="text"
-              placeholder="Output (e.g. [2, 4])"
-              value={output}
-              onChange={(e) => dispatch({ output: e.target.value })}
-              w="250px"
-            />
-          </InputGroup>
-        </Tooltip>
-      </HStack>
-      <HStack justifyContent="flex-end">
-        <NavIcon name="home" icon={<AiOutlineHome />} {...{ page, dispatch }} />
-        <NavIcon name="docs" icon={<BsJournalCode />} {...{ page, dispatch }} />
-        <NavIcon
-          name="changelog"
-          icon={<FiGitPullRequest />}
-          {...{ page, dispatch }}
-        />
-        <Link isExternal href="https://github.com/smartprocure/futil-js">
+return (
+  <Box width={"100%"} onClick={() => dispatch({ page: name })}>
+    <HStack width={"100%"} p={0}  rounded={6} bg={page === name ? highlight: 'inherit'}>
+        <Tooltip hasArrow label={_.startCase(name)}>
           <IconButton
             size="md"
             fontSize="lg"
             variant="ghost"
-            icon={<AiFillGithub />}
-            aria-label="Go to futil GitHub page"
+            icon={icon}
+            aria-label={_.startCase(name)}
           />
-        </Link>
-        <ColorModeSwitcher justifySelf="flex-end" />
-      </HStack>
-    </Grid>
-  </chakra.header>
+        </Tooltip>
+        <Text display={['inherit', 'inherit', 'inherit', 'none']} fontSize={'md'}>{_.startCase(name)}</Text> 
+    </HStack>
+  </Box>
+ 
+)}
+
+let navIcons = ({page, dispatch, showLabels}) => (
+  <>
+    <HStack>
+      <NavIcon name="home" icon={<AiOutlineHome />} {...{ page, dispatch }} />
+    </HStack>
+    <HStack>
+      <NavIcon name="docs" icon={<BsJournalCode />} {...{ page, dispatch }} />
+    </HStack>
+    <HStack>
+      <NavIcon
+          name="changelog"
+          icon={<FiGitPullRequest />}
+          {...{ page, dispatch }}
+      />  
+    </HStack>
+    <HStack>
+      <Link isExternal href="https://github.com/smartprocure/futil-js" w={"100%"}>
+        <HStack>
+          <IconButton
+              size="md"
+              fontSize="lg"
+              variant="ghost"
+              icon={<AiFillGithub />}
+              aria-label="Go to futil GitHub page"
+            />
+          <Text display={['inherit', 'inherit', 'inherit', 'none']} align={'center'} fontSize={'md'}>GitHub</Text>
+        </HStack>
+      </Link>
+    </HStack>
+    <HStack>
+      <ColorModeSwitcher marginX={0} title={"Dark/Light Toggle"}/>
+    </HStack>
+  </>
 )
+
+
+
+export let PageHeader = ({ search, input, output, page, dispatch }) => {
+  let toolTipInOut = { heading: `What was that method? Let's find it!` , 
+  content: `Sometimes you know a method exists but not what it's called. Use this to 
+          find all the methods that match an expected input and output!`}
+  let toolTipName = { heading: `Looking for a specific method?`, 
+    content: `Search for methods by name or description.`}
+return (
+  <>
+    <Box>
+      <HStack onClick={() => dispatch({ page: 'home' })} cursor="pointer">
+        <Image height={45} paddingBottom={1} src ={useColorModeValue(LogoLight, LogoDark)} />
+      </HStack>
+    </Box>
+    <Spacer/>
+    {/* <GridItem colSpan={1} display={['none', 'inherit']}> */}
+    <Box display={{base: "none", md: "inherit"}}>
+      <HStack paddingX={5} justifyContent="center">
+        <Tooltip hasArrow label={<ToolTipLabel {...toolTipName} />}>
+          <InputGroup w={[0, 'auto']}>
+            <InputLeftElement>
+              <AiOutlineFunction />
+            </InputLeftElement>
+            <Input
+              borderColor={useColorModeValue('icon.light', 'icon.dark')} 
+              bg={useColorModeValue("inputBack.light","inputBack.dark")}
+              w={[0, 0, '100%' , '100%']}
+              type="text"
+              placeholder="Name"
+              value={search}
+              onChange={(e) => dispatch({ search: e.target.value })}
+              
+            />
+          </InputGroup>
+        </Tooltip>
+        <Tooltip hasArrow label={<ToolTipLabel {...toolTipInOut} />}>
+          <InputGroup  w={[0, 'auto']}>
+            <InputLeftAddon 
+              bg={useColorModeValue("icon.light","icon.dark")} 
+              w={'50px'}
+              >
+              <BsChevronCompactLeft />
+            </InputLeftAddon>
+            <Input
+              border={'0.5px solid'} borderColor={useColorModeValue('icon.light', 'icon.dark')}
+              bg={useColorModeValue("inputBack.light","inputBack.dark")}
+              type="Heading"
+              placeholder="Input (e.g. x => x * 2, [1, 2])"
+              value={input}
+              onChange={(e) => dispatch({ input: e.target.value })}
+              w={[0, 0, '100%' , '100%']}
+            />
+            <InputRightAddon   
+              bg={useColorModeValue("icon.light","icon.dark")} 
+              w={'50px'}>
+              <BsChevronCompactRight />
+            </InputRightAddon>
+          </InputGroup>
+        </Tooltip>
+        <Tooltip hasArrow label={<ToolTipLabel {...toolTipInOut} />}>
+          <InputGroup  w={[0, 'auto']}>
+            <InputLeftAddon 
+              bg={useColorModeValue("icon.light","icon.dark")} 
+              w={'50px'}>
+              =</InputLeftAddon>
+            <Input
+              border={'0.5px solid'} borderColor={useColorModeValue('icon.light', 'icon.dark')}
+              bg={useColorModeValue("inputBack.light","inputBack.dark")}
+              type="text"
+              placeholder="Output (e.g. [2, 4])"
+              value={output}
+              onChange={(e) => dispatch({ output: e.target.value })}
+              w={[0, 0, '100%', '100%']}
+            />
+          </InputGroup>
+        </Tooltip>
+      </HStack>
+    </Box>
+    <Spacer/>
+    {/* <GridItem display={["inherit", "none"]} colSpan={1}/> */}
+    <Box>
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label='Options'
+          icon={<CgMenu size={30} color="rgb(57,64,76)"/>}
+          variant='ghost'
+          marginTop={0}
+          px={0}
+          mx={0}
+          width="100%"
+          display={{base:'flex', lg: 'none'}}
+        />
+          <MenuList>
+            <MenuItem>
+                <Flex direction={'column'} w={"100%"}>
+                  {navIcons({page, dispatch, showLabels: true})}
+                </Flex>
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </Box>
+      <Flex display={{base:'none', lg: 'flex'}} direction={'row'}>
+        {navIcons({page, dispatch, showLabels: false})}
+      </Flex>
+
+    <GridItem  colSpan={1}>
+      
+    </GridItem>
+  </>
+)
+}
