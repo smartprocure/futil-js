@@ -16,7 +16,7 @@
     "lint": "eslint src/*.js test/*.js",
     "lint:ci": "npm run lint -- -o lint-results.json -f json",
     "lint-fix": "eslint src/*.js test/*.js --fix",
-    "fmt": "prettier --write *.js; prettier --write '{src,test}/**/*.js'",
+    "fmt": "prettier -w .",
     "duti:fix": "npm run fmt && npm run lint-fix && npm run fmt",
     "prepublish": "webpack",
     "rename": "node renamePackage",
