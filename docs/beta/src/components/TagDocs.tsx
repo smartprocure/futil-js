@@ -1,5 +1,5 @@
-import * as React from 'react'
-import _ from 'lodash/fp'
+import * as React from "react"
+import _ from "lodash/fp"
 import {
   Box,
   Heading,
@@ -9,20 +9,20 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-} from '@chakra-ui/react'
-import { Markdown } from './Markdown'
+} from "@chakra-ui/react"
+import { Markdown } from "./Markdown"
 
 let TagTitle = ({ tag }) => (
   <Heading flex="1" textAlign="left" size="lg">
     <Box as="span" fontFamily="'Fira Code', monospace">
       {tag}
-    </Box>{' '}
+    </Box>{" "}
     Methods
   </Heading>
 )
 
 export let TagDocs = ({ unseenTags, tagDocs }) => {
-  let panelBg = useColorModeValue('gray.200', 'gray.600')
+  let panelBg = useColorModeValue("gray.200", "gray.600")
   return (
     <>
       {_.map(

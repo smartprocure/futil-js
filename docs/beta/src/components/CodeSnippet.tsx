@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef, useCallback } from 'react'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import { vs2015, vs } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { useColorMode, useColorModeValue, Flex, Button } from '@chakra-ui/react'
+import { useEffect, useState, useRef, useCallback } from "react"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { vs2015, vs } from "react-syntax-highlighter/dist/esm/styles/hljs"
+import { useColorMode, useColorModeValue, Flex, Button } from "@chakra-ui/react"
 
 let Runkit = ({
   source,
@@ -17,7 +17,7 @@ let Runkit = ({
   // https://twitter.com/runkitdev/status/1110994781616799744
   //   atom-dark, atom-light, one-dark, one-light, solarized-dark, solarized-light, and the default runkit-light.
   //   let theme = useColorModeValue(undefined, 'untilted-6dtfo0ftb4ws')
-  let theme = useColorModeValue('runkit-light', 'atom-dark')
+  let theme = useColorModeValue("runkit-light", "atom-dark")
 
   let init = useCallback(() => {
     if (!embed.current) {
@@ -33,17 +33,14 @@ let Runkit = ({
     }
   }, [preamble, source, theme])
   useEffect(init, [preamble, source, theme, init])
-  useEffect(
-    () => {
-      if (embed.current) {
-        //   @ts-ignore:next-line
-        embed.current.destroy()
-        embed.current = null
-        init()
-      }
-    },
-    [colorMode, init]
-  )
+  useEffect(() => {
+    if (embed.current) {
+      //   @ts-ignore:next-line
+      embed.current.destroy()
+      embed.current = null
+      init()
+    }
+  }, [colorMode, init])
 
   return <div ref={ref} />
 }
@@ -59,7 +56,12 @@ type Props = {
   language?: string
   children?: string
 }
-export const CodeSnippet = ({ forceDark, noRepl, language = 'javascript', children }: Props) => {
+export const CodeSnippet = ({
+  forceDark,
+  noRepl,
+  language = "javascript",
+  children,
+}: Props) => {
   let [repl, setRepl] = useState(false)
   let style = useColorModeValue(vs, vs2015)
   return repl ? (
@@ -71,10 +73,11 @@ export const CodeSnippet = ({ forceDark, noRepl, language = 'javascript', childr
       </SyntaxHighlighter>
       {!noRepl && (
         <Flex justifyContent="flex-end">
-          <Button size="sm" variant="ghost" onClick={() => setRepl(!repl)}>Try in REPL</Button>
+          <Button size="sm" variant="ghost" onClick={() => setRepl(!repl)}>
+            Try in REPL
+          </Button>
         </Flex>
       )}
     </>
   )
-  
 }

@@ -1,8 +1,8 @@
-import F from 'futil'
-import _ from 'lodash/fp'
-import * as R from 'ramda'
-import { Doc } from '../types/Doc'
-import { exploreAPI, tolerantEval, tolerantArrayEval } from './exploreAPI'
+import F from "futil"
+import _ from "lodash/fp"
+import * as R from "ramda"
+import { Doc } from "../types/Doc"
+import { exploreAPI, tolerantEval, tolerantArrayEval } from "./exploreAPI"
 
 export let filterDocs = (
   search: string,
@@ -20,17 +20,11 @@ export let filterDocs = (
   let exploreRamda = input ? exploreAPI(R, processedInput, processedOutput) : []
 
   return [
-    ..._.filter(doc => {
+    ..._.filter((doc) => {
       if (input) return _.includes(doc.name, exploreMatches)
       return regex.test(doc.name) || regex.test(doc.description)
     }, docs),
-    ..._.map(
-      name => ({ name, lib: '_', tags: ['lodash'] }),
-      exploreLodash
-    ),
-    ..._.map(
-      name => ({ name, lib: 'R', tags: ['ramda'] }),
-      exploreRamda
-    ),
+    ..._.map((name) => ({ name, lib: "_", tags: ["lodash"] }), exploreLodash),
+    ..._.map((name) => ({ name, lib: "R", tags: ["ramda"] }), exploreRamda),
   ]
 }

@@ -1,7 +1,7 @@
-import _ from 'lodash/fp'
-import { callOrReturn } from './function'
-import { insertAtIndex } from './collection'
-import { reduceIndexed } from './conversion'
+import _ from "lodash/fp"
+import { callOrReturn } from "./function"
+import { insertAtIndex } from "./collection"
+import { reduceIndexed } from "./conversion"
 
 // TODO: Move to proper files and expose
 let callUnless = (check) => (failFn) => (fn) => (x, y) =>
@@ -24,14 +24,14 @@ export let compactJoin = _.curry((join, x) => _.compact(x).join(join))
  *
  * @signature [string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN
  */
-export let dotJoin = compactJoin('.')
+export let dotJoin = compactJoin(".")
 
 /**
  * Compacts an array by the provided function, then joins it with `.`
  *
  * @signature filterFunction -> [string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN
  */
-export let dotJoinWith = (fn) => (x) => _.filter(fn, x).join('.')
+export let dotJoinWith = (fn) => (x) => _.filter(fn, x).join(".")
 
 /**
  * Returns an array of elements that are repeated in the array.
@@ -142,14 +142,14 @@ export let encoder = (separator) => ({
  *
  * @signature { encode: ['a', 'b'] -> 'a.b', decode: 'a.b' -> ['a', 'b'] }
  */
-export let dotEncoder = encoder('.')
+export let dotEncoder = encoder(".")
 
 /**
  * An encoder using `/` as the separator
  *
  * @signature { encode: ['a', 'b'] -> 'a/b', decode: 'a/b' -> ['a', 'b'] }
  */
-export let slashEncoder = encoder('/')
+export let slashEncoder = encoder("/")
 
 /**
  * Takes a predicate function and an array, and returns an array of arrays where each element has one or more elements of the original array. Similar to Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).

@@ -11,11 +11,11 @@ import {
   Tabs,
   useColorModeValue,
   VStack,
-} from '@chakra-ui/react'
-import { Doc } from '../types/Doc'
-import { Badges } from './Badges'
-import { Markdown } from './Markdown'
-import { CodeSnippet } from './CodeSnippet'
+} from "@chakra-ui/react"
+import { Doc } from "../types/Doc"
+import { Badges } from "./Badges"
+import { Markdown } from "./Markdown"
+import { CodeSnippet } from "./CodeSnippet"
 
 let headerHeight = 75
 
@@ -25,7 +25,7 @@ export let MethodBox = ({ doc }: { doc: Doc }) => (
     scrollMarginTop={headerHeight}
     p={8}
     rounded="md"
-    bg={useColorModeValue('white', 'gray.800')}
+    bg={useColorModeValue("white", "gray.800")}
   >
     <VStack spacing={4} align="stretch">
       <Flex alignItems="center" justifyContent="space-between">

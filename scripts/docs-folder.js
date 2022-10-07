@@ -1,5 +1,5 @@
-import { mkdir } from 'fs/promises'
+import { mkdir } from "fs/promises"
 
-let run = async () => await mkdir('./docs/data', { recursive: true })
+let run = async () => await mkdir("./docs/data", { recursive: true })
 
 run()

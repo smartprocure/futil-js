@@ -16,9 +16,9 @@
  * @module aspect
  */
 
-import _ from 'lodash/fp'
-import { defaultsOn, setOn } from './conversion'
-import { throws, tapError } from './lang'
+import _ from "lodash/fp"
+import { defaultsOn, setOn } from "./conversion"
+import { throws, tapError } from "./lang"
 
 /**
  * The aspect api takes an options object and returns a function which takes a function to wrap.
@@ -50,7 +50,7 @@ Options supports the following parameters:
  */
 export let aspect =
   ({
-    name = 'aspect',
+    name = "aspect",
     init = _.noop,
     after = _.noop,
     before = _.noop,
@@ -95,7 +95,7 @@ export let aspect =
  */
 export let aspectSync =
   ({
-    name = 'aspect',
+    name = "aspect",
     init = _.noop,
     after = _.noop,
     before = _.noop,
@@ -131,19 +131,19 @@ let logs = (extend = defaultsOn) =>
   aspect({
     init: extend({ logs: [] }),
     after: (result, state) => state.logs.push(result),
-    name: 'logs',
+    name: "logs",
   })
 let error = (extend = defaultsOn) =>
   aspect({
     init: extend({ error: null }),
-    onError: setOn('error'),
-    name: 'error',
+    onError: setOn("error"),
+    name: "error",
   })
 let errors = (extend = defaultsOn) =>
   aspect({
     init: extend({ errors: [] }),
     onError: (e, state) => state.errors.push(e),
-    name: 'errors',
+    name: "errors",
   })
 let status = (extend = defaultsOn) =>
   aspect({
@@ -155,21 +155,21 @@ let status = (extend = defaultsOn) =>
       // Computed get/set properties don't work, probably because lodash extend methods don't support copying them
       setStatus(x) {
         this.status = x
-        this.failed = x === 'failed'
-        this.succeeded = x === 'succeeded'
-        this.processing = x === 'processing'
+        this.failed = x === "failed"
+        this.succeeded = x === "succeeded"
+        this.processing = x === "processing"
       },
     }),
     before(params, state) {
-      state.setStatus('processing')
+      state.setStatus("processing")
     },
     after(result, state) {
-      state.setStatus('succeeded')
+      state.setStatus("succeeded")
     },
     onError: tapError((e, state) => {
-      state.setStatus('failed')
+      state.setStatus("failed")
     }),
-    name: 'status',
+    name: "status",
   })
 let clearStatus = (timeout = 500) =>
   aspect({
@@ -180,17 +180,17 @@ let clearStatus = (timeout = 500) =>
         }, timeout)
       }
     },
-    name: 'clearStatus',
+    name: "clearStatus",
   })
 // This is a function just for consistency
 let concurrency = () =>
   aspect({
     before(params, state) {
       if (state.processing) {
-        throw Error('Concurrent Runs Not Allowed')
+        throw Error("Concurrent Runs Not Allowed")
       }
     },
-    name: 'concurrency',
+    name: "concurrency",
   })
 
 let command = (extend, timeout) =>
@@ -205,9 +205,9 @@ let deprecate = (subject, version, alternative) =>
   aspectSync({
     before: () =>
       console.warn(
-        `\`${subject}\` is deprecated${version ? ` as of ${version}` : ''}${
-          alternative ? ` in favor of \`${alternative}\`` : ''
-        } ${_.trim((Error().stack || '').split('\n')[3])}`
+        `\`${subject}\` is deprecated${version ? ` as of ${version}` : ""}${
+          alternative ? ` in favor of \`${alternative}\`` : ""
+        } ${_.trim((Error().stack || "").split("\n")[3])}`
       ),
     init(state) {
       state.isDeprecated = true
