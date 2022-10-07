@@ -125,6 +125,4 @@ module.exports = function (config) {
 // Browsers to run on Sauce Labs
 // Check out https://saucelabs.com/platforms for all browser/OS combos
 // UPDATED to match angular's config https://github.com/angular/angular.js/blob/master/karma-shared.conf.js
-let customLaunchers = {
-
-}
+let customLaunchers = {}
