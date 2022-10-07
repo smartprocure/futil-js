@@ -11,10 +11,10 @@ import {
   Button,
   Flex,
   Spacer,
-} from '@chakra-ui/react'
-import { CodeSnippet } from './CodeSnippet'
-import { ColorModeSwitcher } from './ColorModeSwitcher'
-import LogoDark from '../logos/logo-dark.svg'
+} from "@chakra-ui/react"
+import { CodeSnippet } from "./CodeSnippet"
+import { ColorModeSwitcher } from "./ColorModeSwitcher"
+import LogoDark from "../logos/logo-dark.svg"
 
 type BadgeProps = {
   src: string
@@ -82,7 +82,7 @@ let Summary = ({ dispatch }) => (
           and <Code>ramda</Code> work great. <Code>lodash/fp</Code> works best.
         </Text>
         <Flex my={8} alignItems="center">
-          <Spacer/>
+          <Spacer />
           <Button
             bg="linear-gradient(90deg, #39b54a, #8dc63f)"
             _hover={{
@@ -98,7 +98,7 @@ let Summary = ({ dispatch }) => (
             Documentation
           </Button>
           <ColorModeSwitcher justifySelf="flex-end" />
-          <Spacer/>
+          <Spacer />
         </Flex>
         <CodeSnippet forceDark language="shell" noRepl>{`$ npm i futil
 # or

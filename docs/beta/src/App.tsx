@@ -11,18 +11,18 @@ import { setupHashScroll } from "./utils/scroll"
 import { Doc } from "./types/Doc"
 
 // Components
-import Home from './components/Home'
-import { PageHeader } from './components/header/Header'
-import { Changelog } from './components/Changelog'
-import { TagDocs } from './components/TagDocs'
-import { MethodBox } from './components/MethodBox'
-import { Sidebar } from './components/Sidebar'
+import Home from "./components/Home"
+import { PageHeader } from "./components/header/Header"
+import { Changelog } from "./components/Changelog"
+import { TagDocs } from "./components/TagDocs"
+import { MethodBox } from "./components/MethodBox"
+import { Sidebar } from "./components/Sidebar"
 
 // Data
-import docs from './data/docs.json'
-import tagDocs from './data/tag-docs.json'
-import tests from './data/tests.json'
-import { ResponsiveBasicLayout } from './components/GSSinglePageLayout/ResponsiveBasicLayout'
+import docs from "./data/docs.json"
+import tagDocs from "./data/tag-docs.json"
+import tests from "./data/tests.json"
+import { ResponsiveBasicLayout } from "./components/GSSinglePageLayout/ResponsiveBasicLayout"
 
 // Stamp tests on docs
 _.each((doc) => {
@@ -36,86 +36,95 @@ let theme = extendTheme({
   },
   colors: {
     icon: {
-      dark: '#13161C',
-      light: '#D9E1E9'
+      dark: "#13161C",
+      light: "#D9E1E9",
     },
     inputBack: {
-      dark: '#282B35', 
-      light: '#E9F0F5'
+      dark: "#282B35",
+      light: "#E9F0F5",
     },
     headerBack: {
-      dark: '#rgba(26, 29, 38, 0.8)',
-      light: '#rgba(26, 29, 38, 0.8)'
+      dark: "#rgba(26, 29, 38, 0.8)",
+      light: "#rgba(26, 29, 38, 0.8)",
     },
     contentBack: {
-      dark: '#1A202C',
-      light: 'white'
+      dark: "#1A202C",
+      light: "white",
     },
     hamburgerMenu: {
-      dark: 'rgb(57,64,76)',
-      light: 'rgb(57,64,76)'
+      dark: "rgb(57,64,76)",
+      light: "rgb(57,64,76)",
     },
   },
   components: {
     Heading: {
       sizes: {
         md: {
-          fontFamily: 'Fira Code, monospace'
+          fontFamily: "Fira Code, monospace",
         },
         lg: {
-          fontFamily: 'Fira Code, monospace'
+          fontFamily: "Fira Code, monospace",
         },
         sm: {
-          fontFamily: 'Lato, system-ui, sans-serif' 
-        }
-
-      }
-    }
-  }
+          fontFamily: "Lato, system-ui, sans-serif",
+        },
+      },
+    },
+  },
 })
-//inputback = 
+//inputback =
 let headerHeight = 75
 
 //Responsive definitions
 const functionViewResponsive = {
   main: {
-    padding: [1, 8]
+    padding: [1, 8],
   },
   signature: {
-    styling: {colStart: [0, 0, 0, 5],
-              colSpan: [12, 12, 12, 6],
-              rowStart: [2, 2, 2, 1],
-
-            }   
+    styling: {
+      colStart: [0, 0, 0, 5],
+      colSpan: [12, 12, 12, 6],
+      rowStart: [2, 2, 2, 1],
+    },
   },
 }
 const headerResponsive = {
   nav: {
-    iconText:  {base:'inherit', lg: 'none'},
-    showMobileFilter: {sm: 'inherit', md: 'none'},
-    showHamburgerMenu: {base:'flex', lg: 'none'},
-    showDesktopIcons: {base:'none', lg: 'flex'},
-    showDesktopInputs: {base: "none", md: "inherit"},
-    showMobileInputs:  {base: "inherit"}
-  }
+    iconText: { base: "inherit", lg: "none" },
+    showMobileFilter: { sm: "inherit", md: "none" },
+    showHamburgerMenu: { base: "flex", lg: "none" },
+    showDesktopIcons: { base: "none", lg: "flex" },
+    showDesktopInputs: { base: "none", md: "inherit" },
+    showMobileInputs: { base: "inherit" },
+  },
 }
 const sidebarResponsive = {
-  showDesktopBar: { display:{base: 'none', md: 'inherit'}, 
-                    colSpan:{base: 0, md: 4, lg: 3}
-                  } 
+  showDesktopBar: {
+    display: { base: "none", md: "inherit" },
+    colSpan: { base: 0, md: 4, lg: 3 },
+  },
 }
 const mainContentResponsive = {
-  resizeMainContent: {base: 12, md: 8, lg: 9},
-  padding: {base: '12px', sm: '24px', md: '32px' }
+  resizeMainContent: { base: 12, md: 8, lg: 9 },
+  padding: { base: "12px", sm: "24px", md: "32px" },
 }
-const responsiveStyle = {mainContentResponsive, sidebarResponsive, headerResponsive, functionViewResponsive}
-
+const responsiveStyle = {
+  mainContentResponsive,
+  sidebarResponsive,
+  headerResponsive,
+  functionViewResponsive,
+}
 
 let MainContent = React.memo(() => {
   return (
-    <Box bg={useColorModeValue('gray.100', 'gray.700')}>
-     
-      <VStack spacing={8} mt={headerHeight} marginLeft={'0px'}  p={mainContentResponsive.padding} align="stretch">
+    <Box bg={useColorModeValue("gray.100", "gray.700")}>
+      <VStack
+        spacing={8}
+        mt={headerHeight}
+        marginLeft={"0px"}
+        p={mainContentResponsive.padding}
+        align="stretch"
+      >
         {_.map(
           (doc) => (
             <React.Fragment key={`${doc.name}-main`}>
@@ -127,41 +136,48 @@ let MainContent = React.memo(() => {
         )}
       </VStack>
     </Box>
-)})
+  )
+})
 
-function getHeaderContent(page, state, dispatch){
-  return page !== "home" ? 
-  (<PageHeader responsive={headerResponsive} {...state} dispatch={dispatch} />)
-  :
-  (<></>)
+function getHeaderContent(page, state, dispatch) {
+  return page !== "home" ? (
+    <PageHeader responsive={headerResponsive} {...state} dispatch={dispatch} />
+  ) : (
+    <></>
+  )
 }
 
-function getMainContent(page, dispatch){
+function getMainContent(page, dispatch) {
   let mainContent = {}
-  if(page === "changelog"){
-    mainContent = ( 
+  if (page === "changelog") {
+    mainContent = (
       <Box pt={75}>
         <Changelog />
       </Box>
     )
-  }else if(["docs", "search"].includes(page)){
-    mainContent = (<MainContent/>)
-  }else if(page === "home"){
-    mainContent = (<Home dispatch={dispatch} />)
+  } else if (["docs", "search"].includes(page)) {
+    mainContent = <MainContent />
+  } else if (page === "home") {
+    mainContent = <Home dispatch={dispatch} />
   }
   return mainContent
 }
 
-function getSideBarContent(page, state){
-  return ["docs", "search"].includes(page) === true ? 
-            (<Sidebar docs={docs} {...state}/>)
-            :
-            (<></>)
-
+function getSideBarContent(page, state) {
+  return ["docs", "search"].includes(page) === true ? (
+    <Sidebar docs={docs} {...state} />
+  ) : (
+    <></>
+  )
 }
 
-
-let initialState = { input: '', output: '', search: '', isModalSearch: false, page: 'docs' }
+let initialState = {
+  input: "",
+  output: "",
+  search: "",
+  isModalSearch: false,
+  page: "docs",
+}
 export const App = () => {
   React.useEffect(setupHashScroll, [])
   let [state, dispatch]: any = React.useReducer(_.merge, initialState)
@@ -169,14 +185,14 @@ export const App = () => {
 
   return (
     <ChakraProvider theme={theme}>
-          <ResponsiveBasicLayout
-            header={getHeaderContent(page, state, dispatch)} 
-            sidebar={getSideBarContent(page, state)} 
-            main={getMainContent(page, dispatch)}  
-            dispatch={dispatch} 
-            state={state} 
-            responsive={responsiveStyle}
-           />
+      <ResponsiveBasicLayout
+        header={getHeaderContent(page, state, dispatch)}
+        sidebar={getSideBarContent(page, state)}
+        main={getMainContent(page, dispatch)}
+        dispatch={dispatch}
+        state={state}
+        responsive={responsiveStyle}
+      />
     </ChakraProvider>
   )
 }

@@ -1,12 +1,18 @@
-import { useEffect, useState, useRef, useCallback } from 'react'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import { vs2015, vs } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { useColorMode, useColorModeValue, Flex, Button, Box } from '@chakra-ui/react'
+import { useEffect, useState, useRef, useCallback } from "react"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { vs2015, vs } from "react-syntax-highlighter/dist/esm/styles/hljs"
+import {
+  useColorMode,
+  useColorModeValue,
+  Flex,
+  Button,
+  Box,
+} from "@chakra-ui/react"
 
 let Runkit = ({
   source,
   preamble,
-  parentWidth
+  parentWidth,
 }: {
   source: any // fix
   preamble: string
@@ -20,7 +26,7 @@ let Runkit = ({
   //   atom-dark, atom-light, one-dark, one-light, solarized-dark, solarized-light, and the default runkit-light.
   //   let theme = useColorModeValue(undefined, 'untilted-6dtfo0ftb4ws')
 
-  let theme = useColorModeValue('runkit-light', 'atom-dark')
+  let theme = useColorModeValue("runkit-light", "atom-dark")
 
   console.log("Theme", theme)
   let init = useCallback(() => {
@@ -33,11 +39,9 @@ let Runkit = ({
         source,
         preamble,
         theme,
-        gutterStyle: 'inside',
-        minHeight: '200px'
+        gutterStyle: "inside",
+        minHeight: "200px",
       })
-      
-      
     }
   }, [preamble, source, theme])
   useEffect(init, [preamble, source, theme, init])
@@ -50,7 +54,7 @@ let Runkit = ({
     }
   }, [colorMode, init])
 
-  return <div ref={ref}/>
+  return <div ref={ref} />
 }
 
 let imports = `
@@ -66,17 +70,26 @@ type Props = {
   parentWidth?: string
 }
 
-export const CodeSnippet = ({ forceDark, noRepl, language = 'javascript', children, parentWidth }: Props) => {
+export const CodeSnippet = ({
+  forceDark,
+  noRepl,
+  language = "javascript",
+  children,
+  parentWidth,
+}: Props) => {
   let [repl, setRepl] = useState(false)
   let style = useColorModeValue(vs, vs2015)
   let snippet = {}
 
-
-  return repl ? ( 
-      //Leaving responsive styles in this section out of adding to object due to need for grabbing parentWidth
-      <Box width={['350px', `${parentWidth}`]}  margin={"0 auto"}  overflowX={{base: 'scroll', sm: 'hidden'}}>
-        <Runkit parentWidth={parentWidth} source={children} preamble={imports}/>
-      </Box>
+  return repl ? (
+    //Leaving responsive styles in this section out of adding to object due to need for grabbing parentWidth
+    <Box
+      width={["350px", `${parentWidth}`]}
+      margin={"0 auto"}
+      overflowX={{ base: "scroll", sm: "hidden" }}
+    >
+      <Runkit parentWidth={parentWidth} source={children} preamble={imports} />
+    </Box>
   ) : (
     <>
       <SyntaxHighlighter language={language} style={forceDark ? vs2015 : style}>

@@ -8,7 +8,7 @@ import {
   Tooltip,
   Text,
   Box,
-  HStack
+  HStack,
 } from "@chakra-ui/react"
 import { FaMoon, FaSun } from "react-icons/fa"
 
@@ -21,21 +21,26 @@ export const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (props) => {
   const label = `Switch to ${text} mode`
 
   return (
-    <Box  onClick={toggleColorMode}>
+    <Box onClick={toggleColorMode}>
       <HStack>
         <Tooltip hasArrow label={label}>
-            <IconButton
-              size="md"
-              fontSize="lg"
-              variant="ghost"
-              color="current"
-              icon={<SwitchIcon />}
-              aria-label={label}
-            />
-          </Tooltip>
-          <Text display={{base:'inherit', lg: 'none'}} align={'center'} fontSize={'md'}>{props.title}</Text>
+          <IconButton
+            size="md"
+            fontSize="lg"
+            variant="ghost"
+            color="current"
+            icon={<SwitchIcon />}
+            aria-label={label}
+          />
+        </Tooltip>
+        <Text
+          display={{ base: "inherit", lg: "none" }}
+          align={"center"}
+          fontSize={"md"}
+        >
+          {props.title}
+        </Text>
       </HStack>
     </Box>
-   
   )
 }
