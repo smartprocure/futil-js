@@ -12,7 +12,7 @@ jobs:
           key: dependency-cache
       - run:
           name: install
-          command: npm install
+          command: npm ci
       - save_cache:
           key: dependency-cache
           paths:

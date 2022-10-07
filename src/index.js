@@ -55,6 +55,7 @@ export const isPromise = (obj) =>
 
 // Version
 // ----
+// eslint-disable-next-line
 export const VERSION = global.__VERSION__
 
 // Allows `import F from 'futil-js'`
