@@ -23,6 +23,7 @@ describe("Promise Functions", () => {
 
 describe("Version Injection", () => {
   it("should export the VERSION", () => {
+    // eslint-disable-next-line
     expect(F.VERSION).to.equal(global.__VERSION__)
   })
 })

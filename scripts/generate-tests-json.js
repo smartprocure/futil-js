@@ -12,7 +12,7 @@ let getTests = async () => {
   global.it = (name, fn) => {
     tests[_.replace("should ", "", name)] = fn
     return {
-      timeout: () => {},
+      timeout: _.noop,
     }
   }
 
