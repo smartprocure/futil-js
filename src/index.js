@@ -1,32 +1,32 @@
-import _ from 'lodash/fp'
+import _ from "lodash/fp"
 
-export * from './conversion'
-export * from './collection'
-export * from './function'
-export * from './string'
-export * from './object'
-export * from './aspect'
-export * from './array'
-export * from './logic'
-export * from './regex'
-export * from './lang'
-export * from './lens'
-export * from './tree'
-export * from './iterators'
+export * from "./conversion"
+export * from "./collection"
+export * from "./function"
+export * from "./string"
+export * from "./object"
+export * from "./aspect"
+export * from "./array"
+export * from "./logic"
+export * from "./regex"
+export * from "./lang"
+export * from "./lens"
+export * from "./tree"
+export * from "./iterators"
 
-import * as conversion from './conversion'
-import * as collection from './collection'
-import * as fn from './function'
-import * as string from './string'
-import * as object from './object'
-import * as aspect from './aspect'
-import * as array from './array'
-import * as logic from './logic'
-import * as regex from './regex'
-import * as lang from './lang'
-import * as lens from './lens'
-import * as tree from './tree'
-import * as iterators from './iterators'
+import * as conversion from "./conversion"
+import * as collection from "./collection"
+import * as fn from "./function"
+import * as string from "./string"
+import * as object from "./object"
+import * as aspect from "./aspect"
+import * as array from "./array"
+import * as logic from "./logic"
+import * as regex from "./regex"
+import * as lang from "./lang"
+import * as lens from "./lens"
+import * as tree from "./tree"
+import * as iterators from "./iterators"
 
 // Math
 // ----
@@ -50,8 +50,8 @@ export const greaterThanOne = _.lt(1)
  */
 export const isPromise = (obj) =>
   !!obj &&
-  (typeof obj === 'object' || typeof obj === 'function') &&
-  typeof obj.then === 'function'
+  (typeof obj === "object" || typeof obj === "function") &&
+  typeof obj.then === "function"
 
 // Version
 // ----

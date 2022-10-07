@@ -1,1 +1,1 @@
-global.__VERSION__ = '1.0.0'
+global.__VERSION__ = "1.0.0"

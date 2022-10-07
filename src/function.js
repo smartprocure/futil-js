@@ -1,4 +1,4 @@
-import _ from 'lodash/fp'
+import _ from "lodash/fp"
 
 /**
  * If `fn` is a function, call the function with the passed-in arguments. Otherwise, return `false`.

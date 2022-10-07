@@ -1,4 +1,4 @@
-import _ from 'lodash/fp'
+import _ from "lodash/fp"
 import {
   chakra,
   Grid,
@@ -16,17 +16,17 @@ import {
   Tooltip,
   useColorModeValue,
   VStack,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react"
 import {
   BsChevronCompactLeft,
   BsChevronCompactRight,
   BsJournalCode,
-} from 'react-icons/bs'
-import { FiGitPullRequest } from 'react-icons/fi'
-import { AiFillGithub, AiOutlineFunction, AiOutlineHome } from 'react-icons/ai'
-import { ColorModeSwitcher } from './ColorModeSwitcher'
-import LogoLight from '../logos/logo-light.svg'
-import LogoDark from '../logos/logo-dark.svg'
+} from "react-icons/bs"
+import { FiGitPullRequest } from "react-icons/fi"
+import { AiFillGithub, AiOutlineFunction, AiOutlineHome } from "react-icons/ai"
+import { ColorModeSwitcher } from "./ColorModeSwitcher"
+import LogoLight from "../logos/logo-light.svg"
+import LogoDark from "../logos/logo-dark.svg"
 
 let WWTMTooltip = () => (
   <VStack alignItems="flex-start" p={2} spacing={4}>
@@ -49,7 +49,7 @@ let NavIcon = ({ name, icon, page, dispatch }) => (
     <IconButton
       size="md"
       fontSize="lg"
-      variant={page === name ? 'solid' : 'ghost'}
+      variant={page === name ? "solid" : "ghost"}
       onClick={() => dispatch({ page: name })}
       icon={icon}
       aria-label={_.startCase(name)}
@@ -63,18 +63,18 @@ export let PageHeader = ({ search, input, output, page, dispatch }) => (
     w="100%"
     borderBottom="solid 1px"
     // dark moder border is divider color
-    borderColor={useColorModeValue('gray.200', 'rgba(255, 255, 255, 0.16)')}
+    borderColor={useColorModeValue("gray.200", "rgba(255, 255, 255, 0.16)")}
     zIndex={10}
   >
     <Grid
       templateColumns="150px 1fr 225px"
-      bg={useColorModeValue('rgba(255, 255, 255, 0.8)', 'gray.800')}
+      bg={useColorModeValue("rgba(255, 255, 255, 0.8)", "gray.800")}
       backdropFilter="saturate(180%) blur(5px)"
       py={4}
       px={8}
     >
-      <HStack onClick={() => dispatch({ page: 'home' })} cursor="pointer">
-        <Image height={45} src ={useColorModeValue(LogoLight, LogoDark)} />
+      <HStack onClick={() => dispatch({ page: "home" })} cursor="pointer">
+        <Image height={45} src={useColorModeValue(LogoLight, LogoDark)} />
       </HStack>
       <HStack justifyContent="center">
         <Tooltip hasArrow label={<NameTooltip />}>
