@@ -1,5 +1,4 @@
 import * as React from "react"
-import _ from "lodash/fp"
 import {
   Grid,
   GridItem,
@@ -33,7 +32,7 @@ const toolTipName = {
 }
 
 export let NavBarButton = ({ sidebar, dispatch, state, responsive }) => {
-  let { isOpen, onOpen, onClose, onToggle } = useDisclosure({
+  let { isOpen, onClose, onToggle } = useDisclosure({
     defaultIsOpen: false,
   })
   return (

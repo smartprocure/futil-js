@@ -79,7 +79,6 @@ export const CodeSnippet = ({
 }: Props) => {
   let [repl, setRepl] = useState(false)
   let style = useColorModeValue(vs, vs2015)
-  let snippet = {}
 
   return repl ? (
     //Leaving responsive styles in this section out of adding to object due to need for grabbing parentWidth
