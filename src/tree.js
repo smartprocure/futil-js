@@ -5,9 +5,9 @@
  * @module tree
  */
 
-import _ from 'lodash/fp'
-import { findIndexed } from './conversion'
-import { push, dotEncoder, slashEncoder } from './array'
+import _ from "lodash/fp"
+import { findIndexed } from "./conversion"
+import { push, dotEncoder, slashEncoder } from "./array"
 
 /**
  * A default check if something can be traversed - currently it is arrays and plain objects.

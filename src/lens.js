@@ -37,10 +37,10 @@
  * @module lens
  */
 
-import _ from 'lodash/fp'
-import { setOn } from './conversion'
-import { toggleElementBy } from './array'
-import { when } from './logic'
+import _ from "lodash/fp"
+import { setOn } from "./conversion"
+import { toggleElementBy } from "./array"
+import { when } from "./logic"
 
 // Stubs
 
@@ -223,14 +223,14 @@ export let domLens = {
    *   return <input {...F.domLens.value(state)}>
    * }
    */
-  value: targetBinding('value'),
+  value: targetBinding("value"),
 
   /**
    * Creates an includeLens and maps view to checked and set to `onChange` (set with `e.target.checked` or `e` if that path isn't present)
    *
    * @signature (value, lens) -> {checked, onChange}
    */
-  checkboxValues: _.flow(includeLens, targetBinding('checked')),
+  checkboxValues: _.flow(includeLens, targetBinding("checked")),
 
   /**
    * Takes a lens and returns on onMouseEnter which calls `on` on the lens and onMouseLeave which calls `off`. Models a mapping of "hovering" to a boolean.

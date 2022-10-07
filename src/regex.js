@@ -1,6 +1,6 @@
-import _ from 'lodash/fp'
-import { push, mergeRanges } from './array'
-import { insertAtIndex } from './collection'
+import _ from "lodash/fp"
+import { push, mergeRanges } from "./array"
+import { insertAtIndex } from "./collection"
 
 /**
  * Just like ramda test, creates a function to test a regex on a string.
@@ -23,18 +23,18 @@ export const makeRegex = (options) => (text) => RegExp(text, options)
  */
 export const makeAndTest = (options) => _.flow(makeRegex(options), testRegex)
 
-export const anyWordToRegexp = _.flow(_.words, _.join('|'))
+export const anyWordToRegexp = _.flow(_.words, _.join("|"))
 
 export const wordsToRegexp = _.flow(
   _.words,
   _.map((x) => `(?=.*${x}.*)`),
-  _.join(''),
+  _.join(""),
   (x) => `.*${x}.*`
 )
 
 const matchWords = _.curry((buildRegex, x) => {
   // Not inlining so that we don't create the regexp every time
-  const regexp = RegExp(buildRegex(x), 'gi')
+  const regexp = RegExp(buildRegex(x), "gi")
   return (y) => !!(y && y.match(regexp))
 })
 
@@ -60,7 +60,7 @@ export const matchAnyWord = matchWords(anyWordToRegexp)
  */
 export const allMatches = _.curry((regexStr, str) => {
   let matched
-  const regex = new RegExp(regexStr, 'g')
+  const regex = new RegExp(regexStr, "g")
   const result = []
 
   while ((matched = regex.exec(str)) !== null) {
@@ -82,7 +82,7 @@ export const allMatches = _.curry((regexStr, str) => {
 export const postings = _.curry((regex, str) => {
   var match = regex.exec(str)
   let result = []
-  if (regex.flags.indexOf('g') < 0 && match) {
+  if (regex.flags.indexOf("g") < 0 && match) {
     result.push([match.index, match.index + match[0].length])
   } else {
     while (match) {
@@ -105,7 +105,7 @@ export const postings = _.curry((regex, str) => {
  */
 export const postingsForWords = _.curry((string, str) =>
   _.reduce(
-    (result, word) => push(postings(RegExp(word, 'gi'), str), result),
+    (result, word) => push(postings(RegExp(word, "gi"), str), result),
     []
   )(_.words(string))
 )

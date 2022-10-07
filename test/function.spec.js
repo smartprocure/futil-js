@@ -1,13 +1,13 @@
-import * as F from '../src'
-import _ from 'lodash/fp'
-import chai from 'chai'
-import sinon from 'sinon'
-import sinonChai from 'sinon-chai'
+import * as F from "../src"
+import _ from "lodash/fp"
+import chai from "chai"
+import sinon from "sinon"
+import sinonChai from "sinon-chai"
 const expect = chai.expect
 chai.use(sinonChai)
 
-describe('Function Functions', () => {
-  it('maybeCall', () => {
+describe("Function Functions", () => {
+  it("maybeCall", () => {
     expect(F.maybeCall(() => 5)).to.equal(5)
     expect(F.maybeCall(null)).to.be.false
     const fn = (x, y) => x + y
@@ -15,7 +15,7 @@ describe('Function Functions', () => {
     // maybeCall should call fn with parameters
     expect(F.maybeCall(fn, 5, 6)).to.equal(fn(5, 6))
   })
-  it('callOrReturn', () => {
+  it("callOrReturn", () => {
     expect(F.callOrReturn(() => 5)).to.equal(5)
     expect(F.callOrReturn(5)).to.equal(5)
     expect(F.callOrReturn(null)).to.equal(null)
@@ -24,36 +24,36 @@ describe('Function Functions', () => {
     // callOrReturn should call fn with parameters
     expect(F.callOrReturn(fn, 5, 6)).to.equal(fn(5, 6))
   })
-  it('boundMethod', () => {
+  it("boundMethod", () => {
     // boundMethod should bind a method of an object to it's object
     let obj = {
-      name: 'Wade Watts',
+      name: "Wade Watts",
       greet() {
         return `Welcome, ${this.name}`
       },
     }
-    expect(obj.greet.call({ name: 'John Henry' })).to.equal(
-      'Welcome, John Henry'
+    expect(obj.greet.call({ name: "John Henry" })).to.equal(
+      "Welcome, John Henry"
     )
-    expect(F.boundMethod('greet', obj)()).to.equal('Welcome, Wade Watts')
+    expect(F.boundMethod("greet", obj)()).to.equal("Welcome, Wade Watts")
   })
-  it('converge', () => {
+  it("converge", () => {
     let divide = (arr) => arr[0] / arr[1]
     let sum = (arr) => _.sum(arr)
     let length = (arr) => arr.length
     // average
     expect(F.converge(divide, [sum, length])([5, 10, 15])).to.equal(10)
   })
-  it('composeApply', () => {
+  it("composeApply", () => {
     let fn1 = (lastResult) => (x) => lastResult / x
     let fn2 = (x) => x + 5
     expect(F.composeApply(fn1, fn2)(5)).to.equal(2)
   })
-  it('comply', () => {
+  it("comply", () => {
     // F.append(x => x * 2)(5) => (5 * 2) + 5
     expect(F.comply(F.append, (x) => x * 2)(5)).to.equal(15)
   })
-  it('defer', () => {
+  it("defer", () => {
     let delay = (ms) => {
       let resolver = F.defer()
       let now = Date.now()
@@ -67,8 +67,8 @@ describe('Function Functions', () => {
       expect(ms).is.at.least(500)
     })
   })
-  describe('debounceAsync', () => {
-    it('debounceAsync', async () => {
+  describe("debounceAsync", () => {
+    it("debounceAsync", async () => {
       let inner = sinon.spy((x) => x + 10)
       let fn = F.debounceAsync(10, inner)
       let result = await Promise.all([fn(1), fn(2), fn(3)])
@@ -77,7 +77,7 @@ describe('Function Functions', () => {
       let secondResult = await Promise.all([fn(11), fn(12), fn(13)])
       expect(secondResult).to.deep.equal([23, 23, 23])
     })
-    it('should demonstrate failing with regular debounce', async () => {
+    it("should demonstrate failing with regular debounce", async () => {
       let inner2 = sinon.spy((x) => x + 10)
       let fn2 = _.debounce(10, inner2)
       let result2 = await Promise.all([fn2(1), fn2(2), fn2(3)])
@@ -87,7 +87,7 @@ describe('Function Functions', () => {
       expect(thirdResult).to.deep.equal([undefined, undefined, undefined])
     })
   })
-  it('flurry', () => {
+  it("flurry", () => {
     let add = (x, y) => x + y
     let double = (x) => x * 2
     // Passing all args
@@ -95,7 +95,7 @@ describe('Function Functions', () => {
     // Passing 1 at a time
     expect(F.flurry(add, double)(1)(4)).to.equal(10)
   })
-  it('mapArgs', () => {
+  it("mapArgs", () => {
     let add = (x, y) => x + y
     let double = (x) => x * 2
     let doubledAdd = F.mapArgs(double, add)

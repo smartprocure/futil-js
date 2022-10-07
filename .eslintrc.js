@@ -1,7 +1,7 @@
 module.exports = {
-  extends: 'smartprocure',
-  parser: 'babel-eslint',
+  extends: "smartprocure",
+  parser: "babel-eslint",
   parserOptions: {
-    sourceType: 'module'
-  }
+    sourceType: "module",
+  },
 }
