@@ -1,6 +1,6 @@
-import * as React from 'react'
-import _ from 'lodash/fp'
-import F from 'futil'
+import * as React from "react"
+import _ from "lodash/fp"
+import F from "futil"
 import {
   Divider,
   Flex,
@@ -44,8 +44,8 @@ export let Sidebar = ({ docs, search, input, output }: SidebarProps) => {
     borderRight={["none", "none",`solid 1px ${useColorModeValue('gray.200', 'rgba(255, 255, 255, 0.16)')}`]}
     spacing={4}
     _before={{
-      pointerEvents: 'none',
-      position: 'fixed',
+      pointerEvents: "none",
+      position: "fixed",
       content: '""',
       display: 'block',
       left: '0px',
@@ -54,11 +54,11 @@ export let Sidebar = ({ docs, search, input, output }: SidebarProps) => {
       height: '25%', // arbitrary height
       background: useColorModeValue(
         // linear gradient from 0-100 opacity of bg color
-        'linear-gradient(0deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%)',
+        "linear-gradient(0deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%)",
         // rgb values for dark body bg
-        'linear-gradient(0deg, rgba(26, 32, 44, 1) 30%, rgba(26, 32, 44, 0) 100%)'
+        "linear-gradient(0deg, rgba(26, 32, 44, 1) 30%, rgba(26, 32, 44, 0) 100%)"
       ),
-      transition: 'opacity 1s ease 0s',
+      transition: "opacity 1s ease 0s",
     }}
     _hover={{ _before: { opacity: 0 } }}
   >
@@ -77,9 +77,9 @@ export let Sidebar = ({ docs, search, input, output }: SidebarProps) => {
           <Flex alignItems="center" justifyContent="space-between" w="100%">
             <Link
               href={
-                doc.lib === '_'
+                doc.lib === "_"
                   ? `https://lodash.com/docs/4.17.15#${doc.name}`
-                  : doc.lib === 'R'
+                  : doc.lib === "R"
                   ? `https://ramdajs.com/docs/#${doc.name}`
                   : `#${doc.name}`
               }
@@ -89,7 +89,7 @@ export let Sidebar = ({ docs, search, input, output }: SidebarProps) => {
             >
               <TextHighlight
                 pattern={search}
-                text={`${doc.lib || 'F'}.${doc.name}`}
+                text={`${doc.lib || "F"}.${doc.name}`}
               />
               {/* Our TextHighlight seems more performant than Chakra's */}
               {/* <Highlight query={search} styles={{ bg: search ? 'mark' : 'transparent' }}>{`${

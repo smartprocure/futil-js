@@ -1,14 +1,14 @@
-import * as React from 'react'
-import _ from 'lodash/fp'
+import * as React from "react"
+import _ from "lodash/fp"
 import {
   Box,
   ChakraProvider,
   extendTheme,
   useColorModeValue,
   VStack,
-} from '@chakra-ui/react'
-import { setupHashScroll } from './utils/scroll'
-import { Doc } from './types/Doc'
+} from "@chakra-ui/react"
+import { setupHashScroll } from "./utils/scroll"
+import { Doc } from "./types/Doc"
 
 // Components
 import Home from './components/Home'
@@ -31,8 +31,8 @@ _.each((doc) => {
 
 let theme = extendTheme({
   fonts: {
-    heading: 'Lato, system-ui, sans-serif',
-    body: 'Lato, system-ui, sans-serif',
+    heading: "Lato, system-ui, sans-serif",
+    body: "Lato, system-ui, sans-serif",
   },
   colors: {
     icon: {

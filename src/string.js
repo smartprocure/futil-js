@@ -1,11 +1,11 @@
-import { map } from './collection'
-import _ from 'lodash/fp'
-import { when } from './logic'
-import { intersperse } from './array'
-import { differentLast } from './iterators'
+import { map } from "./collection"
+import _ from "lodash/fp"
+import { when } from "./logic"
+import { intersperse } from "./array"
+import { differentLast } from "./iterators"
 
 export const wrap = (pre, post, content) =>
-  (pre || '') + content + (post || pre || '')
+  (pre || "") + content + (post || pre || "")
 export const quote = _.partial(wrap, ['"', '"'])
 
 /**
@@ -13,8 +13,8 @@ export const quote = _.partial(wrap, ['"', '"'])
  *
  * @signature 'asdf' -> '(asdf)'
  */
-export const parens = _.partial(wrap, ['(', ')'])
-export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
+export const parens = _.partial(wrap, ["(", ")"])
+export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(" "))
 
 /**
  * Maps `_.trim` through all the strings of a given object or array.
@@ -61,7 +61,7 @@ export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
         () => lastSeparator
       )
     ),
-    _.join('')
+    _.join("")
   )(array)
 )
 
@@ -71,7 +71,7 @@ export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
  * @signature array => string
  * @example ['a', 'b', 'c'] -> 'a, b and c'
  */
-export let toSentence = toSentenceWith(', ', ' and ')
+export let toSentence = toSentenceWith(", ", " and ")
 
 /**
  * Allows passing a "cachizer" function (`array -> object`) to override the way `uniqueString`'s initial array is converted into a cache object. Can be curried to create a custom `uniqueString` function, eg: `let myUniqueString = uniqueStringWith(myFunc)`

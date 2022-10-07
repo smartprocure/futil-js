@@ -19,20 +19,23 @@ A collection of F(unctional) Util(ities). Resistance is futile.
 Mostly, these are generic utilities that could conceivably be part of a library like [lodash/fp](https://github.com/lodash/lodash/wiki/FP-Guide), but for one reason or another are not.
 
 # Docs
+
 https://smartprocure.github.io/futil-js/
 
 # Version History/Changelog
+
 See our [changelog](https://github.com/smartprocure/futil-js/blob/master/CHANGELOG.md)
 
 # Installing
+
 `npm i -S futil`
 or
 `npm i -S futil-js`
 
-
 This package requires `lodash/fp`, so make sure that's available in your app.
 
 # Usage
+
 `import * as F from 'futil'`
 or
 `import F from 'futil'`

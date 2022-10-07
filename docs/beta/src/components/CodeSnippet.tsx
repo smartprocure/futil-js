@@ -41,17 +41,14 @@ let Runkit = ({
     }
   }, [preamble, source, theme])
   useEffect(init, [preamble, source, theme, init])
-  useEffect(
-    () => {
-      if (embed.current) {
-        //   @ts-ignore:next-line
-        embed.current.destroy()
-        embed.current = null
-        init()
-      }
-    },
-    [colorMode, init]
-  )
+  useEffect(() => {
+    if (embed.current) {
+      //   @ts-ignore:next-line
+      embed.current.destroy()
+      embed.current = null
+      init()
+    }
+  }, [colorMode, init])
 
   return <div ref={ref}/>
 }
@@ -87,10 +84,11 @@ export const CodeSnippet = ({ forceDark, noRepl, language = 'javascript', childr
       </SyntaxHighlighter>
       {!noRepl && (
         <Flex justifyContent="flex-end">
-          <Button size="sm" variant="ghost" onClick={() => setRepl(!repl)}>Try in REPL</Button>
+          <Button size="sm" variant="ghost" onClick={() => setRepl(!repl)}>
+            Try in REPL
+          </Button>
         </Flex>
       )}
     </>
   )
-  
 }

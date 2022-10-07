@@ -1,19 +1,19 @@
-import chai from 'chai'
-import * as F from '../src'
-import _ from 'lodash/fp'
+import chai from "chai"
+import * as F from "../src"
+import _ from "lodash/fp"
 chai.expect()
 const expect = chai.expect
 
-describe('Logic Functions', () => {
-  it('overNone', () => {
+describe("Logic Functions", () => {
+  it("overNone", () => {
     let ten = (x) => x > 10
     let twenty = (x) => x > 20
     let thirty = (x) => x > 30
     expect(F.overNone([ten, twenty, thirty])(5)).to.be.true
     expect(F.overNone([ten, twenty, thirty])(15)).to.be.false
   })
-  describe('ifElse', () => {
-    it('should handle functions', () => {
+  describe("ifElse", () => {
+    it("should handle functions", () => {
       let clamp5 = F.ifElse(
         (x) => x > 5,
         () => 5,
@@ -23,20 +23,20 @@ describe('Logic Functions', () => {
       expect(clamp5(5)).to.equal(5)
       expect(clamp5(13)).to.equal(5)
     })
-    it('should handle passing boolean conditions', () => {
+    it("should handle passing boolean conditions", () => {
       let fn = F.ifElse(
         true,
         (x) => `success ${x}`,
         (x) => `fail ${x}`
       )
-      expect(fn(1)).to.equal('success 1')
+      expect(fn(1)).to.equal("success 1")
     })
-    it('should handle fancy shorthand', () => {
-      let fancyShortHand = F.ifElse({ a: 1 }, 'Has a1', () => 'No a1')
-      expect(fancyShortHand({ a: 1 })).to.equal('Has a1')
-      expect(fancyShortHand({ a: 2 })).to.equal('No a1')
+    it("should handle fancy shorthand", () => {
+      let fancyShortHand = F.ifElse({ a: 1 }, "Has a1", () => "No a1")
+      expect(fancyShortHand({ a: 1 })).to.equal("Has a1")
+      expect(fancyShortHand({ a: 2 })).to.equal("No a1")
     })
-    it('should be fully curried', () => {
+    it("should be fully curried", () => {
       expect(
         F.ifElse(
           (x) => x % 2,
@@ -44,10 +44,10 @@ describe('Logic Functions', () => {
           (x) => `${x} is even!`,
           6
         )
-      ).to.equal('6 is even!')
+      ).to.equal("6 is even!")
     })
   })
-  it('when', () => {
+  it("when", () => {
     let clamp5 = F.when(
       (x) => x > 5,
       () => 5
@@ -67,7 +67,7 @@ describe('Logic Functions', () => {
     ])
     expect(_.map(nullConvertIndex, [0, 1, 2, 3])).to.deep.equal([0, 1, 2, 3])
   })
-  it('unless', () => {
+  it("unless", () => {
     let clamp5 = F.unless(
       (x) => x < 5,
       () => 5
@@ -76,13 +76,13 @@ describe('Logic Functions', () => {
     expect(clamp5(5)).to.equal(5)
     expect(clamp5(13)).to.equal(5)
   })
-  it('whenExists', () => {
+  it("whenExists", () => {
     let fn = F.whenExists(5)
     expect(fn(3)).to.equal(5)
     expect(fn(null)).to.equal(null)
     expect(fn(false)).to.equal(5)
   })
-  it('whenTruthy', () => {
+  it("whenTruthy", () => {
     let fn = F.whenTruthy(5)
     expect(fn(3)).to.equal(5)
     expect(fn(null)).to.equal(null)
