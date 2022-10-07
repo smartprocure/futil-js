@@ -1,5 +1,4 @@
 import {
-  HStack,
   Tooltip,
   InputGroup,
   InputLeftElement,
@@ -7,8 +6,6 @@ import {
   useColorModeValue,
   InputLeftAddon,
   InputRightAddon,
-  Box,
-  Flex,
   Spacer,
 } from "@chakra-ui/react"
 import { AiOutlineFunction } from "react-icons/ai"

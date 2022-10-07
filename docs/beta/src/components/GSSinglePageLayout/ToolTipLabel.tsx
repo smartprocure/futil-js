@@ -1,4 +1,3 @@
-import _ from "lodash/fp"
 import { VStack, Heading, Text } from "@chakra-ui/react"
 
 export let ToolTipLabel = ({ heading, content }) => (
