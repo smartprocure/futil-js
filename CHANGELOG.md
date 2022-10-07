@@ -1,3 +1,7 @@
+# 1.71.4
+
+- Responsive design implementation for the site to be mobile friendly and responsive on desktop.
+
 # 1.71.3
 
 - Library issue resolution, two libraries where auto-updating minor versions and no longer compatible in those versions.

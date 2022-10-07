@@ -26,10 +26,10 @@ jobs:
       - run:
           name: coveralls
           command: npm run cicoveralls
-      - run:
-          name: browser
-          command: if [ "${CIRCLE_BRANCH}" != "master" ]; then npm run browser || true; fi;
-          timeout: 240
+      # - run:
+      #     name: browser
+      #     command: if [ "${CIRCLE_BRANCH}" != "master" ]; then npm run browser || true; fi;
+      #     timeout: 240
       - run:
           name: pre-danger
           command: git config user.email "decrapifier@govspend.com" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH

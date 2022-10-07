@@ -10,6 +10,7 @@ import {
   Image,
   Button,
   Flex,
+  Spacer,
 } from "@chakra-ui/react"
 import { CodeSnippet } from "./CodeSnippet"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
@@ -62,7 +63,7 @@ let Logo = () => (
 let gray = "linear(to-b, gray.900, gray.700)"
 let lightGray = "linear(225deg, gray.700, gray.900)"
 let Summary = ({ dispatch }) => (
-  <Box bgGradient={useColorModeValue(lightGray, gray)} w="full" p={16}>
+  <Box bgGradient={useColorModeValue(lightGray, gray)} w="100%" p={16}>
     <Container maxW="4xl" color="#fff">
       <VStack spacing={4} alignItems="stretch">
         <Logo />
@@ -81,6 +82,7 @@ let Summary = ({ dispatch }) => (
           and <Code>ramda</Code> work great. <Code>lodash/fp</Code> works best.
         </Text>
         <Flex my={8} alignItems="center">
+          <Spacer />
           <Button
             bg="linear-gradient(90deg, #39b54a, #8dc63f)"
             _hover={{
@@ -89,13 +91,14 @@ let Summary = ({ dispatch }) => (
               boxShadow: "lg",
             }}
             transition="transform 0.1s ease 0s, box-shadow 0.1s ease 0s, background-color 0.1s ease 0s"
-            size="lg"
+            size="md"
             display="block"
             onClick={() => dispatch({ page: "docs" })}
           >
             Documentation
           </Button>
           <ColorModeSwitcher justifySelf="flex-end" />
+          <Spacer />
         </Flex>
         <CodeSnippet forceDark language="shell" noRepl>{`$ npm i futil
 # or
@@ -129,7 +132,6 @@ F.unflattenObject({ a: 1, 'b.x': 10, 'b.y': 11, c: 3 })
 
 let BrowserCoverage = () => (
   <Box>
-    {/* <Heading>Browser Compatibility</Heading> */}
     <a href="https://saucelabs.com/u/futil">
       <img
         style={{ background: "white" }}

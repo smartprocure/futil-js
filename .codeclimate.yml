@@ -19,5 +19,6 @@ ratings:
 exclude_paths:
   - "lib/"
   - "tests/"
+  - "docs/"
   - "spec/"
   - "**/vendor/"
