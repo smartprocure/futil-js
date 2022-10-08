@@ -1,3 +1,7 @@
+# 1.71.5
+
+- Explicit build step in CI/CD
+
 # 1.71.4
 
 - Responsive design implementation for the site to be mobile friendly and responsive on desktop.
