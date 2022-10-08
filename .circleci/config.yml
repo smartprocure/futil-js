@@ -26,6 +26,9 @@ jobs:
       - run:
           name: coveralls
           command: npm run cicoveralls
+      - run:
+        name: build
+        command: npm run build
       # - run:
       #     name: browser
       #     command: if [ "${CIRCLE_BRANCH}" != "master" ]; then npm run browser || true; fi;
