@@ -86,11 +86,6 @@ let run = async () => {
       // Attempt to remove test wrappers but fallback if prettier explodes due to invalid JS
       return format(removeTestWrappers(code))
     } catch (e) {
-      counter++
-      console.log(counter)
-      console.log(code)
-      console.log('***************************')
-      console.log(removeTestWrappers(code))
       return code
     }
   }, tests)
