@@ -28,32 +28,32 @@ let getTests = async () => {
 
 let removeTestWrappers = _.flow(
   _.replace(
-    /expect\((.+?)\)(\.not)?\.to\.be\.true/g,
-    (a, b) => `${b}\n/* => true */`
+    /expect\((.+?)\)(\.not)?\.to\.be\.true\n/g,
+    (a, b) => `${b}\n/* => true */\n`
   ),
   _.replace(
-    /expect\((.+?)\)(\.not)?\.to\.be\.false/g,
-    (a, b) => `${b}\n/* => false */`
+    /expect\((.+?)\)(\.not)?\.to\.be\.false\n/g,
+    (a, b) => `${b}\n/* => false */\n`
   ),
   _.replace(
-    /expect\((.+?)\)\.to\.have\.callCount\(([0-9]+)\)/g,
-    (a, b, c) => `${b}\n/* => to have been called ${c} times */`
+    /expect\((.+?)\)\.to\.have\.callCount\(([0-9]+)\)\n/g,
+    (a, b, c) => `${b}\n/* => to have been called ${c} times */\n`
   ),
   _.replace(
-    /expect\((\(\) => )?(.+?)\)(\.not)?\.to\.be\.a\((.+?)\)/g,
-    (a, b, c, d, e) => `${c}\n/* => is a ${e} */`
+    /expect\((\(\) => )?(.+?)\)(\.not)?\.to\.be\.a\((.+?)\)\n/g,
+    (a, b, c, d, e) => `${c}\n/* => is a ${e} */\n`
   ),
   _.replace(
-    /expect\((\(\) => )?(.+?)\)(\.not)?\.to\.throw\((.*?)\)/g,
-    (a, b, c, d, e) => `${c}\n/* => throws ${e || "exception"} */`
+    /expect\((\(\) => )?(.+?)\)(\.not)?\.to\.throw\((.*?)\)\n/g,
+    (a, b, c, d, e) => `${c}\n/* => throws ${e || "exception"} */\n`
   ),
   _.replace(
-    /expect\((.+?)\)(\.not)?\.to\.be\.rejectedWith\((.*?)\)/g,
-    (a, b, c, d) => `${b}\n/* => throws ${d || "exception"} */`
+    /expect\((.+?)\)(\.not)?\.to\.be\.rejectedWith\((.*?)\)\n/g,
+    (a, b, c, d) => `${b}\n/* => throws ${d || "exception"} */\n`
   ),
   _.replace(
-    /expect\((.+?)\)(\.not)?\.to(\.deep)?(\.equal|\.eql)\((.+?)\)/gs,
-    (a, b, c, d, e, f) => `${b}\n/* => ${f} */`
+    /expect\((.+?)\)(\.not)?\.to(\.deep)?(\.equal|\.eql)\((.+?)(\)\n)?(\)\n)/gs,
+    (a, b, c, d, e, f) => `${b}\n/* => ${f} */\n`
   )
 )
 
@@ -66,6 +66,8 @@ let cleanup = _.flow(
   // remove newlines after `{` to force objects as compact as possible
   _.replace(/{\n|\r/g, "{")
 )
+
+let counter = 0
 
 let format = (code) =>
   prettier.format(code, {
@@ -84,6 +86,11 @@ let run = async () => {
       // Attempt to remove test wrappers but fallback if prettier explodes due to invalid JS
       return format(removeTestWrappers(code))
     } catch (e) {
+      counter++
+      console.log(counter)
+      console.log(code)
+      console.log('***************************')
+      console.log(removeTestWrappers(code))
       return code
     }
   }, tests)

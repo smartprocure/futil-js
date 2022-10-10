@@ -29,23 +29,11 @@ describe("String Functions", () => {
     ).to.deep.equal({ a: "a", b: "b", c: "c", d: "d", e: 5 })
   })
   it("autoLabel", () => {
-    let tests = [
-      [
-        "whatDoYouThinkOfThisHTML5Stuff? IThinkItIsREALLYCool",
-        "What Do You Think Of This HTML 5 Stuff I Think It Is REALLY Cool",
-      ],
-      ["thisIsAVariable", "This Is A Variable"],
-      [
-        "thisIs_startCaseWithACRONYMSAndNumbersLike123and4",
-        "This Is Start Case With ACRONYMS And Numbers Like 123 And 4",
-      ],
-      // Passive aggressive example of how to better auto generate PR titles from branch names...
-      ["Feature/AutoLabel#126", "Feature Auto Label 126"],
-    ]
-    F.eachIndexed(
-      ([input, output]) => expect(F.autoLabel(input)).to.equal(output),
-      tests
-    )
+    expect(F.autoLabel("whatDoYouThinkOfThisHTML5Stuff? IThinkItIsREALLYCool")).to.equal("What Do You Think Of This HTML 5 Stuff I Think It Is REALLY Cool")
+    expect(F.autoLabel("thisIsAVariable")).to.equal("This Is A Variable")
+    expect(F.autoLabel("thisIs_startCaseWithACRONYMSAndNumbersLike123and4")).to.equal("This Is Start Case With ACRONYMS And Numbers Like 123 And 4")
+    // Passive aggressive example of how to better auto generate PR titles from branch names...
+    expect(F.autoLabel("Feature/AutoLabel#126")).to.equal("Feature Auto Label 126")
   })
   it("autoLabelOption", () => {
     expect(F.autoLabelOption("someValue")).to.deep.equal({
