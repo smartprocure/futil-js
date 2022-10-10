@@ -67,8 +67,7 @@ export let MethodBox = ({ doc }: { doc: Doc }) => (
       </Box>
       <Tabs>
         <TabList>
-          {doc.example && <Tab>Example</Tab>}
-          {doc.tests && <Tab>Tests</Tab>}
+          {doc.tests && <Tab>Example</Tab>}
           {doc.source && <Tab>Source</Tab>}
         </TabList>
         <TabPanels>

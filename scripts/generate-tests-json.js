@@ -67,8 +67,6 @@ let cleanup = _.flow(
   _.replace(/{\n|\r/g, "{")
 )
 
-let counter = 0
-
 let format = (code) =>
   prettier.format(code, {
     semi: false,
