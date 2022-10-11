@@ -137,7 +137,8 @@ describe("Converted Functions", () => {
       }
       let clone = _.clone(hero)
       expect(F.defaultsOn(clone, { consort: "Auge" })).to.deep.equal(
-        _.defaults({ consort: "Auge" }, clone))
+        _.defaults({ consort: "Auge" }, clone)
+      )
     })
 
     it("mergeOn", () => {
