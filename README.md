@@ -692,13 +692,13 @@ braceHighlight(/l+\w/, 'hello world') //-> "he{llo} wor{ld}"
 `number -> bool`
 Returns true if number is greater than one.
 
-### isPromise
-`x -> bool`
-A utility that checks if the argument passed in is of type promise
-
 
 ## Lang
 Language level utilities
+
+### isPromise
+`x -> bool`
+A utility that checks if the argument passed in is of type promise
 
 ### throws
 Just throws whatever it is passed.
