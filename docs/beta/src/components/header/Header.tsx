@@ -41,7 +41,6 @@ export let PageHeader = ({
     <Box>
       <HStack onClick={() => dispatch({ page: "home" })} cursor="pointer">
         <Image
-          display={page !== "home" ? "inherit" : "none"}
           height={45}
           paddingBottom={1}
           src={useColorModeValue(LogoLight, LogoDark)}
