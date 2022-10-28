@@ -147,9 +147,9 @@ function getHeaderContent(page, state, dispatch) {
       dispatch={dispatch}
       page={page}
     />
+  ) : (
+    false
   )
-  :
-  false
 }
 
 function getMainContent(page, dispatch) {
