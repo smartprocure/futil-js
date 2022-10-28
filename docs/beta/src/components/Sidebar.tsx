@@ -61,9 +61,9 @@ export let Sidebar = ({ docs, search, input, output }: SidebarProps) => {
         height: "25%", // arbitrary height
         background: useColorModeValue(
           // linear gradient from 0-100 opacity of bg color
-          "linear-gradient(0deg, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%)",
+          "linear-gradient(0deg, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0) 100%)",
           // rgb values for dark body bg
-          "linear-gradient(0deg, rgba(26, 32, 44, 1) 30%, rgba(26, 32, 44, 0) 100%)"
+          "linear-gradient(0deg, rgba(26, 32, 44, 0.8) 30%, rgba(26, 32, 44, 0) 100%)"
         ),
         transition: "opacity 1s ease 0s",
       }}
