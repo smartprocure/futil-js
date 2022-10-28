@@ -41,6 +41,7 @@ export let PageHeader = ({
     <Box>
       <HStack onClick={() => dispatch({ page: "home" })} cursor="pointer">
         <Image
+          display={page !== "home" ? "inherit" : "none"}
           height={45}
           paddingBottom={1}
           src={useColorModeValue(LogoLight, LogoDark)}
@@ -49,15 +50,17 @@ export let PageHeader = ({
     </Box>
     <Spacer />
     <Flex direction={"row"} gap={1} display={responsive.nav.showDesktopInputs}>
-      <SearchInputs
-        input={input}
-        output={output}
-        search={search}
-        toolTipName={toolTipName}
-        toolTipInOut={toolTipInOut}
-        dispatch={dispatch}
-        responsive={responsive}
-      />
+      {page === "docs" && (
+        <SearchInputs
+          input={input}
+          output={output}
+          search={search}
+          toolTipName={toolTipName}
+          toolTipInOut={toolTipInOut}
+          dispatch={dispatch}
+          responsive={responsive}
+        />
+      )}
     </Flex>
     <Spacer />
     <Box>

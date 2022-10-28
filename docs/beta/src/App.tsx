@@ -140,10 +140,13 @@ let MainContent = React.memo(() => {
 })
 
 function getHeaderContent(page, state, dispatch) {
-  return page !== "home" ? (
-    <PageHeader responsive={headerResponsive} {...state} dispatch={dispatch} />
-  ) : (
-    <></>
+  return (
+    <PageHeader
+      responsive={headerResponsive}
+      {...state}
+      dispatch={dispatch}
+      page={page}
+    />
   )
 }
 
@@ -176,7 +179,7 @@ let initialState = {
   output: "",
   search: "",
   isModalSearch: false,
-  page: "docs",
+  page: "home",
 }
 export const App = () => {
   React.useEffect(setupHashScroll, [])

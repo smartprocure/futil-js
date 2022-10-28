@@ -53,7 +53,7 @@ export let ResponsiveBasicLayout = ({
       </Flex>
     </chakra.header>
     {sidebar.type === React.Fragment ? (
-      <Box p={5}>{main}</Box>
+      <Box>{main}</Box>
     ) : (
       <Grid templateColumns={"repeat(12, 1fr)"}>
         <GridItem {...responsive.sidebarResponsive.showDesktopBar}>

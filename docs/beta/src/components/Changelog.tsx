@@ -15,7 +15,7 @@ export let Changelog = memo(() => {
     fetchText(changelogUrl).then(setData)
   }, [])
   return (
-    <Container maxW="4xl" pt={10} px={0}>
+    <Container maxW="4xl" pt={10} px={4}>
       <Heading>
         <Link href="https://github.com/smartprocure/futil-js/blob/master/CHANGELOG.md">
           Version History/Changelog

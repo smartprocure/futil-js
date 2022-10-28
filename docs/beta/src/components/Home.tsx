@@ -63,7 +63,7 @@ let Logo = () => (
 let gray = "linear(to-b, gray.900, gray.700)"
 let lightGray = "linear(225deg, gray.700, gray.900)"
 let Summary = ({ dispatch }) => (
-  <Box bgGradient={useColorModeValue(lightGray, gray)} w="100%" p={16}>
+  <Box bgGradient={useColorModeValue(lightGray, gray)} w="100%" p={5} py={20}>
     <Container maxW="4xl" color="#fff">
       <VStack spacing={4} alignItems="stretch">
         <Logo />
