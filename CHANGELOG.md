@@ -1,3 +1,11 @@
+# 1.71.8
+
+- Corrected CI/CD issue
+
+# 1.71.7
+
+- Corrected CI/CD issue
+
 # 1.71.6
 
 - Doc Site UI Change: corrected presentation of home page
