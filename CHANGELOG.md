@@ -1,3 +1,10 @@
+# 1.71.6
+
+- Doc Site UI Changes:
+  - Added header to page: home
+  - Hide logo on header when in page: home as it has one already
+  - Fixed misc issues
+
 # 1.71.5
 
 - Explicit build step in CI/CD
