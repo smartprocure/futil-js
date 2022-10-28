@@ -140,16 +140,16 @@ let MainContent = React.memo(() => {
 })
 
 function getHeaderContent(page, state, dispatch) {
-  return page != 'home' ? (
+  return page != "home" ? (
     <PageHeader
       responsive={headerResponsive}
       {...state}
       dispatch={dispatch}
       page={page}
     />
+  ) : (
+    false
   )
-  :
-  false
 }
 
 function getMainContent(page, dispatch) {
