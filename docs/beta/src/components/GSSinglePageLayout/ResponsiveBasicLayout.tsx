@@ -18,18 +18,24 @@ export let ResponsiveBasicLayout = ({
   dispatch,
   state,
   responsive,
-}) => (
+}) => {
+
+  const bgColor = useColorModeValue("rgba(255, 255, 255, 0.8)", "gray.800")
+  const borderColor =  useColorModeValue("gray.200", "rgba(255, 255, 255, 0.16)")
+
+  return (
   <>
-    <chakra.header
-      bg={useColorModeValue("rgba(255, 255, 255, 0.8)", "gray.800")}
+    {header && (<chakra.header
+      bg={bgColor}
       backdropFilter="saturate(180%) blur(5px)"
       position="fixed"
       zIndex={10}
       borderBottom="solid 1px"
-      borderColor={useColorModeValue("gray.200", "rgba(255, 255, 255, 0.16)")}
+      borderColor={borderColor}
       width={"100%"}
       px={6}
       py={4}
+      display={header === 'home' ? 'none' : ''}
     >
       <Flex as="header">
         {header}
@@ -51,7 +57,7 @@ export let ResponsiveBasicLayout = ({
           </GridItem>
         )}
       </Flex>
-    </chakra.header>
+    </chakra.header>)}
     {sidebar.type === React.Fragment ? (
       <Box>{main}</Box>
     ) : (
@@ -65,4 +71,4 @@ export let ResponsiveBasicLayout = ({
       </Grid>
     )}
   </>
-)
+)}

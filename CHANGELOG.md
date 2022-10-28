@@ -1,5 +1,9 @@
 # 1.71.6
 
+- Doc Site UI Change: corrected presentation of home page
+
+# 1.71.6
+
 - Doc Site UI Changes:
   - Added header to page: home
   - Hide logo on header when in page: home as it has one already
