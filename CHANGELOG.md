@@ -1,4 +1,8 @@
-# 1.71.6
+# 1.71.8
+
+- CI/CD correction
+
+# 1.71.7
 
 - Doc Site UI Change: corrected presentation of home page
 
