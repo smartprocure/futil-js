@@ -72,7 +72,7 @@
     "eslint-plugin-mocha": "^10.1.0",
     "esm": "^3.2.25",
     "jsdoc": "^3.6.11",
-    "karma": "^2.0.0",
+    "karma": "^6.4.1",
     "karma-chai": "^0.1.0",
     "karma-chai-as-promised": "^0.1.2",
     "karma-chrome-launcher": "^2.2.0",
