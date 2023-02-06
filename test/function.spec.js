@@ -96,7 +96,7 @@ describe("Function Functions", () => {
     expect(F.flurry(add, double)(1)(4)).to.equal(10)
   })
   it("uncurry", () => {
-    let curriedAdd = x => y => z => x + y + z
+    let curriedAdd = (x) => (y) => (z) => x + y + z
     let uncurriedAdd = F.uncurry(curriedAdd)
     expect(uncurredAdd(1, 2, 3)).to.equal(6)
   })
