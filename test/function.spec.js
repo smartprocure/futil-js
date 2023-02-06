@@ -95,6 +95,11 @@ describe("Function Functions", () => {
     // Passing 1 at a time
     expect(F.flurry(add, double)(1)(4)).to.equal(10)
   })
+  it("uncurry", () => {
+    let curriedAdd = x => y => z => x + y + z
+    let uncurriedAdd = F.uncurry(curriedAdd)
+    expect(uncurredAdd(1, 2, 3)).to.equal(6)
+  })
   it("mapArgs", () => {
     let add = (x, y) => x + y
     let double = (x) => x * 2

@@ -84,8 +84,12 @@ let currier =
  */
 export let flurry = currier(_.flow)
 
-// recurry for use when we want to pass a curried function into a higher order function that expects arguments in uncurried form
-export let recurry = fn => (...args) => args.reduce((fn, arg) => fn(arg) , fn);
+/**
+ * Uncurry allows curried functions to be called with all its arguments at once. Methods curried with lodash or ramda support this call style out of the box, but hand curried methods. This can happen as the result of function composition.
+ * 
+ * @signature (arg -> arg -> arg) -> (arg, arg, arg)
+ */
+export let uncurry = fn => (...args) => args.reduce((fn, arg) => fn(arg) , fn)
 
 /**
  * Returns a function that applies the mapping operation to all of the arguments of a function. Very similar to _.overArgs, but runs a single mapper on all of the args args.
