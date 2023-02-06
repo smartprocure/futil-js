@@ -98,7 +98,7 @@ describe("Function Functions", () => {
   it("uncurry", () => {
     let curriedAdd = (x) => (y) => (z) => x + y + z
     let uncurriedAdd = F.uncurry(curriedAdd)
-    expect(uncurredAdd(1, 2, 3)).to.equal(6)
+    expect(uncurriedAdd(1, 2, 3)).to.equal(6)
   })
   it("mapArgs", () => {
     let add = (x, y) => x + y
