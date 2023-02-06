@@ -5,21 +5,20 @@ engines:
       languages:
         javascript:
           mass_threshold: 80
-  eslint:
-    enabled: true
-  fixme:
-    enabled: true
 ratings:
   paths:
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
-  - "**.rb"
+    - "**.inc"
+    - "**.js"
+    - "**.ts"
+    - "**.jsx"
+    - "**.tsx"
+    - "**.module"
+    - "**.php"
+    - "**.py"
+    - "**.rb"
 exclude_paths:
-- "lib/"
-- "tests/"
-- "spec/"
-- "**/vendor/"
+  - "lib/"
+  - "tests/"
+  - "docs/"
+  - "spec/"
+  - "**/vendor/"

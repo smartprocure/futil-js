@@ -1,72 +1,100 @@
-import chai from 'chai'
-import * as f from '../src'
-import _ from 'lodash/fp'
+import chai from "chai"
+import * as F from "../src"
+import _ from "lodash/fp"
 chai.expect()
 const expect = chai.expect
 
-describe('Lang Functions', () => {
-  it('throws', () => {
-    expect(() => f.throws(Error('oops'))).to.throw()
+describe("Lang Functions", () => {
+  it("throws", () => {
+    expect(() => F.throws(Error("oops"))).to.throw()
   })
-  it('isNotNil', () => {
-    expect(f.isNotNil(null)).to.equal(false)
-    expect(f.isNotNil(undefined)).to.equal(false)
-    expect(f.isNotNil(0)).to.equal(true)
-    expect(f.isNotNil('')).to.equal(true)
-    expect(f.isNotNil([])).to.equal(true)
+  it("tapError", () => {
+    let total = ""
+    let errorFn = (e, pre, post) => (total = `${e}. The total is ${pre + post}`)
+    let errorOfMine = new Error("myError")
+    try {
+      F.tapError(errorFn)(errorOfMine, 20, 45)
+    } catch (e) {
+      expect(total).to.equal("Error: myError. The total is 65")
+      expect(e).to.equal(errorOfMine)
+    }
   })
-  it('exists', () => {
-    expect(f.exists).to.equal(f.isNotNil)
+  it("isNotNil", () => {
+    expect(F.isNotNil(null)).to.be.false
+    expect(F.isNotNil(undefined)).to.be.false
+    expect(F.isNotNil(0)).to.be.true
+    expect(F.isNotNil("")).to.be.true
+    expect(F.isNotNil([])).to.be.true
+    expect(F.isNotNil).to.equal(F.exists)
   })
-  it('isMultiple', () => {
-    expect(f.isMultiple([''])).to.equal(false)
-    expect(f.isMultiple(['', ''])).to.equal(true)
-    expect(f.isMultiple('a')).to.equal(false)
-    expect(f.isMultiple('asdf')).to.equal(true)
-    expect(f.isMultiple({ x: 1, y: 2 })).to.equal(false)
-    expect(f.isMultiple({ x: 1, y: 2, length: 2 })).to.equal(true)
+  it("exists", () => {
+    expect(F.exists(null)).to.be.false
+    expect(F.exists(undefined)).to.be.false
+    expect(F.exists(0)).to.be.true
+    expect(F.exists("")).to.be.true
+    expect(F.exists([])).to.be.true
   })
-  it('append', () => {
-    expect(f.append('a', 'b')).to.equal('ba')
-    expect(f.append(1, 4)).to.equal(5)
+  it("isMultiple", () => {
+    expect(F.isMultiple([""])).to.be.false
+    expect(F.isMultiple(["", ""])).to.be.true
+    expect(F.isMultiple("a")).to.be.false
+    expect(F.isMultiple("asdf")).to.be.true
+    expect(F.isMultiple({ x: 1, y: 2 })).to.be.false
+    expect(F.isMultiple({ x: 1, y: 2, length: 2 })).to.be.true
   })
-  it('isBlank', () => {
-    expect(f.isBlank(1)).to.equal(false)
-    expect(f.isBlank('asdf')).to.equal(false)
-    expect(f.isBlank({ a: 1 })).to.equal(false)
-    expect(f.isBlank([3, 4])).to.equal(false)
-    expect(f.isBlank(new Date())).to.equal(false)
+  it("append", () => {
+    expect(F.append("a", "b")).to.equal("ba")
+    expect(F.append(1, 4)).to.equal(5)
+  })
+  it("isBlank", () => {
+    expect(F.isBlank(1)).to.be.false
+    expect(F.isBlank("asdf")).to.be.false
+    expect(F.isBlank({ a: 1 })).to.be.false
+    expect(F.isBlank([3, 4])).to.be.false
+    expect(F.isBlank(new Date())).to.be.false
     expect(
-      f.isBlank({
+      F.isBlank({
         a: 1,
-        b: 'as',
+        b: "as",
       })
-    ).to.equal(false)
-    expect(f.isBlank(null)).to.equal(true)
-    expect(f.isBlank(undefined)).to.equal(true)
-    expect(f.isBlank('')).to.equal(true)
-    expect(f.isBlank([])).to.equal(true)
-    expect(f.isBlank({})).to.equal(true)
+    ).to.be.false
+    expect(F.isBlank(null)).to.be.true
+    expect(F.isBlank(undefined)).to.be.true
+    expect(F.isBlank("")).to.be.true
+    expect(F.isBlank([])).to.be.true
+    expect(F.isBlank({})).to.be.true
   })
-  it('should isBlankDeep', () => {
-    expect(f.isBlankDeep(_.every)(1)).to.equal(false)
-    expect(f.isBlankDeep(_.every)(false)).to.equal(false)
-    expect(f.isBlankDeep(_.every)('')).to.equal(true)
+  it("isNotBlank", () => {
+    expect(F.isNotBlank(1)).to.be.true
+    expect(F.isNotBlank("asdf")).to.be.true
+    expect(F.isNotBlank({ a: 1 })).to.be.true
+    expect(F.isNotBlank([3, 4])).to.be.true
+    expect(F.isNotBlank(new Date())).to.be.true
+    expect(F.isNotBlank(null)).to.be.false
+    expect(F.isNotBlank(undefined)).to.be.false
+    expect(F.isNotBlank("")).to.be.false
+    expect(F.isNotBlank([])).to.be.false
+    expect(F.isNotBlank({})).to.be.false
+  })
+  it("isBlankDeep", () => {
+    expect(F.isBlankDeep(_.every)(1)).to.be.false
+    expect(F.isBlankDeep(_.every)(false)).to.be.false
+    expect(F.isBlankDeep(_.every)("")).to.be.true
     expect(
-      f.isBlankDeep(_.every)({
+      F.isBlankDeep(_.every)({
         a: 1,
-        b: 'as',
+        b: "as",
       })
-    ).to.equal(false)
+    ).to.be.false
     expect(
-      f.isBlankDeep(_.every)({
+      F.isBlankDeep(_.every)({
         a: null,
-        b: '',
+        b: "",
         c: [],
         d: {
-          b: '',
+          b: "",
         },
       })
-    ).to.equal(true)
+    ).to.be.true
   })
 })

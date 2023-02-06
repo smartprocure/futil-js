@@ -1,6 +1,6 @@
 {
   "name": "futil-js",
-  "version": "1.62.1",
+  "version": "1.71.8",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "scripts": {
@@ -13,13 +13,25 @@
     "coverage": "nyc --require babel-core/register --require babel-polyfill --require ./test/init.js mocha test",
     "cicoveralls": "nyc report --reporter=text-lcov --require babel-core/register --require babel-polyfill --require ./test/init.js mocha test | coveralls",
     "cicoverage": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill --require ./test/init.js mocha test --reporter json > test-results.json",
-    "lint": "eslint dangerfile.js src/*.js test/*.js",
+    "lint": "eslint src docs/beta/src test scripts",
     "lint:ci": "npm run lint -- -o lint-results.json -f json",
-    "lint-fix": "eslint dangerfile.js src/*.js test/*.js --fix",
-    "fmt": "prettier --write *.js; prettier --write '{src,test}/**/*.js'",
+    "lint-fix": "eslint src docs/beta/src test scripts --fix",
+    "fmt": "prettier -w .",
     "duti:fix": "npm run fmt && npm run lint-fix && npm run fmt",
     "prepublish": "webpack",
-    "rename": "node renamePackage"
+    "rename": "node renamePackage",
+    "docsfolder": "node -r esm ./scripts/docs-folder.js",
+    "prejsdoc": "npm run docsfolder",
+    "jsdoc": "jsdoc -X ./src > ./docs/data/jsdoc.json",
+    "predocs": "npm run jsdoc",
+    "docs": "node -r esm ./scripts/generate-docs.js",
+    "prereadme": "npm run docs",
+    "readme": "node -r esm ./scripts/generate-readme.js",
+    "tests-json": "node -r esm ./scripts/generate-tests-json.js",
+    "copy-docs": "node -r esm ./scripts/copy-docs.js",
+    "docs-site": "npm run readme && npm run tests-json && npm run copy-docs",
+    "predocs-publish": "npm run docs-site",
+    "docs-publish": "cd docs/beta && npm run deploy"
   },
   "author": {
     "name": "Samuel Greene",
@@ -36,9 +48,7 @@
     ]
   },
   "prettier": {
-    "singleQuote": true,
-    "semi": false,
-    "trailingComma": "es5"
+    "semi": false
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -51,14 +61,17 @@
     "bluebird": "^3.5.0",
     "chai": "^4.1.0",
     "chai-as-promised": "^7.1.1",
-    "chokidar": "^2.0.0",
-    "chokidar-cli": "^1.2.0",
+    "chokidar": "^3.3.0",
+    "chokidar-cli": "^2.1.0",
     "codacy-coverage": "^3.0.0",
     "coveralls": "^3.0.0",
     "danger": "^6.1.13",
     "duti": "latest",
-    "eslint": "4.19.1",
-    "eslint-config-smartprocure": "^1.0.2",
+    "eslint": "^8.24.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-mocha": "^10.1.0",
+    "esm": "^3.2.25",
+    "jsdoc": "^3.6.11",
     "karma": "^2.0.0",
     "karma-chai": "^0.1.0",
     "karma-chai-as-promised": "^0.1.2",
@@ -68,16 +81,16 @@
     "karma-sauce-launcher": "^1.2.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
-    "mocha": "^5.0.0",
+    "mocha": "^6.2.2",
     "mocha-lcov-reporter": "^1.2.0",
     "nyc": "^12.0.1",
-    "prettier": "^1.7.4",
-    "read-pkg": "^4.0.1",
-    "sinon": "^5.0.0",
+    "prettier": "^2.7.1",
+    "read-pkg": "^5.2.0",
+    "sinon": "^7.5.0",
     "sinon-chai": "^3.0.0",
     "webpack": "^4.1.0",
     "webpack-cli": "^3.0.0",
-    "write-pkg": "^3.2.0"
+    "write-pkg": "^4.0.0"
   },
   "directories": {
     "test": "test"

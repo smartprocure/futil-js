@@ -1,0 +1,60 @@
+{
+  "name": "futil-docs",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://smartprocure.github.io/futil-js",
+  "dependencies": {
+    "@chakra-ui/react": "^2.3.2",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@futil-docs/data": "file:./../data",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.1",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^12.20.55",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "chakra-ui-markdown-renderer": "^4.1.0",
+    "framer-motion": "^6.3.16",
+    "futil": "^1.70.0",
+    "jsdoc": "^3.6.11",
+    "lodash": "^4.17.21",
+    "ramda": "^0.28.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-markdown": "^8.0.3",
+    "react-scripts": "5.0.1",
+    "react-syntax-highlighter": "^15.5.0",
+    "remark-gfm": "^3.0.1",
+    "typescript": "^4.7.4",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "short_name": "Futil Docs",
+  "name": "Futil Documentation Website",
+  "icons": [
+    {
+      "src": "icon/svg",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
