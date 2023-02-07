@@ -1,4 +1,5 @@
 # 1.72.0
+
 - Add `recurry`
 - Add `uncurry`
 - Add `unlessTruthy`

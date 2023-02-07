@@ -96,7 +96,7 @@ export let uncurry =
 
 /**
  * Resets curry arity. Useful in scenarios where you have a curried function whose arity isn't detectable by a lodash or ramda curry - such as one constructed via function composition.
- * 
+ *
  * @signature (n, fn) -> fn(arg1, ...argN)
  */
 export let recurry = (n, fn) => _.curryN(n, uncurry(fn))

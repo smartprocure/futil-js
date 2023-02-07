@@ -106,7 +106,7 @@ describe("Function Functions", () => {
     // let addToElements = number => _.map(_.add(number))
     // let addToElements = (number, collection) = _.map(_.add(number), collection)
 
-    // Does not work correctly since flow doesn't detect 
+    // Does not work correctly since flow doesn't detect
     expect(addToElements(5, [1, 2, 3])).not.to.deep.equal([6, 7, 8])
 
     let fn = F.recurry(2, addToElements)
