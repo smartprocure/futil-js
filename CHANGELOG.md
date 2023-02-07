@@ -1,5 +1,6 @@
 # 1.72.0
 - Add `recurry`
+- Add `uncurry`
 - Add `unlessTruthy`
 - Add argument spreading support to logic functions
 - Add additiona arrayLens test case
