@@ -3,7 +3,7 @@
 - Add `uncurry`
 - Add `unlessTruthy`
 - Add argument spreading support to logic functions
-- Add additiona arrayLens test case
+- Add additional arrayLens test case
 
 # 1.71.8
 
