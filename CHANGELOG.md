@@ -1,3 +1,9 @@
+# 1.72.0
+- Add `recurry`
+- Add `unlessTruthy`
+- Add argument spreading support to logic functions
+- Add additiona arrayLens test case
+
 # 1.71.8
 
 - CI/CD correction
