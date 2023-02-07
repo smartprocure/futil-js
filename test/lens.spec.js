@@ -205,11 +205,20 @@ describe("Lens Functions", () => {
       }
       let lens = arrayLens(false)
       F.on(lens)()
-      expect(lens[0]).to.be.true
+      expect(F.view(lens)).to.be.true
       F.off(lens)()
-      expect(lens[0]).to.be.false
+      expect(F.view(lens)).to.be.false
       F.flip(lens)()
-      expect(lens[0]).to.be.true
+      expect(F.view(lens)).to.be.true
+
+      let object = { a: 1 }
+      let lens2 = [object.a, x => { object.a = x }]
+      expect(F.view(lens2)).to.equal(1)
+      F.sets(2, lens2)()
+      expect(object.a).to.equal(2)
+
+      // This doesn't work because the value is snapshotted at array isntantiation
+      // expect(F.view(lens2)).to.equal(2)
     })
     it("functionPairLens", () => {
       let object = {
@@ -284,7 +293,7 @@ describe("Lens Functions", () => {
       props.onChange({ target: { x: "green" } })
       expect(state.color).to.equal("green")
       // should handle objects with `target` as an inherited property
-      function Event() {}
+      function Event() { }
       Event.prototype.target = {}
       Event.prototype.target.x = "blue"
       props.onChange(new Event())
