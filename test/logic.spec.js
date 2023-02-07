@@ -46,6 +46,15 @@ describe("Logic Functions", () => {
         )
       ).to.equal("6 is even!")
     })
+    it("should spread multiple args", () => {
+      let divideBigBySmall = F.ifElse(
+        (x, y) => x > y,
+        (x, y) => x / y,
+        (x, y) => y / x,
+      )
+      expect(divideBigBySmall(6, 2)).to.equal(3)
+      expect(divideBigBySmall(2, 6)).to.equal(3)
+    })
   })
   it("when", () => {
     let clamp5 = F.when(
