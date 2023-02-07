@@ -97,4 +97,10 @@ describe("Logic Functions", () => {
     expect(fn(null)).to.equal(null)
     expect(fn(false)).to.be.false
   })
+  it("unlessTruthy", () => {
+    let fn = F.unlessTruthy(5)
+    expect(fn(3)).to.equal(3)
+    expect(fn(null)).to.equal(5)
+    expect(fn(false)).to.equal(5)
+  })
 })

@@ -50,3 +50,8 @@ export let whenTruthy = when(Boolean)
  * `when` curried with `exists`
  */
 export let whenExists = when(exists)
+
+/**
+ * `unless` curried with `Boolean`
+ */
+export let unlessTruthy = unless(Boolean)
