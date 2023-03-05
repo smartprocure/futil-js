@@ -105,6 +105,13 @@ export let arrayToObject = _.curry((k, v, a) =>
 )
 
 /**
+ * Converts and array of keys to an object using a predicate
+ * 
+ * @signature (v, [a]) => { a: v(a) }
+ */
+export let keysToObject = arrayToObject(x => x)
+
+/**
  * A version of `_.zipObjectDeep` that supports passing a function to determine values intead of an array, which will be invoked for each key.
  *
  */

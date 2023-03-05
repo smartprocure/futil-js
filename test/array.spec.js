@@ -80,6 +80,10 @@ describe("Array Functions", () => {
       )
     ).to.deep.equal({ keya: "vala", keyb: "valb", keyc: "valc" })
   })
+  it("keysToObject", () => {
+    let result = F.keysToObject((v) => Number(v), ["1", "2", "3"])
+    expect(result).to.deep.equal({ 1: 1, 2: 2, 3: 3 })
+  })
   it("zipObjectDeepWith", () => {
     expect(F.zipObjectDeepWith(["a", "b"], () => 1)).to.deep.equal({
       a: 1,

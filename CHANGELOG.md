@@ -1,3 +1,6 @@
+# 1.73.0
+- Add `keysToObject`
+
 # 1.72.0
 
 - Add `recurry`
