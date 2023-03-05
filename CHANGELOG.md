@@ -1,6 +1,7 @@
 # 1.73.0
 - Add `keysToObject`
 - Change `wrap` and dependents like `parens` to support empty content better (and remove weird "feature" where post would default to pre if falsey). Potentially a breaking change, but that behavior was extremely weird and there were no known usages.
+- curry `moveIndex`
 
 # 1.72.0
 

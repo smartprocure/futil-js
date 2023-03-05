@@ -62,8 +62,9 @@ export let pushOn = _.curry((arr, val) => {
  *
  * @signature (from, to, array) -> array
  */
-export let moveIndex = (from, to, arr) =>
+export let moveIndex = _.curry((from, to, arr) =>
   _.flow(_.pullAt(from), insertAtIndex(to, arr[from]))(arr)
+)
 
 let overlaps = (x, y) => y[0] > x[1]
 let mergeRange = (x, y) => [[x[0], _.max(x.concat(y))]]
@@ -106,10 +107,10 @@ export let arrayToObject = _.curry((k, v, a) =>
 
 /**
  * Converts and array of keys to an object using a predicate
- * 
+ *
  * @signature (v, [a]) => { a: v(a) }
  */
-export let keysToObject = arrayToObject(x => x)
+export let keysToObject = arrayToObject((x) => x)
 
 /**
  * A version of `_.zipObjectDeep` that supports passing a function to determine values intead of an array, which will be invoked for each key.

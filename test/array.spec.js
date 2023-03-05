@@ -38,6 +38,10 @@ describe("Array Functions", () => {
     let x = F.moveIndex(1, 0, arr)
     expect(x).to.deep.equal([2, 1, 3])
     expect(arr).to.deep.equal([1, 2, 3])
+    let fn = F.moveIndex(1, 0)
+    let x2 = fn(arr)
+    expect(x2).to.deep.equal([2, 1, 3])
+    expect(arr).to.deep.equal([1, 2, 3])
   })
   it("mergeRanges", () => {
     // arrays need to be sorted in ascending order
