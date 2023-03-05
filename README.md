@@ -84,6 +84,16 @@ A `_.debounce` for async functions that ensure the returned promise is resolved 
 `(f1, f2, ...fn) -> f1Arg1 -> f1Arg2 -> ...f1ArgN -> fn(f2(f1))`
 Flurry is combo of flow + curry, preserving the arity of the initial function. See https://github.com/lodash/lodash/issues/3612.
 
+### uncurry
+
+`(arg -> arg -> arg) -> (arg, arg, arg)`
+Uncurry allows curried functions to be called with all its arguments at once. Methods curried with lodash or ramda support this call style out of the box, but hand curried methods. This can happen as the result of function composition.
+
+### recurry
+
+`(n, fn) -> fn(arg1, ...argN)`
+Resets curry arity. Useful in scenarios where you have a curried function whose arity isn't detectable by a lodash or ramda curry - such as one constructed via function composition.
+
 ### mapArgs
 
 `(mapper, fn) -> (...args) -> fn(...args.map(mapper))`
@@ -105,17 +115,17 @@ Creates a function that checks if none of the array of predicates passed in retu
 
 ### ifElse
 
-`(condition, onTrue, onFalse, x) -> (T(condition)(x) ? onTrue(x) : onFalse(x))`
+`(condition, onTrue, onFalse, ...x) -> (T(condition)(...x) ? onTrue(...x) : onFalse(...x))`
 http://ramdajs.com/docs/#ifElse. The transform function T supports passing a boolean for `condition` as well as any valid argument of `_.iteratee`, e.g. `myBool = applyTest(x); F.ifElse(myBool, doSomething, doSomethingElse);`
 
 ### when
 
-`(condition, onTrue, x) -> (T(condition)(x) ? onTrue(x) : _.identity(x))`
+`(condition, onTrue, ...x) -> (T(condition)(...x) ? onTrue(...x) : _.identity(...x))`
 http://ramdajs.com/docs/#when. `T` extends `_.iteratee` as above.
 
 ### unless
 
-`(condition, onFalse, x) -> (T(condition)(x) ? _.identity(x) : onFalse(x))`
+`(condition, onFalse, ...x) -> (T(condition)(...x) ? _.identity(...x) : onFalse(...x))`
 http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 
 ### whenTruthy
@@ -125,6 +135,10 @@ http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 ### whenExists
 
 `when` curried with `exists`
+
+### unlessTruthy
+
+`unless` curried with `Boolean`
 
 ## Collection
 
@@ -308,6 +322,11 @@ Creates a function that takes an element of the original array as argument and r
 
 `(k, v, [a]) -> { k(a): v(a) }`
 Creates an object from an array by generating a key/value pair for each element in the array using the key and value mapper functions.
+
+### keysToObject
+
+`(v, [a]) => { a: v(a) }`
+Converts and array of keys to an object using a predicate
 
 ### zipObjectDeepWith
 
@@ -686,6 +705,11 @@ Takes two objects and returns the keys they have in common
 Takes two objects and returns the first key in `y` that x also has
 
 ## String
+
+### wrap
+
+`(pre, post, content) -> pre + content + post`
+Wraps a string with pre and post unless content is nil (and replaces )
 
 ### parens
 
