@@ -48,7 +48,8 @@
     ]
   },
   "prettier": {
-    "semi": false
+    "semi": false,
+    "singleQuote": true
   },
   "devDependencies": {
     "babel": "^6.5.2",
