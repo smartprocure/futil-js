@@ -42,9 +42,9 @@
 # 1.71.3
 
 - Library issue resolution, two libraries where auto-updating minor versions and no longer compatible in those versions.
-  - Added ignore for yarn as NPM is being used currently
-  - Added versioning of package-lock files to resolve dependency issue.
-    > > > > > > > master
+- Added ignore for yarn as NPM is being used currently
+- Added versioning of package-lock files to resolve dependency issue.
+
 
 # 1.71.2
 
