@@ -1,9 +1,9 @@
 <<<<<<< HEAD
 
-
 # 1.72.3
-- Organized and added to lens test file.
-=======
+
+- # Organized and added to lens test file.
+
 # 1.73.0
 
 - Add `keysToObject`
@@ -46,7 +46,7 @@
 - Library issue resolution, two libraries where auto-updating minor versions and no longer compatible in those versions.
   - Added ignore for yarn as NPM is being used currently
   - Added versioning of package-lock files to resolve dependency issue.
->>>>>>> master
+    > > > > > > > master
 
 # 1.71.2
 
