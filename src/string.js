@@ -3,9 +3,19 @@ import _ from "lodash/fp"
 import { when } from "./logic"
 import { intersperse } from "./array"
 import { differentLast } from "./iterators"
+import { isBlank } from "./lang"
 
+let blankString = when(isBlank, "")
+/**
+ * Wraps a string with pre and post unless content is nil (and replaces )
+ * @signature (pre, post, content) -> pre + content + post
+ * @param {string} pre
+ * @param {string} post
+ * @param {string} content
+ * @returns string
+ */
 export const wrap = (pre, post, content) =>
-  (pre || "") + content + (post || pre || "")
+  isBlank(content) ? content : blankString(pre) + content + blankString(post)
 export const quote = _.partial(wrap, ['"', '"'])
 
 /**

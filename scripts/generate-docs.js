@@ -26,7 +26,7 @@ let getDocs = async () => {
     _.reject({ kind: "module" }),
     _.filter("name"),
     _.map(async (x) => {
-      let path = x.meta.path + "/" + x.meta.filename
+      let path = `${x.meta.path}/${x.meta.filename}`
       let file = await readSourceFile(path)
       let source = file.slice(...x.meta.range).slice(7)
       let lineCount = _.size(_.split("\n", source))
@@ -86,7 +86,7 @@ let getDocs = async () => {
     "tree",
   ]
   let sortTagsByReadmeOrder = _.sortBy(({ tags }) =>
-    _.findIndex((x) => x == _.first(tags), readmeOrder)
+    _.findIndex((x) => x === _.first(tags), readmeOrder)
   )
 
   let result = sortTagsByReadmeOrder(await jsDocToJson(docs))

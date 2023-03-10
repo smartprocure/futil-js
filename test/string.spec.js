@@ -8,12 +8,18 @@ describe("String Functions", () => {
   it("wrap", () => {
     expect(F.wrap("(", ")", "asdf")).to.equal("(asdf)")
     expect(F.wrap(null, null, "asdf")).to.equal("asdf")
+    expect(F.wrap(null, undefined, "asdf")).to.equal("asdf")
+    expect(F.wrap("prefix-", "", "test")).to.equal("prefix-test")
+    expect(F.wrap("(", ")", null)).to.equal(null)
+    expect(F.wrap("(", ")", "")).to.equal("")
   })
   it("quote", () => {
     expect(F.quote("asdf")).to.equal('"asdf"')
+    expect(F.quote(null)).to.equal(null)
   })
   it("parens", () => {
     expect(F.parens("asdf")).to.equal("(asdf)")
+    expect(F.parens("")).to.equal("")
   })
   it("concatStrings", () => {
     expect(

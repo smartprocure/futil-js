@@ -95,6 +95,25 @@ describe("Function Functions", () => {
     // Passing 1 at a time
     expect(F.flurry(add, double)(1)(4)).to.equal(10)
   })
+  it("uncurry", () => {
+    let curriedAdd = (x) => (y) => (z) => x + y + z
+    let uncurriedAdd = F.uncurry(curriedAdd)
+    expect(uncurriedAdd(1, 2, 3)).to.equal(6)
+  })
+  it("recurry", () => {
+    let addToElements = _.flow(_.add, _.map)
+    // Less terse implementations for refernce:
+    // let addToElements = number => _.map(_.add(number))
+    // let addToElements = (number, collection) = _.map(_.add(number), collection)
+
+    // Does not work correctly since flow doesn't detect
+    expect(addToElements(5, [1, 2, 3])).not.to.deep.equal([6, 7, 8])
+
+    let fn = F.recurry(2, addToElements)
+    // Recurried to support both ways of calling
+    expect(fn(5, [1, 2, 3])).to.deep.equal([6, 7, 8])
+    expect(fn(5)([1, 2, 3])).to.deep.equal([6, 7, 8])
+  })
   it("mapArgs", () => {
     let add = (x, y) => x + y
     let double = (x) => x * 2

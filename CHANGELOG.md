@@ -1,6 +1,44 @@
-# 1.71.4
+# 1.73.2
 
 - Improve doc site test rendition.
+
+# 1.73.0
+
+- Add `keysToObject`
+- Change `wrap` and dependents like `parens` to support empty content better (and remove weird "feature" where post would default to pre if falsey). Potentially a breaking change, but that behavior was extremely weird and there were no known usages.
+- curry `moveIndex`
+
+# 1.72.0
+
+- Add `recurry`
+- Add `uncurry`
+- Add `unlessTruthy`
+- Add argument spreading support to logic functions
+- Add additional arrayLens test case
+
+# 1.71.8
+
+- CI/CD correction
+
+# 1.71.7
+
+- Doc Site UI Change: corrected presentation of home page
+
+# 1.71.6
+
+- Doc Site UI Changes:
+  - Added header to page: home
+  - Hide logo on header when in page: home as it has one already
+  - Fixed misc issues
+
+# 1.71.5
+
+- Explicit build step in CI/CD
+
+# 1.71.4
+
+- Responsive design implementation for the site to be mobile friendly and responsive on desktop.
+>>>>>>> master
 
 # 1.71.3
 
