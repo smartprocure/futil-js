@@ -6,7 +6,6 @@
 
 - Organized and added to lens test file.
 
-
 # 1.73.0
 
 - Add `keysToObject`
@@ -43,7 +42,7 @@
 # 1.71.4
 
 - Responsive design implementation for the site to be mobile friendly and responsive on desktop.
->>>>>>> master
+  > > > > > > > master
 
 # 1.71.3
 
