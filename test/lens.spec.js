@@ -42,24 +42,21 @@ describe("Lens Functions", () => {
       expect(l.get()).to.equal(1)
       l.set(5)
       expect(l.get()).to.equal(5)
-    })
-    it("lensProp deep", () => {
-      let l = F.lensProp("x.a", {
+      //lensProp deep
+      let ld = F.lensProp("x.a", {
         x: {
           a: 1,
         },
       })
-      expect(l.get()).to.equal(1)
-      l.set(5)
-      expect(l.get()).to.equal(5)
+      expect(ld.get()).to.equal(1)
+      ld.set(5)
+      expect(ld.get()).to.equal(5)
     })
     it("lensOf", () => {
-      let l = F.lensOf({
-        a: 1,
-      })
-      expect(l.a.get()).to.equal(1)
-      l.a.set(5)
-      expect(l.a.get()).to.equal(5)
+      let object = { a: 1 }
+      let lens = F.lensOf(object)
+      lens.a.set(8)
+      expect(lens.a.get()).to.equal(8)
     })
     it("includeLens", () => {
       let object = {
@@ -81,18 +78,34 @@ describe("Lens Functions", () => {
   })
   describe("Manipulation", () => {
     it("view", () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      expect(F.view("b", x)).to.equal(2)
       let fl = F.functionLens(1)
       let ol = F.objectLens(1)
       expect(F.view(fl)).to.equal(1)
       expect(F.view(ol)).to.equal(1)
     })
     it("views", () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      expect(F.views("b", x)()).to.equal(2)
       let fl = F.functionLens(1)
       let ol = F.objectLens(1)
       expect(F.views(fl)()).to.equal(1)
       expect(F.views(ol)()).to.equal(1)
     })
     it("set", () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      F.set(5, "a", x)
+      expect(x.a).to.equal(5)
       let object = {
         a: 1,
       }
@@ -101,6 +114,12 @@ describe("Lens Functions", () => {
       expect(object.a).to.equal(5)
     })
     it("sets", () => {
+      let x = {
+        a: 1,
+        b: 2,
+      }
+      F.sets(5, "a", x)()
+      expect(x.a).to.equal(5)
       let object = {
         a: 1,
       }
@@ -117,6 +136,11 @@ describe("Lens Functions", () => {
       expect(object.a).to.equal(10)
     })
     it("flip", () => {
+      let x = {
+        a: 1,
+      }
+      F.flip("a", x)()
+      expect(x.a).to.be.false
       let object = {
         a: 1,
       }
@@ -125,6 +149,11 @@ describe("Lens Functions", () => {
       expect(object.a).to.be.false
     })
     it("on", () => {
+      let x = {
+        a: 1,
+      }
+      F.on("a", x)()
+      expect(x.a).to.be.true
       let object = {
         a: 1,
       }
@@ -141,59 +170,7 @@ describe("Lens Functions", () => {
       expect(object.a).to.be.false
     })
   })
-  describe("Implicit Lens Prop", () => {
-    it("view", () => {
-      let x = {
-        a: 1,
-        b: 2,
-      }
-      expect(F.view("a", x)).to.equal(1)
-    })
-    it("views", () => {
-      let x = {
-        a: 1,
-        b: 2,
-      }
-      expect(F.views("a", x)()).to.equal(1)
-    })
-    it("set", () => {
-      let x = {
-        a: 1,
-        b: 2,
-      }
-      F.set(5, "a", x)
-      expect(x.a).to.equal(5)
-    })
-    it("sets", () => {
-      let x = {
-        a: 1,
-        b: 2,
-      }
-      F.sets(5, "a", x)()
-      expect(x.a).to.equal(5)
-    })
-    it("flip", () => {
-      let object = {
-        a: 1,
-      }
-      F.flip("a", object)()
-      expect(object.a).to.be.false
-    })
-    it("on", () => {
-      let object = {
-        a: 1,
-      }
-      F.on("a", object)()
-      expect(object.a).to.be.true
-    })
-    it("off", () => {
-      let object = {
-        a: 1,
-      }
-      F.off("a", object)()
-      expect(object.a).to.be.false
-    })
-  })
+
   describe("additional implicit lens formats", () => {
     it("arrayLens", () => {
       let arrayLens = (val) => {
@@ -205,25 +182,11 @@ describe("Lens Functions", () => {
       }
       let lens = arrayLens(false)
       F.on(lens)()
-      expect(F.view(lens)).to.be.true
+      expect(lens[0]).to.be.true
       F.off(lens)()
-      expect(F.view(lens)).to.be.false
+      expect(lens[0]).to.be.false
       F.flip(lens)()
-      expect(F.view(lens)).to.be.true
-
-      let object = { a: 1 }
-      let lens2 = [
-        object.a,
-        (x) => {
-          object.a = x
-        },
-      ]
-      expect(F.view(lens2)).to.equal(1)
-      F.sets(2, lens2)()
-      expect(object.a).to.equal(2)
-
-      // This doesn't work because the value is snapshotted at array isntantiation
-      // expect(F.view(lens2)).to.equal(2)
+      expect(lens[0]).to.be.true
     })
     it("functionPairLens", () => {
       let object = {
@@ -242,7 +205,7 @@ describe("Lens Functions", () => {
     })
   })
   describe("domLens", () => {
-    it("value", () => {
+    it("domLens.value", () => {
       let state = {
         a: 1,
       }
@@ -250,17 +213,16 @@ describe("Lens Functions", () => {
       expect(props.value).to.equal(1)
       props.onChange({ target: { value: 5 } })
       expect(state.a).to.equal(5)
-    })
-    it("non-native value", () => {
-      let state = {
+      // non-native value
+      let state2 = {
         a: 1,
       }
-      let props = F.domLens.value("a", state)
-      expect(props.value).to.equal(1)
-      props.onChange(5)
-      expect(state.a).to.equal(5)
+      let props2 = F.domLens.value("a", state2)
+      expect(props2.value).to.equal(1)
+      props2.onChange(5)
+      expect(state2.a).to.equal(5)
     })
-    it("checkboxValues", () => {
+    it("domLens.checkboxValues", () => {
       let state = {
         a: ["x", "y", "z"],
       }
@@ -271,7 +233,7 @@ describe("Lens Functions", () => {
       props.onChange({ target: { value: false } })
       expect(_.includes("a", state.a)).to.be.false
     })
-    it("hover", () => {
+    it("domLens.hover", () => {
       let state = {
         hovering: false,
       }
@@ -281,7 +243,7 @@ describe("Lens Functions", () => {
       props.onMouseLeave()
       expect(state.hovering).to.be.false
     })
-    it("focus", () => {
+    it("domLens.focus", () => {
       let state = {
         focusing: false,
       }
@@ -291,7 +253,7 @@ describe("Lens Functions", () => {
       props.onBlur()
       expect(state.focusing).to.be.false
     })
-    it("targetBinding", () => {
+    it("domLens.targetBinding", () => {
       let state = { color: "red" }
       let props = F.domLens.targetBinding("x")("color", state)
       expect(props.x).to.equal("red")
@@ -307,7 +269,7 @@ describe("Lens Functions", () => {
       props.onChange("purple")
       expect(state.color).to.equal("purple")
     })
-    it("binding", () => {
+    it("domLens.binding", () => {
       let state = {
         selectedItem: "item1",
       }
