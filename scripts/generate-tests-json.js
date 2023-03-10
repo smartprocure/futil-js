@@ -1,7 +1,7 @@
-import _ from 'lodash/fp'
-import prettier from 'prettier'
-import { readdir, writeFile } from 'fs/promises'
-import { stringify } from './utils'
+import _ from "lodash/fp"
+import prettier from "prettier"
+import { readdir, writeFile } from "fs/promises"
+import { stringify } from "./utils"
 
 let getTests = async () => {
   // Collect tests into an object by overriding global test fns
@@ -10,18 +10,18 @@ let getTests = async () => {
   global.describe = (name, fn) => fn()
   // Capture the tests in an object
   global.it = (name, fn) => {
-    tests[_.replace('should ', '', name)] = fn
+    tests[_.replace("should ", "", name)] = fn
     return {
-      timeout: () => {},
+      timeout: _.noop,
     }
   }
 
   // Dynamically import tests to fill the test object
   await _.flow(
-    _.filter(x => x.match(/spec\.js$/)),
-    _.map(path => import(`../test/${path}`)),
-    x => Promise.all(x)
-  )(await readdir('./test'))
+    _.filter((x) => x.match(/spec\.js$/)),
+    _.map((path) => import(`../test/${path}`)),
+    (x) => Promise.all(x)
+  )(await readdir("./test"))
 
   return tests
 }
@@ -45,11 +45,11 @@ let removeTestWrappers = _.flow(
   ),
   _.replace(
     /expect\((\(\) => )?(.+?)\)(\.not)?\.to\.throw\((.*?)\)/g,
-    (a, b, c, d, e) => `${c}\n/* => throws ${e || 'exception'} */`
+    (a, b, c, d, e) => `${c}\n/* => throws ${e || "exception"} */`
   ),
   _.replace(
     /expect\((.+?)\)(\.not)?\.to\.be\.rejectedWith\((.*?)\)/g,
-    (a, b, c, d) => `${b}\n/* => throws ${d || 'exception'} */`
+    (a, b, c, d) => `${b}\n/* => throws ${d || "exception"} */`
   ),
   _.replace(
     /expect\((.+?)\)(\.not)?\.to(\.deep)?(\.equal|\.eql)\((.+?)\)/gs,
@@ -59,26 +59,26 @@ let removeTestWrappers = _.flow(
 
 let cleanup = _.flow(
   _.toString,
-  _.split('\n'),
+  _.split("\n"),
   // Remove the fn wrapper
-  x => x.slice(1, -1),
-  _.join('\n'),
+  (x) => x.slice(1, -1),
+  _.join("\n"),
   // remove newlines after `{` to force objects as compact as possible
-  _.replace(/{\n|\r/g, '{')
+  _.replace(/{\n|\r/g, "{")
 )
 
-let format = code =>
+let format = (code) =>
   prettier.format(code, {
     semi: false,
     singleQuote: true,
-    parser: 'babel',
-    arrowParens: 'avoid',
+    parser: "babel",
+    arrowParens: "avoid",
   })
 
 let run = async () => {
   let tests = await getTests()
 
-  let content = _.mapValues(test => {
+  let content = _.mapValues((test) => {
     let code = format(cleanup(test))
     try {
       // Attempt to remove test wrappers but fallback if prettier explodes due to invalid JS
@@ -88,7 +88,7 @@ let run = async () => {
     }
   }, tests)
 
-  let outputDir = './docs/data/'
+  let outputDir = "./docs/data/"
   return writeFile(`${outputDir}tests.json`, stringify(content))
 }
 

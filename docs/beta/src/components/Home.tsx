@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo } from "react"
 import {
   Code,
   Container,
@@ -10,10 +10,11 @@ import {
   Image,
   Button,
   Flex,
-} from '@chakra-ui/react'
-import { CodeSnippet } from './CodeSnippet'
-import { ColorModeSwitcher } from './ColorModeSwitcher'
-import LogoDark from '../logos/logo-dark.svg'
+  Spacer,
+} from "@chakra-ui/react"
+import { CodeSnippet } from "./CodeSnippet"
+import { ColorModeSwitcher } from "./ColorModeSwitcher"
+import LogoDark from "../logos/logo-dark.svg"
 
 type BadgeProps = {
   src: string
@@ -21,7 +22,7 @@ type BadgeProps = {
   href?: string
 }
 let Badge = ({ src, alt, href }: BadgeProps) => {
-  let style = { marginRight: '5px', display: 'inline-block' }
+  let style = { marginRight: "5px", display: "inline-block" }
   let image = <img {...{ src, alt, style }} />
   return href ? <a href={href}>{image}</a> : image
 }
@@ -59,16 +60,16 @@ let Logo = () => (
 // let green = 'linear(to-r, #39b54a, #8dc63f)'
 // let blue = 'linear(to-r, #27aae1, #1c75bc)'
 // let blue = 'linear(to-r, #1c75bc, #27aae1)'
-let gray = 'linear(to-b, gray.900, gray.700)'
-let lightGray = 'linear(225deg, gray.700, gray.900)'
+let gray = "linear(to-b, gray.900, gray.700)"
+let lightGray = "linear(225deg, gray.700, gray.900)"
 let Summary = ({ dispatch }) => (
-  <Box bgGradient={useColorModeValue(lightGray, gray)} w="full" p={16}>
+  <Box bgGradient={useColorModeValue(lightGray, gray)} w="100%" p={5} py={20}>
     <Container maxW="4xl" color="#fff">
       <VStack spacing={4} alignItems="stretch">
         <Logo />
         <Badges />
         <Text>
-          A collection of <b>F</b>unctional <b>Util</b>ities. Resistance is{' '}
+          A collection of <b>F</b>unctional <b>Util</b>ities. Resistance is{" "}
           <b>futil</b>e.
         </Text>
         <Text>
@@ -77,25 +78,27 @@ let Summary = ({ dispatch }) => (
           are not.
         </Text>
         <Text>
-          Designed to work with any other utility library. <Code>lodash</Code>{' '}
+          Designed to work with any other utility library. <Code>lodash</Code>{" "}
           and <Code>ramda</Code> work great. <Code>lodash/fp</Code> works best.
         </Text>
         <Flex my={8} alignItems="center">
+          <Spacer />
           <Button
             bg="linear-gradient(90deg, #39b54a, #8dc63f)"
             _hover={{
-              bg: 'linear-gradient(90deg, #39b54a 30%, #8dc63f 100%)',
-              transform: 'translateY(-2px)',
-              boxShadow: 'lg',
+              bg: "linear-gradient(90deg, #39b54a 30%, #8dc63f 100%)",
+              transform: "translateY(-2px)",
+              boxShadow: "lg",
             }}
             transition="transform 0.1s ease 0s, box-shadow 0.1s ease 0s, background-color 0.1s ease 0s"
-            size="lg"
+            size="md"
             display="block"
-            onClick={() => dispatch({ page: 'docs' })}
+            onClick={() => dispatch({ page: "docs" })}
           >
             Documentation
           </Button>
           <ColorModeSwitcher justifySelf="flex-end" />
+          <Spacer />
         </Flex>
         <CodeSnippet forceDark language="shell" noRepl>{`$ npm i futil
 # or
@@ -129,10 +132,9 @@ F.unflattenObject({ a: 1, 'b.x': 10, 'b.y': 11, c: 3 })
 
 let BrowserCoverage = () => (
   <Box>
-    {/* <Heading>Browser Compatibility</Heading> */}
     <a href="https://saucelabs.com/u/futil">
       <img
-        style={{ background: 'white' }}
+        style={{ background: "white" }}
         src="https://saucelabs.com/browser-matrix/futil.svg"
         alt="Sauce Test Status"
       />
@@ -145,8 +147,8 @@ export default memo(({ dispatch }: { dispatch: (any) => {} }) => (
     <Summary dispatch={dispatch} />
     <Box
       minH="500"
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}
+      bg={useColorModeValue("gray.50", "gray.900")}
+      color={useColorModeValue("gray.700", "gray.200")}
       p={16}
     >
       <Container maxW="4xl">
@@ -155,7 +157,7 @@ export default memo(({ dispatch }: { dispatch: (any) => {} }) => (
           <BrowserCoverage />
           <Heading pt={8}>Why futil?</Heading>
           <Text>
-            Designed to work with any other utility library. <Code>lodash</Code>{' '}
+            Designed to work with any other utility library. <Code>lodash</Code>{" "}
             and <Code>ramda</Code> work great. <Code>lodash/fp</Code> works
             best.
           </Text>
@@ -163,8 +165,8 @@ export default memo(({ dispatch }: { dispatch: (any) => {} }) => (
       </Container>
     </Box>
     <Box
-      bg={useColorModeValue('gray.100', 'gray.800')}
-      color={useColorModeValue('gray.500', 'gray.500')}
+      bg={useColorModeValue("gray.100", "gray.800")}
+      color={useColorModeValue("gray.500", "gray.500")}
     >
       <Container maxW="4xl" py={10} textAlign="center">
         Brought to you by the SmartProcure/GovSpend team

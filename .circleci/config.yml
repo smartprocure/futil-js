@@ -12,7 +12,7 @@ jobs:
           key: dependency-cache
       - run:
           name: install
-          command: npm install
+          command: npm ci
       - save_cache:
           key: dependency-cache
           paths:
@@ -27,9 +27,12 @@ jobs:
           name: coveralls
           command: npm run cicoveralls
       - run:
-          name: browser
-          command: if [ "${CIRCLE_BRANCH}" != "master" ]; then npm run browser || true; fi;
-          timeout: 240
+          name: build
+          command: npm run build
+      # - run:
+      #     name: browser
+      #     command: if [ "${CIRCLE_BRANCH}" != "master" ]; then npm run browser || true; fi;
+      #     timeout: 240
       - run:
           name: pre-danger
           command: git config user.email "decrapifier@govspend.com" && git config user.name "Decrapifier" && git config push.default upstream && git branch -u origin/$CIRCLE_BRANCH
