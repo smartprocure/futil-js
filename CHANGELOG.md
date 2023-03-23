@@ -1,3 +1,7 @@
+# 1.73.2
+
+- Curried `wrap`, improved behavior with undefined content, and updated internal usage
+
 # 1.73.1
 
 - Organized and added to lens test file.

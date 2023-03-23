@@ -10,12 +10,13 @@ describe("String Functions", () => {
     expect(F.wrap(null, null, "asdf")).to.equal("asdf")
     expect(F.wrap(null, undefined, "asdf")).to.equal("asdf")
     expect(F.wrap("prefix-", "", "test")).to.equal("prefix-test")
-    expect(F.wrap("(", ")", null)).to.equal(null)
+    expect(F.wrap("(", ")", null)).to.equal("")
     expect(F.wrap("(", ")", "")).to.equal("")
+    expect(F.wrap("(", ")")(undefined)).to.equal("")
   })
   it("quote", () => {
     expect(F.quote("asdf")).to.equal('"asdf"')
-    expect(F.quote(null)).to.equal(null)
+    expect(F.quote(null)).to.equal("")
   })
   it("parens", () => {
     expect(F.parens("asdf")).to.equal("(asdf)")

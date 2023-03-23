@@ -14,16 +14,16 @@ let blankString = when(isBlank, "")
  * @param {string} content
  * @returns string
  */
-export const wrap = (pre, post, content) =>
-  isBlank(content) ? content : blankString(pre) + content + blankString(post)
-export const quote = _.partial(wrap, ['"', '"'])
+export const wrap = _.curry((pre, post, content) =>
+  isBlank(content) ? blankString(content) : blankString(pre) + content + blankString(post))
+export const quote = wrap('"', '"')
 
 /**
  * Wraps a string in parenthesis.
  *
  * @signature 'asdf' -> '(asdf)'
  */
-export const parens = _.partial(wrap, ["(", ")"])
+export const parens = wrap("(", ")")
 export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(" "))
 
 /**
