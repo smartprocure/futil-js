@@ -20,7 +20,7 @@ describe('Async Functions', () => {
     }
     expect(x.a).to.not.equal(7)
     expect(x.b).to.not.equal(10)
-    let y = await F.promisedProps(x)
+    let y = await F.promiseProps(x)
     expect(y.a).to.equal(7)
     expect(y.b).to.equal(10)
   })
