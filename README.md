@@ -44,6 +44,23 @@ or
 
 # API
 
+## Async
+
+### promiseProps
+
+`{ a: Promise, b: Promise} => Promise<{a: value, b: value}>`
+Like `Promise.all`, but for objects. Polyfill bluebird Promise.props. Takes an object with promise values and returns a promise that resolves with an object with resolved values instead.
+
+### flowAsync
+
+`(f1, f2, ...fn) -> (...args) => fn(f2(f1(...args)))`
+Like `_.flow`, but supports flowing together async and non async methods.
+If nothing is async, it _stays synchronous_.
+Also, it handles awaiting arrays of promises (e.g. from _.map) with `Promise.all` and objects of promises (e.g. from _.mapValues) with `promiseProps`.
+This method generally solves most issues with using futil/lodash methods asynchronously. It's like magic!
+NOTE: Main gotchas are methods that require early exit like `find` which can't be automatically async-ified. Also does not handle promises for keys.
+Use `F.resolveTree` to await more complexly nested promises.
+
 ## Function
 
 ### maybeCall

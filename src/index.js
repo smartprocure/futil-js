@@ -15,7 +15,7 @@ export * from './lens'
 export * from './tree'
 export * from './iterators'
 
-import * as async from './async' 
+import * as async from './async'
 import * as conversion from './conversion'
 import * as collection from './collection'
 import * as fn from './function'
