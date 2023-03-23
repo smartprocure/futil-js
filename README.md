@@ -46,6 +46,7 @@ or
 
 ## Function
 
+
 ### maybeCall
 
 `(fn, a, b) -> fn(a, b)`
@@ -97,9 +98,10 @@ Resets curry arity. Useful in scenarios where you have a curried function whose 
 ### mapArgs
 
 `(mapper, fn) -> (...args) -> fn(...args.map(mapper))`
-Returns a function that applies the mapping operation to all of the arguments of a function. Very similar to \_.overArgs, but runs a single mapper on all of the args args.
+Returns a function that applies the mapping operation to all of the arguments of a function. Very similar to _.overArgs, but runs a single mapper on all of the args args.
 
 ## Iterators
+
 
 ### differentLast
 
@@ -107,6 +109,7 @@ Returns a function that applies the mapping operation to all of the arguments of
 Creates an iterator that handles the last item differently for use in any function that passes `(value, index, list)` (e.g. `mapIndexed`, `eachIndexed`, etc). Both the two handlers and the result are iterator functions that take `(value, index, list)`.
 
 ## Logic
+
 
 ### overNone
 
@@ -141,6 +144,7 @@ http://ramdajs.com/docs/#unless. `T` extends `_.iteratee` as above.
 `unless` curried with `Boolean`
 
 ## Collection
+
 
 ### flowMap
 
@@ -178,7 +182,7 @@ Example:
 `(fn, collection) -> collection`
 Maps `fn` over the input collection and compacts the result.
 
-## Convert(\_In)
+## Convert(_In)
 
 lodash/fp is great, but sometimes the curry order isn't exactly what you want.
 
@@ -202,7 +206,7 @@ Just like `_.pick`, but with `{rearg: false}` so the argument order is unchanged
 
 Just like `_.includes`, but with `{rearg: false}` so the argument order is unchanged from non fp lodash.
 
-## Convert(\_On)
+## Convert(_On)
 
 lodash/fp likes to keep things pure, but sometimes JS can get pretty dirty.
 
@@ -238,7 +242,7 @@ Just like `_.pull`, but with `{mutable: true}` so it mutates.
 
 Just like `_.update`, but with `{mutable: true}` so it mutates.
 
-## Convert(\_Indexed)
+## Convert(_Indexed)
 
 lodash/fp caps iteratees to one argument by default, but sometimes you need the index.
 
@@ -272,9 +276,10 @@ Just like `_.mapValues`, but with `{cap: false}` so iteratees are not capped (e.
 
 ## Array
 
+
 ### compactJoin
 
-`joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 + joinString ... + stringN`
+`joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 +  joinString ... + stringN`
 Joins an array after compacting. Note that due to the underlying behavior of `_.curry` no default `join` value is supported -- you must pass in some string with which to perform the join.
 
 ### dotJoin
@@ -383,37 +388,25 @@ Example:
 
 ```jsx
 // Example with words (toSentence is basically this flowed into a `_.join('')`):
-F.intersperse(
-  differentLast(
-    () => "or",
-    () => "or perhaps"
-  ),
-  ["first", "second", "third"]
-)
+F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
 // ['first', 'or', 'second', 'or perhaps', 'third']
 
 // Example with React and JSX:
 let results = [1, 2, 3]
-return (
-  <div>
-    <b>Results:</b>
-    <br />
-    {_.flow(
-      _.map((x) => <b>{x}</b>),
-      F.intersperse(
-        F.differentLast(
-          () => ", ",
-          () => " and "
-        )
-      )
-    )(results)}
-  </div>
-)
+return <div>
+  <b>Results:</b>
+  <br/>
+  {
+    _.flow(
+      _.map(x => <b>{x}</b>),
+      F.intersperse(F.differentLast(() => ', ', () => ' and '))
+    )(results)
+  }
+</div>
 // Output:
 // **Results:**
 // **1**, **2** and **3**.
 ```
-
 **Note:** This works great with the `differentLast` iterator. Also, `intersperse` can be used with JSX components!
 
 ### replaceElementBy
@@ -427,6 +420,7 @@ Replaces an element in an array with `value` based on the boolean result of a fu
 Replaces all elements equal to `target` in an array with `value`.
 
 ## Object
+
 
 ### singleObject
 
@@ -470,12 +464,11 @@ Example:
 ```jsx
 { a:1, b:{}, c:2 } -> {a:1, c:2}
 ```
-
-**Note:** (_TODO_ rename to `omitEmptyObjects`)
+**Note:** (*TODO* rename to `omitEmptyObjects`)
 
 ### pickInto
 
-_TODO_
+*TODO*
 
 ### renameProperty
 
@@ -496,8 +489,8 @@ Just like mongo's `$unwind`: produces an array of objects from an object and one
 Example:
 
 ```jsx
-F.unwind("b", [{ a: true, b: [1, 2] }])
-//=> [{ a: true, b: 1 }, { a: true, b: 2 }]
+F.unwind('b', [{ a: true, b: [1, 2] }])
+      //=> [{ a: true, b: 1 }, { a: true, b: 2 }]
 ```
 
 ### unwindArray
@@ -508,10 +501,7 @@ Unwinds an array of objects instead of a single object, as you might expect if y
 Example:
 
 ```jsx
-F.unwindArray("b", [
-  { a: true, b: [1, 2] },
-  { a: false, b: [3, 4] },
-])
+F.unwindArray('b', [{ a: true, b: [1, 2] }, { a: false, b: [3, 4] }])
 //=> [
 //=>  { a: true, b: 1 },
 //=>  { a: true, b: 2 },
@@ -604,7 +594,6 @@ Example:
 ```jsx
 F.unkeyBy('_key')({ a: { status: true}, b: { status: false }) -> [{ status: true, _key: 'a' }, { status: false, _key: 'b' }]
 ```
-
 **Note:** Passing a falsy value other than `undefined` for `newKay` will result in each object key being pushed into its corresponding return array member with itself as value, e.g. `F.unkeyBy('')({ a: { status: true}, b: { status: false }) -> [{ status: true, a: 'a' }, { status: false, b: 'b' }]`. Passing `undefined` will return another instance of F.unkeyBy.
 
 ### simpleDiff
@@ -706,6 +695,7 @@ Takes two objects and returns the first key in `y` that x also has
 
 ## String
 
+
 ### wrap
 
 `(pre, post, content) -> pre + content + post`
@@ -768,11 +758,11 @@ Example:
 
 ```jsx
 let uniqueStringStripDigits = uniqueStringWith(
-  _.countBy(_.replace(/(\d+)$/, ""))
+  _.countBy(_.replace(/(\d+)$/, ''))
 )
-let dedupe = uniqueStringStripDigits(["foo", "foo42", "foo3000"])
-dedupe("foo") //-> 'foo3'
-uniqueStringWith(_.identity, dedupe.cache)("foo") //-> 'foo4'
+let dedupe = uniqueStringStripDigits(['foo', 'foo42', 'foo3000'])
+dedupe('foo')  //-> 'foo3'
+uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
 ```
 
 ### uniqueString
@@ -784,14 +774,15 @@ Example:
 
 ```jsx
 let dedupe = uniqueString()
-_.map(dedupe, ["foo", "foo", "foo"]) //-> ['foo', 'foo1', 'foo2']
-dedupe.cache //-> { foo: 3, foo1: 1, foo2: 1 }
+_.map(dedupe, ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
+dedupe.cache  //-> { foo: 3, foo1: 1, foo2: 1 }
 dedupe.clear()
-dedupe.cache //-> {}
-dedupe("foo") //-> 'foo'
+dedupe.cache  //-> {}
+dedupe('foo')  //-> 'foo'
 ```
 
 ## Regex
+
 
 ### testRegex
 
@@ -842,7 +833,7 @@ Takes a string of words and a string to test, and returns an array of arrays of 
 Example:
 
 ```jsx
-F.postingsForWords("she lls", "she sells sea shells")
+F.postingsForWords('she lls', 'she sells sea shells')
 // [
 //   [[0, 3], [14, 17]]
 //   [[6, 9], [17, 20]]
@@ -857,12 +848,13 @@ Wraps the matches for `pattern` found in `input` with the strings `start` and `e
 Example:
 
 ```jsx
-let braceHighlight = F.highlight("{", "}")
-braceHighlight("l o", "hello world") //-> "he{llo} w{o}r{l}d"
-braceHighlight(/l+\w/, "hello world") //-> "he{llo} wor{ld}"
+let braceHighlight = F.highlight('{', '}')
+braceHighlight('l o', 'hello world') //-> "he{llo} w{o}r{l}d"
+braceHighlight(/l+\w/, 'hello world') //-> "he{llo} wor{ld}"
 ```
 
 ## Math
+
 
 ### greaterThanOne
 
@@ -1084,26 +1076,26 @@ If null, they default to `defaultsOn` from `futil-js` - check the unit tests for
 
 `{options} -> f -> aspectWrapped(f)`
 The aspect api takes an options object and returns a function which takes a function to wrap.
-The wrapped function will be decorated with a `state` object and is equivalent to the original function for all arguments.
+    The wrapped function will be decorated with a `state` object and is equivalent to the original function for all arguments.
 
 Options supports the following parameters:
 
-| Name                                    | Description                                                                                                                         |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `init: (state) -> ()`                   | A function for setting any inital state requirements. Should mutate the shared state object.                                        |
-| `after: (result, state, params) -> ()`  | Runs after the wrapped function executes and recieves the shared state and the result of the function. Can be async.                |
-| `before: (params, state) -> ()`         | Runs before the wrapped function executes and receves the shared state and the params passed to the wrapped function. Can be async. |
-| `onError: (error, state, params) -> ()` | Runs if the wrapped function throws an error. If you don't throw inside this, it will swallow any errors that happen.               |
-| `always: (state, params) -> ()`         | Runs after the wrapped function whether it throws an error or not, similar to a `Promise.catch`                                     |
+| Name | Description |
+| --- | --- |
+| `init: (state) -> ()` | A function for setting any inital state requirements. Should mutate the shared state object. |
+| `after: (result, state, params) -> ()` | Runs after the wrapped function executes and recieves the shared state and the result of the function. Can be async. |
+| `before: (params, state) -> ()` | Runs before the wrapped function executes and receves the shared state and the params passed to the wrapped function. Can be async. |
+| `onError: (error, state, params) -> ()` | Runs if the wrapped function throws an error. If you don't throw inside this, it will swallow any errors that happen. |
+| `always: (state, params) -> ()` | Runs after the wrapped function whether it throws an error or not, similar to a `Promise.catch` |
 
 Example:
 
 ```jsx
 let exampleAspect = aspect({
-  before: () => console.log("pre run"),
-  after: () => console.log("post run"),
+  before: () => console.log('pre run'),
+  after: () => console.log('post run')
 })
-let f = () => console.log("run")
+let f = () => console.log('run')
 let wrapped = exampleAspect(f)
 wrapped()
 // Logs to the console:
@@ -1152,7 +1144,7 @@ Flows together `status`, `clearStatus`, `concurrency`, and `error`, taking `exte
 
 All tree functions take a traversal function so that you can customize how to traverse arbitrary nested structures.
 
-_Note_: Be careful about cyclic structures that can result in infinite loops, such as objects with references to itself. There are cases where you'd intentionally want to visit the same node multiple times, such as traversing a directed acyclic graph (which would work just fine and eventually terminate, but would visit a node once for each parent it has connected to it) - but it's up to the user to be sure you don't create infinite loops.
+*Note*: Be careful about cyclic structures that can result in infinite loops, such as objects with references to itself. There are cases where you'd intentionally want to visit the same node multiple times, such as traversing a directed acyclic graph (which would work just fine and eventually terminate, but would visit a node once for each parent it has connected to it) - but it's up to the user to be sure you don't create infinite loops.
 
 ### isTraversable
 
