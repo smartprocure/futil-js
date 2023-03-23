@@ -1,3 +1,8 @@
+# 1.73.3
+
+- Generate readme in CI
+- Tweak code docs to better align to formatted readme
+
 # 1.73.2
 
 - Curried `wrap`, improved behavior with undefined content, and updated internal usage
