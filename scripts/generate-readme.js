@@ -12,10 +12,7 @@ let alias = wrap(' (alias: ', ')')
 let note = wrap('\n**Note:** ', '')
 
 let tag = _.flow(_.upperFirst, wrap('\n## ', '\n'))
-let tagDoc = _.flow(
-  getIn(tagDocs),
-  wrap('\n', '\n')
-)
+let tagDoc = _.flow(getIn(tagDocs), wrap('\n', '\n'))
 let tags = joinWith((x) => `${tag(x)}${tagDoc(x)}`)
 
 let apiDocs = joinWith(
