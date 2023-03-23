@@ -1,13 +1,13 @@
-import { useEffect, useState, useRef, useCallback } from "react"
-import SyntaxHighlighter from "react-syntax-highlighter"
-import { vs2015, vs } from "react-syntax-highlighter/dist/esm/styles/hljs"
+import { useEffect, useState, useRef, useCallback } from 'react'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { vs2015, vs } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import {
   useColorMode,
   useColorModeValue,
   Flex,
   Button,
   Box,
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 
 let Runkit = ({
   source,
@@ -26,9 +26,9 @@ let Runkit = ({
   //   atom-dark, atom-light, one-dark, one-light, solarized-dark, solarized-light, and the default runkit-light.
   //   let theme = useColorModeValue(undefined, 'untilted-6dtfo0ftb4ws')
 
-  let theme = useColorModeValue("runkit-light", "atom-dark")
+  let theme = useColorModeValue('runkit-light', 'atom-dark')
 
-  console.log("Theme", theme)
+  console.log('Theme', theme)
   let init = useCallback(() => {
     if (!embed.current) {
       // @ts-ignore:next-line
@@ -39,8 +39,8 @@ let Runkit = ({
         source,
         preamble,
         theme,
-        gutterStyle: "inside",
-        minHeight: "200px",
+        gutterStyle: 'inside',
+        minHeight: '200px',
       })
     }
   }, [preamble, source, theme])
@@ -73,7 +73,7 @@ type Props = {
 export const CodeSnippet = ({
   forceDark,
   noRepl,
-  language = "javascript",
+  language = 'javascript',
   children,
   parentWidth,
 }: Props) => {
@@ -83,9 +83,9 @@ export const CodeSnippet = ({
   return repl ? (
     //Leaving responsive styles in this section out of adding to object due to need for grabbing parentWidth
     <Box
-      width={["350px", `${parentWidth}`]}
-      margin={"0 auto"}
-      overflowX={{ base: "scroll", sm: "hidden" }}
+      width={['350px', `${parentWidth}`]}
+      margin={'0 auto'}
+      overflowX={{ base: 'scroll', sm: 'hidden' }}
     >
       <Runkit parentWidth={parentWidth} source={children} preamble={imports} />
     </Box>

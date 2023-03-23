@@ -1,3 +1,9 @@
+# 1.73.2
+
+- Curried `wrap`, improved behavior with undefined content, and updated internal usage
+- Handle nulls for `prefixes`
+- Internal - set prettier to use single quotes again
+
 # 1.73.1
 
 - Organized and added to lens test file.

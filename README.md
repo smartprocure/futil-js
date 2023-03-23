@@ -385,10 +385,10 @@ Example:
 // Example with words (toSentence is basically this flowed into a `_.join('')`):
 F.intersperse(
   differentLast(
-    () => "or",
-    () => "or perhaps"
+    () => 'or',
+    () => 'or perhaps'
   ),
-  ["first", "second", "third"]
+  ['first', 'second', 'third']
 )
 // ['first', 'or', 'second', 'or perhaps', 'third']
 
@@ -402,8 +402,8 @@ return (
       _.map((x) => <b>{x}</b>),
       F.intersperse(
         F.differentLast(
-          () => ", ",
-          () => " and "
+          () => ', ',
+          () => ' and '
         )
       )
     )(results)}
@@ -496,7 +496,7 @@ Just like mongo's `$unwind`: produces an array of objects from an object and one
 Example:
 
 ```jsx
-F.unwind("b", [{ a: true, b: [1, 2] }])
+F.unwind('b', [{ a: true, b: [1, 2] }])
 //=> [{ a: true, b: 1 }, { a: true, b: 2 }]
 ```
 
@@ -508,7 +508,7 @@ Unwinds an array of objects instead of a single object, as you might expect if y
 Example:
 
 ```jsx
-F.unwindArray("b", [
+F.unwindArray('b', [
   { a: true, b: [1, 2] },
   { a: false, b: [3, 4] },
 ])
@@ -768,11 +768,11 @@ Example:
 
 ```jsx
 let uniqueStringStripDigits = uniqueStringWith(
-  _.countBy(_.replace(/(\d+)$/, ""))
+  _.countBy(_.replace(/(\d+)$/, ''))
 )
-let dedupe = uniqueStringStripDigits(["foo", "foo42", "foo3000"])
-dedupe("foo") //-> 'foo3'
-uniqueStringWith(_.identity, dedupe.cache)("foo") //-> 'foo4'
+let dedupe = uniqueStringStripDigits(['foo', 'foo42', 'foo3000'])
+dedupe('foo') //-> 'foo3'
+uniqueStringWith(_.identity, dedupe.cache)('foo') //-> 'foo4'
 ```
 
 ### uniqueString
@@ -784,11 +784,11 @@ Example:
 
 ```jsx
 let dedupe = uniqueString()
-_.map(dedupe, ["foo", "foo", "foo"]) //-> ['foo', 'foo1', 'foo2']
+_.map(dedupe, ['foo', 'foo', 'foo']) //-> ['foo', 'foo1', 'foo2']
 dedupe.cache //-> { foo: 3, foo1: 1, foo2: 1 }
 dedupe.clear()
 dedupe.cache //-> {}
-dedupe("foo") //-> 'foo'
+dedupe('foo') //-> 'foo'
 ```
 
 ## Regex
@@ -842,7 +842,7 @@ Takes a string of words and a string to test, and returns an array of arrays of 
 Example:
 
 ```jsx
-F.postingsForWords("she lls", "she sells sea shells")
+F.postingsForWords('she lls', 'she sells sea shells')
 // [
 //   [[0, 3], [14, 17]]
 //   [[6, 9], [17, 20]]
@@ -857,9 +857,9 @@ Wraps the matches for `pattern` found in `input` with the strings `start` and `e
 Example:
 
 ```jsx
-let braceHighlight = F.highlight("{", "}")
-braceHighlight("l o", "hello world") //-> "he{llo} w{o}r{l}d"
-braceHighlight(/l+\w/, "hello world") //-> "he{llo} wor{ld}"
+let braceHighlight = F.highlight('{', '}')
+braceHighlight('l o', 'hello world') //-> "he{llo} w{o}r{l}d"
+braceHighlight(/l+\w/, 'hello world') //-> "he{llo} wor{ld}"
 ```
 
 ## Math
@@ -1100,10 +1100,10 @@ Example:
 
 ```jsx
 let exampleAspect = aspect({
-  before: () => console.log("pre run"),
-  after: () => console.log("post run"),
+  before: () => console.log('pre run'),
+  after: () => console.log('post run'),
 })
-let f = () => console.log("run")
+let f = () => console.log('run')
 let wrapped = exampleAspect(f)
 wrapped()
 // Logs to the console:

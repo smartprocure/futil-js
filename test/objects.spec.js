@@ -1,22 +1,22 @@
-import chai from "chai"
-import * as F from "../src"
-import _ from "lodash/fp"
+import chai from 'chai'
+import * as F from '../src'
+import _ from 'lodash/fp'
 
 chai.expect()
 const expect = chai.expect
 
-describe("Object Functions", () => {
-  it("singleObject", () => {
-    expect(F.singleObject("a", "b")).to.deep.equal({
-      a: "b",
+describe('Object Functions', () => {
+  it('singleObject', () => {
+    expect(F.singleObject('a', 'b')).to.deep.equal({
+      a: 'b',
     })
   })
-  it("singleObjectR", () => {
-    expect(F.singleObjectR("a", "b")).to.deep.equal({
-      b: "a",
+  it('singleObjectR', () => {
+    expect(F.singleObjectR('a', 'b')).to.deep.equal({
+      b: 'a',
     })
   })
-  it("chunkObject", () => {
+  it('chunkObject', () => {
     expect(F.chunkObject([1])).to.deep.equal([1])
     expect(
       F.chunkObject({
@@ -32,7 +32,7 @@ describe("Object Functions", () => {
       },
     ])
   })
-  it("compactObject", () => {
+  it('compactObject', () => {
     expect(
       F.compactObject({
         a: 1,
@@ -43,17 +43,17 @@ describe("Object Functions", () => {
       a: 1,
     })
   })
-  it("isEmptyObject", () => {
+  it('isEmptyObject', () => {
     let expectEqual = (obj, v) => expect(F.isEmptyObject(obj)).to.equal(v)
     expectEqual({ a: 1 }, false)
     expectEqual({}, true)
   })
-  it("isNotEmptyObject", () => {
+  it('isNotEmptyObject', () => {
     let expectEqual = (obj, v) => expect(F.isNotEmptyObject(obj)).to.equal(v)
     expectEqual({ a: 1 }, true)
     expectEqual({}, false)
   })
-  it("stripEmptyObjects", () => {
+  it('stripEmptyObjects', () => {
     expect(
       F.stripEmptyObjects({
         a: 1,
@@ -65,13 +65,13 @@ describe("Object Functions", () => {
       c: 2,
     })
   })
-  it("pickInto", () => {
+  it('pickInto', () => {
     expect(
       F.pickInto(
         {
-          a: ["a"],
-          b: ["b"],
-          c: ["c"],
+          a: ['a'],
+          b: ['b'],
+          c: ['c'],
         },
         { a: 1, b: 2 }
       )
@@ -81,57 +81,57 @@ describe("Object Functions", () => {
       c: {},
     })
   })
-  it("unwind", () => {
-    expect(F.unwind("x", { x: ["a", "b"], y: 1 })).to.deep.equal([
-      { x: "a", y: 1 },
-      { x: "b", y: 1 },
+  it('unwind', () => {
+    expect(F.unwind('x', { x: ['a', 'b'], y: 1 })).to.deep.equal([
+      { x: 'a', y: 1 },
+      { x: 'b', y: 1 },
     ])
     // should unwind undefined values
-    expect(F.unwind("x", { x: ["a", undefined, "b"], y: 1 })).to.deep.equal([
-      { x: "a", y: 1 },
+    expect(F.unwind('x', { x: ['a', undefined, 'b'], y: 1 })).to.deep.equal([
+      { x: 'a', y: 1 },
       { x: undefined, y: 1 },
-      { x: "b", y: 1 },
+      { x: 'b', y: 1 },
     ])
     // should return an empty array for keys that are not present on the object
-    expect(F.unwind("z", { x: "foo", y: 1 })).to.deep.equal([])
+    expect(F.unwind('z', { x: 'foo', y: 1 })).to.deep.equal([])
     // should also return an empty array for keys whose values can't be unwound
-    expect(F.unwind("y", { x: "foo", y: 1 })).to.deep.equal([])
-    expect(F.unwind("y", { x: "foo", y: undefined })).to.deep.equal([])
-    expect(F.unwind("y", { x: "foo", y: [] })).to.deep.equal([])
+    expect(F.unwind('y', { x: 'foo', y: 1 })).to.deep.equal([])
+    expect(F.unwind('y', { x: 'foo', y: undefined })).to.deep.equal([])
+    expect(F.unwind('y', { x: 'foo', y: [] })).to.deep.equal([])
     // should not unwind strings
-    expect(F.unwind("x", { x: "foo", y: 1 })).to.deep.equal([])
+    expect(F.unwind('x', { x: 'foo', y: 1 })).to.deep.equal([])
     // duplicate objects are fine (we don't run _.uniq on the array to unwind)
-    expect(F.unwind("x", { x: [7, 7, 7], y: 1 })).to.deep.equal([
+    expect(F.unwind('x', { x: [7, 7, 7], y: 1 })).to.deep.equal([
       { x: 7, y: 1 },
       { x: 7, y: 1 },
       { x: 7, y: 1 },
     ])
   })
-  it("unwindArray", () => {
+  it('unwindArray', () => {
     expect(
-      F.unwindArray("x", [
-        { x: ["a", "b"], y: 1 },
-        { x: ["a", "c"], y: 2 },
+      F.unwindArray('x', [
+        { x: ['a', 'b'], y: 1 },
+        { x: ['a', 'c'], y: 2 },
         // since `unwind` returns an empty array for non-unwindable values,
         // this should _not_ be present on the result of `unwindArray`
-        { x: "d", y: 3 },
+        { x: 'd', y: 3 },
       ])
     ).to.deep.equal([
-      { x: "a", y: 1 },
-      { x: "b", y: 1 },
-      { x: "a", y: 2 },
-      { x: "c", y: 2 },
+      { x: 'a', y: 1 },
+      { x: 'b', y: 1 },
+      { x: 'a', y: 2 },
+      { x: 'c', y: 2 },
       // { x: 'd', y: 3 }, not present
     ])
     // should not unwind strings
     expect(
-      F.unwindArray("x", [
-        { x: "foo", y: 1 },
-        { x: "bar", y: 2 },
+      F.unwindArray('x', [
+        { x: 'foo', y: 1 },
+        { x: 'bar', y: 2 },
       ])
     ).to.deep.equal([])
     expect(
-      F.unwindArray("x", [
+      F.unwindArray('x', [
         { x: [7, 7, 7], y: 1 },
         { x: [1, 1], y: 2 },
       ])
@@ -143,7 +143,7 @@ describe("Object Functions", () => {
       { x: 1, y: 2 },
     ])
   })
-  it("flattenObject", () => {
+  it('flattenObject', () => {
     expect(
       F.flattenObject({
         a: {
@@ -153,7 +153,7 @@ describe("Object Functions", () => {
         },
       })
     ).to.deep.equal({
-      "a.b.c": 1,
+      'a.b.c': 1,
     })
     expect(
       F.flattenObject([
@@ -168,13 +168,13 @@ describe("Object Functions", () => {
         },
       ])
     ).to.deep.equal({
-      "0.a.b.0.c": 1,
+      '0.a.b.0.c': 1,
     })
   })
-  it("unflattenObject", () => {
+  it('unflattenObject', () => {
     expect(
       F.unflattenObject({
-        "a.b.c": 1,
+        'a.b.c': 1,
       })
     ).to.deep.equal({
       a: {
@@ -184,114 +184,114 @@ describe("Object Functions", () => {
       },
     })
   })
-  it("renameProperty", () => {
+  it('renameProperty', () => {
     const o = { a: 1 }
-    const newO = F.renameProperty("a", "b", o)
+    const newO = F.renameProperty('a', 'b', o)
     expect(newO).not.to.deep.equal(o)
     expect(newO).to.deep.equal({ b: 1 })
-    const new1 = F.renameProperty("c", "b", o)
+    const new1 = F.renameProperty('c', 'b', o)
     expect(new1).to.deep.equal({ a: 1 })
   })
-  it("matchesSignature", () => {
+  it('matchesSignature', () => {
     expect(F.matchesSignature([], 0)).to.be.false
-    expect(F.matchesSignature([], "")).to.be.false
+    expect(F.matchesSignature([], '')).to.be.false
     expect(F.matchesSignature([], (x) => x)).to.be.true
     expect(F.matchesSignature([], [])).to.be.true
     expect(F.matchesSignature([], { a: 1 })).to.be.false
-    expect(F.matchesSignature(["a"], { a: 1 })).to.be.true
-    expect(F.matchesSignature(["b"], { a: 1 })).to.be.false
-    expect(F.matchesSignature(["a"], { a: 1, b: 2 })).to.be.false
-    expect(F.matchesSignature(["a"], { a: undefined, b: undefined })).to.be
+    expect(F.matchesSignature(['a'], { a: 1 })).to.be.true
+    expect(F.matchesSignature(['b'], { a: 1 })).to.be.false
+    expect(F.matchesSignature(['a'], { a: 1, b: 2 })).to.be.false
+    expect(F.matchesSignature(['a'], { a: undefined, b: undefined })).to.be
       .false
-    expect(F.matchesSignature(["a", "b"], { a: undefined })).to.be.true
+    expect(F.matchesSignature(['a', 'b'], { a: undefined })).to.be.true
   })
-  it("matchesSome", () => {
+  it('matchesSome', () => {
     expect(F.matchesSome({ a: 1, b: 2 })({ a: 1, b: 2, c: 3 })).to.be.true
     expect(F.matchesSome({ a: 1, b: 20 })({ a: 1, b: 2, c: 3 })).to.be.true
     expect(F.matchesSome({ a: 10, b: 2 })({ a: 1, b: 2, c: 3 })).to.be.true
     expect(F.matchesSome({ a: 10, b: 20 })({ a: 1, b: 2, c: 3 })).to.be.false
   })
-  it("compareDeep", () => {
+  it('compareDeep', () => {
     const o = { a: { b: { c: 1 } } }
-    expect(F.compareDeep("a.b.c", o, 1)).to.be.true
-    expect(F.compareDeep("a.b.c", o, 2)).to.be.false
-    expect(F.compareDeep("a.b.c")(o, "1")).to.be.false
-    expect(F.compareDeep("a.b.c")(o)("1")).to.be.false
+    expect(F.compareDeep('a.b.c', o, 1)).to.be.true
+    expect(F.compareDeep('a.b.c', o, 2)).to.be.false
+    expect(F.compareDeep('a.b.c')(o, '1')).to.be.false
+    expect(F.compareDeep('a.b.c')(o)('1')).to.be.false
   })
   // it('mapProp', () => {
   //   const a = F.mapProp('a', val => val * val, { a: 2, b: 1 })
   //   expect(a).to.deep.equal({ a: 4, b: 1 })
   // })
-  it("getOrReturn", () => {
-    expect(F.getOrReturn("x", { a: 1 })).to.deep.equal({ a: 1 })
+  it('getOrReturn', () => {
+    expect(F.getOrReturn('x', { a: 1 })).to.deep.equal({ a: 1 })
   })
-  it("alias", () => {
-    expect(F.alias("x", { a: 1 })).to.equal("x")
+  it('alias', () => {
+    expect(F.alias('x', { a: 1 })).to.equal('x')
   })
-  it("aliasIn", () => {
-    expect(F.aliasIn({ a: 1 }, "x")).to.equal("x")
+  it('aliasIn', () => {
+    expect(F.aliasIn({ a: 1 }, 'x')).to.equal('x')
   })
-  it("cascade", () => {
-    expect(F.cascade(["x", "y"], { a: 1, y: 2 })).to.equal(2)
-    expect(F.cascade(["x", "c"], { a: 1, y: 2 }, 2)).to.equal(2)
-    expect(F.cascade(["x", (x) => x.y], { a: 1, y: 2 })).to.equal(2)
-    expect(F.cascade(["x", "y"], { a: 1, x: null, y: 2 })).to.equal(2)
+  it('cascade', () => {
+    expect(F.cascade(['x', 'y'], { a: 1, y: 2 })).to.equal(2)
+    expect(F.cascade(['x', 'c'], { a: 1, y: 2 }, 2)).to.equal(2)
+    expect(F.cascade(['x', (x) => x.y], { a: 1, y: 2 })).to.equal(2)
+    expect(F.cascade(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal(2)
   })
-  it("cascadeIn", () => {
-    expect(F.cascadeIn({ a: 1, y: 2 }, ["x", "y"])).to.equal(2)
+  it('cascadeIn', () => {
+    expect(F.cascadeIn({ a: 1, y: 2 }, ['x', 'y'])).to.equal(2)
   })
-  it("cascadeKey", () => {
-    expect(F.cascadeKey(["x", "y"], { a: 1, x: 2 })).to.equal("x")
+  it('cascadeKey', () => {
+    expect(F.cascadeKey(['x', 'y'], { a: 1, x: 2 })).to.equal('x')
   })
-  it("cascadePropKey", () => {
-    expect(F.cascadePropKey(["x", "y"], { a: 1, x: null, y: 2 })).to.equal("x")
+  it('cascadePropKey', () => {
+    expect(F.cascadePropKey(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal('x')
   })
-  it("cascadeProp", () => {
-    expect(F.cascadeProp(["x", "y"], { a: 1, x: null, y: 2 })).to.equal(null)
+  it('cascadeProp', () => {
+    expect(F.cascadeProp(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal(null)
   })
-  it("unkeyBy", () => {
+  it('unkeyBy', () => {
     expect(
-      F.unkeyBy("field", {
+      F.unkeyBy('field', {
         a: {
           x: 1,
         },
-        "d.e": {
+        'd.e': {
           x: 5,
         },
       })
     ).to.deep.equal([
       {
         x: 1,
-        field: "a",
+        field: 'a',
       },
       {
         x: 5,
-        field: "d.e",
+        field: 'd.e',
       },
     ])
   })
-  it("unkeyBy", () => {
+  it('unkeyBy', () => {
     expect(
-      F.unkeyBy("", {
+      F.unkeyBy('', {
         a: {
           x: 1,
         },
-        "d.e": {
+        'd.e': {
           x: 5,
         },
       })
     ).to.deep.equal([
       {
         x: 1,
-        a: "a",
+        a: 'a',
       },
       {
         x: 5,
-        "d.e": "d.e",
+        'd.e': 'd.e',
       },
     ])
   })
-  it("simpleDiff", () => {
+  it('simpleDiff', () => {
     expect(
       F.simpleDiff(
         {
@@ -328,7 +328,7 @@ describe("Object Functions", () => {
         from: undefined,
         to: 3,
       },
-      "d.e": {
+      'd.e': {
         from: undefined,
         to: 5,
       },
@@ -342,7 +342,7 @@ describe("Object Functions", () => {
       },
     })
   })
-  it("simpleDiffArray", () => {
+  it('simpleDiffArray', () => {
     expect(
       F.simpleDiffArray(
         {
@@ -368,38 +368,38 @@ describe("Object Functions", () => {
       )
     ).to.deep.equal([
       {
-        field: "a",
+        field: 'a',
         from: 3,
         to: 1,
       },
       {
-        field: "b",
+        field: 'b',
         from: undefined,
         to: 2,
       },
       {
-        field: "c",
+        field: 'c',
         from: undefined,
         to: 3,
       },
       {
-        field: "d.e",
+        field: 'd.e',
         from: undefined,
         to: 5,
       },
       {
-        field: "price",
+        field: 'price',
         from: 20,
         to: undefined,
       },
       {
-        field: "amount",
+        field: 'amount',
         from: undefined,
         to: 20,
       },
     ])
   })
-  it("diff", () => {
+  it('diff', () => {
     expect(
       F.diff(
         {
@@ -437,11 +437,11 @@ describe("Object Functions", () => {
         from: undefined,
         to: 3,
       },
-      "d.e": {
+      'd.e': {
         from: undefined,
         to: 5,
       },
-      "d.f": {
+      'd.f': {
         from: 6,
         to: undefined,
       },
@@ -455,7 +455,7 @@ describe("Object Functions", () => {
       },
     })
   })
-  it("diffArray", () => {
+  it('diffArray', () => {
     expect(
       F.diffArray(
         {
@@ -488,63 +488,63 @@ describe("Object Functions", () => {
       )
     ).to.deep.equal([
       {
-        field: "a",
+        field: 'a',
         from: 3,
         to: 1,
       },
       {
-        field: "d.f",
+        field: 'd.f',
         from: 6,
         to: undefined,
       },
       {
-        field: "price",
+        field: 'price',
         from: 20,
         to: undefined,
       },
       {
-        field: "collection1.0.b",
+        field: 'collection1.0.b',
         from: 2,
         to: undefined,
       },
       {
-        field: "collection2.0.a",
+        field: 'collection2.0.a',
         from: 1,
         to: undefined,
       },
       {
-        field: "collection2.0.b",
+        field: 'collection2.0.b',
         from: 2,
         to: undefined,
       },
       {
-        field: "z.zz",
+        field: 'z.zz',
         from: undefined,
         to: 1,
       },
       {
-        field: "b",
+        field: 'b',
         from: undefined,
         to: 2,
       },
       {
-        field: "c",
+        field: 'c',
         from: undefined,
         to: 3,
       },
       {
-        field: "d.e",
+        field: 'd.e',
         from: undefined,
         to: 5,
       },
       {
-        field: "amount",
+        field: 'amount',
         from: undefined,
         to: 20,
       },
     ])
   })
-  it("mergeAllArrays", () => {
+  it('mergeAllArrays', () => {
     expect(
       F.mergeAllArrays([
         {
@@ -565,21 +565,21 @@ describe("Object Functions", () => {
       b: 5,
     })
   })
-  it("invertByArray", () => {
+  it('invertByArray', () => {
     expect(
       F.invertByArray({
-        a: ["x", "y", "z"],
-        b: ["x"],
+        a: ['x', 'y', 'z'],
+        b: ['x'],
       })
     ).to.deep.equal({
-      x: ["a", "b"],
-      y: ["a"],
-      z: ["a"],
+      x: ['a', 'b'],
+      y: ['a'],
+      z: ['a'],
     })
   })
-  it("stampKey", () => {
+  it('stampKey', () => {
     expect(
-      F.stampKey("type", {
+      F.stampKey('type', {
         foo: {
           a: 1,
           b: 2,
@@ -590,51 +590,51 @@ describe("Object Functions", () => {
       foo: {
         a: 1,
         b: 2,
-        type: "foo",
+        type: 'foo',
       },
       bar: {
-        type: "bar",
+        type: 'bar',
       },
     })
   })
-  it("omitNil", () => {
-    expect(F.omitNil({ a: 1, b: "c", d: null, e: undefined })).to.deep.equal({
+  it('omitNil', () => {
+    expect(F.omitNil({ a: 1, b: 'c', d: null, e: undefined })).to.deep.equal({
       a: 1,
-      b: "c",
+      b: 'c',
     })
   })
-  it("omitNull", () => {
-    expect(F.omitNull({ a: 1, b: "c", d: null, e: undefined })).to.deep.equal({
+  it('omitNull', () => {
+    expect(F.omitNull({ a: 1, b: 'c', d: null, e: undefined })).to.deep.equal({
       a: 1,
-      b: "c",
+      b: 'c',
       e: undefined,
     })
   })
-  it("omitBlank", () => {
+  it('omitBlank', () => {
     expect(
-      F.omitBlank({ a: 1, b: "c", d: null, e: undefined, f: [], g: {}, h: "" })
+      F.omitBlank({ a: 1, b: 'c', d: null, e: undefined, f: [], g: {}, h: '' })
     ).to.deep.equal({
       a: 1,
-      b: "c",
+      b: 'c',
     })
   })
-  it("omitEmpty", () => {
+  it('omitEmpty', () => {
     expect(
-      F.omitEmpty({ a: 1, b: "c", d: null, e: undefined, f: [], g: {}, h: "" })
+      F.omitEmpty({ a: 1, b: 'c', d: null, e: undefined, f: [], g: {}, h: '' })
     ).to.deep.equal({
-      b: "c",
+      b: 'c',
     })
   })
-  it("mergeOverAll", () => {
-    let foo = (x) => ({ [x]: "foo" })
-    let bar = (x) => ({ bar: x, [x]: "bar" })
-    expect(F.mergeOverAll([foo, bar])("a")).to.deep.equal({
-      a: "bar",
-      bar: "a",
+  it('mergeOverAll', () => {
+    let foo = (x) => ({ [x]: 'foo' })
+    let bar = (x) => ({ bar: x, [x]: 'bar' })
+    expect(F.mergeOverAll([foo, bar])('a')).to.deep.equal({
+      a: 'bar',
+      bar: 'a',
     })
-    expect(F.mergeOverAll([bar, foo])("a")).to.deep.equal({
-      a: "foo",
-      bar: "a",
+    expect(F.mergeOverAll([bar, foo])('a')).to.deep.equal({
+      a: 'foo',
+      bar: 'a',
     })
     // should NOT merge arrays
     let qux = (a) => ({ x: a.map((x) => x + 3) })
@@ -645,13 +645,13 @@ describe("Object Functions", () => {
     expect(F.mergeOverAll(undefined, undefined)).to.deep.equal({})
     expect(F.mergeOverAll(undefined)(undefined)).to.deep.equal({})
     expect(F.mergeOverAll([])(undefined)).to.deep.equal(undefined)
-    expect(F.mergeOverAll([(x) => x, (x, y) => y])("abc", "de")).to.deep.equal({
-      0: "d",
-      1: "e",
-      2: "c",
+    expect(F.mergeOverAll([(x) => x, (x, y) => y])('abc', 'de')).to.deep.equal({
+      0: 'd',
+      1: 'e',
+      2: 'c',
     })
   })
-  it("mergeOverAllWith", () => {
+  it('mergeOverAllWith', () => {
     let reverseArrayCustomizer = (objValue, srcValue) =>
       srcValue.length ? srcValue.reverse() : srcValue
     let qux = (a) => ({ x: a.map((x) => x + 3) })
@@ -659,7 +659,7 @@ describe("Object Functions", () => {
       F.mergeOverAllWith(reverseArrayCustomizer, [() => ({}), qux])([1, 2, 3])
     ).to.deep.equal({ x: [6, 5, 4] })
   })
-  it("mergeOverAllArrays", () => {
+  it('mergeOverAllArrays', () => {
     // should merge arrays
     let qux = (a) => ({ x: a.map((x) => x + 3) })
     expect(
@@ -668,17 +668,17 @@ describe("Object Functions", () => {
       x: [1, 2, 3, 4, 5, 6],
     })
   })
-  it("getWith", () => {
+  it('getWith', () => {
     let square = (x) => x * x
     let getWithSquare = F.getWith(square)
     let foo = { a: 1, b: 3, c: 5 }
-    expect(getWithSquare("c", foo)).to.equal(25)
-    expect(F.getWith((x) => x + 1, "b", foo)).to.equal(4)
+    expect(getWithSquare('c', foo)).to.equal(25)
+    expect(F.getWith((x) => x + 1, 'b', foo)).to.equal(4)
     // edge case: throws when customizer is not a function
-    expect(() => F.getWith(undefined, "b", foo)).to.throw(TypeError)
+    expect(() => F.getWith(undefined, 'b', foo)).to.throw(TypeError)
   })
-  it("expandObject", () => {
-    let foo = { a: 1, b: 2, c: "a" }
+  it('expandObject', () => {
+    let foo = { a: 1, b: 2, c: 'a' }
     // should expand object
     let toOptions = F.mapIndexed((v, k) => ({ label: k, value: v }))
     expect(
@@ -686,43 +686,43 @@ describe("Object Functions", () => {
     ).to.deep.equal({
       a: 1,
       b: 2,
-      c: "a",
+      c: 'a',
       options: [
-        { label: "a", value: 1 },
-        { label: "b", value: 2 },
-        { label: "c", value: "a" },
+        { label: 'a', value: 1 },
+        { label: 'b', value: 2 },
+        { label: 'c', value: 'a' },
       ],
     })
     // should override keys
     expect(F.expandObject(_.invert, foo)).to.deep.equal({
-      1: "a",
-      2: "b",
-      a: "c",
+      1: 'a',
+      2: 'b',
+      a: 'c',
       b: 2,
-      c: "a",
+      c: 'a',
     })
   })
-  it("expandObjectBy", () => {
-    let primeFactorization = (x) => (x === 42 ? { 2: 1, 3: 1, 7: 1 } : "dunno")
+  it('expandObjectBy', () => {
+    let primeFactorization = (x) => (x === 42 ? { 2: 1, 3: 1, 7: 1 } : 'dunno')
     let foo = { a: 1, b: 42 }
-    expect(F.expandObjectBy("b", primeFactorization, foo)).to.deep.equal({
+    expect(F.expandObjectBy('b', primeFactorization, foo)).to.deep.equal({
       a: 1,
       b: 42,
       2: 1,
       3: 1,
       7: 1,
     })
-    expect(F.expandObjectBy("a", primeFactorization, foo)).to.deep.equal({
-      0: "d",
-      1: "u",
-      2: "n",
-      3: "n",
-      4: "o",
+    expect(F.expandObjectBy('a', primeFactorization, foo)).to.deep.equal({
+      0: 'd',
+      1: 'u',
+      2: 'n',
+      3: 'n',
+      4: 'o',
       a: 1,
       b: 42,
     })
   })
-  it("commonKeys", () => {
+  it('commonKeys', () => {
     let providers = {
       mongo: {},
       elasticsearch: {},
@@ -734,15 +734,15 @@ describe("Object Functions", () => {
     }
 
     expect(F.commonKeys(providers, schema)).to.deep.equal([
-      "elasticsearch",
-      "mongo",
+      'elasticsearch',
+      'mongo',
     ])
     expect(F.commonKeys(providers)(schema)).to.deep.equal([
-      "elasticsearch",
-      "mongo",
+      'elasticsearch',
+      'mongo',
     ])
   })
-  it("firstCommonKey", () => {
+  it('firstCommonKey', () => {
     let providers = {
       mongo: {},
       elasticsearch: {},
@@ -753,6 +753,6 @@ describe("Object Functions", () => {
       mongo: {},
     }
 
-    expect(F.firstCommonKey(providers, schema)).to.equal("elasticsearch")
+    expect(F.firstCommonKey(providers, schema)).to.equal('elasticsearch')
   })
 })

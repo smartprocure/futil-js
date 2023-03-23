@@ -1,5 +1,5 @@
-import _ from "lodash/fp"
-import { aspects } from "./aspect"
+import _ from 'lodash/fp'
+import { aspects } from './aspect'
 
 const noRearg = _.convert({ rearg: false })
 const mutable = _.convert({ immutable: false })
@@ -119,19 +119,19 @@ export const updateOn = mutable.update
 
 // Un-prefixed Deprecated
 export const reduce = aspects.deprecate(
-  "reduce",
-  "1.28.0",
-  "reduceIndexed"
+  'reduce',
+  '1.28.0',
+  'reduceIndexed'
 )(noCap.reduce)
 export const mapValues = aspects.deprecate(
-  "mapValues",
-  "1.28.0",
-  "mapValuesIndexed"
+  'mapValues',
+  '1.28.0',
+  'mapValuesIndexed'
 )(noCap.mapValues)
 export const each = aspects.deprecate(
-  "each",
-  "1.28.0",
-  "eachIndexed"
+  'each',
+  '1.28.0',
+  'eachIndexed'
 )(noCap.each)
 
 /**

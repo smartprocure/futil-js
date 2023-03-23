@@ -4,9 +4,9 @@ module.exports = {
     mocha: true,
     browser: true,
   },
-  extends: "eslint:recommended",
-  parser: "babel-eslint",
+  extends: 'eslint:recommended',
+  parser: 'babel-eslint',
   parserOptions: {
-    sourceType: "module",
+    sourceType: 'module',
   },
 }

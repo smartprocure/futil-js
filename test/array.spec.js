@@ -1,39 +1,39 @@
-import chai from "chai"
-import F from "../src/"
+import chai from 'chai'
+import F from '../src/'
 chai.expect()
 const expect = chai.expect
 
-describe("Array Functions", () => {
-  it("compactJoin", () => {
-    expect(F.compactJoin(",", [1, undefined, 2, null, 3])).to.equal("1,2,3")
-    expect(F.compactJoin(" and ", [null, "Alice", "Bob", false])).to.equal(
-      "Alice and Bob"
+describe('Array Functions', () => {
+  it('compactJoin', () => {
+    expect(F.compactJoin(',', [1, undefined, 2, null, 3])).to.equal('1,2,3')
+    expect(F.compactJoin(' and ', [null, 'Alice', 'Bob', false])).to.equal(
+      'Alice and Bob'
     )
   })
-  it("dotJoin", () => {
-    expect(F.dotJoin([1, undefined, 2, null, 3])).to.equal("1.2.3")
-    expect(F.dotJoin([null, "Alice", "Bob", false])).to.equal("Alice.Bob")
+  it('dotJoin', () => {
+    expect(F.dotJoin([1, undefined, 2, null, 3])).to.equal('1.2.3')
+    expect(F.dotJoin([null, 'Alice', 'Bob', false])).to.equal('Alice.Bob')
   })
-  it("repeated", () => {
+  it('repeated', () => {
     expect(F.repeated([1, 1, 2, 3, 3, 4])).to.deep.equal([1, 3])
-    expect(F.repeated(["a", "b", "b"])).to.deep.equal(["b"])
+    expect(F.repeated(['a', 'b', 'b'])).to.deep.equal(['b'])
   })
-  it("push", () => {
+  it('push', () => {
     let arr = [1, 2, 3]
     expect(F.push(4)(arr)).to.deep.equal([1, 2, 3, 4])
     expect(arr).to.deep.equal([1, 2, 3])
   })
-  it("pushIn", () => {
+  it('pushIn', () => {
     let arr = [1, 2, 3]
     expect(F.pushIn(arr)(4)).to.deep.equal([1, 2, 3, 4])
     expect(arr).to.deep.equal([1, 2, 3])
   })
-  it("pushOn", () => {
+  it('pushOn', () => {
     let arr = [1, 2, 3]
     expect(F.pushOn(arr)(4)).to.deep.equal([1, 2, 3, 4])
     expect(arr).to.deep.equal([1, 2, 3, 4])
   })
-  it("moveIndex", () => {
+  it('moveIndex', () => {
     let arr = [1, 2, 3]
     let x = F.moveIndex(1, 0, arr)
     expect(x).to.deep.equal([2, 1, 3])
@@ -43,7 +43,7 @@ describe("Array Functions", () => {
     expect(x2).to.deep.equal([2, 1, 3])
     expect(arr).to.deep.equal([1, 2, 3])
   })
-  it("mergeRanges", () => {
+  it('mergeRanges', () => {
     // arrays need to be sorted in ascending order
     expect(
       F.mergeRanges([
@@ -61,7 +61,7 @@ describe("Array Functions", () => {
       ])
     ).to.deep.equal([[0, 5]])
   })
-  it("cycle", () => {
+  it('cycle', () => {
     let cycle = F.cycle([1, 2, 3])
     expect(cycle(1)).to.equal(2)
     expect(cycle(2)).to.equal(3)
@@ -75,58 +75,59 @@ describe("Array Functions", () => {
 
     expect(F.cycle([true, false], true)).to.be.false
   })
-  it("arrayToObject", () => {
+  it('arrayToObject', () => {
     expect(
       F.arrayToObject(
         (x) => `key${x}`,
         (x) => `val${x}`,
-        ["a", "b", "c"]
+        ['a', 'b', 'c']
       )
-    ).to.deep.equal({ keya: "vala", keyb: "valb", keyc: "valc" })
+    ).to.deep.equal({ keya: 'vala', keyb: 'valb', keyc: 'valc' })
   })
-  it("keysToObject", () => {
-    let result = F.keysToObject((v) => Number(v), ["1", "2", "3"])
+  it('keysToObject', () => {
+    let result = F.keysToObject((v) => Number(v), ['1', '2', '3'])
     expect(result).to.deep.equal({ 1: 1, 2: 2, 3: 3 })
   })
-  it("zipObjectDeepWith", () => {
-    expect(F.zipObjectDeepWith(["a", "b"], () => 1)).to.deep.equal({
+  it('zipObjectDeepWith', () => {
+    expect(F.zipObjectDeepWith(['a', 'b'], () => 1)).to.deep.equal({
       a: 1,
       b: 1,
     })
   })
-  it("flags", () => {
-    expect(F.flags(["a", "b", "c"])).to.deep.equal({
+  it('flags', () => {
+    expect(F.flags(['a', 'b', 'c'])).to.deep.equal({
       a: true,
       b: true,
       c: true,
     })
   })
-  it("prefixes", () => {
-    expect(F.prefixes(["root", "criteria", "someNode"])).to.deep.equal([
-      ["root"],
-      ["root", "criteria"],
-      ["root", "criteria", "someNode"],
+  it('prefixes', () => {
+    expect(F.prefixes(['root', 'criteria', 'someNode'])).to.deep.equal([
+      ['root'],
+      ['root', 'criteria'],
+      ['root', 'criteria', 'someNode'],
     ])
-    expect(F.prefixes("abc")).to.deep.equal([
-      ["a"],
-      ["a", "b"],
-      ["a", "b", "c"],
+    expect(F.prefixes('abc')).to.deep.equal([
+      ['a'],
+      ['a', 'b'],
+      ['a', 'b', 'c'],
     ])
+    expect(F.prefixes(null)).to.deep.equal([])
   })
-  it("encoder", () => {
-    let encoder = F.encoder("->")
-    expect(encoder.encode(["a", "b"])).to.equal("a->b")
-    expect(encoder.decode("a->b")).to.deep.equal(["a", "b"])
+  it('encoder', () => {
+    let encoder = F.encoder('->')
+    expect(encoder.encode(['a', 'b'])).to.equal('a->b')
+    expect(encoder.decode('a->b')).to.deep.equal(['a', 'b'])
   })
-  it("dotEncoder", () => {
-    expect(F.dotEncoder.encode(["a", "b"])).to.equal("a.b")
-    expect(F.dotEncoder.decode("a.b")).to.deep.equal(["a", "b"])
+  it('dotEncoder', () => {
+    expect(F.dotEncoder.encode(['a', 'b'])).to.equal('a.b')
+    expect(F.dotEncoder.decode('a.b')).to.deep.equal(['a', 'b'])
   })
-  it("slashEncoder", () => {
-    expect(F.slashEncoder.encode(["a", "b"])).to.equal("a/b")
-    expect(F.slashEncoder.decode("a/b")).to.deep.equal(["a", "b"])
+  it('slashEncoder', () => {
+    expect(F.slashEncoder.encode(['a', 'b'])).to.equal('a/b')
+    expect(F.slashEncoder.decode('a/b')).to.deep.equal(['a', 'b'])
   })
-  it("chunkBy", () => {
+  it('chunkBy', () => {
     expect(
       F.chunkBy(([a], b) => b % a === 0, [2, 2, 2, 3, 2, 2])
     ).to.deep.equal([[2, 2, 2], [3], [2, 2]])
@@ -141,50 +142,50 @@ describe("Array Functions", () => {
     expect(F.chunkBy(() => false, undefined)).to.deep.equal([])
     expect(F.chunkBy(() => false, [])).to.deep.equal([])
   })
-  it("toggleElement", () => {
-    expect(F.toggleElement("b", ["a", "b", "c", "d"])).to.deep.equal([
-      "a",
-      "c",
-      "d",
+  it('toggleElement', () => {
+    expect(F.toggleElement('b', ['a', 'b', 'c', 'd'])).to.deep.equal([
+      'a',
+      'c',
+      'd',
     ])
-    expect(F.toggleElement("b", ["a", "c", "d"])).to.deep.equal([
-      "a",
-      "c",
-      "d",
-      "b",
+    expect(F.toggleElement('b', ['a', 'c', 'd'])).to.deep.equal([
+      'a',
+      'c',
+      'd',
+      'b',
     ])
   })
-  it("toggleElementBy", () => {
-    let list = ["a", "b", "c"]
-    let valueToToggle = "b"
+  it('toggleElementBy', () => {
+    let list = ['a', 'b', 'c']
+    let valueToToggle = 'b'
 
     let toggleB = (shouldAdd) =>
       F.toggleElementBy(!shouldAdd, valueToToggle, list)
 
-    expect(toggleB(true)).to.deep.equal(["a", "b", "c", "b"])
-    expect(toggleB(false)).to.deep.equal(["a", "c"])
+    expect(toggleB(true)).to.deep.equal(['a', 'b', 'c', 'b'])
+    expect(toggleB(false)).to.deep.equal(['a', 'c'])
   })
-  it("intersperse", () => {
+  it('intersperse', () => {
     expect(
       F.intersperse(
-        (acc, i, xs) => (i === xs.length - 1 ? "and finally" : "and"),
+        (acc, i, xs) => (i === xs.length - 1 ? 'and finally' : 'and'),
         [1, 2, 3, 4]
       )
-    ).to.deep.equal([1, "and", 2, "and", 3, "and finally", 4])
-    expect(F.intersperse("and", [1, 2, 3])).to.deep.equal([
+    ).to.deep.equal([1, 'and', 2, 'and', 3, 'and finally', 4])
+    expect(F.intersperse('and', [1, 2, 3])).to.deep.equal([
       1,
-      "and",
+      'and',
       2,
-      "and",
+      'and',
       3,
     ])
   })
-  it("replaceElementBy", () => {
+  it('replaceElementBy', () => {
     expect(F.replaceElementBy((c) => c > 10, 0, [1, 11, 3, 5])).to.deep.equal([
       1, 0, 3, 5,
     ])
   })
-  it("replaceElement", () => {
+  it('replaceElement', () => {
     expect(F.replaceElement(11, 0, [1, 11, 3, 5])).to.deep.equal([1, 0, 3, 5])
   })
 })

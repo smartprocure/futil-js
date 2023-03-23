@@ -1,4 +1,4 @@
-import { VStack, Heading, Text } from "@chakra-ui/react"
+import { VStack, Heading, Text } from '@chakra-ui/react'
 
 export let ToolTipLabel = ({ heading, content }) => (
   <VStack alignItems="flex-start" p={2} spacing={4}>
