@@ -15,7 +15,7 @@ let last = _.takeRight(1)
 /**
  * Joins an array after compacting. Note that due to the underlying behavior of `_.curry` no default `join` value is supported -- you must pass in some string with which to perform the join.
  *
- * @signature joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 +  joinString ... + stringN
+ * @signature joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 + joinString ... + stringN
  */
 export let compactJoin = _.curry((join, x) => _.compact(x).join(join))
 
@@ -201,21 +201,32 @@ export let toggleElement = toggleElementBy(_.includes)
  * @signature f -> array -> [array[0], f(), array[n], ....)
  * @note This works great with the `differentLast` iterator. Also, `intersperse` can be used with JSX components!
  * @example // Example with words (toSentence is basically this flowed into a `_.join('')`):
- * F.intersperse(differentLast(() => 'or', () => 'or perhaps'), ['first', 'second', 'third'])
+ * F.intersperse(
+ *   differentLast(
+ *     () => 'or',
+ *     () => 'or perhaps'
+ *   ),
+ *   ['first', 'second', 'third']
+ * )
  * // ['first', 'or', 'second', 'or perhaps', 'third']
  *
  * // Example with React and JSX:
  * let results = [1, 2, 3]
- * return <div>
- *   <b>Results:</b>
- *   <br/>
- *   {
- *     _.flow(
- *       _.map(x => <b>{x}</b>),
- *       F.intersperse(F.differentLast(() => ', ', () => ' and '))
- *     )(results)
- *   }
- * </div>
+ * return (
+ *   <div>
+ *     <b>Results:</b>
+ *     <br />
+ *     {_.flow(
+ *       _.map((x) => <b>{x}</b>),
+ *       F.intersperse(
+ *         F.differentLast(
+ *           () => ', ',
+ *           () => ' and '
+ *         )
+ *       )
+ *     )(results)}
+ *   </div>
+ * )
  * // Output:
  * // **Results:**
  * // **1**, **2** and **3**.

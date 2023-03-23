@@ -96,8 +96,8 @@ Like `uniqueString`, the resulting deduplication function exposes `cache` and `c
  *   _.countBy(_.replace(/(\d+)$/, ''))
  * )
  * let dedupe = uniqueStringStripDigits(['foo', 'foo42', 'foo3000'])
- * dedupe('foo')  //-> 'foo3'
- * uniqueStringWith(_.identity, dedupe.cache)('foo')  //-> 'foo4'
+ * dedupe('foo') //-> 'foo3'
+ * uniqueStringWith(_.identity, dedupe.cache)('foo') //-> 'foo4'
  */
 export let uniqueStringWith = _.curry((cachizer, initialKeys) => {
   let f = (x) => {
@@ -123,11 +123,11 @@ export let uniqueStringWith = _.curry((cachizer, initialKeys) => {
  *
  * @signature array -> string -> string
  * @example let dedupe = uniqueString()
- * _.map(dedupe, ['foo', 'foo', 'foo'])  //-> ['foo', 'foo1', 'foo2']
- * dedupe.cache  //-> { foo: 3, foo1: 1, foo2: 1 }
+ * _.map(dedupe, ['foo', 'foo', 'foo']) //-> ['foo', 'foo1', 'foo2']
+ * dedupe.cache //-> { foo: 3, foo1: 1, foo2: 1 }
  * dedupe.clear()
- * dedupe.cache  //-> {}
- * dedupe('foo')  //-> 'foo'
+ * dedupe.cache //-> {}
+ * dedupe('foo') //-> 'foo'
  */
 export let uniqueString = (arr = []) =>
   uniqueStringWith(_.countBy(_.identity), arr)

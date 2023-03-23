@@ -22,7 +22,7 @@ import { throws, tapError } from './lang'
 
 /**
  * The aspect api takes an options object and returns a function which takes a function to wrap.
-    The wrapped function will be decorated with a `state` object and is equivalent to the original function for all arguments.
+The wrapped function will be decorated with a `state` object and is equivalent to the original function for all arguments.
 
 Options supports the following parameters:
 
@@ -37,7 +37,7 @@ Options supports the following parameters:
  * @signature {options} -> f -> aspectWrapped(f)
  * @example let exampleAspect = aspect({
  *   before: () => console.log('pre run'),
- *   after: () => console.log('post run')
+ *   after: () => console.log('post run'),
  * })
  * let f = () => console.log('run')
  * let wrapped = exampleAspect(f)
