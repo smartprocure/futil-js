@@ -1,5 +1,5 @@
-import _ from "lodash/fp"
-import { isTraversable } from "./tree"
+import _ from 'lodash/fp'
+import { isTraversable } from './tree'
 
 /**
  * Maps a flow of `f1, f2, ...fn` over a collection.

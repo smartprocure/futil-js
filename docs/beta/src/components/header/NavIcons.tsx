@@ -1,9 +1,9 @@
-import { HStack } from "@chakra-ui/react"
-import { AiOutlineHome, AiFillGithub } from "react-icons/ai"
-import { BsJournalCode } from "react-icons/bs"
-import { FiGitPullRequest } from "react-icons/fi"
-import { ColorModeSwitcher } from "../ColorModeSwitcher"
-import { NavIcon } from "../GSSinglePageLayout/NavIcon"
+import { HStack } from '@chakra-ui/react'
+import { AiOutlineHome, AiFillGithub } from 'react-icons/ai'
+import { BsJournalCode } from 'react-icons/bs'
+import { FiGitPullRequest } from 'react-icons/fi'
+import { ColorModeSwitcher } from '../ColorModeSwitcher'
+import { NavIcon } from '../GSSinglePageLayout/NavIcon'
 
 export let navIcons = ({ page, dispatch, responsive }) => (
   <>
@@ -12,7 +12,7 @@ export let navIcons = ({ page, dispatch, responsive }) => (
         name="home"
         icon={<AiOutlineHome />}
         type="navigation"
-        ariaLabel={"navigate to home"}
+        ariaLabel={'navigate to home'}
         {...{ page, dispatch, responsive }}
       />
     </HStack>
@@ -21,7 +21,7 @@ export let navIcons = ({ page, dispatch, responsive }) => (
         name="docs"
         icon={<BsJournalCode />}
         type="navigation"
-        ariaLabel={"navigate to docs"}
+        ariaLabel={'navigate to docs'}
         {...{ page, dispatch, responsive }}
       />
     </HStack>
@@ -31,7 +31,7 @@ export let navIcons = ({ page, dispatch, responsive }) => (
         name="changelog"
         icon={<FiGitPullRequest />}
         {...{ page, dispatch, responsive }}
-        ariaLabel={"navigate to change log"}
+        ariaLabel={'navigate to change log'}
       />
     </HStack>
     <HStack>
@@ -39,13 +39,13 @@ export let navIcons = ({ page, dispatch, responsive }) => (
         type="link"
         name="GitHub"
         icon={<AiFillGithub />}
-        page={"https://github.com/smartprocure/futil-js"}
+        page={'https://github.com/smartprocure/futil-js'}
         {...{ dispatch, responsive }}
-        ariaLabel={"Go to futil GitHub page"}
+        ariaLabel={'Go to futil GitHub page'}
       />
     </HStack>
     <HStack>
-      <ColorModeSwitcher marginX={0} title={"Dark/Light Toggle"} />
+      <ColorModeSwitcher marginX={0} title={'Dark/Light Toggle'} />
     </HStack>
   </>
 )

@@ -6,16 +6,16 @@ import {
   Box,
   Text,
   Link,
-} from "@chakra-ui/react"
-import _ from "lodash/fp"
+} from '@chakra-ui/react'
+import _ from 'lodash/fp'
 
 let NavType = ({ dispatch, highlight, page, name, icon, responsive }) => (
-  <Box w={"100%"} onClick={() => dispatch({ page: name })}>
+  <Box w={'100%'} onClick={() => dispatch({ page: name })}>
     <HStack
-      w={"100%"}
+      w={'100%'}
       p={0}
       rounded={6}
-      bg={page === name ? highlight : "inherit"}
+      bg={page === name ? highlight : 'inherit'}
     >
       <Tooltip hasArrow label={_.startCase(name)}>
         <IconButton
@@ -26,7 +26,7 @@ let NavType = ({ dispatch, highlight, page, name, icon, responsive }) => (
           aria-label={_.startCase(name)}
         />
       </Tooltip>
-      <Text display={responsive.nav.iconText} fontSize={"md"}>
+      <Text display={responsive.nav.iconText} fontSize={'md'}>
         {_.startCase(name)}
       </Text>
     </HStack>
@@ -35,7 +35,7 @@ let NavType = ({ dispatch, highlight, page, name, icon, responsive }) => (
 
 let LinkType = ({ ariaLabel, icon, name, link, responsive }) => (
   <HStack>
-    <Link isExternal href={link} w={"100%"}>
+    <Link isExternal href={link} w={'100%'}>
       <HStack>
         <IconButton
           size="md"
@@ -46,8 +46,8 @@ let LinkType = ({ ariaLabel, icon, name, link, responsive }) => (
         />
         <Text
           display={responsive.nav.iconText}
-          align={"center"}
-          fontSize={"md"}
+          align={'center'}
+          fontSize={'md'}
         >
           {name}
         </Text>
@@ -65,9 +65,9 @@ export let NavIcon = ({
   ariaLabel,
   responsive,
 }) => {
-  let highlight = useColorModeValue("icon.light", "icon.dark")
+  let highlight = useColorModeValue('icon.light', 'icon.dark')
   let displayIcon = <></>
-  if (type === "navigation") {
+  if (type === 'navigation') {
     displayIcon = (
       <NavType
         dispatch={dispatch}
@@ -78,7 +78,7 @@ export let NavIcon = ({
         responsive={responsive}
       />
     )
-  } else if (type === "link") {
+  } else if (type === 'link') {
     displayIcon = (
       <LinkType
         name={name}

@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react'
 import {
   Grid,
   GridItem,
@@ -14,11 +14,11 @@ import {
   useColorModeValue,
   Center,
   Flex,
-} from "@chakra-ui/react"
-import LogoLight from "../../logos/logo-light.svg"
-import LogoDark from "../../logos/logo-dark.svg"
-import { FaSearch } from "react-icons/fa"
-import { SearchInputs } from "../header/SearchInputs"
+} from '@chakra-ui/react'
+import LogoLight from '../../logos/logo-light.svg'
+import LogoDark from '../../logos/logo-dark.svg'
+import { FaSearch } from 'react-icons/fa'
+import { SearchInputs } from '../header/SearchInputs'
 
 //Content for tool tips
 const toolTipInOut = {
@@ -41,13 +41,13 @@ export let NavBarButton = ({ sidebar, dispatch, state, responsive }) => {
         aria-label="Main Navigation"
         variant="ghost"
         onClick={() => {
-          dispatch({ page: "docs" })
+          dispatch({ page: 'docs' })
           onToggle()
         }}
         leftIcon={<Icon as={FaSearch} />}
         iconSpacing={0}
         width={`10px`}
-        sx={{ borderRadius: "full", lineHeight: 0 }}
+        sx={{ borderRadius: 'full', lineHeight: 0 }}
       />
       <Drawer
         placement="right"
@@ -62,29 +62,29 @@ export let NavBarButton = ({ sidebar, dispatch, state, responsive }) => {
         <DrawerOverlay zIndex={15}>
           <DrawerContent>
             <DrawerCloseButton zIndex={200} colorScheme="neutral" />
-            <DrawerBody bg={useColorModeValue("gray.100", "rgb(25,32,44)")}>
+            <DrawerBody bg={useColorModeValue('gray.100', 'rgb(25,32,44)')}>
               <Grid
-                templateRows={"repeat(2, 1fr)"}
-                templateColumns={"repeat(1, 1fr)"}
+                templateRows={'repeat(2, 1fr)'}
+                templateColumns={'repeat(1, 1fr)'}
                 justifyContent="center"
-                height={"40px"}
+                height={'40px'}
                 rowGap={3}
                 columnGap={0}
                 gridColumnGap={0}
                 paddingRight={1}
               >
-                <GridItem py={3} colSpan={1} px={"inherit"}>
+                <GridItem py={3} colSpan={1} px={'inherit'}>
                   <Center>
                     <Image
-                      alignContent={"center"}
+                      alignContent={'center'}
                       height={45}
                       paddingBottom={1}
                       src={useColorModeValue(LogoLight, LogoDark)}
                     />
                   </Center>
                 </GridItem>
-                <GridItem paddingTop={5} colSpan={1} px={"inherit"}>
-                  <Flex direction={"column"} gap={1.5} alignItems="center">
+                <GridItem paddingTop={5} colSpan={1} px={'inherit'}>
+                  <Flex direction={'column'} gap={1.5} alignItems="center">
                     <SearchInputs
                       {...state}
                       dispatch={dispatch}

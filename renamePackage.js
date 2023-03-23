@@ -1,11 +1,11 @@
-let _ = require("lodash/fp")
-let readPkg = require("read-pkg")
-let writePkg = require("write-pkg")
+let _ = require('lodash/fp')
+let readPkg = require('read-pkg')
+let writePkg = require('write-pkg')
 
-let rename = async (name = "futil-js") => {
+let rename = async (name = 'futil-js') => {
   let current = await readPkg()
   writePkg(
-    _.omit(["_id"], {
+    _.omit(['_id'], {
       ...current,
       name,
     })

@@ -7,9 +7,9 @@ import {
   HStack,
   useColorModeValue,
   VStack,
-} from "@chakra-ui/react"
-import React from "react"
-import { NavBarButton } from "./NavBarButton"
+} from '@chakra-ui/react'
+import React from 'react'
+import { NavBarButton } from './NavBarButton'
 
 export let ResponsiveBasicLayout = ({
   header,
@@ -19,8 +19,8 @@ export let ResponsiveBasicLayout = ({
   state,
   responsive,
 }) => {
-  const bgColor = useColorModeValue("rgba(255, 255, 255, 0.8)", "gray.800")
-  const borderColor = useColorModeValue("gray.200", "rgba(255, 255, 255, 0.16)")
+  const bgColor = useColorModeValue('rgba(255, 255, 255, 0.8)', 'gray.800')
+  const borderColor = useColorModeValue('gray.200', 'rgba(255, 255, 255, 0.16)')
 
   return (
     <>
@@ -32,20 +32,20 @@ export let ResponsiveBasicLayout = ({
           zIndex={10}
           borderBottom="solid 1px"
           borderColor={borderColor}
-          width={"100%"}
+          width={'100%'}
           px={6}
           py={4}
-          display={header === "home" ? "none" : ""}
+          display={header === 'home' ? 'none' : ''}
         >
           <Flex as="header">
             {header}
-            {state.page !== "home" && (
+            {state.page !== 'home' && (
               <GridItem
                 display={responsive.headerResponsive.nav.showMobileFilter}
                 colSpan={1}
               >
                 <HStack>
-                  <VStack paddingBottom={"1"}>
+                  <VStack paddingBottom={'1'}>
                     <NavBarButton
                       sidebar={sidebar}
                       dispatch={dispatch}
@@ -62,7 +62,7 @@ export let ResponsiveBasicLayout = ({
       {sidebar.type === React.Fragment ? (
         <Box>{main}</Box>
       ) : (
-        <Grid templateColumns={"repeat(12, 1fr)"}>
+        <Grid templateColumns={'repeat(12, 1fr)'}>
           <GridItem {...responsive.sidebarResponsive.showDesktopBar}>
             {sidebar}
           </GridItem>

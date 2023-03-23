@@ -1,7 +1,7 @@
-import _ from "lodash/fp"
-import { dotJoinWith, zipObjectDeepWith } from "./array"
-import { overNone, ifElse } from "./logic"
-import { isNotNil, isBlank } from "./lang"
+import _ from 'lodash/fp'
+import { dotJoinWith, zipObjectDeepWith } from './array'
+import { overNone, ifElse } from './logic'
+import { isNotNil, isBlank } from './lang'
 import {
   reduceIndexed,
   pickIn,
@@ -9,10 +9,10 @@ import {
   hasIn,
   mapIndexed,
   mapValuesIndexed,
-} from "./conversion"
-import { findApply } from "./collection"
-import { aspects } from "./aspect"
-import { mapArgs } from "./function"
+} from './conversion'
+import { findApply } from './collection'
+import { aspects } from './aspect'
+import { mapArgs } from './function'
 const noCap = _.convert({ cap: false })
 
 /**
@@ -168,9 +168,9 @@ export const compareDeep = _.curry(
  * @deprecated 1.46.0
  */
 export const mapProp = aspects.deprecate(
-  "mapProp",
-  "1.46.0",
-  "_.update"
+  'mapProp',
+  '1.46.0',
+  '_.update'
 )(noCap.update)
 
 /**
@@ -252,7 +252,7 @@ export let simpleDiff = (original, deltas) => {
  *
  * @signature (from, to) -> [simpleDiffChanges]
  */
-export let simpleDiffArray = _.flow(simpleDiff, unkeyBy("field"))
+export let simpleDiffArray = _.flow(simpleDiff, unkeyBy('field'))
 
 /**
  * Same as `simpleDiff`, but also takes in count deleted properties.
@@ -275,7 +275,7 @@ export let diff = (original, deltas) => {
  * @signature (from, to) -> [diffChanges]
  * @note We're considering not maintaining this in the long term, so you might probably have more success with any existing library for this purpose.
  */
-export let diffArray = _.flow(diff, unkeyBy("field"))
+export let diffArray = _.flow(diff, unkeyBy('field'))
 
 /**
  * A `_.pick` that mutates the object

@@ -1,5 +1,5 @@
 // From the Chakra CRA/TS starter
-import * as React from "react"
+import * as React from 'react'
 import {
   useColorMode,
   useColorModeValue,
@@ -9,14 +9,14 @@ import {
   Text,
   Box,
   HStack,
-} from "@chakra-ui/react"
-import { FaMoon, FaSun } from "react-icons/fa"
+} from '@chakra-ui/react'
+import { FaMoon, FaSun } from 'react-icons/fa'
 
-type ColorModeSwitcherProps = Omit<IconButtonProps, "aria-label">
+type ColorModeSwitcherProps = Omit<IconButtonProps, 'aria-label'>
 
 export const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (props) => {
   const { toggleColorMode } = useColorMode()
-  const text = useColorModeValue("dark", "light")
+  const text = useColorModeValue('dark', 'light')
   const SwitchIcon = useColorModeValue(FaMoon, FaSun)
   const label = `Switch to ${text} mode`
 
@@ -34,9 +34,9 @@ export const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (props) => {
           />
         </Tooltip>
         <Text
-          display={{ base: "inherit", lg: "none" }}
-          align={"center"}
-          fontSize={"md"}
+          display={{ base: 'inherit', lg: 'none' }}
+          align={'center'}
+          fontSize={'md'}
         >
           {props.title}
         </Text>

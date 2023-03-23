@@ -14,12 +14,12 @@ import {
   GridItem,
   Grid,
   useDimensions,
-} from "@chakra-ui/react"
-import React from "react"
-import { Doc } from "../types/Doc"
-import { Badges } from "./Badges"
-import { Markdown } from "./Markdown"
-import { CodeSnippet } from "./CodeSnippet"
+} from '@chakra-ui/react'
+import React from 'react'
+import { Doc } from '../types/Doc'
+import { Badges } from './Badges'
+import { Markdown } from './Markdown'
+import { CodeSnippet } from './CodeSnippet'
 
 let headerHeight = 75
 
@@ -41,9 +41,9 @@ export let MethodBox = ({
     <Box
       id={`${doc.name}-method`}
       scrollMarginTop={headerHeight}
-      p={responsive["main"].padding}
+      p={responsive['main'].padding}
       rounded="md"
-      bg={useColorModeValue("contentBack.light", "contentBack.dark")}
+      bg={useColorModeValue('contentBack.light', 'contentBack.dark')}
     >
       <VStack spacing={4} align="stretch">
         <Grid templateColumns="repeat(12, 1fr)" gap={6}>
@@ -58,7 +58,7 @@ export let MethodBox = ({
               </Box>
             </Flex>
           </GridItem>
-          <GridItem {...responsive["signature"].styling}>
+          <GridItem {...responsive['signature'].styling}>
             <Code>{doc.signature}</Code>
           </GridItem>
         </Grid>

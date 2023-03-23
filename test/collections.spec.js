@@ -1,12 +1,12 @@
-import chai from "chai"
-import F from "../src/"
-import _ from "lodash/fp"
+import chai from 'chai'
+import F from '../src/'
+import _ from 'lodash/fp'
 
 chai.expect()
 const expect = chai.expect
 
-describe("Collections Functions", () => {
-  it("flowMap", () => {
+describe('Collections Functions', () => {
+  it('flowMap', () => {
     expect(
       F.flowMap(
         (n) => n + n,
@@ -16,24 +16,24 @@ describe("Collections Functions", () => {
     expect(
       F.flowMap(
         (s) => s.toUpperCase(),
-        (s) => s.split(""),
+        (s) => s.split(''),
         (s) => s.reverse(),
-        (s) => s.join("")
-      )(["Smart", "Procure"])
-    ).to.deep.equal(["TRAMS", "ERUCORP"])
+        (s) => s.join('')
+      )(['Smart', 'Procure'])
+    ).to.deep.equal(['TRAMS', 'ERUCORP'])
   })
-  it("findApply", () => {
+  it('findApply', () => {
     let x = {
       a: 1,
     }
-    expect(F.findApply((f) => x[f], ["b", "c", "a"])).to.equal(1)
-    expect(F.findApply((f) => x[f], ["b", "c"])).to.equal(undefined)
+    expect(F.findApply((f) => x[f], ['b', 'c', 'a'])).to.equal(1)
+    expect(F.findApply((f) => x[f], ['b', 'c'])).to.equal(undefined)
     let xs = [{ b: 2 }, { c: 3 }, { a: 1 }]
     expect(F.findApply((f) => f.a, xs)).to.equal(1)
-    expect(F.findApply("a", xs)).to.equal(1)
-    expect(F.findApply("d", xs)).to.equal(undefined)
+    expect(F.findApply('a', xs)).to.equal(1)
+    expect(F.findApply('d', xs)).to.equal(undefined)
   })
-  it("map", () => {
+  it('map', () => {
     // map plain arrays
     expect(F.map((x) => x * x, [1, 2, 3])).to.deep.equal([1, 4, 9])
     // map plain objects
@@ -43,8 +43,8 @@ describe("Collections Functions", () => {
       c: 9,
     })
   })
-  describe("deepMap", () => {
-    it("deepMap arrays", () => {
+  describe('deepMap', () => {
+    it('deepMap arrays', () => {
       // arrays
       const arr = [0, [1, [2, []]]]
       const arrBackup = _.cloneDeep(arr)
@@ -53,7 +53,7 @@ describe("Collections Functions", () => {
       expect(arr).to.deep.equal(arrBackup)
       expect(arrMutated).to.deep.equal([0, [1, [2, [101], 101], 101]])
     })
-    it("deepMap plain objects", () => {
+    it('deepMap plain objects', () => {
       const objA = {
         a: {
           match: {
@@ -72,7 +72,7 @@ describe("Collections Functions", () => {
         },
       }
       const objABackup = _.cloneDeep(objA)
-      const pathA = "match.matched"
+      const pathA = 'match.matched'
       const setMatchedA = (e) => e.match && _.set(pathA, true, e)
       const objAMutated = F.deepMap((e) => setMatchedA(e) || e)(objA)
       //      Checking immutability
@@ -98,7 +98,7 @@ describe("Collections Functions", () => {
         },
       })
     })
-    it("deepMap with plain objects with arrays with objects", () => {
+    it('deepMap with plain objects with arrays with objects', () => {
       const objB = {
         a: {
           array: [0, [1, [2, [{ match: { id: 0 } }]]]],
@@ -118,7 +118,7 @@ describe("Collections Functions", () => {
         },
       }
       const objBBackup = _.cloneDeep(objB)
-      const pathB = "match.matched"
+      const pathB = 'match.matched'
       const setMatchedB = (e) => e.match && _.set(pathB, true, e)
       const push101 = (e) => _.isArray(e) && e.concat(101)
       const objBMutated = F.deepMap((e) => push101(e) || setMatchedB(e) || e)(
@@ -153,32 +153,32 @@ describe("Collections Functions", () => {
       })
     })
   })
-  it("insertAtIndex", () => {
+  it('insertAtIndex', () => {
     let arr = [1, 2, 3]
     let x = F.insertAtIndex(1, 5, arr)
     expect(x).to.deep.equal([1, 5, 2, 3])
     expect(arr).to.deep.equal([1, 2, 3])
 
-    expect(F.insertAtIndex(1, "z", "abc")).to.equal("azbc")
+    expect(F.insertAtIndex(1, 'z', 'abc')).to.equal('azbc')
 
-    var result = F.insertAtIndex(0, "<span>", "pretty please")
-    expect(result).to.equal("<span>pretty please")
+    var result = F.insertAtIndex(0, '<span>', 'pretty please')
+    expect(result).to.equal('<span>pretty please')
   })
-  it("compactMap", () => {
-    let names = ["adam", "betty", "carlos", "doug", "emily"]
-    let exceptDoug = (fn) => (x) => x === "doug" ? undefined : fn(x)
+  it('compactMap', () => {
+    let names = ['adam', 'betty', 'carlos', 'doug', 'emily']
+    let exceptDoug = (fn) => (x) => x === 'doug' ? undefined : fn(x)
     expect(F.compactMap(_.capitalize, names)).to.deep.equal([
-      "Adam",
-      "Betty",
-      "Carlos",
-      "Doug",
-      "Emily",
+      'Adam',
+      'Betty',
+      'Carlos',
+      'Doug',
+      'Emily',
     ])
     expect(F.compactMap(exceptDoug(_.capitalize), names)).to.deep.equal([
-      "Adam",
-      "Betty",
-      "Carlos",
-      "Emily",
+      'Adam',
+      'Betty',
+      'Carlos',
+      'Emily',
     ])
     expect(F.compactMap((x) => x - 2, [0, 1, 2, 3])).to.deep.equal([-2, -1, 1])
   })

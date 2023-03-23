@@ -1,5 +1,5 @@
-import F from "futil"
-import _ from "lodash/fp"
+import F from 'futil'
+import _ from 'lodash/fp'
 
 // Needed because calling methods with unexpected parameters could cause exceptions
 export let ignoreError = _.curryN(2, (f, ...args) => {
@@ -27,7 +27,7 @@ export let exploreAPI = (lib, inputs, output, e = (x) => x) => {
   return findKeys(
     ignoreError(
       (f) =>
-        !_.get("state.isDeprecated", f) &&
+        !_.get('state.isDeprecated', f) &&
         _.isEqual(F.maybeCall(f, ...inputValues), expected)
     ),
     lib

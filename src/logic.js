@@ -1,6 +1,6 @@
-import _ from "lodash/fp"
-import { callOrReturn } from "./function"
-import { exists } from "./lang"
+import _ from 'lodash/fp'
+import { callOrReturn } from './function'
+import { exists } from './lang'
 
 /**
  * Creates a function that checks if none of the array of predicates passed in returns truthy for `x`

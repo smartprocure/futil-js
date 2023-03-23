@@ -7,18 +7,18 @@ engines:
           mass_threshold: 80
 ratings:
   paths:
-    - "**.inc"
-    - "**.js"
-    - "**.ts"
-    - "**.jsx"
-    - "**.tsx"
-    - "**.module"
-    - "**.php"
-    - "**.py"
-    - "**.rb"
+    - '**.inc'
+    - '**.js'
+    - '**.ts'
+    - '**.jsx'
+    - '**.tsx'
+    - '**.module'
+    - '**.php'
+    - '**.py'
+    - '**.rb'
 exclude_paths:
-  - "lib/"
-  - "tests/"
-  - "docs/"
-  - "spec/"
-  - "**/vendor/"
+  - 'lib/'
+  - 'tests/'
+  - 'docs/'
+  - 'spec/'
+  - '**/vendor/'

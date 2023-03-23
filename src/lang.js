@@ -3,8 +3,8 @@
  * @module lang
  */
 
-import _ from "lodash/fp"
-import { tree } from "./tree"
+import _ from 'lodash/fp'
+import { tree } from './tree'
 
 /**
  * Just throws whatever it is passed.
@@ -54,7 +54,7 @@ export let append = _.curry((x, y) => y + x)
  */
 export let isBlank = _.overSome([
   _.isNil,
-  _.isEqual(""),
+  _.isEqual(''),
   _.isEqual([]),
   _.isEqual({}),
 ])

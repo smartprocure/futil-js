@@ -11,12 +11,12 @@ import {
   Box,
   Spacer,
   Flex,
-} from "@chakra-ui/react"
-import LogoLight from "../../logos/logo-light.svg"
-import LogoDark from "../../logos/logo-dark.svg"
-import { CgMenu } from "react-icons/cg"
-import { navIcons } from "../header/NavIcons"
-import { SearchInputs } from "./SearchInputs"
+} from '@chakra-ui/react'
+import LogoLight from '../../logos/logo-light.svg'
+import LogoDark from '../../logos/logo-dark.svg'
+import { CgMenu } from 'react-icons/cg'
+import { navIcons } from '../header/NavIcons'
+import { SearchInputs } from './SearchInputs'
 
 //Tool tip content to use
 const toolTipInOut = {
@@ -39,7 +39,7 @@ export let PageHeader = ({
 }) => (
   <>
     <Box>
-      <HStack onClick={() => dispatch({ page: "home" })} cursor="pointer">
+      <HStack onClick={() => dispatch({ page: 'home' })} cursor="pointer">
         <Image
           height={45}
           paddingBottom={1}
@@ -48,8 +48,8 @@ export let PageHeader = ({
       </HStack>
     </Box>
     <Spacer />
-    <Flex direction={"row"} gap={1} display={responsive.nav.showDesktopInputs}>
-      {page === "docs" && (
+    <Flex direction={'row'} gap={1} display={responsive.nav.showDesktopInputs}>
+      {page === 'docs' && (
         <SearchInputs
           input={input}
           output={output}
@@ -66,7 +66,7 @@ export let PageHeader = ({
       <Menu>
         <MenuButton
           as={IconButton}
-          color={useColorModeValue("hamburgerMenu.light", "hamburgerMenu.dark")}
+          color={useColorModeValue('hamburgerMenu.light', 'hamburgerMenu.dark')}
           aria-label="Options"
           icon={<CgMenu size={30} />}
           variant="ghost"
@@ -78,14 +78,14 @@ export let PageHeader = ({
         />
         <MenuList>
           <MenuItem>
-            <Flex direction={"column"} w={"100%"}>
+            <Flex direction={'column'} w={'100%'}>
               {navIcons({ page, dispatch, responsive })}
             </Flex>
           </MenuItem>
         </MenuList>
       </Menu>
     </Box>
-    <Flex display={responsive.nav.showDesktopIcons} direction={"row"}>
+    <Flex display={responsive.nav.showDesktopIcons} direction={'row'}>
       {navIcons({ page, dispatch, responsive })}
     </Flex>
     <GridItem colSpan={1}></GridItem>
