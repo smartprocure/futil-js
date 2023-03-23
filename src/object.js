@@ -57,7 +57,7 @@ export const isNotEmptyObject = _.negate(isEmptyObject)
 /**
  * Omit properties whose values are empty objects.
  *
- * @note (*TODO* rename to `omitEmptyObjects`)
+ * @note (_TODO_ rename to `omitEmptyObjects`)
  * @example { a:1, b:{}, c:2 } -> {a:1, c:2}
  */
 export const stripEmptyObjects = _.pickBy(isNotEmptyObject)
@@ -67,7 +67,7 @@ export const stripEmptyObjects = _.pickBy(isNotEmptyObject)
 // { a: { b: 1, c: 2 } }, [ 'b' ] -> { a: { b: 1 } }
 
 /**
- * *TODO*
+ * _TODO_
  */
 export const pickInto = (map, source) => _.mapValues(pickIn(source), map)
 
@@ -88,7 +88,7 @@ export const renameProperty = _.curry((from, to, target) =>
  *
  * @signature k -> { k: [a, b] } -> [{ k: a }, { k: b }]
  * @example F.unwind('b', [{ a: true, b: [1, 2] }])
- *       //=> [{ a: true, b: 1 }, { a: true, b: 2 }]
+ * //=> [{ a: true, b: 1 }, { a: true, b: 2 }]
  */
 export const unwind = _.curry((prop, x) =>
   ifElse(
@@ -103,7 +103,10 @@ export const unwind = _.curry((prop, x) =>
  * Unwinds an array of objects instead of a single object, as you might expect if you're used to mongo's `$unwind`. Alias for `(key, data) => _.flatMap(F.unwind(key), data)`
  *
  * @signature k -> [{ k: [a, b] }] -> [{ k: a }, { k: b }]
- * @example F.unwindArray('b', [{ a: true, b: [1, 2] }, { a: false, b: [3, 4] }])
+ * @example F.unwindArray('b', [
+ *   { a: true, b: [1, 2] },
+ *   { a: false, b: [3, 4] },
+ * ])
  * //=> [
  * //=>  { a: true, b: 1 },
  * //=>  { a: true, b: 2 },
