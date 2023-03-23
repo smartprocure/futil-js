@@ -19,6 +19,7 @@ let asyncCall = (prop, f) => {
   if (prop.then) return prop.then(f)
   return f(prop)
 }
+// This implementation of `flow` spreads args to the first method and takes a method to determine how to combine function calls
 let flowWith =
   (call) =>
   (fn0, ...fns) =>
