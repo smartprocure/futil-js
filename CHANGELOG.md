@@ -1,6 +1,7 @@
 # 1.73.2
 
 - Curried `wrap`, improved behavior with undefined content, and updated internal usage
+- Handle nulls for `prefixes`
 
 # 1.73.1
 
