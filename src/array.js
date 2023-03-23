@@ -133,7 +133,7 @@ export let flags = zipObjectDeepWith(_, () => true)
  * @signature ['a', 'b', 'c'] -> [['a'], ['a', 'b'], ['a', 'b', 'c']]
  */
 export let prefixes = (list) =>
-  _.range(1, list.length + 1).map((x) => _.take(x, list))
+  _.range(1, _.size(list) + 1).map((x) => _.take(x, list))
 
 /**
  * Creates an object with encode and decode functions for encoding arrays as strings. The input string is used as input for join/split.

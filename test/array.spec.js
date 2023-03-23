@@ -112,6 +112,7 @@ describe("Array Functions", () => {
       ["a", "b"],
       ["a", "b", "c"],
     ])
+    expect(F.prefixes(null)).to.deep.equal([])
   })
   it("encoder", () => {
     let encoder = F.encoder("->")
