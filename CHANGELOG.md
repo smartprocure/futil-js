@@ -1,3 +1,7 @@
+# 1.74.0
+
+- Add `flowAsync` and `promiseProps`
+
 # 1.73.3
 
 - Generate readme in CI
