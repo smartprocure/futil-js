@@ -3,7 +3,7 @@ import { writeFile, readFile } from "fs/promises"
 import docs from "../docs/data/docs.json"
 import tagDocs from "../docs/data/tag-docs.json"
 import { joinWith } from "./utils"
-import { wrap } from '../src/'
+import { wrap } from "../src/"
 
 // Renderers for doc fields
 let signature = wrap("`", "`\n")

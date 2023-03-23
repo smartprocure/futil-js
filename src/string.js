@@ -15,7 +15,10 @@ let blankString = when(isBlank, "")
  * @returns string
  */
 export const wrap = _.curry((pre, post, content) =>
-  isBlank(content) ? blankString(content) : blankString(pre) + content + blankString(post))
+  isBlank(content)
+    ? blankString(content)
+    : blankString(pre) + content + blankString(post)
+)
 export const quote = wrap('"', '"')
 
 /**
