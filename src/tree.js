@@ -8,6 +8,7 @@
 import _ from 'lodash/fp'
 import { findIndexed } from './conversion'
 import { push, dotEncoder, slashEncoder } from './array'
+import { compactMap } from './collection'
 
 /**
  * A default check if something can be traversed - currently it is arrays and plain objects.
@@ -263,10 +264,29 @@ export let flattenTree =
 export let flatLeaves = (next = traverse) => _.reject(next)
 
 /**
+ * Resolves all Promise nodes of a tree and replaces them with the result of calling `.then`
+ * Exposed on `F.tree` as `resolveOn`
+ * 
+ * @signature (traverse, writeNode) -> tree -> result
+ */
+export let resolveOnTree =
+  (next = traverse, writeNode = writeTreeNode(next)) =>
+  (tree) => {
+    let promises = []
+    walk(next)((node, ...args) => {
+      if (node.then)
+        // Mutates because `_.deepClone` on a tree of promises causes explosions
+        promises.push(node.then((newNode) => writeNode(newNode, ...args)))
+    })(tree)
+    // Dont return a promise if nothing was async
+    return _.isEmpty(promises) ? tree : Promise.all(promises).then(() => tree)
+  }
+
+/**
  * Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
 Exposes provided `traverse` function as `traverse`
  * 
- * @signature (traverse, buildIteratee, writeNode) -> {walk, reduce, transform, toArray, toArrayBy, leaves, leavesBy, map, mapLeaves, lookup, keyByWith, traverse, flatten, flatLeaves }
+ * @signature (traverse, buildIteratee, writeNode) -> { walk, walkAsync, transform, reduce, toArrayBy, toArray, leaves, leavesBy, lookup, keyByWith, traverse, flatten, flatLeaves, map, mapLeaves, resolveOn }
  */
 export let tree = (
   next = traverse,
@@ -288,4 +308,5 @@ export let tree = (
   flatLeaves: flatLeaves(next),
   map: mapTree(next, writeNode),
   mapLeaves: mapTreeLeaves(next, writeNode),
+  resolveOn: resolveOnTree(next, writeNode),
 })

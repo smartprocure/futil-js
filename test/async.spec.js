@@ -75,4 +75,25 @@ describe('Async Functions', () => {
       c: 4,
     })
   })
+  it('resolveOnTree', async () => {
+    let slow = _.curryN(2, async (f, ...args) => {
+      await Promise.delay(10)
+      return f(...args)
+    })
+    let slowAdd = slow((x, y) => x + y)
+    let slowDouble = slow((x) => x * 2)
+
+    let Tree = F.tree()
+    let tree = {
+      a: { b: slowAdd(1, 2) },
+      c: [slowAdd(3, 4), { d: 5, e: slowDouble(2) }],
+    }
+    let expected = { a: { b: 3 }, c: [7, { d: 5, e: 4 }] }
+    // Tree is resolved with Promises replaced with results
+    expect(await Tree.resolveOn(tree)).to.deep.equal(expected)
+    // Original tree is mutated
+    expect(tree).to.deep.equal(expected)
+    // No need to await when there are no promises, original tree is returned
+    expect(Tree.resolveOn(expected)).to.deep.equal(expected)
+  })
 })
