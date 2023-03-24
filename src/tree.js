@@ -266,7 +266,8 @@ export let flatLeaves = (next = traverse) => _.reject(next)
 /**
  * Resolves all Promise nodes of a tree and replaces them with the result of calling `.then`
  * Exposed on `F.tree` as `resolveOn`
- * 
+ * _CAUTION_ This method mutates the tree passed in. This is generally safe and more performant (and can be intuited from the `On` convention in the name), but it's worth calling out.
+ *
  * @signature (traverse, writeNode) -> tree -> result
  */
 export let resolveOnTree =
