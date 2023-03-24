@@ -59,7 +59,13 @@ If nothing is async, it _stays synchronous_.
 Also, it handles awaiting arrays of promises (e.g. from _.map) with `Promise.all` and objects of promises (e.g. from _.mapValues) with `promiseProps`.
 This method generally solves most issues with using futil/lodash methods asynchronously. It's like magic!
 NOTE: Main gotchas are methods that require early exit like `find` which can't be automatically async-ified. Also does not handle promises for keys.
-Use `F.resolveTree` to await more complexly nested promises.
+Use `F.resolveOnTree` to await more complexly nested promises.
+
+### flowAsyncDeep
+
+`(f1, f2, ...fn) -> (...args) => fn(f2(f1(...args)))`
+Just like `F.flowAsync`, except it recurses through return values using `F.resolveOnTree` instead of just `Promise.all` or `promise.props`
+_CAUTION_ Just like `resolveOnTree`, this will mutate intermediate results to resolve promises. This is generally safe (and more performant) but might not always be what you expect.
 
 ## Function
 
@@ -1266,8 +1272,15 @@ Creates a path builder for use in `flattenTree`, using a slashEncoder and using 
 `traverse -> buildPath -> tree -> result`
 Creates a flat object with a property for each node, using `buildPath` to determine the keys. `buildPath` takes the same arguments as a tree walking iteratee. It will default to a dot tree path.
 
+### resolveOnTree
+
+`(traverse, writeNode) -> tree -> result`
+Resolves all Promise nodes of a tree and replaces them with the result of calling `.then`
+Exposed on `F.tree` as `resolveOn`
+_CAUTION_ This method mutates the tree passed in. This is generally safe and more performant (and can be intuited from the `On` convention in the name), but it's worth calling out.
+
 ### tree
 
-`(traverse, buildIteratee, writeNode) -> {walk, reduce, transform, toArray, toArrayBy, leaves, leavesBy, map, mapLeaves, lookup, keyByWith, traverse, flatten, flatLeaves }`
+`(traverse, buildIteratee, writeNode) -> { walk, walkAsync, transform, reduce, toArrayBy, toArray, leaves, leavesBy, lookup, keyByWith, traverse, flatten, flatLeaves, map, mapLeaves, resolveOn }`
 Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
 Exposes provided `traverse` function as `traverse`
