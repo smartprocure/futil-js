@@ -96,4 +96,15 @@ describe('Async Functions', () => {
     // No need to await when there are no promises, original tree is returned
     expect(Tree.resolveOn(expected)).to.deep.equal(expected)
   })
+  it('flowAsyncDeep', async () => {
+    let slow = _.curryN(2, async (f, ...args) => {
+      await Promise.delay(10)
+      return f(...args)
+    })
+    let add1 = slow((x) => x + 1)
+
+    expect(
+      await F.flowAsyncDeep(_.update('a.b', add1))({ a: { b: 1, c: 2 } })
+    ).to.deep.equal({ a: { b: 2, c: 2 } })
+  })
 })
