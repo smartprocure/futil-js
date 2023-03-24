@@ -106,10 +106,10 @@ export let reduceTree = (next = traverse) =>
     return result
   })
 
-let writeProperty =
+let writeTreeNode =
   (next = traverse) =>
-  (node, index, [parent]) => {
-    next(parent)[index] = node
+  (node, index, [parent, ...parents], [parentIndex, ...indexes]) => {
+    next(parent, parentIndex, parents, indexes)[index] = node
   }
 
 /**
@@ -117,7 +117,7 @@ let writeProperty =
  *
  * @signature (traverse, writeNode) -> f -> tree -> newTree
  */
-export let mapTree = (next = traverse, writeNode = writeProperty(next)) =>
+export let mapTree = (next = traverse, writeNode = writeTreeNode(next)) =>
   _.curry(
     (mapper, tree) =>
       transformTree(next)((node, i, parents, ...args) => {
@@ -131,7 +131,7 @@ export let mapTree = (next = traverse, writeNode = writeProperty(next)) =>
  *
  * @signature (traverse, writeNode) -> f -> tree -> newTree
  */
-export let mapTreeLeaves = (next = traverse, writeNode = writeProperty(next)) =>
+export let mapTreeLeaves = (next = traverse, writeNode = writeTreeNode(next)) =>
   _.curry((mapper, tree) =>
     // this unless wrapping can be done in user land, this is pure convenience
     // mapTree(next, writeNode)(F.unless(next, mapper), tree)
@@ -271,7 +271,7 @@ Exposes provided `traverse` function as `traverse`
 export let tree = (
   next = traverse,
   buildIteratee = _.identity,
-  writeNode = writeProperty(next)
+  writeNode = writeTreeNode(next)
 ) => ({
   walk: walk(next),
   walkAsync: walkAsync(next),
