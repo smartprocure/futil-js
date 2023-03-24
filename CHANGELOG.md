@@ -1,6 +1,8 @@
 # 1.74.0
 
 - Add `flowAsync` and `promiseProps`
+- Add `flowAsyncDeep` and `resolveOnTree`
+- Pass along all tree iteratee props in `writeTreeNode` (default writeNode for tree maps) and rename interally from writeProperty to writeTreeNode
 
 # 1.73.3
 
