@@ -8,7 +8,6 @@
 import _ from 'lodash/fp'
 import { findIndexed } from './conversion'
 import { push, dotEncoder, slashEncoder } from './array'
-import { compactMap } from './collection'
 
 /**
  * A default check if something can be traversed - currently it is arrays and plain objects.
