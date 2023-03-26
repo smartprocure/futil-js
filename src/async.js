@@ -8,7 +8,10 @@ import { resolveOnTree } from './tree'
  */
 export let promiseProps =
   Promise.props ||
-  (async (x) => _.zipObject(_.keys(x), await Promise.all(_.values(x))))
+  ((x) =>
+    Promise.all(_.values(x)).then((values) => _.zipObject(_.keys(x), values)))
+// async/await still causes regeneratorRuntime issues downstream :(
+// (async (x) => _.zipObject(_.keys(x), await Promise.all(_.values(x))))
 
 // Calls then conditionally, allowing flow to be used synchronously, too
 let asyncCall = (value, f) => (value.then ? value.then(f) : f(value))
