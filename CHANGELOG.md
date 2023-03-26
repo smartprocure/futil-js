@@ -1,3 +1,7 @@
+# 1.74.1
+
+- Remove async/await in async `promiseProps` method to avoid downstream regeneratorRuntime issues
+
 # 1.74.0
 
 - Add `flowAsync` and `promiseProps`
