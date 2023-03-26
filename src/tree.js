@@ -106,10 +106,10 @@ export let reduceTree = (next = traverse) =>
     return result
   })
 
-let writeProperty =
+let writeTreeNode =
   (next = traverse) =>
-  (node, index, [parent]) => {
-    next(parent)[index] = node
+  (node, index, [parent, ...parents], [parentIndex, ...indexes]) => {
+    next(parent, parentIndex, parents, indexes)[index] = node
   }
 
 /**
@@ -117,7 +117,7 @@ let writeProperty =
  *
  * @signature (traverse, writeNode) -> f -> tree -> newTree
  */
-export let mapTree = (next = traverse, writeNode = writeProperty(next)) =>
+export let mapTree = (next = traverse, writeNode = writeTreeNode(next)) =>
   _.curry(
     (mapper, tree) =>
       transformTree(next)((node, i, parents, ...args) => {
@@ -131,7 +131,7 @@ export let mapTree = (next = traverse, writeNode = writeProperty(next)) =>
  *
  * @signature (traverse, writeNode) -> f -> tree -> newTree
  */
-export let mapTreeLeaves = (next = traverse, writeNode = writeProperty(next)) =>
+export let mapTreeLeaves = (next = traverse, writeNode = writeTreeNode(next)) =>
   _.curry((mapper, tree) =>
     // this unless wrapping can be done in user land, this is pure convenience
     // mapTree(next, writeNode)(F.unless(next, mapper), tree)
@@ -263,15 +263,35 @@ export let flattenTree =
 export let flatLeaves = (next = traverse) => _.reject(next)
 
 /**
+ * Resolves all Promise nodes of a tree and replaces them with the result of calling `.then`
+ * Exposed on `F.tree` as `resolveOn`
+ * _CAUTION_ This method mutates the tree passed in. This is generally safe and more performant (and can be intuited from the `On` convention in the name), but it's worth calling out.
+ *
+ * @signature (traverse, writeNode) -> tree -> result
+ */
+export let resolveOnTree =
+  (next = traverse, writeNode = writeTreeNode(next)) =>
+  (tree) => {
+    let promises = []
+    walk(next)((node, ...args) => {
+      if (node.then)
+        // Mutates because `_.deepClone` on a tree of promises causes explosions
+        promises.push(node.then((newNode) => writeNode(newNode, ...args)))
+    })(tree)
+    // Dont return a promise if nothing was async
+    return _.isEmpty(promises) ? tree : Promise.all(promises).then(() => tree)
+  }
+
+/**
  * Takes a traversal function and returns an object with all of the tree methods pre-applied with the traversal. This is useful if you want to use a few of the tree methods with a custom traversal and can provides a slightly nicer api.
 Exposes provided `traverse` function as `traverse`
  * 
- * @signature (traverse, buildIteratee, writeNode) -> {walk, reduce, transform, toArray, toArrayBy, leaves, leavesBy, map, mapLeaves, lookup, keyByWith, traverse, flatten, flatLeaves }
+ * @signature (traverse, buildIteratee, writeNode) -> { walk, walkAsync, transform, reduce, toArrayBy, toArray, leaves, leavesBy, lookup, keyByWith, traverse, flatten, flatLeaves, map, mapLeaves, resolveOn }
  */
 export let tree = (
   next = traverse,
   buildIteratee = _.identity,
-  writeNode = writeProperty(next)
+  writeNode = writeTreeNode(next)
 ) => ({
   walk: walk(next),
   walkAsync: walkAsync(next),
@@ -288,4 +308,5 @@ export let tree = (
   flatLeaves: flatLeaves(next),
   map: mapTree(next, writeNode),
   mapLeaves: mapTreeLeaves(next, writeNode),
+  resolveOn: resolveOnTree(next, writeNode),
 })

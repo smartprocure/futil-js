@@ -1,5 +1,6 @@
 import _ from 'lodash/fp'
 
+export * from './async'
 export * from './conversion'
 export * from './collection'
 export * from './function'
@@ -14,6 +15,7 @@ export * from './lens'
 export * from './tree'
 export * from './iterators'
 
+import * as async from './async'
 import * as conversion from './conversion'
 import * as collection from './collection'
 import * as fn from './function'
@@ -60,6 +62,7 @@ export const VERSION = global.__VERSION__
 
 // Allows `import F from 'futil-js'`
 export default {
+  ...async,
   ...conversion,
   ...collection,
   ...fn,
