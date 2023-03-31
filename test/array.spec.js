@@ -166,19 +166,27 @@ describe('Array Functions', () => {
     expect(toggleB(false)).to.deep.equal(['a', 'c'])
   })
   it('intersperse', () => {
+    // Handles iterator functions
     expect(
       F.intersperse(
         (acc, i, xs) => (i === xs.length - 1 ? 'and finally' : 'and'),
         [1, 2, 3, 4]
       )
     ).to.deep.equal([1, 'and', 2, 'and', 3, 'and finally', 4])
-    expect(F.intersperse('and', [1, 2, 3])).to.deep.equal([
-      1,
-      'and',
-      2,
-      'and',
-      3,
-    ])
+
+    // Handles values instead of iterators
+    expect(F.intersperse('&&', [1, 2, 3])).to.deep.equal([1, '&&', 2, '&&', 3])
+    expect(F.intersperse(4, [1, 2, 3])).to.deep.equal([1, 4, 2, 4, 3])
+
+    // Handles nonsense
+    expect(F.intersperse('and', undefined)).to.deep.equal([])
+    expect(F.intersperse('and', true)).to.deep.equal([])
+    expect(F.intersperse('and', 123)).to.deep.equal([])
+    expect(F.intersperse('and', [])).to.deep.equal([])
+    expect(F.intersperse('and', '123')).to.deep.equal([])
+
+    // Treats objects as value arrays
+    expect(F.intersperse('and', { a: 1, b: 2 })).to.deep.equal([1, 'and', 2])
   })
   it('replaceElementBy', () => {
     expect(F.replaceElementBy((c) => c > 10, 0, [1, 11, 3, 5])).to.deep.equal([
