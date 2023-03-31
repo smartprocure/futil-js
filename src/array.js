@@ -233,7 +233,7 @@ export let toggleElement = toggleElementBy(_.includes)
  */
 export let intersperse = _.curry((f, arr) => {
   // Handle nonsense
-  if(_.isEmpty(arr) || _.isString(arr)) return []
+  if (_.isEmpty(arr) || _.isString(arr)) return []
   // Use `_.values` to support objects
   let [x0, ...xs] = _.values(arr)
   return reduceIndexed(
