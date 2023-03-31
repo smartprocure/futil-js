@@ -231,14 +231,18 @@ export let toggleElement = toggleElementBy(_.includes)
  * // **Results:**
  * // **1**, **2** and **3**.
  */
-export let intersperse = _.curry((f, [x0, ...xs]) =>
-  reduceIndexed(
+export let intersperse = _.curry((f, arr) => {
+  // Handle nonsense
+  if (_.isEmpty(arr) || _.isString(arr)) return []
+  // Use `_.values` to support objects
+  let [x0, ...xs] = _.values(arr)
+  return reduceIndexed(
     (acc, x, i) =>
       i === xs.length ? [...acc, x] : [...acc, callOrReturn(f, acc, i, xs), x],
     [x0],
     xs
   )
-)
+})
 
 /**
  * Replaces an element in an array with `value` based on the boolean result of a function `fn`.

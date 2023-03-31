@@ -68,6 +68,7 @@ export let autoLabelOptions = _.map(autoLabelOption)
  */
 export let toSentenceWith = _.curry((separator, lastSeparator, array) =>
   _.flow(
+    when(_.isString, (x) => [x]),
     intersperse(
       differentLast(
         () => separator,

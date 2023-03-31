@@ -1,3 +1,8 @@
+# 1.74.2
+
+- Make `intersperse` handle more edge cases (undefined, null, stirngs, objects, etc)
+- Improve `toSentence` edge cases (mostly from improving intersperse, but also by making strings less surprising)
+
 # 1.74.1
 
 - Remove async/await in async `promiseProps` method to avoid downstream regeneratorRuntime issues
