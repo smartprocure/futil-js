@@ -81,9 +81,12 @@ describe('String Functions', () => {
     ).to.equal('first - second or third')
   })
   it('toSentence', () => {
-    expect(F.toSentence(['first', 'second', 'third'])).to.equal(
-      'first, second and third'
-    )
+    expect(F.toSentence(['1st', '2nd', '3rd'])).to.equal('1st, 2nd and 3rd')
+    expect(F.toSentence({ a: '1st', b: '2nd' })).to.equal('1st and 2nd')
+    expect(F.toSentence(undefined)).to.equal('')
+    // Edge cases
+    expect(F.toSentence('1234')).to.equal('1234')
+    expect(F.toSentence(1234)).to.equal('')
   })
   it('uniqueStringWith', () => {
     let a = ['foo20', 'foo21', 'foo23', 'foo24', 'foo25']
