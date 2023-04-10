@@ -192,6 +192,33 @@ describe('Object Functions', () => {
     const new1 = F.renameProperty('c', 'b', o)
     expect(new1).to.deep.equal({ a: 1 })
   })
+  it('renamePropertyOn', () => {
+    const o = { a: 1, d: { e: 2 } }
+    const newO = F.renamePropertyOn('a', 'b', o)
+    expect(newO).to.deep.equal(o)
+    expect(newO).to.deep.equal({ b: 1, d: { e: 2 } })
+
+    // Does not set target property if source property does not exist
+    const new1 = F.renamePropertyOn('c', 'b', o)
+    expect(new1).to.deep.equal({ b: 1, d: { e: 2 } })
+
+    // Nested Case
+    F.renamePropertyOn('d.e', 'd.f', o)
+    expect(o).to.deep.equal({ b: 1, d: { f: 2 } })
+  })
+  it('unsetProperty', () => {
+    // Basic case
+    let basic = { a: 1, b: 2, c: 3 }
+    let a = F.unsetProperty('a', basic)
+    expect(a).to.equal(1)
+    expect(basic).to.deep.equal({ b: 2, c: 3 })
+
+    // Nested case
+    let nested = { a: 1, b: 2, c: 3, d: { e: 4, f: 5 } }
+    let e = F.unsetProperty('d.e', nested)
+    expect(e).to.equal(4)
+    expect(nested).to.deep.equal({ a: 1, b: 2, c: 3, d: { f: 5 } })
+  })
   it('matchesSignature', () => {
     expect(F.matchesSignature([], 0)).to.be.false
     expect(F.matchesSignature([], '')).to.be.false

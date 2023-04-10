@@ -9,6 +9,8 @@ import {
   hasIn,
   mapIndexed,
   mapValuesIndexed,
+  unsetOn,
+  setOn,
 } from './conversion'
 import { findApply } from './collection'
 import { aspects } from './aspect'
@@ -82,6 +84,36 @@ export const renameProperty = _.curry((from, to, target) =>
     ? _.flow((x) => _.set(to, _.get(from, x), x), _.unset(from))(target)
     : target
 )
+
+/**
+ *  Rename a property on an object.
+ *  **NOTE**:Mutates the object
+ *
+ * @since 1.75.0
+ * @signature sourcePropertyName -> targetPropertyName -> sourceObject -> sourceObject
+ * @example renamePropertyOn('a', 'b', { a: 1 }) -> { b: 1 }
+ */
+export const renamePropertyOn = _.curry((from, to, target) => {
+  if (_.has(from, target))
+    _.flow((x) => setOn(to, _.get(from, x), x), unsetOn(from))(target)
+  return target
+})
+
+/**
+ * Removes a property from an object and returns the removed value.
+ * Like `F.unsetOn`, but returns the removed value instead of the mutated object.
+ * Supports nested properties using dot notation.
+ * NOTE: Mutates the object. If you don't want mutation, you probably want `_.unset` for the object or `_.get` for the value.
+ * @since 1.75.0
+ * @signature k -> { k: v } -> v
+ */
+export const unsetProperty = _.curry((prop, obj) => {
+  if (_.has(prop, obj)) {
+    let value = _.get(prop, obj)
+    unsetOn(prop, obj)
+    return value
+  }
+})
 
 /**
  * Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property or a property whose value is not an array returns an empty array.

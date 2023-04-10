@@ -1,3 +1,7 @@
+# 1.75.0
+
+- Add `renamePropertyOn`, `unsetProperty`
+
 # 1.74.2
 
 - Make `intersperse` handle more edge cases (undefined, null, stirngs, objects, etc)
