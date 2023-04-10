@@ -3,6 +3,7 @@
 - Add `renamePropertyOn`, `unsetProperty`
 - Add `updateOwn`, `updateOwnOn`, `updateSome`, `updateSomeOn`, `updateAll`, `updateAllOn`
 - Add `crunchWhitespace`
+- Export `writeTreeNode`
 
 # 1.74.2
 
