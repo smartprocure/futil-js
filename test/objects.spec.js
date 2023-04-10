@@ -782,4 +782,152 @@ describe('Object Functions', () => {
 
     expect(F.firstCommonKey(providers, schema)).to.equal('elasticsearch')
   })
+  it('updateOwn', () => {
+    let target = { a: 1, b: 2 }
+    let output = F.updateOwn('a', (x) => x + 1, target)
+    expect(output).to.deep.equal({ a: 2, b: 2 })
+    
+    // Does note mutate
+    expect(output).not.to.deep.equal(target)
+
+    // Does not run for missing keys
+    let missingCase = F.updateOwn('c', (x) => x + 1, { a: 1, b: 2 })
+    expect(missingCase).to.deep.equal({ a: 1, b: 2 })
+  })
+  it('updateOwnOn', () => {
+    let target = { a: 1, b: 2 }
+    let output = F.updateOwnOn('a', (x) => x + 1, target)
+    expect(output).to.deep.equal({ a: 2, b: 2 })
+    
+    // Mutates
+    expect(output).to.deep.equal(target)
+
+    // Does not run for missing keys
+    let missingCase = F.updateOwnOn('c', (x) => x + 1, { a: 1, b: 2 })
+    expect(missingCase).to.deep.equal({ a: 1, b: 2 })
+  })
+  it('updateSome', () => {
+    let transforms = {
+      a: (x) => x + 5,
+      // iteratee support
+      c: 'd',
+      // nested support
+      e: {
+        f: (x) => x * 2,
+      },
+      // nested paths support
+      'e.h': (x) => x + 3,
+      // does not apply transforms if the keys are missing
+      notInObject: () => 'not there',
+    }
+    let input = {
+      a: 1,
+      b: 2,
+      c: { d: 1 },
+      e: { f: 1, g: 2, h: 3 },
+    }
+    let output = F.updateSome(transforms, input)
+    // Handle all cases
+    expect(output).to.deep.equal({ a: 6, b: 2, c: 1, e: { f: 2, g: 2, h: 6 } })
+    // Immutable
+    expect(output).not.to.deep.equal(input)
+    // Handle null transforms
+    expect(F.updateSome(null, { a: 1 })).to.deep.equal({ a: 1 })
+  })
+  it('updateAll', () => {
+    let transforms = {
+      a: (x) => x + 5,
+      // iteratee support
+      c: 'd',
+      // nested support
+      e: {
+        f: (x) => x * 2,
+      },
+      // nested paths support
+      'e.h': (x) => x + 3,
+      // applies transforms even if the keys are missing
+      notInObject: () => 'not there',
+    }
+    let input = {
+      a: 1,
+      b: 2,
+      c: { d: 1 },
+      e: { f: 1, g: 2, h: 3 },
+    }
+    let output = F.updateAll(transforms, input)
+    // Handle all cases
+    expect(output).to.deep.equal({
+      a: 6,
+      b: 2,
+      c: 1,
+      e: { f: 2, g: 2, h: 6 },
+      notInObject: 'not there',
+    })
+    // Immutable
+    expect(output).not.to.deep.equal(input)
+    // Handle null transforms
+    expect(F.updateAll(null, { a: 1 })).to.deep.equal({ a: 1 })
+  })
+  it('updateSomeOn', () => {
+    let transforms = {
+      a: (x) => x + 5,
+      // iteratee support
+      c: 'd',
+      // nested support
+      e: {
+        f: (x) => x * 2,
+      },
+      // nested paths support
+      'e.h': (x) => x + 3,
+      // does not apply transforms if the keys are missing
+      notInObject: () => 'not there',
+    }
+    let input = {
+      a: 1,
+      b: 2,
+      c: { d: 1 },
+      e: { f: 1, g: 2, h: 3 },
+    }
+    let output = F.updateSomeOn(transforms, input)
+    // Handle all cases
+    expect(output).to.deep.equal({ a: 6, b: 2, c: 1, e: { f: 2, g: 2, h: 6 } })
+    // Mutable
+    expect(output).to.deep.equal(input)
+    // Handle null transforms
+    expect(F.updateSomeOn(null, { a: 1 })).to.deep.equal({ a: 1 })
+  })
+  it('updateAllOn', () => {
+    let transforms = {
+      a: (x) => x + 5,
+      // iteratee support
+      c: 'd',
+      // nested support
+      e: {
+        f: (x) => x * 2,
+      },
+      // nested paths support
+      'e.h': (x) => x + 3,
+      // applies transforms even if the keys are missing
+      notInObject: () => 'not there',
+    }
+    let input = {
+      a: 1,
+      b: 2,
+      c: { d: 1 },
+      e: { f: 1, g: 2, h: 3 },
+    }
+    let output = F.updateAllOn(transforms, input)
+    // Handle all cases
+    expect(output).to.deep.equal({
+      a: 6,
+      b: 2,
+      c: 1,
+      e: { f: 2, g: 2, h: 6 },
+      notInObject: 'not there',
+    })
+    // Mutable
+    expect(output).to.deep.equal(input)
+    // Handle null transforms
+    expect(F.updateAllOn(null, { a: 1 })).to.deep.equal({ a: 1 })
+  })
 })

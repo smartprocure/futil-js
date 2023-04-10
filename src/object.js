@@ -9,6 +9,8 @@ import {
   hasIn,
   mapIndexed,
   mapValuesIndexed,
+  eachIndexed,
+  updateOn,
   unsetOn,
   setOn,
 } from './conversion'
@@ -441,4 +443,95 @@ let findKeyIndexed = _.findKey.convert({ cap: false })
  */
 export let firstCommonKey = _.curry((x, y) =>
   findKeyIndexed((val, key) => _.has(key, x), y)
+)
+
+/**
+ * Like `_.update`, but does not call the iteratee if the path is missing on the object (so only update "own" properties)
+ * @signature (path, updater, object) -> object
+ * @since 1.75.0
+ */
+export let updateOwn = _.curry((path, updater, object) =>
+  _.has(path, object) ? _.update(path, updater, object) : object
+)
+
+
+/**
+ * Like `F.updateOn`, but does not call the iteratee if the path is missing on the object (so only update "own" properties)
+ * *Mutates* the object
+ * @signature (path, updater, object) -> object
+ * @since 1.75.0
+ */
+export let updateOwnOn = _.curry((path, updater, object) =>
+  _.has(path, object) ? updateOn(path, updater, object) : object
+)
+
+
+let _updateMany = _.curry((updater, transforms, data) =>
+  _.flow(
+    flattenObject,
+    eachIndexed((transform, path) =>
+      updater(path, _.iteratee(transform), data)
+    ),
+    () => data // return mutated data
+  )(transforms)
+)
+
+/**
+ * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+ * Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+ * Transforms are **not** called for paths that do not exist in the target object.
+ * Transform functions support lodash iteratee shorthand syntax.
+ * Deep paths are supported by nesting objects and by dotted the keys
+ *
+ * Note: *Mutates* the target object for performance. If you don't want this, use `updateAll` or clone first.
+ *
+ * @signature ({ path: transform }, target) -> obj
+ * @since 1.75.0
+ */
+export let updateSomeOn = _updateMany(updateOwnOn)
+
+/**
+ * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+ * Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+ * Transforms **are** called for paths that do not exist in the target object.
+ * Transform functions support lodash iteratee shorthand syntax.
+ * Deep paths are supported by nesting objects and by dotted the keys
+ *
+ * Note: *Mutates* the target object for performance. If you don't want this, use `updateAll` or clone first.
+ *
+ * @signature ({ path: transform }, target) -> obj
+ * @since 1.75.0
+ */
+export let updateAllOn = _updateMany(updateOn)
+
+/**
+ * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+ * Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+ * Transforms **are** called for paths that do not exist in the target object.
+ * Transform functions support lodash iteratee shorthand syntax.
+ * Deep paths are supported by nesting objects and by dotted the keys
+ *
+ * *Note* Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllOn` to avoid the `_.deepClone`
+ *
+ * @signature ({ path: transform }, target) -> obj
+ * @since 1.75.0
+ */
+export let updateAll = _.curry((transforms, data) =>
+  updateAllOn(transforms, _.cloneDeep(data))
+)
+
+/**
+ * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+ * Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+ * Transforms are **not** called for paths that do not exist in the target object.
+ * Transform functions support lodash iteratee shorthand syntax.
+ * Deep paths are supported by nesting objects and by dotted the keys
+ *
+ * *Note* Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllOn` to avoid the `_.deepClone`
+ *
+ * @signature ({ path: transform }, target) -> obj
+ * @since 1.75.0
+ */
+export let updateSome = _.curry((transforms, data) =>
+  updateSomeOn(transforms, _.cloneDeep(data))
 )

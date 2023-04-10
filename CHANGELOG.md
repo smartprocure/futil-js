@@ -1,6 +1,7 @@
 # 1.75.0
 
 - Add `renamePropertyOn`, `unsetProperty`
+- Add `updateOwn`, `updateOwnOn`, `updateSome`, `updateSomeOn`, `updateAll`, `updateAllOn`
 
 # 1.74.2
 
