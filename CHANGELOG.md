@@ -2,6 +2,7 @@
 
 - Add `renamePropertyOn`, `unsetProperty`
 - Add `updateOwn`, `updateOwnOn`, `updateSome`, `updateSomeOn`, `updateAll`, `updateAllOn`
+- Add `crunchWhitespace`
 
 # 1.74.2
 
