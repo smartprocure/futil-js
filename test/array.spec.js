@@ -142,6 +142,47 @@ describe('Array Functions', () => {
     expect(F.chunkBy(() => false, undefined)).to.deep.equal([])
     expect(F.chunkBy(() => false, [])).to.deep.equal([])
   })
+  it('chunkByValue', () => {
+    // Funciton case
+    expect(
+      F.chunkByValue(
+        (x) => x.str.length,
+        [
+          { a: 1, str: 'asdf' },
+          { a: 2, str: 'qwer' },
+          { b: 1, str: 'b' },
+          { b: 2, str: 'b' },
+        ]
+      )
+    ).to.deep.equal([
+      [
+        { a: 1, str: 'asdf' },
+        { a: 2, str: 'qwer' },
+      ],
+      [
+        { b: 1, str: 'b' },
+        { b: 2, str: 'b' },
+      ],
+    ])
+    // Iteratee support
+    expect(
+      F.chunkByValue('type', [
+        { a: 1, type: 'a' },
+        { a: 1, type: 'a' },
+        { b: 1, type: 'b' },
+        { b: 1, type: 'b' },
+      ])
+    ).to.deep.equal([
+      [
+        { a: 1, type: 'a' },
+        { a: 1, type: 'a' },
+      ],
+      [
+        { b: 1, type: 'b' },
+        { b: 1, type: 'b' },
+      ],
+    ])
+  })
   it('toggleElement', () => {
     expect(F.toggleElement('b', ['a', 'b', 'c', 'd'])).to.deep.equal([
       'a',

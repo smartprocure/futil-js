@@ -4,6 +4,7 @@
 - Add `updateOwn`, `updateOwnOn`, `updateSome`, `updateSomeOn`, `updateAll`, `updateAllOn`
 - Add `crunchWhitespace`
 - Export `writeTreeNode`
+- Add `chunkByValue`
 
 # 1.74.2
 

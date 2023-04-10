@@ -180,6 +180,19 @@ export let chunkBy = _.curry((f, array) =>
 )
 
 /**
+ * `chunkBy` when the returned value of an iteratee changes
+ *
+ * @signature f -> [] -> [[], ...]
+ * @since 1.75.0
+ */
+export let chunkByValue = _.curry((f, array) =>
+  chunkBy(
+    (group, fn) => _.isEqual(_.iteratee(f)(_.last(group)), _.iteratee(f)(fn)),
+    array
+  )
+)
+
+/**
  * Just like toggleElement, but takes an iteratee to determine if it should remove or add. This is useful for example in situations where you might have a checkbox that you want to represent membership of a value in a set instead of an implicit toggle. Used by includeLens.
  *
  * @signature bool -> value -> list -> newList
