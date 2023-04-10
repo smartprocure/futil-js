@@ -6,6 +6,7 @@
 - Export `writeTreeNode`
 - Add `chunkByValue`
 - Pass indexes to `arrayToObject`
+- Add `omitByIndexed` conversion
 
 # 1.74.2
 
