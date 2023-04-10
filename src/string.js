@@ -135,10 +135,10 @@ export let uniqueString = (arr = []) =>
 
 /**
  * Replaces whitespace substrings with a single space and trims leading/trailing whitespace
- * 
+ *
  * @signature string -> string
- * @type <T>(x: T): string | T
+ * @typescript <T>(x: T): string | T
  * @since 1.75.0
  */
-export let crunchWhitespace = x =>
+export let crunchWhitespace = (x) =>
   _.isString(x) ? _.trim(_.replace(/\s+/g, ' ', x)) : x

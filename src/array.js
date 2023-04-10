@@ -109,7 +109,7 @@ export let arrayToObject = _.curry((k, v, a) =>
  * Converts and array of keys to an object using a predicate
  *
  * @signature (v, [a]) => { a: v(a) }
- * @type <T>(fn: (k: string) => T, keys: string[]): { [K in typeof keys[number]]: T } // TS not enforcing the keys :(
+ * @typescript <T>(fn: (k: string) => T, keys: string[]): { [K in typeof keys[number]]: T } // TS not enforcing the keys :(
  */
 export let keysToObject = arrayToObject((x) => x)
 
