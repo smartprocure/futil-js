@@ -786,7 +786,7 @@ describe('Object Functions', () => {
     let target = { a: 1, b: 2 }
     let output = F.updateOwn('a', (x) => x + 1, target)
     expect(output).to.deep.equal({ a: 2, b: 2 })
-    
+
     // Does note mutate
     expect(output).not.to.deep.equal(target)
 
@@ -798,7 +798,7 @@ describe('Object Functions', () => {
     let target = { a: 1, b: 2 }
     let output = F.updateOwnOn('a', (x) => x + 1, target)
     expect(output).to.deep.equal({ a: 2, b: 2 })
-    
+
     // Mutates
     expect(output).to.deep.equal(target)
 

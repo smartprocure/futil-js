@@ -454,7 +454,6 @@ export let updateOwn = _.curry((path, updater, object) =>
   _.has(path, object) ? _.update(path, updater, object) : object
 )
 
-
 /**
  * Like `F.updateOn`, but does not call the iteratee if the path is missing on the object (so only update "own" properties)
  * *Mutates* the object
@@ -464,7 +463,6 @@ export let updateOwn = _.curry((path, updater, object) =>
 export let updateOwnOn = _.curry((path, updater, object) =>
   _.has(path, object) ? updateOn(path, updater, object) : object
 )
-
 
 let _updateMany = _.curry((updater, transforms, data) =>
   _.flow(
