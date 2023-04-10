@@ -1,7 +1,7 @@
 import _ from 'lodash/fp'
 import { callOrReturn } from './function'
 import { insertAtIndex } from './collection'
-import { reduceIndexed } from './conversion'
+import { reduceIndexed, mapIndexed } from './conversion'
 
 // TODO: Move to proper files and expose
 let callUnless = (check) => (failFn) => (fn) => (x, y) =>
@@ -102,13 +102,14 @@ export let cycle = _.curry((a, n) => a[(a.indexOf(n) + 1) % a.length])
  * @signature (k, v, [a]) -> { k(a): v(a) }
  */
 export let arrayToObject = _.curry((k, v, a) =>
-  _.flow(_.keyBy(k), _.mapValues(v))(a)
+  _.zipObject(mapIndexed(k, a), mapIndexed(v, a))
 )
 
 /**
  * Converts and array of keys to an object using a predicate
  *
  * @signature (v, [a]) => { a: v(a) }
+ * @type <T>(fn: (k: string) => T, keys: string[]): { [K in typeof keys[number]]: T } // TS not enforcing the keys :(
  */
 export let keysToObject = arrayToObject((x) => x)
 

@@ -5,6 +5,7 @@
 - Add `crunchWhitespace`
 - Export `writeTreeNode`
 - Add `chunkByValue`
+- Pass indexes to `arrayToObject`
 
 # 1.74.2
 

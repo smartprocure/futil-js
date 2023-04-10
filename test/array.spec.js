@@ -83,6 +83,15 @@ describe('Array Functions', () => {
         ['a', 'b', 'c']
       )
     ).to.deep.equal({ keya: 'vala', keyb: 'valb', keyc: 'valc' })
+
+    // Support indexes
+    expect(
+      F.arrayToObject(
+        (x, i) => `key${x}${i}`,
+        (x, i) => `val${x}${i}`,
+        ['a', 'b', 'c']
+      )
+    ).to.deep.equal({ keya0: 'vala0', keyb1: 'valb1', keyc2: 'valc2' })
   })
   it('keysToObject', () => {
     let result = F.keysToObject((v) => Number(v), ['1', '2', '3'])
