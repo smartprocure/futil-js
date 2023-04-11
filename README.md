@@ -289,6 +289,10 @@ Just like `_.reduce`, but with `{cap: false}` so iteratees are not capped (e.g. 
 
 Just like `_.pickBy`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
 
+### omitByIndexed
+
+Just like `_.omitBy`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
+
 ### mapValuesIndexed
 
 Just like `_.mapValues`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
@@ -386,6 +390,11 @@ An encoder using `/` as the separator
 Takes a predicate function and an array, and returns an array of arrays where each element has one or more elements of the original array. Similar to Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
 The predicate is called with two arguments: the current group, and the current element. If it returns truthy, the element is appended to the current group; otherwise, it's used as the first element in a new group.
+
+### chunkByValue
+
+`f -> [] -> [[], ...]`
+`chunkBy` when the returned value of an iteratee changes
 
 ### toggleElementBy
 
@@ -510,6 +519,26 @@ Example:
 ```jsx
 renameProperty('a', 'b', { a: 1 }) -> { b: 1 }
 ```
+
+### renamePropertyOn
+
+`sourcePropertyName -> targetPropertyName -> sourceObject -> sourceObject`
+Rename a property on an object.
+**NOTE**:Mutates the object
+
+Example:
+
+```jsx
+renamePropertyOn('a', 'b', { a: 1 }) -> { b: 1 }
+```
+
+### unsetProperty
+
+`k -> { k: v } -> v`
+Removes a property from an object and returns the removed value.
+Like `F.unsetOn`, but returns the removed value instead of the mutated object.
+Supports nested properties using dot notation.
+NOTE: Mutates the object. If you don't want mutation, you probably want `_.unset` for the object or `_.get` for the value.
 
 ### unwind
 
@@ -727,6 +756,61 @@ Takes two objects and returns the keys they have in common
 `(x, y) -> key`
 Takes two objects and returns the first key in `y` that x also has
 
+### updateOwn
+
+`(path, updater, object) -> object`
+Like `_.update`, but does not call the iteratee if the path is missing on the object (so only update "own" properties)
+
+### updateOwnOn
+
+`(path, updater, object) -> object`
+Like `F.updateOn`, but does not call the iteratee if the path is missing on the object (so only update "own" properties)
+_Mutates_ the object
+
+### updateSomeOn
+
+`({ path: transform }, target) -> obj`
+Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+Transforms are **not** called for paths that do not exist in the target object.
+Transform functions support lodash iteratee shorthand syntax.
+Deep paths are supported by nesting objects and by dotted the keys
+
+Note: _Mutates_ the target object for performance. If you don't want this, use `updateAll` or clone first.
+
+### updateAllOn
+
+`({ path: transform }, target) -> obj`
+Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+Transforms **are** called for paths that do not exist in the target object.
+Transform functions support lodash iteratee shorthand syntax.
+Deep paths are supported by nesting objects and by dotted the keys
+
+Note: _Mutates_ the target object for performance. If you don't want this, use `updateAll` or clone first.
+
+### updateAll
+
+`({ path: transform }, target) -> obj`
+Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+Transforms **are** called for paths that do not exist in the target object.
+Transform functions support lodash iteratee shorthand syntax.
+Deep paths are supported by nesting objects and by dotted the keys
+
+_Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllOn` to avoid the `_.deepClone`
+
+### updateSome
+
+`({ path: transform }, target) -> obj`
+Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+Transforms are **not** called for paths that do not exist in the target object.
+Transform functions support lodash iteratee shorthand syntax.
+Deep paths are supported by nesting objects and by dotted the keys
+
+_Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllOn` to avoid the `_.deepClone`
+
 ## String
 
 ### wrap
@@ -813,6 +897,11 @@ dedupe.clear()
 dedupe.cache //-> {}
 dedupe('foo') //-> 'foo'
 ```
+
+### crunchWhitespace
+
+`string -> string`
+Replaces whitespace substrings with a single space and trims leading/trailing whitespace
 
 ## Regex
 
@@ -1206,6 +1295,11 @@ Structure preserving pre-order depth first traversal which clones, mutates, and 
 
 `traverse -> (accumulator, initialValue, tree) -> x`
 Just like `_.reduce`, but traverses over the tree with the traversal function in `pre-order`.
+
+### writeTreeNode
+
+Default `writeNode` for `mapTree`. It writes the node to the parent at the given index.
+Using the traversal function with tree iteratee properties to find children.
 
 ### mapTree
 
