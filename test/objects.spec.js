@@ -206,16 +206,16 @@ describe('Object Functions', () => {
     F.renamePropertyOn('d.e', 'd.f', o)
     expect(o).to.deep.equal({ b: 1, d: { f: 2 } })
   })
-  it('unsetProperty', () => {
+  it('popProperty', () => {
     // Basic case
     let basic = { a: 1, b: 2, c: 3 }
-    let a = F.unsetProperty('a', basic)
+    let a = F.popProperty('a', basic)
     expect(a).to.equal(1)
     expect(basic).to.deep.equal({ b: 2, c: 3 })
 
     // Nested case
     let nested = { a: 1, b: 2, c: 3, d: { e: 4, f: 5 } }
-    let e = F.unsetProperty('d.e', nested)
+    let e = F.popProperty('d.e', nested)
     expect(e).to.equal(4)
     expect(nested).to.deep.equal({ a: 1, b: 2, c: 3, d: { f: 5 } })
   })

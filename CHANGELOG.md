@@ -1,6 +1,6 @@
 # 1.75.0
 
-- Add `renamePropertyOn`, `unsetProperty`
+- Add `renamePropertyOn`, `popProperty`
 - Add `updateOwn`, `updateOwnOn`, `updateSome`, `updateSomeOn`, `updateAll`, `updateAllOn`
 - Add `crunchWhitespace`
 - Export `writeTreeNode`

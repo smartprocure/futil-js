@@ -103,13 +103,13 @@ export const renamePropertyOn = _.curry((from, to, target) => {
 
 /**
  * Removes a property from an object and returns the removed value.
- * Like `F.unsetOn`, but returns the removed value instead of the mutated object.
+ * Like `F.unsetOn`, but returns the removed value instead of the mutated object. Similar to .pop() on arrays, but for objects.
  * Supports nested properties using dot notation.
  * NOTE: Mutates the object. If you don't want mutation, you probably want `_.unset` for the object or `_.get` for the value.
  * @since 1.75.0
  * @signature k -> { k: v } -> v
  */
-export const unsetProperty = _.curry((prop, obj) => {
+export const popProperty = _.curry((prop, obj) => {
   if (_.has(prop, obj)) {
     let value = _.get(prop, obj)
     unsetOn(prop, obj)
