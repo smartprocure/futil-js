@@ -782,31 +782,31 @@ describe('Object Functions', () => {
 
     expect(F.firstCommonKey(providers, schema)).to.equal('elasticsearch')
   })
-  it('updateOwn', () => {
+  it('updateIfExists', () => {
     let target = { a: 1, b: 2 }
-    let output = F.updateOwn('a', (x) => x + 1, target)
+    let output = F.updateIfExists('a', (x) => x + 1, target)
     expect(output).to.deep.equal({ a: 2, b: 2 })
 
     // Does note mutate
     expect(output).not.to.deep.equal(target)
 
     // Does not run for missing keys
-    let missingCase = F.updateOwn('c', (x) => x + 1, { a: 1, b: 2 })
+    let missingCase = F.updateIfExists('c', (x) => x + 1, { a: 1, b: 2 })
     expect(missingCase).to.deep.equal({ a: 1, b: 2 })
   })
-  it('updateOwnOn', () => {
+  it('updateIfExistsOn', () => {
     let target = { a: 1, b: 2 }
-    let output = F.updateOwnOn('a', (x) => x + 1, target)
+    let output = F.updateIfExistsOn('a', (x) => x + 1, target)
     expect(output).to.deep.equal({ a: 2, b: 2 })
 
     // Mutates
     expect(output).to.deep.equal(target)
 
     // Does not run for missing keys
-    let missingCase = F.updateOwnOn('c', (x) => x + 1, { a: 1, b: 2 })
+    let missingCase = F.updateIfExistsOn('c', (x) => x + 1, { a: 1, b: 2 })
     expect(missingCase).to.deep.equal({ a: 1, b: 2 })
   })
-  it('updateSome', () => {
+  it('updatePaths', () => {
     let transforms = {
       a: (x) => x + 5,
       // iteratee support
@@ -826,15 +826,15 @@ describe('Object Functions', () => {
       c: { d: 1 },
       e: { f: 1, g: 2, h: 3 },
     }
-    let output = F.updateSome(transforms, input)
+    let output = F.updatePaths(transforms, input)
     // Handle all cases
     expect(output).to.deep.equal({ a: 6, b: 2, c: 1, e: { f: 2, g: 2, h: 6 } })
     // Immutable
     expect(output).not.to.deep.equal(input)
     // Handle null transforms
-    expect(F.updateSome(null, { a: 1 })).to.deep.equal({ a: 1 })
+    expect(F.updatePaths(null, { a: 1 })).to.deep.equal({ a: 1 })
   })
-  it('updateAll', () => {
+  it('updateAllPaths', () => {
     let transforms = {
       a: (x) => x + 5,
       // iteratee support
@@ -854,7 +854,7 @@ describe('Object Functions', () => {
       c: { d: 1 },
       e: { f: 1, g: 2, h: 3 },
     }
-    let output = F.updateAll(transforms, input)
+    let output = F.updateAllPaths(transforms, input)
     // Handle all cases
     expect(output).to.deep.equal({
       a: 6,
@@ -866,9 +866,9 @@ describe('Object Functions', () => {
     // Immutable
     expect(output).not.to.deep.equal(input)
     // Handle null transforms
-    expect(F.updateAll(null, { a: 1 })).to.deep.equal({ a: 1 })
+    expect(F.updateAllPaths(null, { a: 1 })).to.deep.equal({ a: 1 })
   })
-  it('updateSomeOn', () => {
+  it('updatePathsOn', () => {
     let transforms = {
       a: (x) => x + 5,
       // iteratee support
@@ -888,15 +888,15 @@ describe('Object Functions', () => {
       c: { d: 1 },
       e: { f: 1, g: 2, h: 3 },
     }
-    let output = F.updateSomeOn(transforms, input)
+    let output = F.updatePathsOn(transforms, input)
     // Handle all cases
     expect(output).to.deep.equal({ a: 6, b: 2, c: 1, e: { f: 2, g: 2, h: 6 } })
     // Mutable
     expect(output).to.deep.equal(input)
     // Handle null transforms
-    expect(F.updateSomeOn(null, { a: 1 })).to.deep.equal({ a: 1 })
+    expect(F.updatePathsOn(null, { a: 1 })).to.deep.equal({ a: 1 })
   })
-  it('updateAllOn', () => {
+  it('updateAllPathsOn', () => {
     let transforms = {
       a: (x) => x + 5,
       // iteratee support
@@ -916,7 +916,7 @@ describe('Object Functions', () => {
       c: { d: 1 },
       e: { f: 1, g: 2, h: 3 },
     }
-    let output = F.updateAllOn(transforms, input)
+    let output = F.updateAllPathsOn(transforms, input)
     // Handle all cases
     expect(output).to.deep.equal({
       a: 6,
@@ -928,6 +928,6 @@ describe('Object Functions', () => {
     // Mutable
     expect(output).to.deep.equal(input)
     // Handle null transforms
-    expect(F.updateAllOn(null, { a: 1 })).to.deep.equal({ a: 1 })
+    expect(F.updateAllPathsOn(null, { a: 1 })).to.deep.equal({ a: 1 })
   })
 })

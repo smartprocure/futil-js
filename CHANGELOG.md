@@ -1,7 +1,7 @@
 # 1.75.0
 
 - Add `renamePropertyOn`, `popProperty`
-- Add `updateOwn`, `updateOwnOn`, `updateSome`, `updateSomeOn`, `updateAll`, `updateAllOn`
+- Add `updateIfExists`, `updateIfExistsOn`, `updatePaths`, `updatePathsOn`, `updateAllPaths`, `updateAllPathsOn`
 - Add `crunchWhitespace`
 - Export `writeTreeNode`
 - Add `chunkByValue`

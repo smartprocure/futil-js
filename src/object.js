@@ -446,21 +446,21 @@ export let firstCommonKey = _.curry((x, y) =>
 )
 
 /**
- * Like `_.update`, but does not call the iteratee if the path is missing on the object (so only update "own" properties)
+ * Like `_.update`, but does not call the iteratee if the path is missing on the object
  * @signature (path, updater, object) -> object
  * @since 1.75.0
  */
-export let updateOwn = _.curry((path, updater, object) =>
+export let updateIfExists = _.curry((path, updater, object) =>
   _.has(path, object) ? _.update(path, updater, object) : object
 )
 
 /**
- * Like `F.updateOn`, but does not call the iteratee if the path is missing on the object (so only update "own" properties)
+ * Like `F.updateOn`, but does not call the iteratee if the path is missing on the object
  * *Mutates* the object
  * @signature (path, updater, object) -> object
  * @since 1.75.0
  */
-export let updateOwnOn = _.curry((path, updater, object) =>
+export let updateIfExistsOn = _.curry((path, updater, object) =>
   _.has(path, object) ? updateOn(path, updater, object) : object
 )
 
@@ -481,12 +481,12 @@ let _updateMany = _.curry((updater, transforms, data) =>
  * Transform functions support lodash iteratee shorthand syntax.
  * Deep paths are supported by nesting objects and by dotted the keys
  *
- * Note: *Mutates* the target object for performance. If you don't want this, use `updateAll` or clone first.
+ * Note: *Mutates* the target object for performance. If you don't want this, use `updatePaths` or clone first.
  *
  * @signature ({ path: transform }, target) -> obj
  * @since 1.75.0
  */
-export let updateSomeOn = _updateMany(updateOwnOn)
+export let updatePathsOn = _updateMany(updateIfExistsOn)
 
 /**
  * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
@@ -495,12 +495,12 @@ export let updateSomeOn = _updateMany(updateOwnOn)
  * Transform functions support lodash iteratee shorthand syntax.
  * Deep paths are supported by nesting objects and by dotted the keys
  *
- * Note: *Mutates* the target object for performance. If you don't want this, use `updateAll` or clone first.
+ * Note: *Mutates* the target object for performance. If you don't want this, use `updateAllPaths` or clone first.
  *
  * @signature ({ path: transform }, target) -> obj
  * @since 1.75.0
  */
-export let updateAllOn = _updateMany(updateOn)
+export let updateAllPathsOn = _updateMany(updateOn)
 
 /**
  * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
@@ -509,13 +509,13 @@ export let updateAllOn = _updateMany(updateOn)
  * Transform functions support lodash iteratee shorthand syntax.
  * Deep paths are supported by nesting objects and by dotted the keys
  *
- * *Note* Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllOn` to avoid the `_.deepClone`
+ * *Note* Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllPathsOn` to avoid the `_.deepClone`
  *
  * @signature ({ path: transform }, target) -> obj
  * @since 1.75.0
  */
-export let updateAll = _.curry((transforms, data) =>
-  updateAllOn(transforms, _.cloneDeep(data))
+export let updateAllPaths = _.curry((transforms, data) =>
+  updateAllPathsOn(transforms, _.cloneDeep(data))
 )
 
 /**
@@ -525,11 +525,11 @@ export let updateAll = _.curry((transforms, data) =>
  * Transform functions support lodash iteratee shorthand syntax.
  * Deep paths are supported by nesting objects and by dotted the keys
  *
- * *Note* Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllOn` to avoid the `_.deepClone`
+ * *Note* Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updatePathsOn` to avoid the `_.deepClone`
  *
  * @signature ({ path: transform }, target) -> obj
  * @since 1.75.0
  */
-export let updateSome = _.curry((transforms, data) =>
-  updateSomeOn(transforms, _.cloneDeep(data))
+export let updatePaths = _.curry((transforms, data) =>
+  updatePathsOn(transforms, _.cloneDeep(data))
 )
