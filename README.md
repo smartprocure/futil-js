@@ -532,11 +532,11 @@ Example:
 renamePropertyOn('a', 'b', { a: 1 }) -> { b: 1 }
 ```
 
-### unsetProperty
+### popProperty
 
 `k -> { k: v } -> v`
 Removes a property from an object and returns the removed value.
-Like `F.unsetOn`, but returns the removed value instead of the mutated object.
+Like `F.unsetOn`, but returns the removed value instead of the mutated object. Similar to .pop() on arrays, but for objects.
 Supports nested properties using dot notation.
 NOTE: Mutates the object. If you don't want mutation, you probably want `_.unset` for the object or `_.get` for the value.
 
@@ -756,18 +756,18 @@ Takes two objects and returns the keys they have in common
 `(x, y) -> key`
 Takes two objects and returns the first key in `y` that x also has
 
-### updateOwn
+### updateIfExists
 
 `(path, updater, object) -> object`
-Like `_.update`, but does not call the iteratee if the path is missing on the object (so only update "own" properties)
+Like `_.update`, but does not call the iteratee if the path is missing on the object
 
-### updateOwnOn
+### updateIfExistsOn
 
 `(path, updater, object) -> object`
-Like `F.updateOn`, but does not call the iteratee if the path is missing on the object (so only update "own" properties)
+Like `F.updateOn`, but does not call the iteratee if the path is missing on the object
 _Mutates_ the object
 
-### updateSomeOn
+### updatePathsOn
 
 `({ path: transform }, target) -> obj`
 Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
@@ -776,20 +776,9 @@ Transforms are **not** called for paths that do not exist in the target object.
 Transform functions support lodash iteratee shorthand syntax.
 Deep paths are supported by nesting objects and by dotted the keys
 
-Note: _Mutates_ the target object for performance. If you don't want this, use `updateAll` or clone first.
+Note: _Mutates_ the target object for performance. If you don't want this, use `updatePaths` or clone first.
 
-### updateAllOn
-
-`({ path: transform }, target) -> obj`
-Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
-Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
-Transforms **are** called for paths that do not exist in the target object.
-Transform functions support lodash iteratee shorthand syntax.
-Deep paths are supported by nesting objects and by dotted the keys
-
-Note: _Mutates_ the target object for performance. If you don't want this, use `updateAll` or clone first.
-
-### updateAll
+### updateAllPathsOn
 
 `({ path: transform }, target) -> obj`
 Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
@@ -798,9 +787,20 @@ Transforms **are** called for paths that do not exist in the target object.
 Transform functions support lodash iteratee shorthand syntax.
 Deep paths are supported by nesting objects and by dotted the keys
 
-_Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllOn` to avoid the `_.deepClone`
+Note: _Mutates_ the target object for performance. If you don't want this, use `updateAllPaths` or clone first.
 
-### updateSome
+### updateAllPaths
+
+`({ path: transform }, target) -> obj`
+Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+Transforms **are** called for paths that do not exist in the target object.
+Transform functions support lodash iteratee shorthand syntax.
+Deep paths are supported by nesting objects and by dotted the keys
+
+_Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllPathsOn` to avoid the `_.deepClone`
+
+### updatePaths
 
 `({ path: transform }, target) -> obj`
 Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
@@ -809,7 +809,7 @@ Transforms are **not** called for paths that do not exist in the target object.
 Transform functions support lodash iteratee shorthand syntax.
 Deep paths are supported by nesting objects and by dotted the keys
 
-_Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllOn` to avoid the `_.deepClone`
+_Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updatePathsOn` to avoid the `_.deepClone`
 
 ## String
 
