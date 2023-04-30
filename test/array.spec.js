@@ -61,6 +61,19 @@ describe('Array Functions', () => {
       ])
     ).to.deep.equal([[0, 5]])
   })
+  it('isSubset', () => {
+    // true if first array is a subset of the second
+    expect(F.isSubset([1, 2], [1, 2, 3])).to.equal(true)
+
+    // false if first array is not a subset of the second
+    expect(F.isSubset([1, 2, 4], [1, 2, 3])).to.equal(false)
+
+    // false if first array includes all elements of the second along with others
+    expect(F.isSubset([1, 2, 3, 4], [1, 2, 3])).to.equal(false)
+
+    // true if first string array is a subset of the second
+    expect(F.isSubset(['1', '2'], ['1', '2', '3'])).to.equal(true)
+  })
   it('cycle', () => {
     let cycle = F.cycle([1, 2, 3])
     expect(cycle(1)).to.equal(2)

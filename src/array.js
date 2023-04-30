@@ -90,6 +90,15 @@ export let mergeRanges = _.flow(
 )
 
 /**
+ * Determines if an array is a subset of another array.
+ * 
+ * @signature ([a], [a]) -> boolean
+ */
+export let isSubset = _.curry(
+  (array1, array2) => _.difference(array1, array2).length === 0
+)
+
+/**
  * Creates a function that takes an element of the original array as argument and returns the next element in the array (with wrapping). Note that (1) This will return the first element of the array for any argument not in the array and (2) due to the behavior of `_.curry` the created function will return a function equivalent to itself if called with no argument.
  *
  * @signature [a, b...] -> a -> b

@@ -7,6 +7,7 @@
 - Add `chunkByValue`
 - Pass indexes to `arrayToObject`
 - Add `omitByIndexed` conversion
+- Add `isSubset`
 
 # 1.74.2
 
