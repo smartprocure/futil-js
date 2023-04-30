@@ -536,6 +536,8 @@ export let updatePaths = _.curry((transforms, data) =>
 
 /**
  * Calls a function or defaults to isEqual, used internally by _matchesBy
+ * 
+ * @private
  * @typescript (fn: (x: any) => any | any, value: any)
  */
 let callOrCompare = (fn, value) =>
@@ -544,6 +546,7 @@ let callOrCompare = (fn, value) =>
 /**
  * Internal function used by `matchesBy` and `matchesBySome`
  *
+ * @private
  * @typescript (combiner: (values: boolean[]) => boolean, criteria: object, object: object)
  */
 let _matchesBy = _.curry((combiner, criteria, object) =>

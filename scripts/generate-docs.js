@@ -24,6 +24,7 @@ let getDocs = async () => {
   let jsDocToJson = _.flow(
     _.reject('undocumented'),
     _.reject({ kind: 'module' }),
+    _.reject({ access: 'private' }),
     _.filter('name'),
     _.map(async (x) => {
       let path = `${x.meta.path}/${x.meta.filename}`
