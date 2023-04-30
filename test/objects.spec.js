@@ -930,4 +930,24 @@ describe('Object Functions', () => {
     // Handle null transforms
     expect(F.updateAllPathsOn(null, { a: 1 })).to.deep.equal({ a: 1 })
   })
+  it('matchesBy', () => {
+    // support both values and comparator functions
+    const test = F.matchesBy({
+      a: (x) => x > 1,
+      b: (x) => x == 2,
+      c: 4,
+    })
+    expect(test({ a: 3, b: 2, c: 4 })).to.equal(true)
+    expect(test({ a: 3, b: 4, c: 4 })).to.equal(false)
+  })
+  it('matchesBySome', () => {
+    // support both values and comparator functions
+    const test = F.matchesBySome({
+      a: (x) => x > 1,
+      b: (x) => x == 5,
+      c: 4,
+    })
+    expect(test({ a: 3, b: 2, c: 4 })).to.equal(true)
+    expect(test({ a: 0, b: 2, c: 6 })).to.equal(false)
+  })
 })

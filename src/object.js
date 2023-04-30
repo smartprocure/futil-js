@@ -533,3 +533,41 @@ export let updateAllPaths = _.curry((transforms, data) =>
 export let updatePaths = _.curry((transforms, data) =>
   updatePathsOn(transforms, _.cloneDeep(data))
 )
+
+/**
+ * Calls a function or defaults to isEqual, used internally by _matchesBy
+ * @typescript (fn: (x: any) => any | any, value: any)
+ */
+let callOrCompare = (fn, value) =>
+  _.isFunction(fn) ? fn(value) : _.isEqual(fn, value)
+
+/**
+ * Internal function used by `matchesBy` and `matchesBySome`
+ *
+ * @typescript (combiner: (values: boolean[]) => boolean, criteria: object, object: object)
+ */
+let _matchesBy = _.curry((combiner, criteria, object) =>
+  _.flow(
+    mapValuesIndexed((value, key) => callOrCompare(value, _.get(key, object))),
+    _.values,
+    combiner
+  )(criteria)
+)
+
+/**
+ * Takes a criteria object and an object to test against it, and returns true if all the values in the criteria match the values in the object
+ * Criteria values can be functions or values to compare against
+ * Supports dot notation for deep paths
+ * 
+ * @signature (criteria: object, object: object) -> boolean
+ */
+export let matchesBy = _matchesBy(_.every((x) => x))
+
+/**
+ * Takes a criteria object and an object to test against it, and returns true if some of the values in the criteria match the values in the object
+ * Criteria values can be functions or values to compare against
+ * Supports dot notation for deep paths
+ * 
+ * @signature (criteria: object, object: object) -> boolean
+ */
+export let matchesBySome = _matchesBy(_.some((x) => x))

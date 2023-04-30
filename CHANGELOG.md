@@ -9,7 +9,7 @@
 - Add `omitByIndexed` conversion
 - Add `isSubset`
 - Add `sizeBy`
-
+- Add `matchesBy`, `matchesBySome`
 
 # 1.74.2
 
