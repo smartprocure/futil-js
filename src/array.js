@@ -16,6 +16,7 @@ let last = _.takeRight(1)
  * Joins an array after compacting. Note that due to the underlying behavior of `_.curry` no default `join` value is supported -- you must pass in some string with which to perform the join.
  *
  * @signature joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 + joinString ... + stringN
+ * @typescript {(join: string, x: any[]) => string}
  */
 export let compactJoin = _.curry((join, x) => _.compact(x).join(join))
 
@@ -23,6 +24,7 @@ export let compactJoin = _.curry((join, x) => _.compact(x).join(join))
  * Compacts and joins an array with `.`
  *
  * @signature [string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN
+ * @typescript {(arr: any[]) => string}
  */
 export let dotJoin = compactJoin('.')
 
@@ -31,7 +33,7 @@ export let dotJoin = compactJoin('.')
  *
  * @signature filterFunction -> [string1, string2, ...stringN] -> string1 + '.' + string2 + '.' ... + stringN
  */
-export let dotJoinWith = (fn) => (x) => _.filter(fn, x).join('.')
+export let dotJoinWith = (fn) => (x) => _.flow(_.filter(fn), _.join('.'))(x)
 
 /**
  * Returns an array of elements that are repeated in the array.
