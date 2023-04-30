@@ -8,6 +8,8 @@
 - Pass indexes to `arrayToObject`
 - Add `omitByIndexed` conversion
 - Add `isSubset`
+- Add `sizeBy`
+
 
 # 1.74.2
 

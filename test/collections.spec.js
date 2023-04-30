@@ -182,4 +182,8 @@ describe('Collections Functions', () => {
     ])
     expect(F.compactMap((x) => x - 2, [0, 1, 2, 3])).to.deep.equal([-2, -1, 1])
   })
+  it('sizeBy', () => {
+    let names = ['adam', 'betty', 'carlos', 'doug', 'emily']
+    expect(F.sizeBy((x) => x.length < 5, names)).to.equal(2)
+  })
 })
