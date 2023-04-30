@@ -1,3 +1,6 @@
+# 1.75.1
+- Improve docs
+
 # 1.75.0
 
 - Add `renamePropertyOn`, `popProperty`
