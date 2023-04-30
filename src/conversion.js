@@ -170,6 +170,13 @@ export const reduceIndexed = noCap.reduce
 export const pickByIndexed = noCap.pickBy
 
 /**
+ * Just like `_.omitBy`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
+ *
+ * @tags convert(_Indexed)
+ */
+export const omitByIndexed = noCap.omitBy
+
+/**
  * Just like `_.mapValues`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
  *
  * @tags convert(_Indexed)

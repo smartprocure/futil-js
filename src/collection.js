@@ -61,3 +61,12 @@ export let insertAtIndex = _.curry((index, val, collection) =>
 export let compactMap = _.curry((fn, collection) =>
   _.flow(_.map(fn), _.compact)(collection)
 )
+
+/**
+ * Returns the size of a collection after filtering by `fn`.
+ *
+ * @signature (fn, collection) -> number
+ */
+export const sizeBy = _.curry((fn, collection) =>
+  _.flow(_.filter(fn), _.size)(collection)
+)

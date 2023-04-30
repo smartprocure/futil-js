@@ -1,3 +1,16 @@
+# 1.75.0
+
+- Add `renamePropertyOn`, `popProperty`
+- Add `updateIfExists`, `updateIfExistsOn`, `updatePaths`, `updatePathsOn`, `updateAllPaths`, `updateAllPathsOn`
+- Add `crunchWhitespace`
+- Export `writeTreeNode`
+- Add `chunkByValue`
+- Pass indexes to `arrayToObject`
+- Add `omitByIndexed` conversion
+- Add `isSubset`
+- Add `sizeBy`
+- Add `matchesBy`, `matchesBySome`
+
 # 1.74.2
 
 - Make `intersperse` handle more edge cases (undefined, null, stirngs, objects, etc)

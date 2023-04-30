@@ -150,4 +150,8 @@ describe('String Functions', () => {
     expect(F.uniqueString(undefined)('test')).to.be.a('string')
     expect(F.uniqueString()('test')).to.be.a('string')
   })
+  it('crunchWhitespace', () => {
+    let input = '     space      \n\n\n  \t\t   everywhere    '
+    expect(F.crunchWhitespace(input)).to.equal('space everywhere')
+  })
 })

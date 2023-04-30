@@ -61,6 +61,19 @@ describe('Array Functions', () => {
       ])
     ).to.deep.equal([[0, 5]])
   })
+  it('isSubset', () => {
+    // true if first array is a subset of the second
+    expect(F.isSubset([1, 2], [1, 2, 3])).to.equal(true)
+
+    // false if first array is not a subset of the second
+    expect(F.isSubset([1, 2, 4], [1, 2, 3])).to.equal(false)
+
+    // false if first array includes all elements of the second along with others
+    expect(F.isSubset([1, 2, 3, 4], [1, 2, 3])).to.equal(false)
+
+    // true if first string array is a subset of the second
+    expect(F.isSubset(['1', '2'], ['1', '2', '3'])).to.equal(true)
+  })
   it('cycle', () => {
     let cycle = F.cycle([1, 2, 3])
     expect(cycle(1)).to.equal(2)
@@ -83,6 +96,15 @@ describe('Array Functions', () => {
         ['a', 'b', 'c']
       )
     ).to.deep.equal({ keya: 'vala', keyb: 'valb', keyc: 'valc' })
+
+    // Support indexes
+    expect(
+      F.arrayToObject(
+        (x, i) => `key${x}${i}`,
+        (x, i) => `val${x}${i}`,
+        ['a', 'b', 'c']
+      )
+    ).to.deep.equal({ keya0: 'vala0', keyb1: 'valb1', keyc2: 'valc2' })
   })
   it('keysToObject', () => {
     let result = F.keysToObject((v) => Number(v), ['1', '2', '3'])
@@ -141,6 +163,47 @@ describe('Array Functions', () => {
     expect(F.chunkBy(() => false, [])).to.deep.equal([])
     expect(F.chunkBy(() => false, undefined)).to.deep.equal([])
     expect(F.chunkBy(() => false, [])).to.deep.equal([])
+  })
+  it('chunkByValue', () => {
+    // Funciton case
+    expect(
+      F.chunkByValue(
+        (x) => x.str.length,
+        [
+          { a: 1, str: 'asdf' },
+          { a: 2, str: 'qwer' },
+          { b: 1, str: 'b' },
+          { b: 2, str: 'b' },
+        ]
+      )
+    ).to.deep.equal([
+      [
+        { a: 1, str: 'asdf' },
+        { a: 2, str: 'qwer' },
+      ],
+      [
+        { b: 1, str: 'b' },
+        { b: 2, str: 'b' },
+      ],
+    ])
+    // Iteratee support
+    expect(
+      F.chunkByValue('type', [
+        { a: 1, type: 'a' },
+        { a: 1, type: 'a' },
+        { b: 1, type: 'b' },
+        { b: 1, type: 'b' },
+      ])
+    ).to.deep.equal([
+      [
+        { a: 1, type: 'a' },
+        { a: 1, type: 'a' },
+      ],
+      [
+        { b: 1, type: 'b' },
+        { b: 1, type: 'b' },
+      ],
+    ])
   })
   it('toggleElement', () => {
     expect(F.toggleElement('b', ['a', 'b', 'c', 'd'])).to.deep.equal([

@@ -201,6 +201,11 @@ Example:
 `(fn, collection) -> collection`
 Maps `fn` over the input collection and compacts the result.
 
+### sizeBy
+
+`(fn, collection) -> number`
+Returns the size of a collection after filtering by `fn`.
+
 ## Convert(\_In)
 
 lodash/fp is great, but sometimes the curry order isn't exactly what you want.
@@ -289,6 +294,10 @@ Just like `_.reduce`, but with `{cap: false}` so iteratees are not capped (e.g. 
 
 Just like `_.pickBy`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
 
+### omitByIndexed
+
+Just like `_.omitBy`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
+
 ### mapValuesIndexed
 
 Just like `_.mapValues`, but with `{cap: false}` so iteratees are not capped (e.g. indexes are passed).
@@ -335,6 +344,11 @@ Example:
 ```jsx
 [[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]
 ```
+
+### isSubset
+
+`([a], [a]) -> boolean`
+Determines if an array is a subset of another array.
 
 ### cycle
 
@@ -386,6 +400,11 @@ An encoder using `/` as the separator
 Takes a predicate function and an array, and returns an array of arrays where each element has one or more elements of the original array. Similar to Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
 The predicate is called with two arguments: the current group, and the current element. If it returns truthy, the element is appended to the current group; otherwise, it's used as the first element in a new group.
+
+### chunkByValue
+
+`f -> [] -> [[], ...]`
+`chunkBy` when the returned value of an iteratee changes
 
 ### toggleElementBy
 
@@ -510,6 +529,26 @@ Example:
 ```jsx
 renameProperty('a', 'b', { a: 1 }) -> { b: 1 }
 ```
+
+### renamePropertyOn
+
+`sourcePropertyName -> targetPropertyName -> sourceObject -> sourceObject`
+Rename a property on an object.
+**NOTE**:Mutates the object
+
+Example:
+
+```jsx
+renamePropertyOn('a', 'b', { a: 1 }) -> { b: 1 }
+```
+
+### popProperty
+
+`k -> { k: v } -> v`
+Removes a property from an object and returns the removed value.
+Like `F.unsetOn`, but returns the removed value instead of the mutated object. Similar to .pop() on arrays, but for objects.
+Supports nested properties using dot notation.
+NOTE: Mutates the object. If you don't want mutation, you probably want `_.unset` for the object or `_.get` for the value.
 
 ### unwind
 
@@ -727,6 +766,75 @@ Takes two objects and returns the keys they have in common
 `(x, y) -> key`
 Takes two objects and returns the first key in `y` that x also has
 
+### updateIfExists
+
+`(path, updater, object) -> object`
+Like `_.update`, but does not call the iteratee if the path is missing on the object
+
+### updateIfExistsOn
+
+`(path, updater, object) -> object`
+Like `F.updateOn`, but does not call the iteratee if the path is missing on the object
+_Mutates_ the object
+
+### updatePathsOn
+
+`({ path: transform }, target) -> obj`
+Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+Transforms are **not** called for paths that do not exist in the target object.
+Transform functions support lodash iteratee shorthand syntax.
+Deep paths are supported by nesting objects and by dotted the keys
+
+Note: _Mutates_ the target object for performance. If you don't want this, use `updatePaths` or clone first.
+
+### updateAllPathsOn
+
+`({ path: transform }, target) -> obj`
+Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+Transforms **are** called for paths that do not exist in the target object.
+Transform functions support lodash iteratee shorthand syntax.
+Deep paths are supported by nesting objects and by dotted the keys
+
+Note: _Mutates_ the target object for performance. If you don't want this, use `updateAllPaths` or clone first.
+
+### updateAllPaths
+
+`({ path: transform }, target) -> obj`
+Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+Transforms **are** called for paths that do not exist in the target object.
+Transform functions support lodash iteratee shorthand syntax.
+Deep paths are supported by nesting objects and by dotted the keys
+
+_Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllPathsOn` to avoid the `_.deepClone`
+
+### updatePaths
+
+`({ path: transform }, target) -> obj`
+Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+Transforms are **not** called for paths that do not exist in the target object.
+Transform functions support lodash iteratee shorthand syntax.
+Deep paths are supported by nesting objects and by dotted the keys
+
+_Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updatePathsOn` to avoid the `_.deepClone`
+
+### matchesBy
+
+`(criteria: object, object: object) -> boolean`
+Takes a criteria object and an object to test against it, and returns true if all the values in the criteria match the values in the object
+Criteria values can be functions or values to compare against
+Supports dot notation for deep paths
+
+### matchesBySome
+
+`(criteria: object, object: object) -> boolean`
+Takes a criteria object and an object to test against it, and returns true if some of the values in the criteria match the values in the object
+Criteria values can be functions or values to compare against
+Supports dot notation for deep paths
+
 ## String
 
 ### wrap
@@ -813,6 +921,11 @@ dedupe.clear()
 dedupe.cache //-> {}
 dedupe('foo') //-> 'foo'
 ```
+
+### crunchWhitespace
+
+`string -> string`
+Replaces whitespace substrings with a single space and trims leading/trailing whitespace
 
 ## Regex
 
@@ -1206,6 +1319,11 @@ Structure preserving pre-order depth first traversal which clones, mutates, and 
 
 `traverse -> (accumulator, initialValue, tree) -> x`
 Just like `_.reduce`, but traverses over the tree with the traversal function in `pre-order`.
+
+### writeTreeNode
+
+Default `writeNode` for `mapTree`. It writes the node to the parent at the given index.
+Using the traversal function with tree iteratee properties to find children.
 
 ### mapTree
 

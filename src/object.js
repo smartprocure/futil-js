@@ -9,6 +9,10 @@ import {
   hasIn,
   mapIndexed,
   mapValuesIndexed,
+  eachIndexed,
+  updateOn,
+  unsetOn,
+  setOn,
 } from './conversion'
 import { findApply } from './collection'
 import { aspects } from './aspect'
@@ -82,6 +86,36 @@ export const renameProperty = _.curry((from, to, target) =>
     ? _.flow((x) => _.set(to, _.get(from, x), x), _.unset(from))(target)
     : target
 )
+
+/**
+ *  Rename a property on an object.
+ *  **NOTE**:Mutates the object
+ *
+ * @since 1.75.0
+ * @signature sourcePropertyName -> targetPropertyName -> sourceObject -> sourceObject
+ * @example renamePropertyOn('a', 'b', { a: 1 }) -> { b: 1 }
+ */
+export const renamePropertyOn = _.curry((from, to, target) => {
+  if (_.has(from, target))
+    _.flow((x) => setOn(to, _.get(from, x), x), unsetOn(from))(target)
+  return target
+})
+
+/**
+ * Removes a property from an object and returns the removed value.
+ * Like `F.unsetOn`, but returns the removed value instead of the mutated object. Similar to .pop() on arrays, but for objects.
+ * Supports nested properties using dot notation.
+ * NOTE: Mutates the object. If you don't want mutation, you probably want `_.unset` for the object or `_.get` for the value.
+ * @since 1.75.0
+ * @signature k -> { k: v } -> v
+ */
+export const popProperty = _.curry((prop, obj) => {
+  if (_.has(prop, obj)) {
+    let value = _.get(prop, obj)
+    unsetOn(prop, obj)
+    return value
+  }
+})
 
 /**
  * Just like mongo's `$unwind`: produces an array of objects from an object and one of its array-valued properties. Each object is constructed from the original object with the array value replaced by its elements. Unwinding on a nonexistent property or a property whose value is not an array returns an empty array.
@@ -410,3 +444,133 @@ let findKeyIndexed = _.findKey.convert({ cap: false })
 export let firstCommonKey = _.curry((x, y) =>
   findKeyIndexed((val, key) => _.has(key, x), y)
 )
+
+/**
+ * Like `_.update`, but does not call the iteratee if the path is missing on the object
+ * @signature (path, updater, object) -> object
+ * @since 1.75.0
+ */
+export let updateIfExists = _.curry((path, updater, object) =>
+  _.has(path, object) ? _.update(path, updater, object) : object
+)
+
+/**
+ * Like `F.updateOn`, but does not call the iteratee if the path is missing on the object
+ * *Mutates* the object
+ * @signature (path, updater, object) -> object
+ * @since 1.75.0
+ */
+export let updateIfExistsOn = _.curry((path, updater, object) =>
+  _.has(path, object) ? updateOn(path, updater, object) : object
+)
+
+let _updateMany = _.curry((updater, transforms, data) =>
+  _.flow(
+    flattenObject,
+    eachIndexed((transform, path) =>
+      updater(path, _.iteratee(transform), data)
+    ),
+    () => data // return mutated data
+  )(transforms)
+)
+
+/**
+ * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+ * Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+ * Transforms are **not** called for paths that do not exist in the target object.
+ * Transform functions support lodash iteratee shorthand syntax.
+ * Deep paths are supported by nesting objects and by dotted the keys
+ *
+ * Note: *Mutates* the target object for performance. If you don't want this, use `updatePaths` or clone first.
+ *
+ * @signature ({ path: transform }, target) -> obj
+ * @since 1.75.0
+ */
+export let updatePathsOn = _updateMany(updateIfExistsOn)
+
+/**
+ * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+ * Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+ * Transforms **are** called for paths that do not exist in the target object.
+ * Transform functions support lodash iteratee shorthand syntax.
+ * Deep paths are supported by nesting objects and by dotted the keys
+ *
+ * Note: *Mutates* the target object for performance. If you don't want this, use `updateAllPaths` or clone first.
+ *
+ * @signature ({ path: transform }, target) -> obj
+ * @since 1.75.0
+ */
+export let updateAllPathsOn = _updateMany(updateOn)
+
+/**
+ * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+ * Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+ * Transforms **are** called for paths that do not exist in the target object.
+ * Transform functions support lodash iteratee shorthand syntax.
+ * Deep paths are supported by nesting objects and by dotted the keys
+ *
+ * *Note* Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updateAllPathsOn` to avoid the `_.deepClone`
+ *
+ * @signature ({ path: transform }, target) -> obj
+ * @since 1.75.0
+ */
+export let updateAllPaths = _.curry((transforms, data) =>
+  updateAllPathsOn(transforms, _.cloneDeep(data))
+)
+
+/**
+ * Similar to ramda's `R.evolve`, but supports lodash iteratees and nested paths.
+ * Applies transforms to the target object at each path. The transform function is called with the value at that path, and the result is set at that path.
+ * Transforms are **not** called for paths that do not exist in the target object.
+ * Transform functions support lodash iteratee shorthand syntax.
+ * Deep paths are supported by nesting objects and by dotted the keys
+ *
+ * *Note* Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updatePathsOn` to avoid the `_.deepClone`
+ *
+ * @signature ({ path: transform }, target) -> obj
+ * @since 1.75.0
+ */
+export let updatePaths = _.curry((transforms, data) =>
+  updatePathsOn(transforms, _.cloneDeep(data))
+)
+
+/**
+ * Calls a function or defaults to isEqual, used internally by _matchesBy
+ *
+ * @private
+ * @typescript (fn: (x: any) => any | any, value: any)
+ */
+let callOrCompare = (fn, value) =>
+  _.isFunction(fn) ? fn(value) : _.isEqual(fn, value)
+
+/**
+ * Internal function used by `matchesBy` and `matchesBySome`
+ *
+ * @private
+ * @typescript (combiner: (values: boolean[]) => boolean, criteria: object, object: object)
+ */
+let _matchesBy = _.curry((combiner, criteria, object) =>
+  _.flow(
+    mapValuesIndexed((value, key) => callOrCompare(value, _.get(key, object))),
+    _.values,
+    combiner
+  )(criteria)
+)
+
+/**
+ * Takes a criteria object and an object to test against it, and returns true if all the values in the criteria match the values in the object
+ * Criteria values can be functions or values to compare against
+ * Supports dot notation for deep paths
+ *
+ * @signature (criteria: object, object: object) -> boolean
+ */
+export let matchesBy = _matchesBy(_.every((x) => x))
+
+/**
+ * Takes a criteria object and an object to test against it, and returns true if some of the values in the criteria match the values in the object
+ * Criteria values can be functions or values to compare against
+ * Supports dot notation for deep paths
+ *
+ * @signature (criteria: object, object: object) -> boolean
+ */
+export let matchesBySome = _matchesBy(_.some((x) => x))

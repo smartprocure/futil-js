@@ -106,7 +106,11 @@ export let reduceTree = (next = traverse) =>
     return result
   })
 
-let writeTreeNode =
+/**
+ * Default `writeNode` for `mapTree`. It writes the node to the parent at the given index.
+ * Using the traversal function with tree iteratee properties to find children.
+ */
+export let writeTreeNode =
   (next = traverse) =>
   (node, index, [parent, ...parents], [parentIndex, ...indexes]) => {
     next(parent, parentIndex, parents, indexes)[index] = node

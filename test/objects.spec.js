@@ -192,6 +192,33 @@ describe('Object Functions', () => {
     const new1 = F.renameProperty('c', 'b', o)
     expect(new1).to.deep.equal({ a: 1 })
   })
+  it('renamePropertyOn', () => {
+    const o = { a: 1, d: { e: 2 } }
+    const newO = F.renamePropertyOn('a', 'b', o)
+    expect(newO).to.deep.equal(o)
+    expect(newO).to.deep.equal({ b: 1, d: { e: 2 } })
+
+    // Does not set target property if source property does not exist
+    const new1 = F.renamePropertyOn('c', 'b', o)
+    expect(new1).to.deep.equal({ b: 1, d: { e: 2 } })
+
+    // Nested Case
+    F.renamePropertyOn('d.e', 'd.f', o)
+    expect(o).to.deep.equal({ b: 1, d: { f: 2 } })
+  })
+  it('popProperty', () => {
+    // Basic case
+    let basic = { a: 1, b: 2, c: 3 }
+    let a = F.popProperty('a', basic)
+    expect(a).to.equal(1)
+    expect(basic).to.deep.equal({ b: 2, c: 3 })
+
+    // Nested case
+    let nested = { a: 1, b: 2, c: 3, d: { e: 4, f: 5 } }
+    let e = F.popProperty('d.e', nested)
+    expect(e).to.equal(4)
+    expect(nested).to.deep.equal({ a: 1, b: 2, c: 3, d: { f: 5 } })
+  })
   it('matchesSignature', () => {
     expect(F.matchesSignature([], 0)).to.be.false
     expect(F.matchesSignature([], '')).to.be.false
@@ -754,5 +781,173 @@ describe('Object Functions', () => {
     }
 
     expect(F.firstCommonKey(providers, schema)).to.equal('elasticsearch')
+  })
+  it('updateIfExists', () => {
+    let target = { a: 1, b: 2 }
+    let output = F.updateIfExists('a', (x) => x + 1, target)
+    expect(output).to.deep.equal({ a: 2, b: 2 })
+
+    // Does note mutate
+    expect(output).not.to.deep.equal(target)
+
+    // Does not run for missing keys
+    let missingCase = F.updateIfExists('c', (x) => x + 1, { a: 1, b: 2 })
+    expect(missingCase).to.deep.equal({ a: 1, b: 2 })
+  })
+  it('updateIfExistsOn', () => {
+    let target = { a: 1, b: 2 }
+    let output = F.updateIfExistsOn('a', (x) => x + 1, target)
+    expect(output).to.deep.equal({ a: 2, b: 2 })
+
+    // Mutates
+    expect(output).to.deep.equal(target)
+
+    // Does not run for missing keys
+    let missingCase = F.updateIfExistsOn('c', (x) => x + 1, { a: 1, b: 2 })
+    expect(missingCase).to.deep.equal({ a: 1, b: 2 })
+  })
+  it('updatePaths', () => {
+    let transforms = {
+      a: (x) => x + 5,
+      // iteratee support
+      c: 'd',
+      // nested support
+      e: {
+        f: (x) => x * 2,
+      },
+      // nested paths support
+      'e.h': (x) => x + 3,
+      // does not apply transforms if the keys are missing
+      notInObject: () => 'not there',
+    }
+    let input = {
+      a: 1,
+      b: 2,
+      c: { d: 1 },
+      e: { f: 1, g: 2, h: 3 },
+    }
+    let output = F.updatePaths(transforms, input)
+    // Handle all cases
+    expect(output).to.deep.equal({ a: 6, b: 2, c: 1, e: { f: 2, g: 2, h: 6 } })
+    // Immutable
+    expect(output).not.to.deep.equal(input)
+    // Handle null transforms
+    expect(F.updatePaths(null, { a: 1 })).to.deep.equal({ a: 1 })
+  })
+  it('updateAllPaths', () => {
+    let transforms = {
+      a: (x) => x + 5,
+      // iteratee support
+      c: 'd',
+      // nested support
+      e: {
+        f: (x) => x * 2,
+      },
+      // nested paths support
+      'e.h': (x) => x + 3,
+      // applies transforms even if the keys are missing
+      notInObject: () => 'not there',
+    }
+    let input = {
+      a: 1,
+      b: 2,
+      c: { d: 1 },
+      e: { f: 1, g: 2, h: 3 },
+    }
+    let output = F.updateAllPaths(transforms, input)
+    // Handle all cases
+    expect(output).to.deep.equal({
+      a: 6,
+      b: 2,
+      c: 1,
+      e: { f: 2, g: 2, h: 6 },
+      notInObject: 'not there',
+    })
+    // Immutable
+    expect(output).not.to.deep.equal(input)
+    // Handle null transforms
+    expect(F.updateAllPaths(null, { a: 1 })).to.deep.equal({ a: 1 })
+  })
+  it('updatePathsOn', () => {
+    let transforms = {
+      a: (x) => x + 5,
+      // iteratee support
+      c: 'd',
+      // nested support
+      e: {
+        f: (x) => x * 2,
+      },
+      // nested paths support
+      'e.h': (x) => x + 3,
+      // does not apply transforms if the keys are missing
+      notInObject: () => 'not there',
+    }
+    let input = {
+      a: 1,
+      b: 2,
+      c: { d: 1 },
+      e: { f: 1, g: 2, h: 3 },
+    }
+    let output = F.updatePathsOn(transforms, input)
+    // Handle all cases
+    expect(output).to.deep.equal({ a: 6, b: 2, c: 1, e: { f: 2, g: 2, h: 6 } })
+    // Mutable
+    expect(output).to.deep.equal(input)
+    // Handle null transforms
+    expect(F.updatePathsOn(null, { a: 1 })).to.deep.equal({ a: 1 })
+  })
+  it('updateAllPathsOn', () => {
+    let transforms = {
+      a: (x) => x + 5,
+      // iteratee support
+      c: 'd',
+      // nested support
+      e: {
+        f: (x) => x * 2,
+      },
+      // nested paths support
+      'e.h': (x) => x + 3,
+      // applies transforms even if the keys are missing
+      notInObject: () => 'not there',
+    }
+    let input = {
+      a: 1,
+      b: 2,
+      c: { d: 1 },
+      e: { f: 1, g: 2, h: 3 },
+    }
+    let output = F.updateAllPathsOn(transforms, input)
+    // Handle all cases
+    expect(output).to.deep.equal({
+      a: 6,
+      b: 2,
+      c: 1,
+      e: { f: 2, g: 2, h: 6 },
+      notInObject: 'not there',
+    })
+    // Mutable
+    expect(output).to.deep.equal(input)
+    // Handle null transforms
+    expect(F.updateAllPathsOn(null, { a: 1 })).to.deep.equal({ a: 1 })
+  })
+  it('matchesBy', () => {
+    // support both values and comparator functions
+    const test = F.matchesBy({
+      a: (x) => x > 1,
+      b: (x) => x == 2,
+      c: 4,
+    })
+    expect(test({ a: 3, b: 2, c: 4 })).to.equal(true)
+    expect(test({ a: 3, b: 4, c: 4 })).to.equal(false)
+  })
+  it('matchesBySome', () => {
+    // support both values and comparator functions
+    const test = F.matchesBySome({
+      a: (x) => x > 1,
+      b: (x) => x == 5,
+      c: 4,
+    })
+    expect(test({ a: 3, b: 2, c: 4 })).to.equal(true)
+    expect(test({ a: 0, b: 2, c: 6 })).to.equal(false)
   })
 })
