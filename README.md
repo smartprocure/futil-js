@@ -821,14 +821,6 @@ Deep paths are supported by nesting objects and by dotted the keys
 
 _Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updatePathsOn` to avoid the `_.deepClone`
 
-### callOrCompare
-
-Calls a function or defaults to isEqual, used internally by \_matchesBy
-
-### \_matchesBy
-
-Internal function used by `matchesBy` and `matchesBySome`
-
 ### matchesBy
 
 `(criteria: object, object: object) -> boolean`

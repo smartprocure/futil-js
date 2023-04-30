@@ -536,7 +536,7 @@ export let updatePaths = _.curry((transforms, data) =>
 
 /**
  * Calls a function or defaults to isEqual, used internally by _matchesBy
- * 
+ *
  * @private
  * @typescript (fn: (x: any) => any | any, value: any)
  */
