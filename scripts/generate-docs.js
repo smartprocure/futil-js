@@ -53,6 +53,9 @@ let getDocs = async () => {
         link: `${githubSrcUrl}${x.meta.filename}#L${x.meta.lineno}${
           lineCount === 1 ? '' : `-L${x.meta.lineno + lineCount - 1}`
         }`,
+        // `typescript` and `comment` are intended to help generate ts docs
+        typescript: getTag('typescript', x),
+        comment: x.comment,
       }
     }),
     (x) => Promise.all(x)
