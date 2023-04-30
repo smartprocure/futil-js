@@ -558,7 +558,7 @@ let _matchesBy = _.curry((combiner, criteria, object) =>
  * Takes a criteria object and an object to test against it, and returns true if all the values in the criteria match the values in the object
  * Criteria values can be functions or values to compare against
  * Supports dot notation for deep paths
- * 
+ *
  * @signature (criteria: object, object: object) -> boolean
  */
 export let matchesBy = _matchesBy(_.every((x) => x))
@@ -567,7 +567,7 @@ export let matchesBy = _matchesBy(_.every((x) => x))
  * Takes a criteria object and an object to test against it, and returns true if some of the values in the criteria match the values in the object
  * Criteria values can be functions or values to compare against
  * Supports dot notation for deep paths
- * 
+ *
  * @signature (criteria: object, object: object) -> boolean
  */
 export let matchesBySome = _matchesBy(_.some((x) => x))

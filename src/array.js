@@ -93,7 +93,7 @@ export let mergeRanges = _.flow(
 
 /**
  * Determines if an array is a subset of another array.
- * 
+ *
  * @signature ([a], [a]) -> boolean
  */
 export let isSubset = _.curry(

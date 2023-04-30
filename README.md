@@ -201,6 +201,11 @@ Example:
 `(fn, collection) -> collection`
 Maps `fn` over the input collection and compacts the result.
 
+### sizeBy
+
+`(fn, collection) -> number`
+Returns the size of a collection after filtering by `fn`.
+
 ## Convert(\_In)
 
 lodash/fp is great, but sometimes the curry order isn't exactly what you want.
@@ -339,6 +344,11 @@ Example:
 ```jsx
 [[0,7], [3,9], [11,15]] -> [[0,9], [11,15]]
 ```
+
+### isSubset
+
+`([a], [a]) -> boolean`
+Determines if an array is a subset of another array.
 
 ### cycle
 
@@ -810,6 +820,28 @@ Transform functions support lodash iteratee shorthand syntax.
 Deep paths are supported by nesting objects and by dotted the keys
 
 _Note_ Deep clones prior to executing to avoid mutating the target object, but mutates under the hood for performance (while keeping it immutable at the surface). If you're doing this in a place where mutating is safe, you might want `F.updatePathsOn` to avoid the `_.deepClone`
+
+### callOrCompare
+
+Calls a function or defaults to isEqual, used internally by \_matchesBy
+
+### \_matchesBy
+
+Internal function used by `matchesBy` and `matchesBySome`
+
+### matchesBy
+
+`(criteria: object, object: object) -> boolean`
+Takes a criteria object and an object to test against it, and returns true if all the values in the criteria match the values in the object
+Criteria values can be functions or values to compare against
+Supports dot notation for deep paths
+
+### matchesBySome
+
+`(criteria: object, object: object) -> boolean`
+Takes a criteria object and an object to test against it, and returns true if some of the values in the criteria match the values in the object
+Criteria values can be functions or values to compare against
+Supports dot notation for deep paths
 
 ## String
 
