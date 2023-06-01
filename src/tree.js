@@ -266,22 +266,23 @@ export let flattenTree =
 
 export let flatLeaves = (next = traverse) => _.reject(next)
 
+const getNode = ([node]) => node
+
 export const find =
+  (getResult = getNode) =>
   (next = traverse) =>
   (it, tree) => {
-    let result = {}
-    try {
-      walk(next)((node, key, parents, parentsKeys) => {
-        if (_.iteratee(it)(node)) {
-          result = { node, key, parents, parentsKeys }
-          throw new Error('FOUND')
-        }
-      })(tree)
-    } catch (e) {
-      if (e.message !== 'FOUND') throw e
-    }
+    let result
+    walk(next)((node, ...args) => {
+      if (_.iteratee(it)(node, ...args)) {
+        result = getResult([node, ...args])
+        return result
+      }
+    })(tree)
     return result
   }
+
+export const findNode = find()
 
 /**
  * Resolves all Promise nodes of a tree and replaces them with the result of calling `.then`
