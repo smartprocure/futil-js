@@ -1,3 +1,7 @@
+# 1.76.0
+
+- Add tree `find`
+
 # 1.75.0
 
 - Add `renamePropertyOn`, `popProperty`
