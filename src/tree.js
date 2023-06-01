@@ -268,7 +268,7 @@ export let flatLeaves = (next = traverse) => _.reject(next)
 
 const getNode = ([node]) => node
 
-export const find =
+const treeFind =
   (getResult = getNode) =>
   (next = traverse) =>
   (it, tree) => {
@@ -282,7 +282,14 @@ export const find =
     return result
   }
 
-export const findNode = find()
+/**
+ * Finds the first node matching the iteratee in pre-order traversal. The
+ * iteratee can be any suitable argument to `_.iteratee`
+ * https://lodash.com/docs/4.17.5#iteratee
+ *
+ * @signature (traverse) -> (iteratee, tree) -> treeNode
+ */
+export const findNode = treeFind()
 
 /**
  * Resolves all Promise nodes of a tree and replaces them with the result of calling `.then`
