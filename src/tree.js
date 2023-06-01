@@ -266,21 +266,16 @@ export let flattenTree =
 
 export let flatLeaves = (next = traverse) => _.reject(next)
 
-const getNode = ([node]) => node
-
-const treeFind =
-  (getResult = getNode) =>
-  (next = traverse) =>
-  (it, tree) => {
-    let result
-    walk(next)((node, ...args) => {
-      if (_.iteratee(it)(node, ...args)) {
-        result = getResult([node, ...args])
-        return result
-      }
-    })(tree)
-    return result
-  }
+const treeFind = (next, getResult) => (it, tree) => {
+  let result
+  walk(next)((node, ...args) => {
+    if (_.iteratee(it)(node, ...args)) {
+      result = getResult([node, ...args])
+      return result
+    }
+  })(tree)
+  return result
+}
 
 /**
  * Finds the first node matching the iteratee in pre-order traversal. The
@@ -289,7 +284,7 @@ const treeFind =
  *
  * @signature (traverse) -> (iteratee, tree) -> treeNode
  */
-export const findNode = treeFind()
+export const findNode = (next = traverse) => treeFind(next, ([node]) => node)
 
 /**
  * Resolves all Promise nodes of a tree and replaces them with the result of calling `.then`
@@ -338,5 +333,5 @@ export let tree = (
   map: mapTree(next, writeNode),
   mapLeaves: mapTreeLeaves(next, writeNode),
   resolveOn: resolveOnTree(next, writeNode),
-  find: find(next),
+  findNode: findNode(next),
 })

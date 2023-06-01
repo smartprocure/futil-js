@@ -621,7 +621,7 @@ describe('Tree Functions', () => {
       },
     })
   })
-  it('find', () => {
+  it('findNode', () => {
     let tree = {
       type: 'object',
       additionalProperties: false,
@@ -638,7 +638,7 @@ describe('Tree Functions', () => {
         updatedAt: { type: 'date', title: 'Updated At' },
       },
     }
-    const result = F.findNode()((node, key) => key === 'updatedAt', tree)
+    const result = F.tree().findNode((node, key) => key === 'updatedAt', tree)
     expect(result).to.deep.equal({
       type: 'date',
       title: 'Updated At',
