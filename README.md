@@ -1390,6 +1390,13 @@ Creates a path builder for use in `flattenTree`, using a slashEncoder and using 
 `traverse -> buildPath -> tree -> result`
 Creates a flat object with a property for each node, using `buildPath` to determine the keys. `buildPath` takes the same arguments as a tree walking iteratee. It will default to a dot tree path.
 
+### findNode
+
+`(traverse) -> (iteratee, tree) -> treeNode`
+Finds the first node matching the iteratee in pre-order traversal. The
+iteratee can be any suitable argument to `_.iteratee`
+https://lodash.com/docs/4.17.5#iteratee
+
 ### resolveOnTree
 
 `(traverse, writeNode) -> tree -> result`
