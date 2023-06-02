@@ -1,6 +1,6 @@
 # 1.76.0
 
-- Add tree `find`
+- Add tree `findNode`
 
 # 1.75.0
 
