@@ -621,4 +621,27 @@ describe('Tree Functions', () => {
       },
     })
   })
+  it('findNode', () => {
+    let tree = {
+      type: 'object',
+      additionalProperties: false,
+      required: ['email', 'subscriptionType'],
+      properties: {
+        _id: { type: 'objectId' },
+        email: { type: 'string' },
+        password: { type: 'string' },
+        name: { type: 'string' },
+        organization: { type: 'objectId' },
+        permissions: { type: 'array', items: { type: 'string' } },
+        subscriptionType: { type: 'string', enum: ['basic', 'premium'] },
+        createdAt: { type: 'date' },
+        updatedAt: { type: 'date', title: 'Updated At' },
+      },
+    }
+    const result = F.tree().findNode((node, key) => key === 'updatedAt', tree)
+    expect(result).to.deep.equal({
+      type: 'date',
+      title: 'Updated At',
+    })
+  })
 })
