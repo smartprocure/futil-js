@@ -30,24 +30,28 @@ build/Release
 node_modules
 jspm_packages
 
-# Optional npm cache directory
-.npm
-
 # Optional REPL history
 .node_repl_history
 
 # Build Output
 lib
 
-# Package lock files
-yarn.lock
-
 # Browser test result file
 browser-results.json
 lint-results.json
+test-results.json
 
 #OS X
 .DS_Store
 
 # Generated docs data
 docs/data
+
+# Yarn stuff: https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
