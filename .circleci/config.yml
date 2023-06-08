@@ -60,6 +60,7 @@ jobs:
               echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
               yarn run docs-site
               cd docs/beta
+              # This is intentional. Do not add --immutable here
               yarn install
               yarn run deploy
             fi
