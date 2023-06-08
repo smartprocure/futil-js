@@ -12,26 +12,26 @@ jobs:
           key: dependency-cache
       - run:
           name: install
-          command: npm ci
+          command: yarn install
       - save_cache:
           key: dependency-cache
           paths:
             - ./node_modules
       - run:
           name: lint
-          command: npm run lint:ci
+          command: yarn run lint:ci
       - run:
           name: test
-          command: npm run cicoverage
+          command: yarn run cicoverage
       - run:
           name: coveralls
-          command: npm run cicoveralls
+          command: yarn run cicoveralls
       - run:
           name: build
-          command: npm run build
+          command: yarn run build
       # - run:
       #     name: browser
-      #     command: if [ "${CIRCLE_BRANCH}" != "master" ]; then npm run browser || true; fi;
+      #     command: if [ "${CIRCLE_BRANCH}" != "master" ]; then yarn run browser || true; fi;
       #     timeout: 240
       - run:
           name: pre-danger
@@ -39,30 +39,30 @@ jobs:
           when: always
       - run:
           name: danger
-          command: npm run danger
+          command: yarn run danger
           when: always
       - deploy:
           name: Maybe Deploy futil-js
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-              npm publish || true
+              yarn publish || true
             fi
       - deploy:
           name: Maybe Deploy futil
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-              npm run rename futil
-              npm publish || true
+              yarn run rename futil
+              yarn publish || true
             fi
       - deploy:
           name: Maybe Deploy docs
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-              npm run docs-site
+              yarn run docs-site
               cd docs/beta
-              npm install
-              npm run deploy
+              yarn install
+              yarn run deploy
             fi

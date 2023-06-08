@@ -3,35 +3,38 @@
   "version": "1.76.0",
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
+  "workspaces": [
+    "docs/beta"
+  ],
   "scripts": {
     "build": "webpack",
     "danger": "duti",
     "test": "babel-node ./node_modules/mocha/bin/_mocha --require ./test/init.js",
-    "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'npm t'",
+    "test:watch": "chokidar 'src/*.js' 'test/*.js' -c 'yarn test'",
     "browser": "TEST_ENV=browser karma start karma.conf.js",
     "browser:local": "karma start karma.conf.js",
     "coverage": "nyc --require babel-core/register --require babel-polyfill --require ./test/init.js mocha test",
     "cicoveralls": "nyc report --reporter=text-lcov --require babel-core/register --require babel-polyfill --require ./test/init.js mocha test | coveralls",
     "cicoverage": "nyc --reporter=lcov --require babel-core/register --require babel-polyfill --require ./test/init.js mocha test --reporter json > test-results.json",
     "lint": "eslint src docs/beta/src test scripts",
-    "lint:ci": "npm run lint -- -o lint-results.json -f json",
+    "lint:ci": "yarn run lint -o lint-results.json -f json",
     "lint-fix": "eslint src docs/beta/src test scripts --fix",
     "fmt": "prettier -w .",
-    "duti:fix": "npm run readme && npm run fmt && npm run lint-fix && npm run fmt",
+    "duti:fix": "yarn run readme && yarn run fmt && yarn run lint-fix && yarn run fmt",
     "prepublish": "webpack",
     "rename": "node renamePackage",
     "docsfolder": "node -r esm ./scripts/docs-folder.js",
-    "prejsdoc": "npm run docsfolder",
+    "prejsdoc": "yarn run docsfolder",
     "jsdoc": "jsdoc -X ./src > ./docs/data/jsdoc.json",
-    "predocs": "npm run jsdoc",
+    "predocs": "yarn run jsdoc",
     "docs": "node -r esm ./scripts/generate-docs.js",
-    "prereadme": "npm run docs",
+    "prereadme": "yarn run docs",
     "readme": "node -r esm ./scripts/generate-readme.js",
     "tests-json": "node -r esm ./scripts/generate-tests-json.js",
     "copy-docs": "node -r esm ./scripts/copy-docs.js",
-    "docs-site": "npm run readme && npm run tests-json && npm run copy-docs",
-    "predocs-publish": "npm run docs-site",
-    "docs-publish": "cd docs/beta && npm run deploy"
+    "docs-site": "yarn run readme && yarn run tests-json && yarn run copy-docs",
+    "predocs-publish": "yarn run docs-site",
+    "docs-publish": "cd docs/beta && yarn run deploy"
   },
   "author": {
     "name": "Samuel Greene",
@@ -68,7 +71,6 @@
     "danger": "^6.1.13",
     "duti": "latest",
     "eslint": "^8.24.0",
-    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-mocha": "^10.1.0",
     "esm": "^3.2.25",
     "jsdoc": "^3.6.11",
@@ -104,5 +106,6 @@
   },
   "homepage": "https://github.com/smartprocure/futil-js#readme",
   "runkitExampleFilename": "runkit.example.js",
-  "readme": "README.md"
+  "readme": "README.md",
+  "packageManager": "yarn@3.6.0"
 }
