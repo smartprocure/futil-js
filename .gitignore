@@ -39,6 +39,7 @@ lib
 # Browser test result file
 browser-results.json
 lint-results.json
+test-results.json
 
 #OS X
 .DS_Store

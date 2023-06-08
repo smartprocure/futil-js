@@ -12,7 +12,7 @@ jobs:
           key: dependency-cache
       - run:
           name: install
-          command: yarn install
+          command: yarn install --immutable
       - save_cache:
           key: dependency-cache
           paths:
@@ -23,9 +23,6 @@ jobs:
       - run:
           name: test
           command: yarn run cicoverage
-      - run:
-          name: coveralls
-          command: yarn run cicoveralls
       - run:
           name: build
           command: yarn run build
@@ -63,6 +60,6 @@ jobs:
               echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
               yarn run docs-site
               cd docs/beta
-              yarn install
+              yarn install --immutable
               yarn run deploy
             fi
