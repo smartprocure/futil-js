@@ -10,7 +10,7 @@ export let filterDocs = (
   output: string,
   docs: Doc[]
 ) => {
-  let regex = new RegExp(search)
+  let regex = new RegExp(search, "i")
   let processedInput = tolerantArrayEval(input)
   let processedOutput = tolerantEval(output)
   let exploreMatches = exploreAPI(F, processedInput, processedOutput)

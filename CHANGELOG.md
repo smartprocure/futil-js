@@ -1,3 +1,6 @@
+# 1.76.1
+- Update searching to be case insensitive.
+
 # 1.76.0
 
 - Add tree `findNode`
