@@ -91,7 +91,8 @@
     "sinon-chai": "^3.0.0",
     "webpack": "^4.1.0",
     "webpack-cli": "^3.0.0",
-    "write-pkg": "^4.0.0"
+    "write-pkg": "^4.0.0",
+    "jest": "^29.4.1",
   },
   "directories": {
     "test": "test"
