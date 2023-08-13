@@ -1,0 +1,50 @@
+name: Lint, Test, and Danger
+
+on: pull_request
+
+# https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
+permissions:
+  checks: write
+  contents: write
+  pull-requests: write
+  statuses: write
+
+jobs:
+  lint-test-danger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Lint
+        uses: wearerequired/lint-action@v2
+        with:
+          auto_fix: true
+          eslint: true
+          eslint_command_prefix: yarn
+          prettier: true
+          prettier_command_prefix: yarn
+
+      - name: Test
+        run: yarn run jest --ci --reporters github-actions --reporters summary --coverage .
+        env:
+          NODE_OPTIONS: '--no-warnings --experimental-vm-modules'
+
+      - name: Report Coverage
+        uses: romeovs/lcov-reporter-action@2a28ec3e25fb7eae9cb537e9141603486f810d1a
+        with:
+          delete-old-comments: true
+
+      - name: Run danger
+        run: yarn run danger ci -d dangerfile.cjs
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
