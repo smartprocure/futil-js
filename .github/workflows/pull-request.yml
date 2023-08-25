@@ -39,7 +39,8 @@ jobs:
         env:
           NODE_OPTIONS: '--no-warnings --experimental-vm-modules'
 
-      - uses: tintef/nyc-reporter-action
+      - name: NYC Coverage Report          
+        uses: Tintef/nyc-reporter-action@0.1.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPORTER: 'text' # defaults to 'text-summary'
