@@ -39,10 +39,10 @@ jobs:
         env:
           NODE_OPTIONS: '--no-warnings --experimental-vm-modules'
 
-      - name: Report Coverage
-        uses: romeovs/lcov-reporter-action@2a28ec3e25fb7eae9cb537e9141603486f810d1a
+      - uses: tintef/nyc-reporter-action
         with:
-          delete-old-comments: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORTER: 'text' # defaults to 'text-summary'
 
       - name: Run danger
         run: yarn run danger ci -d dangerfile.cjs
