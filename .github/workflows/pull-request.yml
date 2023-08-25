@@ -26,13 +26,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Lint
-        uses: wearerequired/lint-action@v2
-        with:
-          auto_fix: true
-          eslint: true
-          eslint_command_prefix: yarn
-          prettier: true
-          prettier_command_prefix: yarn
+        run: yarn ci:lint
 
       - name: Test
         run: yarn cicoverage
