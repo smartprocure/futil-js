@@ -28,7 +28,7 @@ jobs:
         run: |
           echo -e "npmRegistryServer: \"https://registry.npmjs.org/\"\nnpmAuthToken: \"$NPM_TOKEN\"" >> ./.yarnrc.yml
         env:
-          NPM_TOKEN: '${{ secrets.NPM_AUTH_TOKEN }}'
+          NPM_TOKEN: '${{ secrets.NPM_TOKEN }}'
 
       - name: Release or Create Release PR
         uses: changesets/action@v1
@@ -45,7 +45,7 @@ jobs:
           yarn run docsfolder
           yarn run jsdoc
           yarn run docs
-          yarn run docs-site 
+          yarn run docs-site
           cd docs/beta
           yarn install
           yarn build
