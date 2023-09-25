@@ -4,7 +4,7 @@
   "description": "F(unctional) util(ities). Resistance is futile.",
   "main": "lib/futil-js.js",
   "comments": {
-    "devDependencies": "typescript and eslintconfig dependencies should get removed when making this when refactor happens"
+    "devDependencies": "typescript and eslintconfig dependencies should get removed when refactor back to workspaces"
   },
   "scripts": {
     "build": "webpack",
