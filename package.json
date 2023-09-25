@@ -38,8 +38,8 @@
     "publish": "yarn npm publish --tolerate-republish"
   },
   "author": {
-    "name": "hthornley-govspend",
-    "email": "hthornley@govspenc.com"
+    "name": "Samuel Greene",
+    "email": "sgreene@smartprocure.us"
   },
   "license": "MIT",
   "dependencies": {
