@@ -1,0 +1,52 @@
+name: Release or Create Release PR
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release-or-create-pr:
+    # Only one publish job should run at a time
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
+    concurrency: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Setup npm auth token
+        run: |
+          echo -e "npmRegistryServer: \"https://registry.npmjs.org/\"\nnpmAuthToken: \"$NPM_TOKEN\"" >> ./.yarnrc.yml
+        env:
+          NPM_TOKEN: '${{ secrets.NPM_TOKEN }}'
+
+      - name: Release or Create Release PR
+        uses: changesets/action@v1
+        id: changesets
+        with:
+          version: yarn version
+          publish: yarn publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Docs
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: |
+          yarn run docsfolder
+          yarn run jsdoc
+          yarn run docs
+          yarn run docs-site
+          cd docs/beta
+          yarn install
+          yarn build
+          yarn run deploy
