@@ -228,12 +228,18 @@ export let aliasIn = _.curry((x, prop) => _.getOr(prop, prop, x))
 /**
  * A `_.get` that takes an array of paths (or functions to return values) and returns the value at the first path that matches. Similar to `_.overSome`, but returns the first result that matches instead of just truthy (and supports a default value)
  */
-export let cascade = _.curryN(2, (paths, obj, defaultValue) =>
-  _.flow(
-    findApply((x) => x && _.iteratee(x)(obj)),
-    _.defaultTo(defaultValue)
-  )(paths)
-)
+export let cascade = (paths, obj, defaultValue) =>  _.reduce(
+  (acc, path) => {
+    if (_.isFunction(path)) {
+      const r = path(obj);
+      return r ? _.identity(r) : acc;
+    }
+    const o = _.get(path, obj);
+    return _.isUndefined(o) ? acc : _.identity(o);
+  },
+  defaultValue,
+  paths
+);
 
 /**
  * Flipped cascade
