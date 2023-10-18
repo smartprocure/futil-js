@@ -263,6 +263,7 @@ describe('Object Functions', () => {
     expect(F.cascade(['x', 'c'], { a: 1, y: 2 }, 2)).to.equal(2)
     expect(F.cascade(['x', (x) => x.y], { a: 1, y: 2 })).to.equal(2)
     expect(F.cascade(['x', 'y'], { a: 1, x: null, y: 2 })).to.equal(2)
+    expect(F.cascade(['z'], { z: 0 })).to.equal(0)
   })
   it('cascadeIn', () => {
     expect(F.cascadeIn({ a: 1, y: 2 }, ['x', 'y'])).to.equal(2)
