@@ -259,4 +259,46 @@ describe('Array Functions', () => {
   it('replaceElement', () => {
     expect(F.replaceElement(11, 0, [1, 11, 3, 5])).to.deep.equal([1, 0, 3, 5])
   })
+  describe('cartesianProduct', () => {
+    it('should correctly handle single array', () => {
+      expect(F.cartesianProduct([])).to.deep.equal([])
+      expect(F.cartesianProduct([1])).to.deep.equal([[1]])
+      expect(F.cartesianProduct([1, 2])).to.deep.equal([[1], [2]])
+    })
+
+    it('should correctly handle empty product', () => {
+      expect(F.cartesianProduct([1], [])).to.deep.equal([])
+      expect(F.cartesianProduct([1, 2], [])).to.deep.equal([])
+    })
+
+    it('should return product of multiple arrays', () => {
+      const actual = F.cartesianProduct([1, 2], [3, 4], [5, 6])
+      const expected = [
+        [1, 3, 5],
+        [1, 3, 6],
+        [1, 4, 5],
+        [1, 4, 6],
+        [2, 3, 5],
+        [2, 3, 6],
+        [2, 4, 5],
+        [2, 4, 6],
+      ]
+      expect(actual).to.deep.equal(expected)
+    })
+
+    it('should not flatten nested arrays', () => {
+      const actual = F.cartesianProduct([1, 2], [[3], 4], [[5], 6])
+      const expected = [
+        [1, [3], [5]],
+        [1, [3], 6],
+        [1, 4, [5]],
+        [1, 4, 6],
+        [2, [3], [5]],
+        [2, [3], 6],
+        [2, 4, [5]],
+        [2, 4, 6],
+      ]
+      expect(actual).to.deep.equal(expected)
+    })
+  })
 })

@@ -286,3 +286,12 @@ export let replaceElementBy = _.curry((f, b, arr) =>
 export let replaceElement = _.curry((a, b, arr) =>
   replaceElementBy(_.isEqual(a), b, arr)
 )
+
+// Inspired by https://stackoverflow.com/questions/12303989/cartesian-product-of-multiple-arrays-in-javascript
+// Ex: cartesianProduct([1,2], [3,4]) => [[1,3], [1,4], [2,3], [2,4]]
+export let cartesianProduct = (...lists) =>
+  lists.reduce(
+    (products, list) =>
+      products.flatMap((product) => list.map((x) => product.concat([x]))),
+    [[]]
+  )
