@@ -1,4 +1,10 @@
 # 1.76.1
+
+## 1.76.2
+
+### Patch Changes
+
+- 652d71c: Improve performance of treeToArrayBy and leavesBy
 - Update searching to be case insensitive.
 
 # 1.76.0
