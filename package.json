@@ -1,8 +1,8 @@
 {
-  "name": "futil-js",
+  "name": "futil",
   "version": "1.76.2",
   "description": "F(unctional) util(ities). Resistance is futile.",
-  "main": "lib/futil-js.js",
+  "main": "lib/futil.js",
   "comments": {
     "devDependencies": "typescript and eslintconfig dependencies should get removed when refactor back to workspaces"
   },
