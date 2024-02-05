@@ -1,4 +1,4 @@
-var F = require('futil-js')
+var F = require('futil')
 
 var cities = ['London', 'Boston', 'Lisbon']
 

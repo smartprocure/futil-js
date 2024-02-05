@@ -5261,17 +5261,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-polyfill@npm:^6.23.0":
-  version: 6.26.0
-  resolution: "babel-polyfill@npm:6.26.0"
-  dependencies:
-    babel-runtime: ^6.26.0
-    core-js: ^2.5.0
-    regenerator-runtime: ^0.10.5
-  checksum: 6fb1a3c0bfe1b6fc56ce1afcf531878aa629b309277a05fbf3fe950589b24cb4052a6e487db21d318eb5336b68730a21f5ef62166b6cc8aea3406261054d1118
-  languageName: node
-  linkType: hard
-
 "babel-preset-current-node-syntax@npm:^1.0.0":
   version: 1.0.1
   resolution: "babel-preset-current-node-syntax@npm:1.0.1"
@@ -5330,7 +5319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-runtime@npm:^6.0.0, babel-runtime@npm:^6.26.0":
+"babel-runtime@npm:^6.0.0":
   version: 6.26.0
   resolution: "babel-runtime@npm:6.26.0"
   dependencies:
@@ -6418,7 +6407,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^2.2.0, core-js@npm:^2.4.0, core-js@npm:^2.5.0, core-js@npm:^2.6.5":
+"core-js@npm:^2.2.0, core-js@npm:^2.4.0, core-js@npm:^2.6.5":
   version: 2.6.12
   resolution: "core-js@npm:2.6.12"
   checksum: 44fa9934a85f8c78d61e0c8b7b22436330471ffe59ec5076fe7f324d6e8cf7f824b14b1c81ca73608b13bdb0fef035bd820989bf059767ad6fa13123bb8bd016
@@ -8617,9 +8606,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"futil-js@workspace:.":
+"futil@^1.54.0, futil@workspace:.":
   version: 0.0.0-use.local
-  resolution: "futil-js@workspace:."
+  resolution: "futil@workspace:."
   dependencies:
     "@babel/cli": ^7.22.15
     "@babel/core": ^7.22.20
@@ -8669,16 +8658,6 @@ __metadata:
     write-pkg: ^4.0.0
   languageName: unknown
   linkType: soft
-
-"futil@npm:^1.54.0":
-  version: 1.76.0
-  resolution: "futil@npm:1.76.0"
-  dependencies:
-    babel-polyfill: ^6.23.0
-    lodash: ^4.17.4
-  checksum: a095c7ff767f5a2e1160c104067e9c170ef121dc829d29ed723890bc3abac2a8524d99c5953cd3a3caee44d966d68c8ab05c32bb2fcbf8fcd2f6725154a009b3
-  languageName: node
-  linkType: hard
 
 "gauge@npm:^4.0.3":
   version: 4.0.4
@@ -13914,13 +13893,6 @@ __metadata:
   version: 1.4.2
   resolution: "regenerate@npm:1.4.2"
   checksum: 3317a09b2f802da8db09aa276e469b57a6c0dd818347e05b8862959c6193408242f150db5de83c12c3fa99091ad95fb42a6db2c3329bfaa12a0ea4cbbeb30cb0
-  languageName: node
-  linkType: hard
-
-"regenerator-runtime@npm:^0.10.5":
-  version: 0.10.5
-  resolution: "regenerator-runtime@npm:0.10.5"
-  checksum: 35b33dbe5381d268b2be98f4ee4b028702acb38b012bff90723df067f915a337e5c979cce4dab4ed23febb223bbebb8820d46902f897742c55818c22c14e2a7c
   languageName: node
   linkType: hard
 
