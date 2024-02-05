@@ -7,7 +7,7 @@
 
 import _ from 'lodash/fp'
 import { findIndexed } from './conversion'
-import { push, dotEncoder, slashEncoder } from './array'
+import { pushOn, dotEncoder, slashEncoder } from './array'
 
 /**
  * A default check if something can be traversed - currently it is arrays and plain objects.
@@ -149,7 +149,7 @@ export let mapTreeLeaves = (next = traverse, writeNode = writeTreeNode(next)) =>
  */
 export let treeToArrayBy = (next = traverse) =>
   _.curry((fn, tree) =>
-    reduceTree(next)((r, ...args) => push(fn(...args), r), [], tree)
+    reduceTree(next)((r, ...args) => pushOn(r, fn(...args)), [], tree)
   )
 
 /**
@@ -170,7 +170,7 @@ export let treeToArray = (next = traverse) => treeToArrayBy(next)((x) => x)
 export let leavesBy = (next = traverse) =>
   _.curry((fn, tree) =>
     reduceTree(next)(
-      (r, node, ...args) => (next(node) ? r : push(fn(node, ...args), r)),
+      (r, node, ...args) => (next(node) ? r : pushOn(r, fn(node, ...args))),
       [],
       tree
     )
