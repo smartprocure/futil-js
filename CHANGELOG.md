@@ -1,5 +1,11 @@
 # 1.76.1
 
+## 1.76.3
+
+### Patch Changes
+
+- 18b0791: Publish under futil name instead of futil-js
+
 ## 1.76.2
 
 ### Patch Changes
