@@ -52,12 +52,15 @@ export let repeated = _.flow(
  *
  * @signature (val, array) -> array
  */
-export let push = _.curry((val, arr) => arr.concat([val]))
-export let pushIn = _.curry((arr, val) => arr.concat([val]))
-export let pushOn = _.curry((arr, val) => {
+export let push = _.curry((val, arr) => {
   arr.push(val)
   return arr
 })
+export let pushIn = _.curry((arr, val) => {
+  arr.push(val)
+  return arr
+})
+export let pushOn = pushIn
 
 /**
  * Moves a value from one index to another
