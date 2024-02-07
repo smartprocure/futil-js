@@ -27,6 +27,8 @@ export const quote = wrap('"', '"')
  * @signature 'asdf' -> '(asdf)'
  */
 export const parens = wrap('(', ')')
+
+// TODO: (major) Do not use `_.compact` as it removes the number 0.
 export const concatStrings = _.flow(_.compact, _.map(_.trim), _.join(' '))
 
 /**

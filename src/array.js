@@ -18,7 +18,9 @@ let last = _.takeRight(1)
  * @signature joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 + joinString ... + stringN
  * @typescript {(join: string, x: any[]) => string}
  */
-export let compactJoin = _.curry((join, x) => _.compact(x).join(join))
+export let compactJoin =
+  // TODO: (major) Do not use `_.compact` as it removes the number 0.
+  _.curry((join, x) => _.compact(x).join(join))
 
 /**
  * Compacts and joins an array with `.`

@@ -7,7 +7,8 @@
 
 import _ from 'lodash/fp'
 import { findIndexed } from './conversion'
-import { pushOn, dotEncoder, slashEncoder } from './array'
+import { pushOn } from './array'
+import { isBlank } from './lang'
 
 /**
  * A default check if something can be traversed - currently it is arrays and plain objects.
@@ -233,23 +234,25 @@ export let treeKeys = (x, i, xs, is) => [i, ...is]
  */
 export let treeValues = (x, i, xs) => [x, ...xs]
 
+let pathEncoder = (separator) => _.flow(_.remove(isBlank), _.join(separator))
+
 /**
  * Creates a path builder for use in `flattenTree`. By default, the builder will look use child indexes and a dotEncoder. Encoder can be an encoding function or a futil `encoder` (an object with encode and decode functions)
  *
  * @signature (build, encoder) -> treePathBuilderFunction
  */
 export let treePath =
-  (build = treeKeys, encoder = dotEncoder) =>
+  (build = treeKeys, encoder = pathEncoder('.')) =>
   (...args) =>
     (encoder.encode || encoder)(build(...args).reverse())
 
 /**
- * Creates a path builder for use in `flattenTree`, using a slashEncoder and using the specified prop function as an iteratee on each node to determine the keys.
+ * Creates a path builder for use in `flattenTree`, using a pathEncoder and using the specified prop function as an iteratee on each node to determine the keys.
  *
  * @signature prop -> treePathBuilderFunction
  */
 export let propTreePath = (prop) =>
-  treePath(_.flow(treeValues, _.map(prop)), slashEncoder)
+  treePath(_.flow(treeValues, _.map(prop)), pathEncoder('/'))
 
 /**
  * Creates a flat object with a property for each node, using `buildPath` to determine the keys. `buildPath` takes the same arguments as a tree walking iteratee. It will default to a dot tree path.
