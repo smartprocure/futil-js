@@ -173,24 +173,6 @@ export let dotEncoder = encoder('.')
  */
 export let slashEncoder = encoder('/')
 
-// The name "pack" is tentative. It's intended to behave as `_.compact` without
-// removing the number 0.
-let pack = _.remove(
-  (x) => x === undefined || x === null || x === false || x === ''
-)
-
-// Internal use until we release next major
-let __internalEncoder = (separator) => ({
-  encode: _.flow(pack, _.join(separator)),
-  decode: _.split(separator),
-})
-
-// Internal use until we release next major
-export let __internalDotEncoder = __internalEncoder('.')
-
-// Internal use until we release next major
-export let __internalSlashEncoder = __internalEncoder('/')
-
 /**
  * Takes a predicate function and an array, and returns an array of arrays where each element has one or more elements of the original array. Similar to Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).
 
