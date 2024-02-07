@@ -1,5 +1,11 @@
 # 1.76.1
 
+## 1.76.4
+
+### Patch Changes
+
+- f412a55: Do not remove zeroes from tree paths
+
 ## 1.76.3
 
 ### Patch Changes
