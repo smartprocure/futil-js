@@ -18,7 +18,9 @@ let last = _.takeRight(1)
  * @signature joinString -> [string1, string2, ...stringN] -> string1 + joinString + string2 + joinString ... + stringN
  * @typescript {(join: string, x: any[]) => string}
  */
-export let compactJoin = _.curry((join, x) => _.compact(x).join(join))
+export let compactJoin =
+  // TODO: (major) Do not use `_.compact` as it removes the number 0.
+  _.curry((join, x) => _.compact(x).join(join))
 
 /**
  * Compacts and joins an array with `.`
@@ -170,6 +172,24 @@ export let dotEncoder = encoder('.')
  * @signature { encode: ['a', 'b'] -> 'a/b', decode: 'a/b' -> ['a', 'b'] }
  */
 export let slashEncoder = encoder('/')
+
+// The name "pack" is tentative. It's intended to behave as `_.compact` without
+// removing the number 0.
+let pack = _.remove(
+  (x) => x === undefined || x === null || x === false || x === ''
+)
+
+// Internal use until we release next major
+let __internalEncoder = (separator) => ({
+  encode: _.flow(pack, _.join(separator)),
+  decode: _.split(separator),
+})
+
+// Internal use until we release next major
+export let __internalDotEncoder = __internalEncoder('.')
+
+// Internal use until we release next major
+export let __internalSlashEncoder = __internalEncoder('/')
 
 /**
  * Takes a predicate function and an array, and returns an array of arrays where each element has one or more elements of the original array. Similar to Haskell's [groupBy](http://zvon.org/other/haskell/Outputlist/groupBy_f.html).

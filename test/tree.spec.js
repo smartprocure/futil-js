@@ -22,6 +22,12 @@ describe('Tree Functions', () => {
     }
     expect(F.traverse(x)).to.deep.equal(x)
   })
+  describe('treePath', () => {
+    it('should not remove zeroes', () => {
+      let path = F.treePath()(null, 'first', [], ['second', 0, 'third'])
+      expect(path).to.equal('third.0.second.first')
+    })
+  })
   describe('walk', () => {
     let x = {
       a: 1,

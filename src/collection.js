@@ -59,6 +59,7 @@ export let insertAtIndex = _.curry((index, val, collection) =>
  * @signature (fn, collection) -> collection
  */
 export let compactMap = _.curry((fn, collection) =>
+  // TODO: (major) Do not use `_.compact` as it removes the number 0.
   _.flow(_.map(fn), _.compact)(collection)
 )
 

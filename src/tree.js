@@ -7,7 +7,7 @@
 
 import _ from 'lodash/fp'
 import { findIndexed } from './conversion'
-import { pushOn, dotEncoder, slashEncoder } from './array'
+import { pushOn, __internalDotEncoder, __internalSlashEncoder } from './array'
 
 /**
  * A default check if something can be traversed - currently it is arrays and plain objects.
@@ -239,7 +239,7 @@ export let treeValues = (x, i, xs) => [x, ...xs]
  * @signature (build, encoder) -> treePathBuilderFunction
  */
 export let treePath =
-  (build = treeKeys, encoder = dotEncoder) =>
+  (build = treeKeys, encoder = __internalDotEncoder) =>
   (...args) =>
     (encoder.encode || encoder)(build(...args).reverse())
 
@@ -249,7 +249,7 @@ export let treePath =
  * @signature prop -> treePathBuilderFunction
  */
 export let propTreePath = (prop) =>
-  treePath(_.flow(treeValues, _.map(prop)), slashEncoder)
+  treePath(_.flow(treeValues, _.map(prop)), __internalSlashEncoder)
 
 /**
  * Creates a flat object with a property for each node, using `buildPath` to determine the keys. `buildPath` takes the same arguments as a tree walking iteratee. It will default to a dot tree path.
